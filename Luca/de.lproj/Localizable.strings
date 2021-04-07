@@ -1,0 +1,332 @@
+// Welcome View Controller
+"welcome.info.description" = "luca hilft dir bei der sicheren und verschlüsselten Angabe deiner Kontaktdaten. Du musst dir keine Sorgen um deine Daten mehr machen, wenn du Veranstaltungen, Kulturstätten, Restaurants, Cafés oder Bars besuchst.";
+
+// User Data
+"userData.form.firstName" = "Vorname";
+
+"userData.form.lastName" = "Nachname";
+
+"userData.form.street" = "Straße";
+
+"userData.form.houseNumber" = "Hausnummer";
+
+"userData.form.postCode" = "Postleitzahl";
+
+"userData.form.city" = "Stadt";
+
+"userData.form.phoneNumber" = "Telefonnummer";
+
+"userData.form.email" = "E-mailadresse";
+
+"userData.form.name.formTitle" = "Wie heißt du?";
+
+"userData.form.address.formTitle" = "Wo wohnst du?";
+
+"userData.form.phone.formTitle" = "Wie bist du erreichbar?";
+
+"userData.addressNotFilledMessage" = "Du hast deine Adresse nicht eingegeben. Bitte ergänze deine Daten.";
+
+"userData.phone.mandatory" = "Bitte gib eine korrekte Mobil- oder Festnetznummer an. Die Nummer wird für die Verifizierung verwendet. Du kannst selbst entscheiden, ob du zusätzlich eine E-Mail-Adresse angibst.";
+
+"userData.address.mandatory" = "Gastgeber:innen müssen im Rahmen der Kontaktdatenerfassung in der Regel auch deine Adresse aufnehmen. Deshalb ist die Angabe der Adresse für die Nutzung von luca verpflichtend.";
+
+"userData.navigation.edit" = "Kontaktdaten bearbeiten";
+
+// Basic Navigation
+"navigation.basic.next" = "WEITER";
+
+"navigation.basic.done" = "FERTIG";
+
+"navigation.basic.ok" = "Ok";
+
+"navigation.basic.cancel" = "Abbrechen";
+
+"navigation.basic.yes" = "Ja";
+
+"navigation.basic.no" = "Nein";
+
+"navigation.basic.error" = "Fehler";
+
+"navigation.basic.attention" = "Achtung!";
+
+"navigation.basic.hint" = "Hinweis";
+
+"navigation.basic.start" = "Starten";
+
+"navigation.tab.checkin" = "Einchecken";
+
+"navigation.tab.history" = "Historie";
+
+// Checkin
+"checkin.slider.date" = "Check-in: %@ Uhr";
+
+"checkin.slider.dateFormat" = "dd.MM.yyyy HH.mm";
+
+"checkin.failure.alreadyCheckedIn.message" = "Du bist bereits eingecheckt.";
+
+"checkin.failure.privateMeetingRunning.message" = "Du kannst dich nicht einchecken, da du der Gastgeber eines privaten Treffens bist. Beende das Treffen und versuche es erneut.";
+
+"checkin.failure.notAvailableAnymore.message" = "Ein Check-in ist hier nicht mehr möglich.";
+
+// History
+
+"history.alert.title" = "Daten freigeben";
+
+"history.alert.description" = "Möchtest du deine Historie der letzten 14 Tage und deine Kontaktdaten für das Gesundheitsamt freigeben?";
+
+"history.dataAccess.count" = "%@ Datenzugriffe";
+
+"history.data.updated" = "Daten aktualisiert";
+
+"history.data.shared" = "Daten freigegeben";
+
+// Data release
+"dataRelease.tan.title" = "TAN";
+
+"dataRelease.tan.failure.message" = "Die TAN Nummer konnte nicht geladen werden: %@";
+
+// Camera access
+"camera.access.title" = "Kamerazugang nötig";
+
+"camera.access.description" = "Bitte erlaube den Zugriff zu deiner Kamera.";
+
+"camera.error.scanningFailed" = "Dein Gerät kann nicht für das Scannen verwendet werden.";
+
+"camera.error.wrongQR" = "Der QR-Code ist falsch.";
+
+// Data Privacy
+"dataPrivacy.info.description" = "Bitte gib im nächsten Schritt deine Kontaktdaten an.\n\nDeine Daten werden verschlüsselt. Nur Gesundheitsämter können sie im Rahmen einer Kontaktnachverfolgung wieder entschlüsseln.";
+
+"dataPrivacy.info.title" = "Deine Daten";
+
+// Phone number verification
+"verification.phoneNumber.info.title" = "Info";
+
+"verification.phoneNumber.info.message" = "Es kann ein paar Minuten dauern, bis die TAN ankommt. Warte einen Moment, bevor du eine neue anforderst. Wenn du innerhalb der nächsten Minuten keine SMS bekommst, dann überprüfe zunächst, ob du die Nummer richtig eingegeben hast und versuche es dann noch einmal.";
+
+"verification.phoneNumber.successTitle" = "Erfolgreiches Verifizieren";
+
+"verification.phoneNumber.successMessage" = "Die Verifizierung lief erfolgreich.";
+
+"verification.phoneNumber.failureMessage" = "Der Code, den du eingegeben hast, war leider falsch.";
+
+"verification.phoneNumber.timerDelay.title" = "TAN schon angefragt";
+
+"verification.phoneNumber.timerDelay.message" = "Du hast vor Kurzem eine TAN angefragt. Bitte warte einen Moment. Wenn nichts passiert, kannst du nach Ablauf der Zeit einen neuen Versuch starten:\n\n%@";
+
+"verification.phoneNumber.requestFailure" = "Es konnte keine SMS verschickt werden.";
+
+"verification.phoneNumber.limitReached.title" = "Anfragelimit erreicht";
+
+"verification.phoneNumber.limitReached.message" = "Dein SMS-Limit ist für heute erreicht, versuche es bitte später noch mal.";
+
+"verification.phoneNumber.code" = "TAN";
+
+"verification.phoneNumber.wrongFormat" = "Die eingegebene Telefonnummer ist nicht im richtigem Format. Bitte gebe eine valide Telefonnummer mit Ländervorwahl ein (z.B. +49xxxxxxxxxxx).";
+
+"verification.phoneNumber.updateFailure" = "Keine Daten konnten von dir gespeichert werden.";
+
+"verification.phoneNumber.notYetVerified" = "Du hast deine Telefonnummer noch nicht verifiziert. Bitte speicher deine Kontaktdaten erneut und verifiziere deine Telefonnummer.";
+
+// Version support checker
+
+"versionSupportChecker.failureMessage" = "Deine luca Version wird nicht mehr unterstützt! Bitte aktualisiere die luca App im AppStore.";
+
+// QR Code Generator
+
+"qrCodeGeneration.failure.message" = "QR Code konnte nicht generiert werden: %@";
+
+// Fetch Trace ID Status
+
+"fetchTraceId.failure.message" = "Fehler beim Checken des Userstatus: %@";
+
+// Daily Key Fetcher
+
+"dailyKey.fetch.failedToDownload.message" = "Der luca Service ist im Moment nicht verfügbar, bitte versuche es später erneut.";
+
+"dailyKey.fetch.failedToSave.message" = "Der Daily Key konnte nicht gespeichert werden! %@";
+
+// Contact View Controller
+"contactViewController.save" = "Speichern";
+
+"contactViewController.shouldSave.title" = "Speichern";
+
+"contactViewController.shouldSave.message" = "Sollen die Änderungen übernommen werden?";
+
+"contactViewController.saveFailed.message" = "Speichern fehlgeschlagen: %@";
+
+"contactViewController.emptyAddress.message" = "Du musst eine vollständige Anschrift angeben!";
+
+"contactViewController.emptyRest.message" = "Du musst den Rest der Felder ausfühlen";
+
+// Location Checkin View Controller
+
+"locationCheckinViewController.locationInfoFetchFailure.message" = "Fehler beim Laden der Locationdaten: %@";
+
+"locationCheckinViewController.checkOutFailed.lowDuration.message" = "Du hast dich gerade eingecheckt! Du kannst dich erst auschecken, wenn du etwas länger geblieben bist.";
+
+"locationCheckinViewController.checkOutFailed.stillInLocation.title" = "Info";
+
+"locationCheckinViewController.checkOutFailed.stillInLocation.message" = "Du befindest dich immernoch bei %@. Geh weiter weg um dich auschecken zu können.";
+
+"locationCheckinViewController.checkOutFailed.stillInLocation.messageWithoutName" = "Du befindest dich immernoch bei der Location. Geh weiter weg um dich auschecken zu können.";
+
+"locationCheckinViewController.checkOutFailed.general.message" = "Es gab einen Fehler beim Auschecken: %@";
+
+"locationCheckinViewController.checkOutFailed.locationNotAvailable.message" = "Es gibt keine Informationen über diese Location.";
+
+"locationCheckinViewController.permission.beforePrompt.title" = "Info";
+
+"locationCheckinViewController.permission.beforePrompt.message" = "Wir brauchen deine Position, um zu überprüfen ob du dich bei %@ befindest. Wähle in deinen Luca Standort Einstellungen die Option \"Immer\".";
+
+"locationCheckinViewController.permission.beforePrompt.messageWithoutName" = "Wir brauchen deine Position, um zu überprüfen ob du dich bei der Location befindest. Wähle in deinen Luca Standort Einstellungen die Option \"Immer\".";
+
+"locationCheckinViewController.permission.change.title" = "Standort Einstellungen";
+
+"locationCheckinViewController.permission.change.message" = "Um Auto-checkout zu nutzen, musst du in deinen Luca Standort Einstellungen die Position \"Immer\" wählen.";
+
+"locationCheckinViewController.permission.denied.message" = "Deine Standorteinstellung wurde immer noch nicht erlaubt. Ohne deinen Standort können wir nicht überprüfen, ob du %@ verlassen hast.";
+
+"locationCheckinViewController.permission.denied.messageWithoutName" = "Deine Standorteinstellung wurde immer noch nicht erlaubt. Ohne deinen Standort können wir nicht überprüfen, ob du die Location verlassen hast.";
+
+"locationCheckinViewController.autoCheckoutPermissionDisabled.title" = "Auto-Checkout ist nicht möglich";
+
+"locationCheckinViewController.autoCheckoutPermissionDisabled.message" = "Schalte in deinen Einstellungen die Standorteinstellung für Luca auf \"Immer\".";
+
+"locationCheckinViewController.welcomeMessage" = "Du bist eingecheckt!";
+
+// MainTabBarViewController
+
+"mainTabBarViewController.userRegistrationFailure.noInternet.message" = "User konnte nicht registriert werden! Es konnte keine Internetverbindung hergestellt werden.";
+
+"mainTabBarViewController.userRegistrationFailure.general.message" = "User konnte nicht registriert werden: %@";
+
+"mainTabBarViewController.scannerFailure.title" = "Scanner Fehler";
+
+"mainTabBarViewController.scannerFailure.message" = "Fehler: %@";
+
+// General
+"general.failure.noInternet.message" = "Es konnte keine Internetverbindung hergestellt werden.";
+
+"general.dataPrivacy" = "Datenschutzrichtlinien";
+
+"general.termsAndConditions" = "AGB";
+
+"general.imprint" = "Impressum";
+
+"general.linkImprint" = "https://www.luca-app.de/impressum/";
+
+"general.failure.unknown.message" = "Unbekannter Fehler: %@";
+
+"general.failure.invalidCertificate.message" = "Wegen nicht vertrauenswürdigen Zertifikaten konnte keine sichere Verbindung zu den luca Servern hergestellt werden.\n\nBitte wechsle dein Netzwerk und vergewissere dich, dass du die aktuellste App Version nutzt.";
+
+"general.failure.invalidCertificate.title" = "Unerwartete Server Zertifikate";
+
+// FormViewController
+"formViewController.phoneVerificationFailure.title" = "Telefonnummerverifizierung fehlgeschlagen";
+
+"formViewController.phoneVerificationFailure.message" = "Bitte gib eine neue Telefonnummer ein.";
+
+"formViewController.userDataFailure.unavailable.message" = "Benutzerdaten nicht verfügbar";
+
+"formViewController.userDataFailure.failed.message" = "User konnte nicht registriert werden: %@";
+
+// WelcomeViewController
+"welcomeViewController.termsAndConditions.checkboxMessage" = "Ich akzeptiere die AGB.";
+
+"welcomeViewController.privacyPolicy.checkboxMessage" = "Ich habe die Datenschutzerklärung gelesen und akzeptiere sie.";
+
+"welcomeViewController.termT_C" = "AGB";
+
+"welcomeViewController.linkT_C" = "https://luca-app.de/app-terms-and-conditions";
+
+"welcomeViewController.termPrivacyPolicy" = "Datenschutzerklärung";
+
+"welcomeViewController.linkPrivacyPolicy" = "https://luca-app.de/app-privacy-policy/";
+
+// Checkin/Checkout
+"checkin.noun" = "Check-in";
+
+"checkout.noun" = "Check-out";
+
+// Done View Controller
+"done.description" = "Du kannst jetzt deine Kontaktdaten verschlüsselt übermitteln. Zeige deinen QR-Code vor oder scanne den Code eines luca-Standorts, der dir gezeigt wird.\n\nCheck-ins sind bei luca-Standorten und bei privaten Treffen mit anderen luca Nutzer:innen möglich.";
+
+// Private Meeting
+"private.meeting.description" = "Lass deine Freunde und Familie den QR-Code scannen, um sie bei deinem Treffen einzuchecken.";
+
+"private.meeting.info.title" = "Privates Treffen";
+
+"private.meeting.info.description" = "Wenn Freunde und Familie bei deinem privaten Treffen einchecken, werden ihre Vor- und Nachnamen in deiner App angezeigt.\n\nSie sehen in ihrer App auch deinen Vor- und Nachnamen.\n\nUnabhängig vom Gesundheitsamt kannst du diese Funktion jetzt schon an Orten nutzen, die noch nicht Teil des luca-Systems sind, um private Treffen für dich selbst zu dokumentieren.";
+
+"private.meeting.start.title" = "Privates Treffen erstellen";
+
+"private.meeting.start.description" = "Möchtest du ein privates Treffen starten?\n\nFreunde und Familie erscheinen nach dem Check-in mit ihrem Vor- und Nachnamen in deiner Historie. Auch dein Name wird in ihrer App hinterlegt.\n\nPrivate Treffen sind nur Gedächtnisstützen und werden nicht mit dem Gesundheitsamt geteilt.";
+
+"private.meeting.participants.title" = "Teilnehmer";
+
+"private.meeting.end.title" = "Treffen beenden";
+
+"private.meeting.end.description" = "Willst du dieses Treffen wirklich beenden?";
+
+"private.meeting.end.failure" = "Es gab einen Fehler beim Beenden des Trefffens: %@";
+
+"private.meeting.create.failure" = "Es gab einen Fehler beim Erstellen eines Treffens: %@";
+
+"private.meeting.alert.description" = "Wenn du dich bei einem privaten Treffen eincheckst, werden deinem Gastgeber dein Vor- und Nachname angezeigt.\n\nPrivate Treffen sind nur Gedächtnisstützen und werden nicht mit dem Gesundheitsamt geteilt.";
+
+"private.meeting.participants.none" = "Keine Gäste.";
+
+// SE Buttons
+"button.scanner.checkin" = "Selbst einchecken";
+
+"button.private.meeting" = "Privates Treffen erstellen";
+
+// Notifications
+"notification.checkout.title" = "Wichtig!";
+
+"notification.checkout.description" = "Du musst dich beim Verlassen deiner location in der luca app auschecken.";
+
+"notification.permission.title" = "Benachrichtigungen erlauben";
+
+"notification.permission.description" = "Du hast luca Benachrichtigungen nicht erlaubt. Bitte erlaube in deinen Einstellungen luca Benachrichtigungen um ans Auschecken erinnert zu werden.";
+
+// Confirm phone number
+"phoneNumber.confirmation.description.mobile" = "An die Nummer, die du angegeben hast, schicken wir dir im nächsten Schritt zur Verifizierung eine SMS mit einer TAN. Bitte überprüfe, ob diese Nummer korrekt ist:";
+
+"phoneNumber.confirmation.description.fixed" = "Stelle sicher, dass das Telefon in deiner Nähe ist und überprüfe, ob diese Nummer korrekt ist. Du wirst im nächsten Schritt angerufen und erhältst durch eine Ansage deine TAN für die Verifizierung dieser Telefonnummer.";
+
+// Menu
+"data.deleteAccount.title" = "Account löschen";
+
+"data.deleteAccount.description" = "Möchtest du deinen Account wirklich löschen?\nLöschst du deinen Account, kannst du keine neuen Check-ins vornehmen und auf deine Historie zugreifen.\nDaten, die durch einen Check-in bei einem Betreiber verschlüsselt hinterlegt wurden, werden gemäß der Corona/COVID-19 Infektionsschutzverordnung nach 4 Wochen gelöscht.\nNach der Löschung des Accounts kannst du noch bis zu 4 Wochen nach dem letzten Check-in von dem Gesundheitsamt benachrichtigt werden.";
+
+"data.clear.title" = "Historie leeren";
+
+"data.clear.description" = "Möchtest du deine Historie wirklich leeren?\n\nVergangene Einträge werden in deiner App nicht mehr angezeigt, bleiben aber noch bis zu 30 Tage im System und werden bei einer Datenfreigabe mit dem Gesundheitsamt geteilt.";
+
+// Contact QR View Controller
+"contact.qr.button.selfCheckin" = "SELBST EINCHECKEN";
+
+"contact.qr.button.closeScanner" = "QR-CODE SCANNER SCHLIESSEN";
+
+// Data access
+"data.access.title" = "Neue Datenanfrage";
+
+"data.access.notification.description" = "Ein Gesundheitsamt hat im Rahmen einer Datenanfrage deine Kontaktdaten erhalten.";
+
+// Scanner
+"checkin.scanner.title" = "Selbst einchecken";
+
+"checkin.scanner.description" = "Scanne den QR-Code eines luca-Standorts oder eines privaten Treffens, um dich einzuchecken.";
+
+"checkin.qr.title" = "Einchecken";
+
+"checkin.qr.description" = "Das ist dein QR-Code. Lass ihn an einem luca-Standort scannen, um dich einzuchecken.";
+
+// Errors
+"error.network.badGateway" = "Der luca-Service ist im Moment nicht verfügbar, bitte versuche es später erneut.";
+
+// Acknowledgements
+// Title of the acknowlegements cannot be set outside the source code of LicensesViewController pod. The pod sets the title using NSLocalizedString("Acknowledgements", comment: "Acknowledgements")
+"Acknowledgements" = "Lizenzen";

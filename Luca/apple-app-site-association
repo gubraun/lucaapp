@@ -1,0 +1,21 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "74643229Y4.de.culture4life.luca",
+                "paths": [
+                    "/self-registration/web-app/*"
+                ],
+                "appIDs": [
+                    "74643229Y4.de.culture4life.luca"
+                ],
+                "components": [
+                    {
+                        "/": "/self-registration/web-app/*"
+                    }
+                ]
+            }
+        ]
+    }
+}

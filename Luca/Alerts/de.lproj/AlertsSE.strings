@@ -1,0 +1,57 @@
+
+/* Class = "UILabel"; text = "Privates Treffen"; ObjectID = "5kA-lE-oLV"; */
+"5kA-lE-oLV.text" = "Privates Treffen";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "8OB-B5-ehg"; */
+"8OB-B5-ehg.normalTitle" = "OK";
+
+/* Class = "UIButton"; normalTitle = "Bestätigen"; ObjectID = "4U5-8k-XLV"; */
+"4U5-8k-XLV.normalTitle" = "LOS";
+
+/* Class = "UILabel"; text = "Privates Treffen"; ObjectID = "Lfa-RO-qeK"; */
+"Jky-L2-Q2F.text" = "Privates Treffen";
+
+/* Class = "UIButton"; text = "Keine TAN erhalten"; ObjectID = "fwx-3r-mmc"; */
+"fwx-3r-mmc.normalTitle" = "Keine TAN erhalten?";
+
+/* Class = "UILabel"; text = "Wir haben dir eine SMS geschickt, gib diese Nummer hier ein um deine Telefonnummer zu bestätigen. Wenn du innerhalb der nächsten Minuten nichts bekommst, dann überprüfe ob du die Telefonnummer richtig eingegeben hast."; ObjectID = "QP8-4y-rdQ"; */
+"QP8-4y-rdQ.text" = "Wir haben dir eine TAN geschickt. Gib die TAN hier ein, um deine Telefonnummer zu bestätigen.";
+
+/* Class = "UILabel"; text = "Daten freigeben"; ObjectID = "RP6-gw-wP7"; */
+"RP6-gw-wP7.text" = "Daten freigeben";
+
+/* Class = "UIButton"; normalTitle = "Zurück"; ObjectID = "UBu-Zw-3bl"; */
+"a15-u7-1Bt.normalTitle" = "ABBRECHEN";
+
+/* Class = "UILabel"; text = "Gästeliste"; ObjectID = "XsC-N7-6He"; */
+"V45-fw-xs6.text" = "Gästeliste";
+
+/* Class = "UILabel"; text = "Information: Private Treffen sind für kleine Zusammenkünfte mit Freunden und Familie gedacht. Private Treffen sind nur Gedächtnisstützen und werden nicht mit dem Gesundheitsamt geteilt. Deshalb werden hier Vor- und Nachnamen von dir und deinen Gästen angezeigt. "; ObjectID = "psT-uS-YJc"; */
+"psT-uS-YJc.text" = "Information: Private Treffen sind für kleine Zusammenkünfte mit Freunden und Familie gedacht. Private Treffen sind nur Gedächtnisstützen und werden nicht mit dem Gesundheitsamt geteilt. Deshalb werden hier Vor- und Nachnamen von dir und deinen Gästen angezeigt.";
+
+/* Class = "UILabel"; text = "Nummer bestätigen"; ObjectID = "bF6-2u-X4x"; */
+"bF6-2u-X4x.text" = "Nummer bestätigen";
+
+/* Class = "UILabel"; text = "SMS Bestätigung"; ObjectID = "bGy-wa-JSs"; */
+"bGy-wa-JSs.text" = "Nummer verifizieren";
+
+/* Class = "UIButton"; normalTitle = "Bestätigen"; ObjectID = "e7q-4Z-jfP"; */
+"e7q-4Z-jfP.normalTitle" = "BESTÄTIGEN";
+
+/* Class = "UILabel"; text = "I1LJ-86V6-H8O0"; ObjectID = "gnj-bX-eO0"; */
+"gnj-bX-eO0.text" = "I1LJ-86V6-H8O0";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "jFa-jh-2aW"; */
+"jFa-jh-2aW.normalTitle" = "ABBRECHEN";
+
+/* Class = "UILabel"; text = "Privates Treffen"; ObjectID = "oHm-oj-9lg"; */
+"3Ow-0b-4Xn.text" = "Privates Treffen";
+
+/* Class = "UILabel"; text = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:"; ObjectID = "x86-uK-XAj"; */
+"x86-uK-XAj.text" = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:";
+
+"Ru1-YU-N6h.text" = "Ein oder mehrere Gesundheitsämter haben im Rahmen einer Datenanfrage deine Kontaktdaten erhalten.\n\nIm Rahmen einer Kontaktnachverfolgung wurden deine Kontaktdaten von einem oder mehreren Gesundheitsämtern entschlüsselt. Diese werten gerade aus, ob ein Risiko besteht und werden sich möglicherweise bei dir melden. Bis dahin besteht kein Handlungsbedarf.\n\nBitte handle verantwortungsvoll.";
+
+"b6x-di-OUu.normalTitle" = "OKAY";
+
+"oKv-vi-4lN.normalTitle" = "ALLE DATENZUGRIFFE";

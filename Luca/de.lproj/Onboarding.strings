@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Wie heißt du?"; ObjectID = "8AJ-9l-t3X"; */
+"8AJ-9l-t3X.text" = "Wie heißt du?";
+
+/* Class = "UILabel"; text = "Wie lautet deine Telefonnummer?"; ObjectID = "JJ5-0h-g7L"; */
+"JJ5-0h-g7L.text" = "Wie lautet deine Telefonnummer?";
+
+/* Class = "UIButton"; normalTitle = "Weiter"; ObjectID = "QUo-a3-Vab"; */
+"QUo-a3-Vab.normalTitle" = "Weiter";
+
+/* Class = "UILabel"; text = "Wo wohnst du?"; ObjectID = "V5g-l2-LsZ"; */
+"V5g-l2-LsZ.text" = "Wo wohnst du?";
+
+/* Class = "UIButton"; normalTitle = "Weiter"; ObjectID = "hbL-SH-HUq"; */
+"hbL-SH-HUq.normalTitle" = "Weiter";
+
+/* Class = "UIButton"; normalTitle = "Fertig"; ObjectID = "zfk-wj-6Gv"; */
+"zfk-wj-6Gv.normalTitle" = "Fertig";

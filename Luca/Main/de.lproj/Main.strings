@@ -1,0 +1,83 @@
+
+/* Class = "UILabel"; text = "Dein anonymer QR-Code:"; ObjectID = "0TK-yl-WFo"; */
+"0TK-yl-WFo.text" = "Das ist dein QR-Code. Lass ihn an einem luca-Standort scannen, um dich einzuchecken.";
+
+/* Class = "UILabel"; text = "Daten freigeben"; ObjectID = "16f-7D-hFn"; */
+"16f-7D-hFn.text" = "Daten freigeben";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "2Zk-La-qde"; */
+"2Zk-La-qde.normalTitle" = "Ok";
+
+/* Class = "UIButton"; normalTitle = "Historie freigeben"; ObjectID = "8QA-9l-0BZ"; */
+"8QA-9l-0BZ.normalTitle" = "Historie freigeben";
+
+/* Class = "UILabel"; text = "Automatischer Checkout"; ObjectID = "Bcn-E7-j3C"; */
+"Bcn-E7-j3C.text" = "Automatischer Checkout";
+
+/* Class = "UILabel"; text = "I1LJ-86V6-H8O0"; ObjectID = "D7B-gG-U6j"; */
+"D7B-gG-U6j.text" = "I1LJ-86V6-H8O0";
+
+/* Class = "UILabel"; text = "luca"; ObjectID = "Def-mU-ggD"; */
+"Def-mU-ggD.text" = "Einchecken";
+
+/* Class = "UILabel"; text = "2 Datenzugriffe"; ObjectID = "S5z-iO-mcn"; */
+"S5z-iO-mcn.text" = "2 Datenzugriffe";
+
+/* Class = "UILabel"; text = "20.08.2020 16.00 - 20.00"; ObjectID = "TNK-KF-ECG"; */
+"TNK-KF-ECG.text" = "20.08.2020 16.00 - 20.00";
+
+/* Class = "UILabel"; text = "Rice & Fisch"; ObjectID = "TOl-LO-7O6"; */
+"TOl-LO-7O6.text" = "Rice & Fisch";
+
+/* Class = "UILabel"; text = "Historie"; ObjectID = "c8P-pi-UtK"; */
+"c8P-pi-UtK.text" = "Historie";
+
+/* Class = "UILabel"; text = "Check-In"; ObjectID = "daZ-3a-VWk"; */
+"daZ-3a-VWk.text" = "Check-in";
+
+/* Class = "UILabel"; text = "AUSCHECKEN"; ObjectID = "eTg-PC-1xY"; */
+"eTg-PC-1xY.text" = "AUSCHECKEN";
+
+/* Class = "UILabel"; text = "Check In"; ObjectID = "fHX-ew-Slx"; */
+"fHX-ew-Slx.text" = "Check-in";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "haw-kG-DAO"; */
+"haw-kG-DAO.text" = "00:00:00";
+
+/* Class = "UILabel"; text = "Check In"; ObjectID = "itv-nm-ye4"; */
+"itv-nm-ye4.text" = "Check-in";
+
+/* Class = "UILabel"; text = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:"; ObjectID = "pUK-Oq-4Vh"; */
+"pUK-Oq-4Vh.text" = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:";
+
+/* Class = "UILabel"; text = "Kontaktdaten"; ObjectID = "qZV-9b-7X3"; */
+"qZV-9b-7X3.text" = "Kontaktdaten";
+
+/* Class = "UIButton"; normalTitle = "Selbst einchecken"; ObjectID = "rnO-KV-630"; */
+"rnO-KV-630.normalTitle" = "SELBST EINCHECKEN";
+
+"ZCP-Az-LWj.text" = "Privates Treffen";
+
+"Cs9-wj-9Ul.text" = "Dauer:";
+
+"713-38-vj1.text" = "Gäste:";
+
+"BDx-GJ-lmC.normalTitle" = "Treffen beenden";
+
+"U6Z-Ey-J9U.normalTitle" = "PRIVATES TREFFEN ERSTELLEN";
+
+"6uy-ni-gdJ.text" = "Privates Treffen";
+
+"BA8-pL-TIv.text" = "Gästeliste";
+
+"F3d-0a-vl3.text" = "Information: Private Treffen werden nur auf deinem Smartphone gespeichert.";
+
+"Tvx-DI-v4Y.text" = "Neue Datenanfrage";
+
+"ZqL-wX-HMT.text" = "Datenanfragen";
+
+"e7a-D7-7hF.normalTitle" = "ANZEIGEN";
+
+"Dff-7n-2wE.text" = "Keine Datenanfragen durch Gesundheitsämter innerhalb der letzten 14 Tage";
+
+"IhH-Il-kJ6.text" = "Kontaktdaten";

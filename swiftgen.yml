@@ -1,0 +1,6 @@
+strings:
+    inputs:
+      - ./Luca/en.lproj/Localizable.strings
+    outputs:
+        - templateName: structured-swift5
+          output: ./Luca/GeneratedStrings.swift

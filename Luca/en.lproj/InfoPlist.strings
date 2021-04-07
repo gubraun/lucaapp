@@ -1,0 +1,7 @@
+NSCameraUsageDescription = "Once you've granted access, you can scan QR codes within your luca app.";
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "We suggest to always allow location access. If a location uses automatic checkout, your smartphone can track when you leave the location. This way you'll be checked out automatically. ";
+
+NSLocationAlwaysUsageDescription = "We suggest to always allow location access. If a location uses automatic checkout, your smartphone can track when you leave the location. This way you'll be checked out automatically. ";
+
+NSLocationWhenInUseUsageDescription = "We suggest to always allow location access. If a location uses automatic checkout, your smartphone can track when you leave the location. This way you'll be checked out automatically. ";

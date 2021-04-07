@@ -1,0 +1,332 @@
+// Welcome View Controller
+"welcome.info.description" = "luca helps you encrypt and securely submit your contact data. With luca, you don't have to worry about your data when visiting events, restaurants, cafés or bars anymore.";
+
+// User Data
+"userData.form.firstName" = "First name";
+
+"userData.form.lastName" = "Last name";
+
+"userData.form.street" = "Street";
+
+"userData.form.houseNumber" = "Number";
+
+"userData.form.postCode" = "Post code";
+
+"userData.form.city" = "City";
+
+"userData.form.phoneNumber" = "Phone number";
+
+"userData.form.email" = "Email";
+
+"userData.form.name.formTitle" = "What's your name?";
+
+"userData.form.address.formTitle" = "Where do you live?";
+
+"userData.form.phone.formTitle" = "How can you be contacted?";
+
+"userData.addressNotFilledMessage" = "You have given no address in your data yet. Please fill it before further usage.";
+
+"userData.phone.mandatory" = "Please provide a correct mobile or landline number. This number will be used for verification. You can choose if you want to provide an email address.";
+
+"userData.address.mandatory" = "Hosts usually have to collect the addresses of their guests. Therefore, in order to use luca, it's mandatory to provide your address.";
+
+"userData.navigation.edit" = "Edit contact data";
+
+// Basic Navigation
+"navigation.basic.next" = "NEXT";
+
+"navigation.basic.done" = "DONE";
+
+"navigation.basic.ok" = "Ok";
+
+"navigation.basic.cancel" = "Cancel";
+
+"navigation.basic.yes" = "Yes";
+
+"navigation.basic.no" = "No";
+
+"navigation.basic.error" = "Error";
+
+"navigation.basic.attention" = "Attention!";
+
+"navigation.basic.hint" = "Attention";
+
+"navigation.basic.start" = "Start";
+
+"navigation.tab.checkin" = "Check in";
+
+"navigation.tab.history" = "History";
+
+// Checkin
+"checkin.slider.date" = "Check-in: %@ Uhr";
+
+"checkin.slider.dateFormat" = "dd.MM.yyyy HH.mm";
+
+"checkin.failure.alreadyCheckedIn.message" = "You are already checked in.";
+
+"checkin.failure.privateMeetingRunning.message" = "You can't check in while you are hosting a private meeting. End the meeting and try again.";
+
+"checkin.failure.notAvailableAnymore.message" = "It is not possible to check in here any more.";
+
+// History
+
+"history.alert.title" = "Share data";
+
+"history.alert.description" = "Would you like to share your contact data and the last 14 days of your history with the health department?";
+
+"history.dataAccess.count" = "%@ data requests";
+
+"history.data.updated" = "Updated data";
+
+"history.data.shared" = "Shared data";
+
+// Data release
+"dataRelease.tan.title" = "TAN";
+
+"dataRelease.tan.failure.message" = "The TAN could not be loaded: %@";
+
+// Camera access
+"camera.access.title" = "luca needs to access your camera";
+
+"camera.access.description" = "Once you've granted access, you can scan QR codes within your luca app.";
+
+"camera.error.scanningFailed" = "Your device cannot be used to scan.";
+
+"camera.error.wrongQR" = "The QR code is not valid.";
+
+// Data Privacy
+"dataPrivacy.info.description" = "Please enter your contact data in the next step.\n\nYour data will be encrypted. Only a health department can decrypt it during contact tracing.";
+
+"dataPrivacy.info.title" = "Your contact data";
+
+// Phone number verification
+"verification.phoneNumber.info.title" = "Info";
+
+"verification.phoneNumber.info.message" = "It can take a few minutes for the TAN to arrive. Please wait a moment before you request another TAN. If nothing happens after a few minutes, please check if you've provided the correct number and try again.";
+
+"verification.phoneNumber.successTitle" = "Successful verification";
+
+"verification.phoneNumber.successMessage" = "The verification was succesful.";
+
+"verification.phoneNumber.failureMessage" = "The TAN you entered was incorrect.";
+
+"verification.phoneNumber.timerDelay.title" = "TAN already requested";
+
+"verification.phoneNumber.timerDelay.message" = "You have recently requested a TAN. Please wait a moment. If nothing happens, you can try again in:\n\n%@";
+
+"verification.phoneNumber.requestFailure" = "No SMS could be sent out.";
+
+"verification.phoneNumber.limitReached.title" = "Rate limit exceeded";
+
+"verification.phoneNumber.limitReached.message" = "Your daily SMS limit has been reached, please try again later.";
+
+"verification.phoneNumber.code" = "TAN";
+
+"verification.phoneNumber.wrongFormat" = "The given phone number is not in the right format. Please enter a valid phone number and its country code (e.g. +49xxxxxxxxxxx).";
+
+"verification.phoneNumber.updateFailure" = "Your data could not be saved.";
+
+"verification.phoneNumber.notYetVerified" = "You have not verified your phone number yet. Please resave your contact data and verify your phone number.";
+
+// Version support checker
+
+"versionSupportChecker.failureMessage" = "Your luca version is not supported anymore! Please update your luca app in the AppStore.";
+
+// QR Code Generator
+
+"qrCodeGeneration.failure.message" = "QR Code could not be generated: %@";
+
+// Fetch Trace ID Status
+
+"fetchTraceId.failure.message" = "Error while checking the user status: %@";
+
+// Daily Key Fetcher
+
+"dailyKey.fetch.failedToDownload.message" = "The luca Service is currently not available, please try again later.";
+
+"dailyKey.fetch.failedToSave.message" = "The daily key could not be saved! %@";
+
+// Contact View Controller
+"contactViewController.save" = "Save";
+
+"contactViewController.shouldSave.title" = "Save changes";
+
+"contactViewController.shouldSave.message" = "Apply all changes?";
+
+"contactViewController.saveFailed.message" = "Save failed: %@";
+
+"contactViewController.emptyAddress.message" = "You must enter a complete address!";
+
+"contactViewController.emptyRest.message" = "You must fill out all fields.";
+
+// Location Checkin View Controller
+
+"locationCheckinViewController.locationInfoFetchFailure.message" = "Error while loading the location data: %@";
+
+"locationCheckinViewController.checkOutFailed.lowDuration.message" = "You just checked in! You can first check out when you've stayed a bit longer.";
+
+"locationCheckinViewController.checkOutFailed.stillInLocation.title" = "Info";
+
+"locationCheckinViewController.checkOutFailed.stillInLocation.message" = "You are still at %@. Move farther away to check out.";
+
+"locationCheckinViewController.checkOutFailed.stillInLocation.messageWithoutName" = "You are still at the location. Move farther away to check out.";
+
+"locationCheckinViewController.checkOutFailed.general.message" = "There was an error while checking out: %@";
+
+"locationCheckinViewController.checkOutFailed.locationNotAvailable.message" = "There is no information available about the current location.";
+
+"locationCheckinViewController.permission.beforePrompt.title" = "Info";
+
+"locationCheckinViewController.permission.beforePrompt.message" = "We need your position to check if you are still at %@. Please choose the option \"Always\" in your luca settings.";
+
+"locationCheckinViewController.permission.beforePrompt.messageWithoutName" = "We need your position to check if you are still at the location. Please choose the option \"Always\" in your luca settings.";
+
+"locationCheckinViewController.permission.change.title" = "Location Settings";
+
+"locationCheckinViewController.permission.change.message" = "To use auto-checkout you must choose the option \"Always\" in your luca location settings.";
+
+"locationCheckinViewController.permission.denied.message" = "Your location setting has still not been enabled. Without your position we cannot check if you have left %@.";
+
+"locationCheckinViewController.permission.denied.messageWithoutName" = "Your location setting has still not been enabled. Without your position we cannot check if you have left the location.";
+
+"locationCheckinViewController.autoCheckoutPermissionDisabled.title" = "Auto-checkout is not possible";
+
+"locationCheckinViewController.autoCheckoutPermissionDisabled.message" = "Change your luca location permission to \"Always\".";
+
+"locationCheckinViewController.welcomeMessage" = "You're checked in!";
+
+// MainTabBarViewController
+
+"mainTabBarViewController.userRegistrationFailure.noInternet.message" = "User could not be registered! No internet connection could be made.";
+
+"mainTabBarViewController.userRegistrationFailure.general.message" = "User could not be registered: %@";
+
+"mainTabBarViewController.scannerFailure.title" = "Scanner error";
+
+"mainTabBarViewController.scannerFailure.message" = "Error: %@";
+
+// General
+"general.failure.noInternet.message" = "No internet connection could be made.";
+
+"general.dataPrivacy" = "Privacy policy";
+
+"general.termsAndConditions" = "Terms and conditions";
+
+"general.imprint" = "Imprint";
+
+"general.linkImprint" = "https://www.luca-app.de/impressum/";
+
+"general.failure.unknown.message" = "Unknown error: %@";
+
+"general.failure.invalidCertificate.message" = "When attempting to establish a secure connection to the luca servers, we found untrusted certificates.\n\nPlease try switching your network and make sure that you're using the latest app version.";
+
+"general.failure.invalidCertificate.title" = "Unexpected server certificates";
+
+// FormViewController
+"formViewController.phoneVerificationFailure.title" = "Phone number verification failed";
+
+"formViewController.phoneVerificationFailure.message" = "Please enter a new phone number.";
+
+"formViewController.userDataFailure.unavailable.message" = "User data is not available";
+
+"formViewController.userDataFailure.failed.message" = "User could not be registered: %@";
+
+// WelcomeViewController
+"welcomeViewController.termsAndConditions.checkboxMessage" = "I accept the terms of use.";
+
+"welcomeViewController.privacyPolicy.checkboxMessage" = "I have read and agree to the privacy policy.";
+
+"welcomeViewController.termT_C" = "terms of use";
+
+"welcomeViewController.linkT_C" = "https://luca-app.de/app-terms-and-conditions";
+
+"welcomeViewController.termPrivacyPolicy" = "privacy policy";
+
+"welcomeViewController.linkPrivacyPolicy" = "https://luca-app.de/app-privacy-policy/";
+
+// Checkin/Checkout
+"checkin.noun" = "Check-in";
+
+"checkout.noun" = "Checkout";
+
+// Done View Controller
+"done.description" = "You can now share your encrypted contact data by presenting your QR code or by scanning a code from a place that uses luca.\n\nChecking in is possible at places that use luca or private meetings with other luca App users.";
+
+// Private Meeting
+"private.meeting.description" = "Let your guests scan the QR code to check into your meeting.";
+
+"private.meeting.info.title" = "Private Meeting";
+
+"private.meeting.info.description" = "When friends and family check into your private meeting, their first and last names will be shown in your app.\n\nThey will also see your first and last name in their app.\n\nYou can already use this feature at locations that are not part of the luca system to keep track of private meetings yourself.";
+
+"private.meeting.start.title" = "Set up a private meeting";
+
+"private.meeting.start.description" = "Do you want to start a private meeting now?\n\nWhen friends and family check into your private meeting, their first and last names will be shown in your app. They will also see your first and last name in their app.\n\nPrivate meetings are used as reminders and won't be shared with health authorities.";
+
+"private.meeting.participants.title" = "Participants";
+
+"private.meeting.end.title" = "End meeting";
+
+"private.meeting.end.description" = "Do you really want to end this meeting?";
+
+"private.meeting.end.failure" = "There was an error while ending the meeting: %@";
+
+"private.meeting.create.failure" = "There was an error while creating a new meeting: %@";
+
+"private.meeting.alert.description" = "When you check yourself in at a private meeting, your host can see your first and last name.\n\nPrivate meetings are used as reminders and won't be shared with health authorities.";
+
+"private.meeting.participants.none" = "No participants.";
+
+// SE Buttons
+"button.scanner.checkin" = "Self check-in";
+
+"button.private.meeting" = "Create private meeting";
+
+// Notifications
+"notification.checkout.title" = "Important!";
+
+"notification.checkout.description" = "Don't forget to checkout in the luca app when you've left your location.";
+
+"notification.permission.title" = "Enable notifications";
+
+"notification.permission.description" = "You didn't allow notifications. Please enable luca notifications in your settings to be reminded to checkout.";
+
+// Confirm phone number
+"phoneNumber.confirmation.description.mobile" = "To verify your phone number we will send a TAN to the number you provided in the next step. Please make sure this number is correct:";
+
+"phoneNumber.confirmation.description.fixed" = "You will receive a call with a message containing the TAN that is needed to verify your phone number in the next step. Please make sure the phone is nearby and the number is correct:";
+
+// Menu
+"data.deleteAccount.title" = "Delete Account";
+
+"data.deleteAccount.description" = "Do you really want to delete your account?\nIf you delete your account, you will not be able to check in or access your history.\nIn accordance with the Corona/COVID-19 infection control regulations, all encrypted check-in data will be deleted after 4 weeks.\nOnce your account is deleted, you can still be notified by a health department up to 4 weeks after your last check-in.";
+
+"data.clear.title" = "Clear history";
+
+"data.clear.description" = "Do you really want to clear your history?\n\nPast entries won't be displayed in your app anymore, but will stay in the system for up to 30 days and will be shared with the health authorities if you share your data.";
+
+// Contact QR View Controller
+"contact.qr.button.selfCheckin" = "SELF CHECK-IN";
+
+"contact.qr.button.closeScanner" = "CLOSE QR CODE SCANNER";
+
+// Data access
+"data.access.title" = "New data request";
+
+"data.access.notification.description" = "A health department has requested your contact data.";
+
+// Scanner
+"checkin.scanner.title" = "Self check-in";
+
+"checkin.scanner.description" = "Scan the QR code of a place that uses luca or a private meeting to check yourself in.";
+
+"checkin.qr.title" = "Check-in";
+
+"checkin.qr.description" = "This is your QR code. For check-in, have it scanned at a place that uses luca.";
+
+// Errors
+"error.network.badGateway" = "The luca Service is currently unavailable, please try again later.";
+
+// Acknowledgements
+// Title of the acknowlegements cannot be set outside the source code of LicensesViewController pod. The pod sets the title using NSLocalizedString("Acknowledgements", comment: "Acknowledgements")
+"Acknowledgements" = "Licenses";

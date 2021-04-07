@@ -1,0 +1,7 @@
+NSCameraUsageDescription = "luca muss auf deine Kamera zugreifen können, um QR-Codes zu scannen.";
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Wir empfehlen, die Standortbestimmung auf \"Immer\" zu stellen. Wenn eine Location den automatischen Check-out unterstützt und die auto Check-out Funktion aktiviert ist, kann dein Smartphone erkennen, dass du die Location verlässt. Du wirst dann automatisch ausgecheckt. ";
+
+NSLocationAlwaysUsageDescription = "Wir empfehlen, die Standortbestimmung auf \"Immer\" zu stellen. Wenn eine Location den automatischen Check-out unterstützt und die auto Check-out Funktion aktiviert ist, kann dein Smartphone erkennen, dass du die Location verlässt. Du wirst dann automatisch ausgecheckt. ";
+
+NSLocationWhenInUseUsageDescription = "Wir empfehlen, die Standortbestimmung auf \"Immer\" zu stellen. Wenn eine Location den automatischen Check-out unterstützt und die auto Check-out Funktion aktiviert ist, kann dein Smartphone erkennen, dass du die Location verlässt. Du wirst dann automatisch ausgecheckt. ";

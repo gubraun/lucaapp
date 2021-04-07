@@ -1,0 +1,44 @@
+
+/* Class = "UILabel"; text = "Wie heißt du?"; ObjectID = "8AJ-9l-t3X"; */
+"8AJ-9l-t3X.text" = "Wie heißt du?";
+
+/* Class = "UILabel"; text = "Hallo"; ObjectID = "Ayy-OI-Pt8"; */
+"Ayy-OI-Pt8.text" = "Hallo";
+
+/* Class = "UIButton"; normalTitle = "Verstanden!"; ObjectID = "Gcw-cX-uWv"; */
+"Gcw-cX-uWv.normalTitle" = "VERSTANDEN!";
+
+/* Class = "UILabel"; text = "Gesund erleben.\nSicher sein."; ObjectID = "P3D-1z-Fnd"; */
+"P3D-1z-Fnd.text" = "Gemeinsam\nerleben.";
+
+/* Class = "UILabel"; text = "Hiermit stimme ich den AGBs und den Datenschutzrichtlinien zu."; ObjectID = "PeA-wD-4K1"; */
+"PeA-wD-4K1.text" = "Hiermit stimme ich den AGBs und den Datenschutzrichtlinien zu.";
+
+/* Class = "UIButton"; normalTitle = "Weiter"; ObjectID = "QUo-a3-Vab"; */
+"QUo-a3-Vab.normalTitle" = "WEITER";
+
+/* Class = "UIButton"; normalTitle = "Fertig"; ObjectID = "U6n-Rk-u2j"; */
+"U6n-Rk-u2j.normalTitle" = "Fertig";
+
+/* Class = "UIButton"; normalTitle = "Los geht's!"; ObjectID = "mqg-Xt-gNM"; */
+"mqg-Xt-gNM.normalTitle" = "LOS GEHT'S!";
+
+"Ayy-OI-Pt8-text" = "Hallo";
+
+"LPn-Gu-mTm.text" = "Nummer bestätigen";
+
+"IMP-hq-eOr.text" = "Wir haben dir TAN geschickt. Gib die TAN hier ein, um deine Telefonnummer zu bestätigen.";
+
+"1Db-uE-DXp.normalTitle" = "Bestätigen";
+
+"R5X-OV-Ux8.normalTitle" = "Abbrechen";
+
+"0C6-jb-Bxr.text" = "Das war's schon!";
+
+"Tff-0F-kYc.normalTitle" = "OKAY!";
+
+"WED-hL-Pyd.text" = "Nummer bestätigen";
+
+"IHs-VF-9aj.normalTitle" = "TAN anfordern";
+
+"m9n-Qk-330.normalTitle" = "Zurück";
