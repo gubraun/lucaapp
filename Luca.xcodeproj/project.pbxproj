@@ -394,6 +394,7 @@
 		D5BB91AF2566D33F00B3D88C /* UserRegistrationIntermediate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationIntermediate.swift; sourceTree = "<group>"; };
 		D5BB91CB2566DE0700B3D88C /* AESCTRCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESCTRCrypto.swift; sourceTree = "<group>"; };
 		D5BB91D92566E09800B3D88C /* UserDataPackageBuilderV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataPackageBuilderV3.swift; sourceTree = "<group>"; };
+		D5BB982F261F1C8100026E3C /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		D5BE45772518AB48008F7525 /* CheckInPollPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInPollPayload.swift; sourceTree = "<group>"; };
 		D5BE45792518B8AA008F7525 /* LocationUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdater.swift; sourceTree = "<group>"; };
 		D5BE457B2518FDBC008F7525 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -497,6 +498,7 @@
 		B434E3C924EBC04B009305CA /* Luca */ = {
 			isa = PBXGroup;
 			children = (
+				D5BB982F261F1C8100026E3C /* CHANGELOG.md */,
 				B4A0A43B261C828D007DE487 /* Credits.plist */,
 				B4808DFB25B1A66D00DE38E0 /* Alerts */,
 				D5876D4625503519009A27EC /* Luca.entitlements */,
