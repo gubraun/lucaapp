@@ -32,6 +32,14 @@
 
 "userData.navigation.edit" = "Edit contact data";
 
+"userData.form.firstName.accessibilityError" = "Please enter your first name to continue.";
+"userData.form.lastName.accessibilityError" = "Please enter your last name to continue.";
+"userData.form.phoneNumber.accessibilityError" = "Please enter your phone number to continue.";
+"userData.form.street.accessibilityError" = "Please enter your street to continue.";
+"userData.form.houseNumber.accessibilityError" = "Please enter your house number to continue.";
+"userData.form.postCode.accessibilityError" = "Please enter your zip code to continue.";
+"userData.form.city.accessibilityError" = "Please enter your city to continue.";
+
 // Basic Navigation
 "navigation.basic.next" = "NEXT";
 
@@ -72,13 +80,17 @@
 
 "history.alert.title" = "Share data";
 
-"history.alert.description" = "Would you like to share your contact data and the last 14 days of your history with the health department?";
+"history.alert.description" = "Would you like to share your contact data and the last 14 days of your history with the health department? This is only done with your voluntary consent under art. 9 (2) a) GDPR (more: %@).";
+
+"history.alert.link" = "data privacy - app";
 
 "history.dataAccess.count" = "%@ data requests";
 
 "history.data.updated" = "Updated data";
 
 "history.data.shared" = "Shared data";
+
+"history.accessibility.dataAccessButton" = "View data accesses";
 
 // Data release
 "dataRelease.tan.title" = "TAN";
@@ -175,12 +187,6 @@
 
 "locationCheckinViewController.checkOutFailed.locationNotAvailable.message" = "There is no information available about the current location.";
 
-"locationCheckinViewController.permission.beforePrompt.title" = "Info";
-
-"locationCheckinViewController.permission.beforePrompt.message" = "We need your position to check if you are still at %@. Please choose the option \"Always\" in your luca settings.";
-
-"locationCheckinViewController.permission.beforePrompt.messageWithoutName" = "We need your position to check if you are still at the location. Please choose the option \"Always\" in your luca settings.";
-
 "locationCheckinViewController.permission.change.title" = "Location Settings";
 
 "locationCheckinViewController.permission.change.message" = "To use auto-checkout you must choose the option \"Always\" in your luca location settings.";
@@ -194,6 +200,18 @@
 "locationCheckinViewController.autoCheckoutPermissionDisabled.message" = "Change your luca location permission to \"Always\".";
 
 "locationCheckinViewController.welcomeMessage" = "You're checked in!";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.title" = "Automatic checkout";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.message" = "This automatic checkout feature uses geofencing. If a luca-location uses it as well, you can check out automatically using your location through the GPS function of your phone, even when the app is closed. This is only done with your consent under art. 6 (1) 1 a) GDPR (more: %@). However, you can still check out manually at any time.";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.link" = "data privacy - app";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.okButton" = "OKAY";
+
+"locationCheckinViewController.accessibility.directCheckout" = "Checkout of location";
+
+"locationCheckinViewController.accessibility.checkoutSlider" = "Checkout";
 
 // MainTabBarViewController
 
@@ -234,7 +252,14 @@
 // WelcomeViewController
 "welcomeViewController.termsAndConditions.checkboxMessage" = "I accept the terms of use.";
 
+"welcomeViewController.termsAndConditions.checkboxAccessibility" = "Terms of Use Checkbox";
+
+"welcomeViewController.termsAndConditions.checkboxAccessibilityOn" = "Confirmed";
+"welcomeViewController.termsAndConditions.checkboxAccessibilityOff" = "Not confirmed";
+
 "welcomeViewController.privacyPolicy.checkboxMessage" = "I have read and agree to the privacy policy.";
+
+"welcomeViewController.privacyPolicy.checkboxAccessibility" = "Privacy Policy Checkbox";
 
 "welcomeViewController.termT_C" = "terms of use";
 
@@ -297,9 +322,9 @@
 "phoneNumber.confirmation.description.fixed" = "You will receive a call with a message containing the TAN that is needed to verify your phone number in the next step. Please make sure the phone is nearby and the number is correct:";
 
 // Menu
-"data.deleteAccount.title" = "Delete Account";
+"data.resetData.title" = "Reset app";
 
-"data.deleteAccount.description" = "Do you really want to delete your account?\nIf you delete your account, you will not be able to check in or access your history.\nIn accordance with the Corona/COVID-19 infection control regulations, all encrypted check-in data will be deleted after 4 weeks.\nOnce your account is deleted, you can still be notified by a health department up to 4 weeks after your last check-in.";
+"data.resetData.description" = "Do you really want to reset your app?\nIf you reset your app, you will not be able to check in or access your history.";
 
 "data.clear.title" = "Clear history";
 
@@ -309,6 +334,12 @@
 "contact.qr.button.selfCheckin" = "SELF CHECK-IN";
 
 "contact.qr.button.closeScanner" = "CLOSE QR CODE SCANNER";
+
+"contact.qr.button.more" = "More Menu";
+
+"contact.qr.accessibility.qrCode" = "QR Code";
+
+"contact.qr.accessibility.qrCodeScanner" = "QR Code Scanner";
 
 // Data access
 "data.access.title" = "New data request";
@@ -326,6 +357,11 @@
 
 // Errors
 "error.network.badGateway" = "The luca Service is currently unavailable, please try again later.";
+
+// Share data
+"data.shared.title" = "Data shared";
+
+"data.shared.description" = "You have shared your check-ins from the last 14 days with the health department.";
 
 // Acknowledgements
 // Title of the acknowlegements cannot be set outside the source code of LicensesViewController pod. The pod sets the title using NSLocalizedString("Acknowledgements", comment: "Acknowledgements")

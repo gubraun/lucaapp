@@ -1,9 +1,8 @@
 import Foundation
 
-
 struct BackendError<RequestErrorType>: LocalizedTitledError where RequestErrorType: RequestError {
-    var networkLayerError: NetworkError? = nil
-    var backendError: RequestErrorType? = nil
+    var networkLayerError: NetworkError?
+    var backendError: RequestErrorType?
 }
 
 extension BackendError {

@@ -18,7 +18,7 @@ class FetchDepartmentAsyncOperation: BackendAsyncDataOperation<KeyValueParameter
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("healthDepartments")
             .appendingPathComponent(departmentId.uuidString.lowercased())
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [404: .notFound])

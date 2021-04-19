@@ -3,21 +3,21 @@ import CryptoSwift
 
 class AESCBCCrypto: Encryption, Decryption {
     private let keySource: RawKeySource
-    
+
     private var iv: [UInt8] = []
-    
+
     init(keySource: RawKeySource, iv: [UInt8]) {
         self.keySource = keySource
         self.iv = iv
     }
-    
+
     /// Encrypts using given key and previously set IV
     func encrypt(data: Data) throws -> Data {
         guard let key = keySource.retrieveKey() else {
             log("Encrypt: Couldn't retrieve the key!")
             throw CryptoError.symmetricKeyNotRetrieved
         }
-        
+
         do {
             let cbc = CBC(iv: self.iv)
             let aes = try AES(key: key.bytes, blockMode: cbc)
@@ -28,14 +28,14 @@ class AESCBCCrypto: Encryption, Decryption {
             throw error
         }
     }
-    
+
     /// Decrypts using given key and previously set IV
     func decrypt(data: Data) throws -> Data {
         guard let key = keySource.retrieveKey() else {
             log("Decrypt: Couldn't retrieve the key!")
             throw CryptoError.symmetricKeyNotRetrieved
         }
-        
+
         do {
             let cbc = CBC(iv: self.iv)
             let aes = try AES(key: key.bytes, blockMode: cbc)

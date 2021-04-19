@@ -1,92 +1,99 @@
 import UIKit
+import RxSwift
 
 class CheckinSlider: UIControl {
-    
+    let valueObservable: BehaviorSubject<CGFloat> = BehaviorSubject(value: 0)
+    let completed: PublishSubject<Bool> = PublishSubject()
+
     override var frame: CGRect {
         didSet {
-            updateViews()
             layer.cornerRadius = frame.size.height / 2
         }
     }
-    
-    var value: CGFloat = 0 {
-        didSet {
-            updateViews()
-        }
+
+    let minValue = CGFloat(0)
+    let maxValue = CGFloat(1)
+    private var maxXPos: CGFloat {
+        frame.width - frame.height
     }
-    
-    var minValue: CGFloat = 0
-    var maxValue: CGFloat {
-        return 1 - sliderImage.frame.size.width / frame.width
+
+    private var value: CGFloat {
+        sliderImage.frame.origin.x / maxXPos
     }
-    
+
     let sliderImage = UIImageView()
-    var lastPoint = CGPoint()
-  
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-  
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
-    func setup() {
+
+    func reset() {
+        setSliderFrame(x: maxXPos)
+    }
+
+    private func setup() {
         layer.cornerRadius = frame.size.height / 2
-        
-        sliderImage.image = UIImage(named: "sliderCircleFlipped")
+        layer.borderColor = UIColor.black.cgColor
+        sliderImage.image = UIImage(named: "arrowCircle")
         addSubview(sliderImage)
+        reset()
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggedView))
+        sliderImage.isUserInteractionEnabled = true
+        sliderImage.addGestureRecognizer(panGesture)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedView(_:)))
+        sliderImage.addGestureRecognizer(tapGesture)
+        
+        sliderImage.accessibilityLabel = L10n.LocationCheckinViewController.Accessibility.checkoutSlider
+        sliderImage.isAccessibilityElement = true
+        sliderImage.accessibilityTraits = [.allowsDirectInteraction]
     }
-  
-    private func updateViews() {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        sliderImage.frame = CGRect(origin: pointForValue(value),
+    
+    @objc func tappedView(_ gesture: UITapGestureRecognizer) {
+        guard sliderImage.accessibilityElementIsFocused() && UIAccessibility.isVoiceOverRunning else { return }
+        self.completed.onNext(true)
+    }
+
+    @objc func draggedView(_ gesture: UIPanGestureRecognizer) {
+        if UIAccessibility.isVoiceOverRunning {
+            return
+        }
+        let translation = gesture.translation(in: self)
+        let xToComplete = maxXPos * 0.2
+
+        if gesture.state == .began {
+            reset()
+        } else if gesture.state == .changed {
+            let newXValue = maxXPos + translation.x
+            let newWithinBounds = boundValue(newXValue, lowerValue: minValue, upperValue: maxXPos)
+            setSliderFrame(x: newWithinBounds)
+            valueObservable.onNext(value)
+
+            if value == minValue {
+                completed.onNext(true)
+            }
+        } else if gesture.state == .ended {
+            let finalX = sliderImage.frame.origin.x < xToComplete ? minValue : maxXPos
+            UIView.animate(withDuration: 0.1) {
+                self.setSliderFrame(x: finalX)
+                self.completed.onNext(self.value == self.minValue)
+            }
+        }
+    }
+
+    private func setSliderFrame(x: CGFloat) {
+        sliderImage.frame = CGRect(origin: CGPoint(x: x, y: 0),
                                    size: CGSize(width: frame.height, height: frame.height))
-        CATransaction.commit()
-    }
-  
-    func pointForValue(_ value: CGFloat) -> CGPoint {
-        return CGPoint(x: CGFloat(frame.width) * value, y: 0)
     }
 
-}
-
-extension CheckinSlider {
-    
-    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        lastPoint = touch.location(in: self)
-    
-        if sliderImage.frame.contains(lastPoint) {
-            sliderImage.isHighlighted = true
-        }
-        return sliderImage.isHighlighted
-    }
-  
-    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        let point = touch.location(in: self)
-        let deltaPoint = point.x - lastPoint.x
-        let deltaValue = deltaPoint / bounds.width
-    
-        lastPoint = point
-    
-        if sliderImage.isHighlighted {
-            value += deltaValue
-            value = boundValue(value, lowerValue: 0,
-                               upperValue: 1 - sliderImage.frame.size.width / frame.width)
-        }
-        sendActions(for: .valueChanged)
-        return true
-    }
-  
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        sliderImage.isHighlighted = false
-    }
-  
     private func boundValue(_ value: CGFloat, lowerValue: CGFloat, upperValue: CGFloat) -> CGFloat {
         return min(max(value, lowerValue), upperValue)
     }
-    
 }

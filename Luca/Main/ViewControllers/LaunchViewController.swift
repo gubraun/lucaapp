@@ -2,12 +2,12 @@ import UIKit
 import RxSwift
 
 class LaunchViewController: UIViewController {
-    
+
     var keyAlreadyFetched = false
-    
+
     var versionCheckerDisposeBag = DisposeBag()
-    
-    //It's a safety check if data has been corrupted between updates. Or the initial state
+
+    // It's a safety check if data has been corrupted between updates. Or the initial state
     var dataComplete: Bool {
         LucaPreferences.shared.uuid != nil && ServiceContainer.shared.userService.isPersonalDataComplete
     }
@@ -18,15 +18,15 @@ class LaunchViewController: UIViewController {
             launchStoryboard()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if !dataComplete {
             LucaPreferences.shared.welcomePresented = false
             LucaPreferences.shared.dataPrivacyPresented = false
         }
-        
-        //Continuous version checker
+
+        // Continuous version checker
         ServiceContainer.shared.backendMiscV3.fetchSupportedVersions()
             .asSingle()
             .asObservable()
@@ -42,12 +42,12 @@ class LaunchViewController: UIViewController {
             .flatMap { isSupported -> Completable in
                 if !isSupported,
                    let topVC = UIApplication.shared.topViewController {
-                    
+
                     return UIAlertController.infoBoxRx(viewController: topVC,
                                                        title: L10n.Navigation.Basic.error,
                                                        message: L10n.VersionSupportChecker.failureMessage)
                         .ignoreElements()
-                    
+
                 }
                 return Completable.empty()
             }
@@ -56,9 +56,9 @@ class LaunchViewController: UIViewController {
             .subscribe()
             .disposed(by: versionCheckerDisposeBag)
     }
-    
+
     func launchStoryboard() {
-        
+
         var viewController: UIViewController!
         if !LucaPreferences.shared.welcomePresented {
             viewController = OnboardingViewControllerFactory.createWelcomeViewController()
@@ -70,7 +70,7 @@ class LaunchViewController: UIViewController {
                 LucaPreferences.shared.currentOnboardingPage = 0
                 LucaPreferences.shared.phoneNumberVerified = false
                 ServiceContainer.shared.traceIdService.disposeData(clearTraceHistory: true)
-                
+
                 viewController = OnboardingViewControllerFactory.createFormViewController()
             }
         } else if dataComplete && !LucaPreferences.shared.donePresented {
@@ -82,21 +82,21 @@ class LaunchViewController: UIViewController {
         viewController.modalTransitionStyle = .crossDissolve
         self.present(viewController, animated: true, completion: nil)
     }
-    
+
     /// Returns true if there is any daily key. It will be updated anyway, but the app can proceed
     func fetchDailyKey() -> Bool {
         var isAnyKey = false
         if let newestId = ServiceContainer.shared.dailyKeyRepository.newestId,
-           let _ = try? ServiceContainer.shared.dailyKeyRepository.restore(index: newestId) {
+            (try? ServiceContainer.shared.dailyKeyRepository.restore(index: newestId)) != nil {
             isAnyKey = true
         }
         if keyAlreadyFetched && isAnyKey {
             return true
         }
-        
+
         ServiceContainer.shared.dailyKeyRepoHandler.fetch {
             self.keyAlreadyFetched = true
-            //Continue with UI
+            // Continue with UI
             if !isAnyKey {
                 DispatchQueue.main.async { self.launchStoryboard() }
             }
@@ -107,13 +107,13 @@ class LaunchViewController: UIViewController {
         }
         return isAnyKey
     }
-    
+
     private func showErrorAlert(for error: DailyKeyRepoHandlerError) {
         DispatchQueue.main.async {
             let alert = UIAlertController.infoBox(
                 title: error.localizedTitle,
                 message: error.localizedDescription)
-            
+
             UIViewController.visibleViewController?.present(alert, animated: true, completion: nil)
         }
     }

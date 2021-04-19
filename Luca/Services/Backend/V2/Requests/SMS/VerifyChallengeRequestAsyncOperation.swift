@@ -18,18 +18,18 @@ extension VerifyChallengeError {
 }
 
 class VerifyChallengeRequestAsyncOperation: BackendAsyncOperation<[String: String], VerifyChallengeError> {
-    
+
     init(backendAddress: BackendAddress, challengeId: String, tan: String) {
-        
+
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("sms")
             .appendingPathComponent("verify")
-        
+
         let parameters: [String: String] = [
             "challengeId": challengeId,
             "tan": tan
         ]
-        
+
         super.init(url: fullUrl,
                    method: .post,
                    parameters: parameters,

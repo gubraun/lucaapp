@@ -14,12 +14,12 @@ extension FetchScannerError {
 }
 
 class FetchScannerAsyncOperation: BackendAsyncDataOperation<KeyValueParameters, ScannerInfo, FetchScannerError> {
-    
+
     init(backendAddress: BackendAddress, scannerId: String) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("scanners")
             .appendingPathComponent(scannerId.lowercased())
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [404: .notFound])

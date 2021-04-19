@@ -2,11 +2,11 @@ import UIKit
 import MaterialComponents.MaterialTextFields
 
 class FormView: UIView {
-    
+
     private var types: [FormComponentType] = []
     private var requirements: [Bool] = []
     private(set) var textFields = [FormTextField]()
-    
+
     var textFieldsFilledOut: Bool {
         if requirements.count == 0 {
             return !textFields.map { $0.textField.text == "" }.contains(true)
@@ -16,7 +16,7 @@ class FormView: UIView {
             .filter { requirements[$0.offset] }
             .contains(where: { $0.element.textField.text == nil || $0.element.textField.text == "" })
     }
-    
+
     func setup(step: OnboardingStep) {
         self.types = step.formComponents
         self.requirements = step.requirements
@@ -28,7 +28,7 @@ class FormView: UIView {
         for view in subviews {
             view.removeFromSuperview()
         }
-        
+
         let stackView = setupStackView()
 
         if let info = step.additionalInfo {
@@ -43,25 +43,25 @@ class FormView: UIView {
             let textField = FormTextField(frame: CGRect(x: 0, y: 0, width: 0, height: 0),
                                             type: types[index],
                                             optional: isOptional)
-            
+
             textField.tag = index
             textField.set(types[index].textContentType, autocorrection: .yes)
             textFields.append(textField)
-            
+
             stackView.addArrangedSubview(textField)
             textField.heightAnchor.constraint(equalToConstant: 75).isActive = true
             textField.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
             textField.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
         }
         self.addSubview(stackView)
-        
+
         stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
     func setupAdditionalInfoLabel(info: String) -> UILabel {
         let label = UILabel()
         label.numberOfLines = 0
@@ -72,7 +72,7 @@ class FormView: UIView {
         label.sizeToFit()
         return label
     }
-    
+
     func setupStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -81,29 +81,34 @@ class FormView: UIView {
         stackView.spacing = 10
         return stackView
     }
-    
+
     func showErrorStatesForEmptyFields() {
+        var errorAccessibilityValue: String?
         if requirements.count == textFields.count {
             for (index, field) in textFields.enumerated() {
                 if field.textField.text == "" && requirements[index] {
-                    field.textFieldController.setErrorText("", errorAccessibilityValue: nil)
+                    errorAccessibilityValue = types[index].accessibilityError
+                    field.textFieldController.setErrorText("", errorAccessibilityValue: "")
                 }
             }
         } else {
-            for field in textFields {
-                if field.textField.text == "" {
-                    field.textFieldController.setErrorText("", errorAccessibilityValue: nil)
-                }
+            for (index, field) in textFields.enumerated() where field.textField.text == "" {
+                errorAccessibilityValue = types[index].accessibilityError
+                field.textFieldController.setErrorText("", errorAccessibilityValue: "")
             }
         }
-    }
-    
-    func showNormalStatesForEmptyFields() {
-        for field in textFields {
-            field.textFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            UIAccessibility.post(notification: .announcement, argument: errorAccessibilityValue)
         }
     }
-    
+
+    func showNormalStatesForEmptyFields() {
+        for field in textFields {
+            field.textFieldController.setErrorText(nil, errorAccessibilityValue: "")
+        }
+    }
+
 }
 
 extension FormView: UnsafeAddress, LogUtil {}

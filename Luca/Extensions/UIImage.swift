@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIImage {
-    
+
     // Referenced: https://stackoverflow.com/questions/33667481/add-a-line-as-a-selection-indicator-to-a-uitabbaritem-in-swift
     // Licensed under Creative Commons Attribution-ShareAlike; details see https://stackoverflow.com/help/licensing
     func createTabBarSelectionIndicator(tabSize: CGSize) -> UIImage? {
@@ -14,5 +14,5 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-    
+
 }

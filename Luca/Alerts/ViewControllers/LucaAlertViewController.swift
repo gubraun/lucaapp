@@ -1,11 +1,11 @@
 import UIKit
 
 class LucaAlertViewController: UIViewController {
-    
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var firstButton: UIButton!
-    
+
     /// Title of the alert
     var alertTitle: String {
         get {
@@ -15,7 +15,7 @@ class LucaAlertViewController: UIViewController {
             titleLabel.text = newValue
         }
     }
-    
+
     var message: String {
         get {
             return messageLabel.text ?? ""
@@ -24,15 +24,15 @@ class LucaAlertViewController: UIViewController {
             messageLabel.text = newValue
         }
     }
-    
-    var onFirstButtonAction: (() -> Void)? = nil
-    var __onDidDisappear: (() -> Void)? = nil
-    
+
+    var onFirstButtonAction: (() -> Void)?
+    var __onDidDisappear: (() -> Void)?
+
     @IBAction func onFirstButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
         onFirstButtonAction?()
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         __onDidDisappear?()

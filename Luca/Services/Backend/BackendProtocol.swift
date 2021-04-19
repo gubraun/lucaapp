@@ -13,20 +13,19 @@ extension SMSLimit {
 }
 
 protocol BackendSMSVerification {
-    
+
     func requestChallenge(phoneNumber: String) -> AsyncDataOperation<BackendError<RequestChallengeError>, RequestChallengeResult>
     func verify(tan: String, challenge: String) -> AsyncOperation<BackendError<VerifyChallengeError>>
     func verify(tan: String, challenges: [String]) -> AsyncDataOperation<BackendError<VerifyChallengeError>, String>
 }
 
 protocol BackendMisc {
-    
+
     func fetchHealthDepartment(healthDepartmentId: UUID) -> AsyncDataOperation<BackendError<FetchHealthDepartmentError>, HealthDepartment>
     func fetchScanner(scannerId: String) -> AsyncDataOperation<BackendError<FetchScannerError>, ScannerInfo>
     func fetchSupportedVersions() -> AsyncDataOperation<BackendError<FetchSupportedVersionError>, SupportedVersions>
     func fetchAccessedTraces() -> AsyncDataOperation<BackendError<FetchAccessedTracesError>, [AccessedTrace]>
 }
-
 
 struct PrivateMeetingIds: Codable {
     var locationId: String
@@ -55,7 +54,7 @@ struct PrivateMeetingGuestData: Codable {
 }
 
 protocol BackendLocation {
-    
+
     func fetchLocation(locationId: UUID) -> AsyncDataOperation<BackendError<FetchLocationError>, Location>
     func createPrivateMeeting(publicKey: SecKey) -> AsyncDataOperation<BackendError<CreatePrivateMeetingError>, PrivateMeetingIds>
     func fetchLocationGuests(accessId: String) -> AsyncDataOperation<BackendError<FetchLocationGuestsError>, [PrivateMeetingGuest]>
@@ -64,6 +63,6 @@ protocol BackendLocation {
 
 protocol BackendDailyKey {
     associatedtype ErrorType: Error
-    
+
     func retrieveDailyPubKey() -> AsyncDataOperation<ErrorType, (Int, SecKey)>
 }

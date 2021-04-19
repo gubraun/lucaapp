@@ -18,7 +18,7 @@ extension DailyKeyRepoHandlerError {
             return L10n.DailyKey.Fetch.FailedToSave.message("Signature is not valid")
         }
     }
-    
+
     var localizedTitle: String {
         return L10n.Navigation.Basic.error
     }
@@ -27,12 +27,12 @@ extension DailyKeyRepoHandlerError {
 class DailyKeyRepoHandler {
     let dailyKeyRepo: DailyPubKeyHistoryRepository
     let backend: DefaultBackendDailyKeyV3
-    
+
     init(dailyKeyRepo: DailyPubKeyHistoryRepository, backend: DefaultBackendDailyKeyV3) {
         self.dailyKeyRepo = dailyKeyRepo
         self.backend = backend
     }
-    
+
     func fetch(completion: @escaping () -> Void, failure: @escaping (DailyKeyRepoHandlerError) -> Void) {
         log("Fetching new daily key")
         backend.retrieveDailyPubKey()
@@ -48,13 +48,13 @@ class DailyKeyRepoHandler {
                         DispatchQueue.main.async { failure(DailyKeyRepoHandlerError.validationFailed) }
                         return
                     }
-                    
+
                     guard safeSelf.keyAgeIsValid(for: result.createdAt) else {
                         safeSelf.log("The key is not valid anymore", entryType: .error)
                         DispatchQueue.main.async { failure(DailyKeyRepoHandlerError.validationFailed) }
                         return
                     }
-                    
+
                     do {
                         try safeSelf.updateDailyKeyRepo(with: result)
                     } catch let error {
@@ -71,20 +71,20 @@ class DailyKeyRepoHandler {
                 DispatchQueue.main.async { failure(.backendError(error: error)) }
             }
     }
-    
+
     func removeAll() {
         dailyKeyRepo.removeAll()
         self.log("Keys have been removed")
     }
-    
+
     private func updateDailyKeyRepo(with result: PublicKeyFetchResultV3) throws {
         guard let key = result.parsedKey else {
             throw NSError(domain: "Invalid daily public key", code: 0, userInfo: nil)
         }
-        
+
         try ServiceContainer.shared.dailyKeyRepository.store(key: key, index: DailyKeyIndex(keyId: result.keyId, createdAt: Date(timeIntervalSince1970: TimeInterval(result.createdAt))))
-        
-        //Get only N newest keys and dispose rest
+
+        // Get only N newest keys and dispose rest
         let allIndices = Array(ServiceContainer.shared.dailyKeyRepository.indices)
         let sortedIndices = allIndices.sorted(by: { $0.createdAt.timeIntervalSince1970 > $1.createdAt.timeIntervalSince1970 })
         let indicesToKeep = sortedIndices.prefix(20)
@@ -93,9 +93,9 @@ class DailyKeyRepoHandler {
             dailyKeyRepo.remove(index: index)
         }
     }
-    
+
     private func fetchIssuerKeys(for issuerId: String, completion: @escaping (IssuerKeysFetchResultV3) -> Void, failure: @escaping (DailyKeyRepoHandlerError) -> Void) {
-        backend.retrieveIssuerKeys(issuerId: issuerId).execute (completion: { issuerResult in
+        backend.retrieveIssuerKeys(issuerId: issuerId).execute(completion: { issuerResult in
             DispatchQueue.main.async {
                 completion(issuerResult)
             }
@@ -106,7 +106,7 @@ class DailyKeyRepoHandler {
             }
         })
     }
-    
+
     private func verify(thatSignature actualSignature: String, matchesIssuerWithPublicHDSKP publicHDSKP: String, withKeyId keyId: Int, createdAt: Int, publicKey: String) -> Bool {
         guard let publicHDSKPData = Data(base64Encoded: publicHDSKP),
               let publicHDSKPKey = KeyFactory.create(from: publicHDSKPData, type: .ecsecPrimeRandom, keyClass: .public),
@@ -114,16 +114,16 @@ class DailyKeyRepoHandler {
               let signature = Data(base64Encoded: actualSignature) else {
             return false
         }
-        
+
         let keyIdData = Int32(keyId).data
         let timestampData = Int32(createdAt).data
-        
+
         var signatureData = keyIdData
         signatureData.append(timestampData)
         signatureData.append(Data(hex: publicKey))
-        
+
         let signatureVerifier = ECDSA(privateKeySource: nil, publicKeySource: ValueKeySource(key: publicHDSKPKey))
-        
+
         do {
             let isValidSignature = try signatureVerifier.verify(data: signatureData, signature: signature)
             return isValidSignature
@@ -132,7 +132,7 @@ class DailyKeyRepoHandler {
             return false
         }
     }
-    
+
     private func keyAgeIsValid(for createdAt: Int) -> Bool {
         let keyAge = Date().timeIntervalSince1970 - TimeInterval(createdAt)
         return keyAge <= TimeUnit.day(amount: 7).timeInterval

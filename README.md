@@ -11,11 +11,23 @@
 ## Development Setup
 1. Install Xcode 10.0 or higher
 2. Install Cocoapods via
-     `sudo gem install cocoapods`
-     If this is not working for you, you can find additional installation instructions [here](https://guides.cocoapods.org/using/getting-started.html#getting-started)
- 3. Run `pod install` within the project directory to install all dependencies
+    `sudo gem install cocoapods`
+    If this is not working for you, you can find additional installation instructions [here](https://guides.cocoapods.org/using/getting-started.html#getting-started)
+3. Run `pod install` within the project directory to install all dependencies
+4. Staging backend needs authentication so there are two environment variables needed:
+    1. `BACKEND_LOGIN` and `BACKEND_PASSWORD`
+    2. Those strings are URL Encoded
+    3. Alternatively, if you don't want to set those variables in the environment, you can create a file `env-vars_$CONFIGURATION.sh` in the root directory. For debug it would be `env-vars_Debug.sh`. Files matching `env-vars_*.sh` pattern are added to `.gitignore`, so they won't be added to the repository. The content of the file should look like this:
+```
+    export BACKEND_LOGIN="[URL_ENCODED_LOGIN]"
+    export BACKEND_PASSWORD="[URL_ENCODED_PASSWORD]"
+```
+  
+We use two different schemes called  `Luca` and  `Luca Debug`. They might behave differently as `debug` builds use different API endpoints.
  
- We use two different schemes called  `debug` and  `release`. They might behave differently as `debug` builds for example use different API endpoints.   
+### SwiftLint
+We use [SwiftLint](https://github.com/realm/SwiftLint) to ensure Swift style and conventions. 
+You can run `swiftlint autocorrect` to let SwiftLint format your code according to the rules set up for our project. There is also a lot of helpful information on how the tool works in there [documentation](https://github.com/realm/SwiftLint).
 
 ## Usage instructions
 In order to use the app, you need a valid phone number. You'll need it to pass the verification during the registration process.

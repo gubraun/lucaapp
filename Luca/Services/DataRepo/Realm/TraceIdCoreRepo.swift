@@ -2,7 +2,7 @@ import Foundation
 import RealmSwift
 
 class TraceIdCoreRealmModel: RealmSaveModel<TraceIdCore> {
-    
+
     @objc dynamic var date = Date()
     @objc dynamic var keyId = 0
 
@@ -28,7 +28,7 @@ class TraceIdCoreRepo: RealmDataRepo<TraceIdCoreRealmModel, TraceIdCore> {
     override func createSaveModel() -> TraceIdCoreRealmModel {
         return TraceIdCoreRealmModel()
     }
-    
+
     init() {
         super.init(schemaVersion: 0)
     }

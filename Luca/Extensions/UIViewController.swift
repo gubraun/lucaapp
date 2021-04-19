@@ -1,11 +1,11 @@
 import UIKit
 
 extension UIViewController {
-    
+
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
-    
+
 }
 
 extension UIViewController {

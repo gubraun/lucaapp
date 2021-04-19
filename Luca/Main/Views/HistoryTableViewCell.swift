@@ -8,14 +8,14 @@ class HistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var checkinDateLabel: UILabel!
     @IBOutlet weak var topHistoryLineView: UIView!
     @IBOutlet weak var bottomHistoryLineView: UIView!
-    
+
     var infoPressedActionHandler: (() -> Void)?
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         checkinGroupNameLabel.isHidden = false
     }
-    
+
     func setup(historyEvent: HistoryEvent) {
         infoButton.isHidden = true
         if let userEvent = historyEvent as? UserEvent {
@@ -24,16 +24,16 @@ class HistoryTableViewCell: UITableViewCell {
             checkinLocationNameLabel.text = L10n.History.Data.updated
             checkinGroupNameLabel.isHidden = true
             checkinDateLabel.text = userUpdate.date.formattedDate
-        } else if let userTransfer = historyEvent as? UserDataTransfer {
+        } else if historyEvent as? UserDataTransfer != nil {
             checkinLocationNameLabel.text = L10n.History.Data.shared
             checkinGroupNameLabel.isHidden = true
-            checkinDateLabel.text = userTransfer.date.formattedDate
+            infoButton.isHidden = false
         }
 
         bottomHistoryLineView.isHidden = false
         topHistoryLineView.isHidden = false
     }
-    
+
     func setupUserEvent(userEvent: UserEvent) {
         if let locationName = userEvent.checkin.location?.locationName {
             checkinLocationNameLabel.text = locationName
@@ -42,23 +42,23 @@ class HistoryTableViewCell: UITableViewCell {
             checkinLocationNameLabel.text = userEvent.checkin.location?.groupName ?? userEvent.checkin.location?.name
             checkinGroupNameLabel.text = nil
         }
-        
+
         if let checkout = userEvent.checkout {
             checkinDateLabel.text = "\(userEvent.checkin.date.formattedDate) - \n\(checkout.date.formattedDate)"
         } else {
             checkinDateLabel.text = userEvent.checkin.date.formattedDate
         }
-        
+
         if userEvent.checkin.role == .host, let firstName = LucaPreferences.shared.firstName, let lastName = LucaPreferences.shared.lastName {
             checkinLocationNameLabel.text = "\(L10n.Private.Meeting.Info.title): \(firstName) \(lastName)"
             infoButton.isHidden = false
         }
     }
-    
+
     @IBAction func infoPressed(_ sender: UIButton) {
         self.infoPressedActionHandler?()
     }
-    
+
     func setupHistoryLineViews(position: TableViewPosition) {
         switch position {
         case .only:
@@ -70,13 +70,13 @@ class HistoryTableViewCell: UITableViewCell {
             topHistoryLineView.isHidden = true
         }
     }
-    
+
 }
 
 enum TableViewPosition {
-    
+
     case last
     case first
     case only
-    
+
 }

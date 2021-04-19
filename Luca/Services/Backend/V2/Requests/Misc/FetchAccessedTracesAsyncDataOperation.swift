@@ -4,7 +4,7 @@ enum FetchAccessedTracesError {
     case notFound
 }
 
-extension FetchAccessedTracesError: RequestError{
+extension FetchAccessedTracesError: RequestError {
     var errorDescription: String? {
         return "\(self)"
     }
@@ -20,7 +20,7 @@ struct AccessedTrace: Codable, Equatable {
 
 extension AccessedTrace {
     func intersection(with dict: [String: TraceInfo]) -> [TraceInfo] {
-        
+
         return dict
             .filter { entry in hashedTraceIds.contains(entry.0) }
             .map { $0.value }
@@ -28,12 +28,12 @@ extension AccessedTrace {
 }
 
 class FetchAccessedTracesAsyncDataOperation: BackendAsyncDataOperation<KeyValueParameters, [AccessedTrace], FetchAccessedTracesError> {
-    
+
     init(backendAddress: BackendAddress) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("notifications")
             .appendingPathComponent("traces")
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [:])

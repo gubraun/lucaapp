@@ -11,46 +11,46 @@ class ContactViewController: UIViewController {
     @IBOutlet weak var addressPostCodeTextField: LucaTextField!
     @IBOutlet weak var addressCityTextField: LucaTextField!
     @IBOutlet weak var phoneNumberTextField: LucaTextField!
-    
+
     private var progressHud = JGProgressHUD.lucaLoading()
-    
+
     private var saveButton: UIBarButtonItem!
     var phoneNumberVerificationService: PhoneNumberVerificationService?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.saveButton = UIBarButtonItem(title: L10n.ContactViewController.save, style: .done, target: self, action: #selector(onSaveButton(_:)))
-        
+
         firstNameTextField.textField.delegate = self
         firstNameTextField.set(.givenName)
-        
+
         lastNameTextField.textField.delegate = self
         lastNameTextField.set(.familyName)
-        
+
         emailTextField.textField.delegate = self
         emailTextField.set(.emailAddress)
-        
+
         addressStreetTextField.textField.delegate = self
         addressStreetTextField.set(.streetAddressLine1)
-        
+
         addressHouseNumberTextField.textField.delegate = self
         addressHouseNumberTextField.set(.streetAddressLine2)
-        
+
         addressPostCodeTextField.textField.delegate = self
         addressPostCodeTextField.set(.postalCode)
-        
+
         phoneNumberTextField.textField.delegate = self
         phoneNumberTextField.set(.telephoneNumber)
-        
+
         addressCityTextField.textField.delegate = self
         addressCityTextField.set(.addressCity)
-        
+
         if !LucaPreferences.shared.phoneNumberVerified {
             self.navigationItem.rightBarButtonItem = self.saveButton
         }
     }
-    
+
     func setupViews() {
         firstNameTextField.set(placeholder: L10n.UserData.Form.firstName, text: LucaPreferences.shared.firstName)
         lastNameTextField.set(placeholder: L10n.UserData.Form.lastName, text: LucaPreferences.shared.lastName)
@@ -61,29 +61,30 @@ class ContactViewController: UIViewController {
         addressCityTextField.set(placeholder: L10n.UserData.Form.city, text: LucaPreferences.shared.city)
         phoneNumberTextField.set(placeholder: L10n.UserData.Form.phoneNumber, text: LucaPreferences.shared.phoneNumber)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setTranslucent()
+        self.navigationController?.navigationBar.tintColor = .white
         setupViews()
     }
-    
+
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
+
     @IBAction func onSaveButton(_ sender: UIBarButtonItem) {
-        
+
         self.hideKeyboard()
-        
+
         if !dataValidation() {
             return
         }
-        
+
         let alert = UIAlertController.yesOrNo(title: L10n.ContactViewController.ShouldSave.title, message: L10n.ContactViewController.ShouldSave.message, onYes: {
             self.verifyPhoneNumber(completion: { success in
                 if success {
-                    self.save() { success in
+                    self.save { success in
                         if success {
                             self.navigationItem.rightBarButtonItem = nil
                         }
@@ -93,16 +94,16 @@ class ContactViewController: UIViewController {
         })
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     func verifyPhoneNumber(completion: @escaping(Bool) -> Void) {
         if self.phoneNumberTextField.textField.text != LucaPreferences.shared.phoneNumber || !LucaPreferences.shared.phoneNumberVerified,
            let phoneNumber = self.phoneNumberTextField.textField.text {
-            
+
             phoneNumberVerificationService = PhoneNumberVerificationService(
                 presenting: self.tabBarController ?? self,
                 backend: ServiceContainer.shared.backendSMSV3,
                 preferences: LucaPreferences.shared)
-            
+
             phoneNumberVerificationService!.verify(phoneNumber: phoneNumber) { success in
                 if success {
                     completion(true)
@@ -117,7 +118,7 @@ class ContactViewController: UIViewController {
             completion(true)
         }
     }
-    
+
     private func save(completion: @escaping (Bool) -> Void) {
         let preferences = LucaPreferences.shared
 
@@ -134,12 +135,12 @@ class ContactViewController: UIViewController {
             log("Save: User Data couldn't be retrieved", entryType: .error)
             return
         }
-        
+
         guard preferences.uuid != nil else {
             log("Save: User Id couldn't be retrieved!", entryType: .error)
             return
         }
-        
+
         progressHud.show(in: self.view)
         ServiceContainer.shared.userService.uploadCurrentData {
             DispatchQueue.main.async {
@@ -155,24 +156,24 @@ class ContactViewController: UIViewController {
             }
         }
     }
-    
+
     private func dataValidation() -> Bool {
-        //Validate form data
+        // Validate form data
         let emptyAddress =  addressCityTextField.textField.isTextEmpty ||
                             addressHouseNumberTextField.textField.isTextEmpty ||
                             addressStreetTextField.textField.isTextEmpty ||
                             addressPostCodeTextField.textField.isTextEmpty
-        
+
         let emptyRest = firstNameTextField.textField.isTextEmpty ||
             lastNameTextField.textField.isTextEmpty ||
             phoneNumberTextField.textField.isTextEmpty
-        
+
         if emptyAddress {
             let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.ContactViewController.EmptyAddress.message)
             present(alert, animated: true, completion: nil)
             return false
         }
-        
+
         if emptyRest {
             let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.ContactViewController.EmptyRest.message)
             present(alert, animated: true, completion: nil)
@@ -184,15 +185,15 @@ class ContactViewController: UIViewController {
 }
 
 extension ContactViewController: UITextFieldDelegate {
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+
         if self.navigationItem.rightBarButtonItem != self.saveButton {
             self.navigationItem.rightBarButtonItem = self.saveButton
         }
         return true
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
@@ -200,4 +201,3 @@ extension ContactViewController: UITextFieldDelegate {
 }
 
 extension ContactViewController: UnsafeAddress, LogUtil {}
-

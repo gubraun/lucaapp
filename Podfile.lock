@@ -84,8 +84,10 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - SimpleCheckbox (2.1.0)
+  - Sourcery (1.3.4)
   - SwiftBase32 (0.8.0)
   - SwiftGen (6.2.1)
+  - SwiftLint (0.43.0)
   - TTTAttributedLabel (2.0.0)
   - Validator (3.2.1)
 
@@ -104,8 +106,10 @@ DEPENDENCIES:
   - RxAppState
   - RxSwift
   - SimpleCheckbox
+  - Sourcery (~> 1.3.4)
   - SwiftBase32
   - SwiftGen (~> 6.0)
+  - SwiftLint
   - TTTAttributedLabel
   - Validator
 
@@ -130,8 +134,10 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SimpleCheckbox
+    - Sourcery
     - SwiftBase32
     - SwiftGen
+    - SwiftLint
     - TTTAttributedLabel
     - Validator
 
@@ -155,11 +161,13 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SimpleCheckbox: ddcd433ab8c3a8f57300bebda13151a8f302c7f9
+  Sourcery: 1b5b0f816fbed6d0c7c066786fff4074e470e796
   SwiftBase32: 723fd05e2fce776f2b98f26fe423bd20fa80e411
   SwiftGen: 62e69d127507be1538d4263e137b2290cd6ab272
+  SwiftLint: 0c645fdc6feed3e390c1701ab3cc669f88b42752
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: eb94579ea18a16c4e125c2cf9b3ea178a72d198f
+PODFILE CHECKSUM: c3e45fd3d5aa0bf6b49aafd577f4d5bfda6f27dd
 
 COCOAPODS: 1.10.1

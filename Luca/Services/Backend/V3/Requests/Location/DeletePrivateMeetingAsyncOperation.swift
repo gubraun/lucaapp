@@ -15,13 +15,13 @@ extension DeletePrivateMeetingError {
 }
 
 class DeletePrivateMeetingAsyncOperation: BackendAsyncOperation<KeyValueParameters, DeletePrivateMeetingError> {
-    
+
     init(backendAddress: BackendAddressV3, accessId: String) {
-        
+
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("locations")
             .appendingPathComponent(accessId.lowercased())
-        
+
         super.init(url: fullUrl,
                    method: .delete,
                    errorMappings: [400: .invalidInput,

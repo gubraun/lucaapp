@@ -6,16 +6,16 @@ class PhoneNumberVerificationViewController: UIViewController {
 
     @IBOutlet weak var verificationTextField: LucaTextField!
     @IBOutlet weak var verifyButton: UIButton!
-    
+
     var challengeIds: [String] = []
-    
+
     var loadingHud = JGProgressHUD.lucaLoading()
-    
-    var onUserCanceled: (() -> Void)? = nil
-    
+
+    var onUserCanceled: (() -> Void)?
+
     /// Callback with the matching challenge
-    var onSuccess: ((String) -> Void)? = nil
-    
+    var onSuccess: ((String) -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         verificationTextField.textField.delegate = self
@@ -26,7 +26,7 @@ class PhoneNumberVerificationViewController: UIViewController {
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
         DispatchQueue.main.async { self.loadingHud.show(in: self.view) }
-        
+
         if let tanText = verificationTextField.textField.text {
             ServiceContainer.shared.backendSMSV3.verify(tan: tanText, challenges: challengeIds)
                 .execute { matchedChallenge in
@@ -38,10 +38,10 @@ class PhoneNumberVerificationViewController: UIViewController {
                 }
         }
     }
-    
-    func showAlert(title: String, message: String, onOk: (() -> ())? = nil) {
+
+    func showAlert(title: String, message: String, onOk: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            
+
             let alert = AlertViewControllerFactory.createAlertViewController(
                 title: title,
                 message: message,
@@ -51,34 +51,34 @@ class PhoneNumberVerificationViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
+
     @IBAction func showInfo(_ sender: UIButton) {
-        
+
         let alert = AlertViewControllerFactory.createAlertViewController(
             title: L10n.Verification.PhoneNumber.Info.title,
             message: L10n.Verification.PhoneNumber.Info.message,
             firstButtonTitle: L10n.Navigation.Basic.ok.uppercased())
         present(alert, animated: true, completion: nil)
     }
-    
+
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
         self.onUserCanceled?()
     }
-    
+
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
+
     func setupTANTextField() {
         verificationTextField.setPlaceholder(text: L10n.Verification.PhoneNumber.code)
         verificationTextField.setupGreyField()
     }
-    
+
     func enableVerifyButton(_ enabled: Bool) {
         verifyButton.isEnabled = enabled
     }
-    
+
 }
 extension PhoneNumberVerificationViewController: UITextFieldDelegate {
 

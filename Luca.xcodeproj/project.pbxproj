@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0216395F2626EEBE0004A1C8 /* AlertWithLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0216395E2626EEBE0004A1C8 /* AlertWithLinkViewController.swift */; };
+		0238CDA82604A0D1001958C8 /* UIAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238CDA72604A0D1001958C8 /* UIAccessibility.swift */; };
 		025FE95C26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FE95B26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift */; };
 		025FE9A32614B1DA00A3ADEA /* TimeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FE9A22614B1D900A3ADEA /* TimeUnit.swift */; };
 		A05156D9478067F6C7947871 /* Pods_Luca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FBCBF1BF7D5A8C90B8AF24 /* Pods_Luca.framework */; };
@@ -89,10 +91,13 @@
 		D5053D282547145C00D79B61 /* TraceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5053D272547145C00D79B61 /* TraceId.swift */; };
 		D5066F042541C26000112CDB /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5066F032541C26000112CDB /* UserService.swift */; };
 		D5071CC325596DC00071FE66 /* UserSecretsConsistencyChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5071CC225596DC00071FE66 /* UserSecretsConsistencyChecker.swift */; };
+		D50D89902625F0780020A02C /* BackendCredentials.stencil in Resources */ = {isa = PBXBuildFile; fileRef = D50D898F2625F0780020A02C /* BackendCredentials.stencil */; };
+		D50D89B02625F2E10020A02C /* BackendCredentials.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50D89AF2625F2E10020A02C /* BackendCredentials.generated.swift */; };
 		D50E1D5D2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E1D5C2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift */; };
 		D5155293256FE03400F29551 /* UserTransferBuilderV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5155292256FE03400F29551 /* UserTransferBuilderV3.swift */; };
 		D5155297256FE2E300F29551 /* UserTransferAsyncOperationV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5155296256FE2E300F29551 /* UserTransferAsyncOperationV3.swift */; };
 		D51552A3257021C100F29551 /* FetchSupportedVersionsAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51552A2257021C100F29551 /* FetchSupportedVersionsAsyncOperation.swift */; };
+		D51905892626F398009117EE /* Lockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A9980B2523958300A8FEF5 /* Lockable.swift */; };
 		D5217D73252CC4B2002337C3 /* PermissionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5217D72252CC4B2002337C3 /* PermissionHandler.swift */; };
 		D52481ED254C444E00F2360E /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52481EC254C444E00F2360E /* HistoryService.swift */; };
 		D52481F1254C4CC600F2360E /* HistoryEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52481F0254C4CC600F2360E /* HistoryEventListener.swift */; };
@@ -213,6 +218,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0216395E2626EEBE0004A1C8 /* AlertWithLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWithLinkViewController.swift; sourceTree = "<group>"; };
+		0238CDA72604A0D1001958C8 /* UIAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAccessibility.swift; sourceTree = "<group>"; };
 		025FE95B26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveIssuerKeysAsyncOperationV3.swift; sourceTree = "<group>"; };
 		025FE9A22614B1D900A3ADEA /* TimeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
 		056FCE494E2D37A27929FB63 /* Pods-Luca.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.release.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.release.xcconfig"; sourceTree = "<group>"; };
@@ -311,10 +318,13 @@
 		D5053D272547145C00D79B61 /* TraceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceId.swift; sourceTree = "<group>"; };
 		D5066F032541C26000112CDB /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D5071CC225596DC00071FE66 /* UserSecretsConsistencyChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSecretsConsistencyChecker.swift; sourceTree = "<group>"; };
+		D50D898F2625F0780020A02C /* BackendCredentials.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = BackendCredentials.stencil; sourceTree = "<group>"; };
+		D50D89AF2625F2E10020A02C /* BackendCredentials.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendCredentials.generated.swift; sourceTree = "<group>"; };
 		D50E1D5C2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucaLocationPermissionWorkflow.swift; sourceTree = "<group>"; };
 		D5155292256FE03400F29551 /* UserTransferBuilderV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransferBuilderV3.swift; sourceTree = "<group>"; };
 		D5155296256FE2E300F29551 /* UserTransferAsyncOperationV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransferAsyncOperationV3.swift; sourceTree = "<group>"; };
 		D51552A2257021C100F29551 /* FetchSupportedVersionsAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSupportedVersionsAsyncOperation.swift; sourceTree = "<group>"; };
+		D519058B2626F623009117EE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		D5217D72252CC4B2002337C3 /* PermissionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHandler.swift; sourceTree = "<group>"; };
 		D52481EC254C444E00F2360E /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
 		D52481F0254C4CC600F2360E /* HistoryEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEventListener.swift; sourceTree = "<group>"; };
@@ -394,7 +404,6 @@
 		D5BB91AF2566D33F00B3D88C /* UserRegistrationIntermediate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationIntermediate.swift; sourceTree = "<group>"; };
 		D5BB91CB2566DE0700B3D88C /* AESCTRCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESCTRCrypto.swift; sourceTree = "<group>"; };
 		D5BB91D92566E09800B3D88C /* UserDataPackageBuilderV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataPackageBuilderV3.swift; sourceTree = "<group>"; };
-		D5BB982F261F1C8100026E3C /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		D5BE45772518AB48008F7525 /* CheckInPollPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInPollPayload.swift; sourceTree = "<group>"; };
 		D5BE45792518B8AA008F7525 /* LocationUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdater.swift; sourceTree = "<group>"; };
 		D5BE457B2518FDBC008F7525 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -498,12 +507,9 @@
 		B434E3C924EBC04B009305CA /* Luca */ = {
 			isa = PBXGroup;
 			children = (
-				D5BB982F261F1C8100026E3C /* CHANGELOG.md */,
-				B4A0A43B261C828D007DE487 /* Credits.plist */,
 				B4808DFB25B1A66D00DE38E0 /* Alerts */,
 				D5876D4625503519009A27EC /* Luca.entitlements */,
 				D5E1B29D25D18A8C0062E17A /* *.luca-app.de.cer */,
-				D5A9980A2523957500A8FEF5 /* Utils */,
 				B48BB46C24EE8C7000FC6780 /* Main */,
 				B4AF3BBE24EEDB8A00F72C80 /* swiftgen.yml */,
 				B48BB46924EE6F4900FC6780 /* Model */,
@@ -519,9 +525,12 @@
 				B434E3D824EBC04E009305CA /* Info.plist */,
 				B48BB48C24EEB9DD00FC6780 /* GeneratedStrings.swift */,
 				B48BB48724EEB85800FC6780 /* Localizable.strings */,
-				B48BD23F2524DA68001FE9D5 /* NotificationScheduler.swift */,
 				D5876D4925503721009A27EC /* apple-app-site-association */,
 				D58F4B632577D85C0085A3D1 /* InfoPlist.strings */,
+				D50D898F2625F0780020A02C /* BackendCredentials.stencil */,
+				D50D89AF2625F2E10020A02C /* BackendCredentials.generated.swift */,
+				D519058B2626F623009117EE /* README.md */,
+				B4A0A43B261C828D007DE487 /* Credits.plist */,
 			);
 			path = Luca;
 			sourceTree = "<group>";
@@ -728,6 +737,7 @@
 				D5CCB909257157EF00A18640 /* Array.swift */,
 				D5258FD0258925FB00E0B29E /* UUID.swift */,
 				B4977BB025BEF7BB00F8FCE2 /* UIImage.swift */,
+				0238CDA72604A0D1001958C8 /* UIAccessibility.swift */,
 				D5AE4FCB25F9102500C5CDE7 /* DataExtensions.swift */,
 			);
 			path = Extensions;
@@ -837,6 +847,7 @@
 			children = (
 				D53B8CE325E082C00009B5FE /* LucaAlertViewController.swift */,
 				B430C3A425F8FA1D009E0F35 /* DataAccessAlertViewController.swift */,
+				0216395E2626EEBE0004A1C8 /* AlertWithLinkViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1020,15 +1031,6 @@
 			path = History;
 			sourceTree = "<group>";
 		};
-		D5A9980A2523957500A8FEF5 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				D5457993252F327D00D37420 /* LucaScheduling.swift */,
-				D5A9980B2523958300A8FEF5 /* Lockable.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		D5B342B9256E5DF5006E6554 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1139,6 +1141,9 @@
 			isa = PBXGroup;
 			children = (
 				D57EF2FC256C28AD00A43AF9 /* AsyncOperation */,
+				B48BD23F2524DA68001FE9D5 /* NotificationScheduler.swift */,
+				D5457993252F327D00D37420 /* LucaScheduling.swift */,
+				D5A9980B2523958300A8FEF5 /* Lockable.swift */,
 				D5EE1E2D251CA9CD0028B2D9 /* LogUtil.swift */,
 				D5EE1E30251CAA060028B2D9 /* Lockable.swift */,
 				D5EE1E33251CAA1E0028B2D9 /* UnsafeAddress.swift */,
@@ -1157,7 +1162,9 @@
 			buildConfigurationList = B434E3DB24EBC04E009305CA /* Build configuration list for PBXNativeTarget "Luca" */;
 			buildPhases = (
 				FE433FB004AB211F865310DD /* [CP] Check Pods Manifest.lock */,
+				D50D89922625F0EE0020A02C /* Generate credentials */,
 				B4AF3BBB24EED71E00F72C80 /* SwiftGen */,
+				021AE906261F3651007EA85A /* SwiftLint */,
 				B434E3C324EBC04B009305CA /* Sources */,
 				B434E3C424EBC04B009305CA /* Frameworks */,
 				B434E3C524EBC04B009305CA /* Resources */,
@@ -1218,6 +1225,7 @@
 				B434E3D724EBC04E009305CA /* LaunchScreen.storyboard in Resources */,
 				B4808E1825B1F0CB00DE38E0 /* Alerts.storyboard in Resources */,
 				B4808E2325B1F0DB00DE38E0 /* AlertsSE.storyboard in Resources */,
+				D50D89902625F0780020A02C /* BackendCredentials.stencil in Resources */,
 				B434E3D424EBC04E009305CA /* Assets.xcassets in Resources */,
 				D58F4BA02577E3440085A3D1 /* InfoPlist.strings in Resources */,
 				D5E1B29E25D18A8C0062E17A /* *.luca-app.de.cer in Resources */,
@@ -1236,6 +1244,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		021AE906261F3651007EA85A /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		A9F2531AD6E0928BEEADEC02 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1284,10 +1310,32 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${PROJECT_DIR}/Luca/GeneratedStrings.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/SwiftGen/bin/swiftgen\" ]]; then\n    \"$PODS_ROOT/SwiftGen/bin/swiftgen\"\nelse\n    echo \"error: SwiftGen is not installed. Run pod update to install it.\"\nfi\n";
+		};
+		D50D89922625F0EE0020A02C /* Generate credentials */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate credentials";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${PROJECT_DIR}/Luca/BackendCredentials.generated.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars_${CONFIGURATION}.sh ]\nthen\nsource ./env-vars_${CONFIGURATION}.sh\nfi\n\n#no `else` case needed if the CI works as expected\n./Pods/Sourcery/bin/sourcery --templates ./Luca --sources . --output ./Luca --args password=\"$BACKEND_PASSWORD\",login=\"$BACKEND_LOGIN\"\n";
+			showEnvVarsInLog = 0;
 		};
 		FE433FB004AB211F865310DD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1347,6 +1395,7 @@
 				D5BEBD1325FFDBD0001E46A4 /* HealthDepartmentRepo.swift in Sources */,
 				B4354815252F2F3400D5D82B /* RegionMonitor.swift in Sources */,
 				D54751C32512859E00EC1758 /* Decryption.swift in Sources */,
+				D50D89B02625F2E10020A02C /* BackendCredentials.generated.swift in Sources */,
 				B48BD2402524DA68001FE9D5 /* NotificationScheduler.swift in Sources */,
 				B48BB47124EE8EB500FC6780 /* MainTabBarViewController.swift in Sources */,
 				D59A0968258A2465001683A2 /* LocationCheckinViewController.swift in Sources */,
@@ -1387,6 +1436,7 @@
 				D5986015251CF7EF0086D5CA /* UITextField.swift in Sources */,
 				D54751B82512481900EC1758 /* UIViewController.swift in Sources */,
 				D5DBE6D4256E983E00C86168 /* UserExistsCheckRequestAsyncOperationV3.swift in Sources */,
+				0216395F2626EEBE0004A1C8 /* AlertWithLinkViewController.swift in Sources */,
 				B48C86FB24F7CFB5009C353C /* TimerDelegate.swift in Sources */,
 				D52481ED254C444E00F2360E /* HistoryService.swift in Sources */,
 				B458405A257E753400C7185D /* InfoViewController.swift in Sources */,
@@ -1405,6 +1455,7 @@
 				B4F1B13D24ED399A006D6D73 /* FormViewController.swift in Sources */,
 				B4F1B15C24ED8009006D6D73 /* UserDataPreferences.swift in Sources */,
 				D5CC2B292580ECDC008D8AC3 /* DeletePrivateMeetingAsyncOperation.swift in Sources */,
+				D51905892626F398009117EE /* Lockable.swift in Sources */,
 				B4F1B15A24ED7FC5006D6D73 /* LucaPreferences.swift in Sources */,
 				B48BB46B24EE6F5800FC6780 /* UserRegistrationData.swift in Sources */,
 				D5A8AB092538AB28005F173F /* KeyHistoryRepositoryProtocol.swift in Sources */,
@@ -1454,6 +1505,7 @@
 				D5D131F825F1414C002AE95A /* LocationRepo.swift in Sources */,
 				B49C0DC125A4B0FC00148F17 /* NotificationService.swift in Sources */,
 				D52838092559A9AB00BC329C /* Lockable.swift in Sources */,
+				0238CDA82604A0D1001958C8 /* UIAccessibility.swift in Sources */,
 				D5217D73252CC4B2002337C3 /* PermissionHandler.swift in Sources */,
 				D59FC86C25E5482D005F8DC6 /* AccessedTraceIdChecker.swift in Sources */,
 				B4AF3BBA24EED37000F72C80 /* OnboardingStep.swift in Sources */,
@@ -1701,14 +1753,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_VERSION = 5.0;
@@ -1723,14 +1775,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

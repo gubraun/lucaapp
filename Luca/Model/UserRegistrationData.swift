@@ -1,7 +1,7 @@
 import Foundation
 
 public class UserRegistrationData: Codable {
-    
+
     var firstName: String?
     var lastName: String?
     var street: String?
@@ -10,7 +10,7 @@ public class UserRegistrationData: Codable {
     var city: String?
     var phoneNumber: String?
     var email: String?
-    
+
     init() {
     }
 
@@ -23,13 +23,13 @@ extension UserRegistrationData {
             !String.isNilOrEmpty(postCode) &&
             !String.isNilOrEmpty(city)
     }
-    
+
     var personalDataComplete: Bool {
         return !String.isNilOrEmpty(firstName) &&
             !String.isNilOrEmpty(lastName) &&
             !String.isNilOrEmpty(phoneNumber)
     }
-    
+
     var dataComplete: Bool {
         return addressComplete && personalDataComplete
     }

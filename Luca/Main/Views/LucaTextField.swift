@@ -6,7 +6,7 @@ class LucaTextField: FormTextField {
     override func setup() {
         setupTextFields()
     }
-    
+
     override func setText(_ text: String?) {
         if let value = text, value != "" {
             textFieldController.setErrorText(nil, errorAccessibilityValue: nil)
@@ -14,10 +14,10 @@ class LucaTextField: FormTextField {
             return
         }
     }
-    
+
     func setupGreyField() {
         textField.keyboardType = .numberPad
-        
+
         textFieldController.activeColor = .lucaLightGrey
         textFieldController.normalColor = .lucaLightGrey
         textFieldController.inlinePlaceholderColor = .lucaLightGrey
@@ -26,5 +26,5 @@ class LucaTextField: FormTextField {
         textFieldController.borderStrokeColor = .lucaLightGrey
         textField.textColor = .black
     }
-    
+
 }

@@ -23,7 +23,7 @@ class FetchSupportedVersionsAsyncOperation: BackendAsyncDataOperation<KeyValuePa
             .appendingPathComponent("versions")
             .appendingPathComponent("apps")
             .appendingPathComponent("ios")
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [404: .notFound])

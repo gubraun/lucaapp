@@ -11,24 +11,24 @@ struct PhoneNumberVerificationRequest: Codable {
 }
 
 public class PhoneNumberVerificationService {
-    
+
     private let parentViewController: UIViewController
     private let backend: BackendSMSVerificationV3
     private let preferences: LucaPreferences
-    
+
     private let phoneNumberKit = PhoneNumberKit()
-    
+
     private let timeoutBase = 30.0
-    
+
     init(presenting viewController: UIViewController,
          backend: BackendSMSVerificationV3,
          preferences: LucaPreferences) {
-        
+
         self.parentViewController = viewController
         self.preferences = preferences
         self.backend = backend
     }
-    
+
     /*
      1. Check if there is no timer and show it if so
      2. show the confirmation screen
@@ -36,14 +36,14 @@ public class PhoneNumberVerificationService {
      */
     var disposeBag = DisposeBag()
     func verify(phoneNumber: String, completion: @escaping (Bool) -> Void) {
-        
+
         let requestNewTan = parseNumber(phoneNumber).ifEmpty(switchTo: Maybe.from { completion(false); return nil })
             .asObservable()
             .flatMap { parsedNumber -> Single<PhoneNumber>  in
                 self.confirmPhoneNumber(phoneNumber: parsedNumber)
             }
             .flatMap { self.requestNewTAN(parsedNumber: $0).ifEmpty(switchTo: Maybe.from { completion(false); return nil }) }
-        
+
         handleRequestDelay()
             .asObservable()
             .flatMap { timeoutActive -> Observable<String> in
@@ -64,7 +64,7 @@ public class PhoneNumberVerificationService {
             .subscribe()
             .disposed(by: disposeBag)
     }
-    
+
     private func retrieveOpenChallenges() -> Single<[String]> {
         Single.from {
             let refDate = Date().addingTimeInterval(-24 * 60 * 60)
@@ -73,14 +73,14 @@ public class PhoneNumberVerificationService {
                 .filter { $0.date > refDate }
                 .sorted { $0.date > $1.date }
                 .prefix(10)
-            
+
             return retVal.map { $0.challengeId }
         }
     }
     /// Emits the challenge that has been verified
     private func handlePhoneNumberVC(challenges: [String]) -> Completable {
         Completable.create { (observer) -> Disposable in
-            
+
             let phoneNumberVC = AlertViewControllerFactory.createPhoneNumberVerificationViewController(challengeIDs: challenges)
             phoneNumberVC.modalTransitionStyle = .crossDissolve
             phoneNumberVC.modalPresentationStyle = .overCurrentContext
@@ -99,14 +99,14 @@ public class PhoneNumberVerificationService {
             }
             phoneNumberVC.onUserCanceled = { observer(.error(NSError(domain: "Phone number unverified", code: 0, userInfo: nil))) }
             self.parentViewController.present(phoneNumberVC, animated: true, completion: nil)
-            
+
             return Disposables.create {
                 phoneNumberVC.dismiss(animated: true, completion: nil)
             }
         }
         .subscribeOn(MainScheduler.instance)
     }
-    
+
     func confirmPhoneNumber(phoneNumber: PhoneNumber) -> Single<PhoneNumber> {
         Single.create { observer -> Disposable in
             let viewController = AlertViewControllerFactory.createPhoneNumberConfirmationViewController(phoneNumber: phoneNumber)
@@ -120,7 +120,7 @@ public class PhoneNumberVerificationService {
             }
         }
     }
-    
+
     private func parseNumber(_ number: String) -> Maybe<PhoneNumber> {
         Maybe.from {
             let parsedNumber = try self.phoneNumberKit.parse(number)
@@ -130,7 +130,7 @@ public class PhoneNumberVerificationService {
             return self.wrongFormatAlert().andThen(Maybe.empty())
         }
     }
-    
+
     private func wrongFormatAlert() -> Completable {
         AlertViewControllerFactory.createAlertViewControllerRx(
             presentingViewController: parentViewController,
@@ -139,15 +139,15 @@ public class PhoneNumberVerificationService {
             firstButtonTitle: L10n.Navigation.Basic.ok.uppercased())
             .ignoreElements()
     }
-    
+
     /// Emits `true` if timeout is active
     private func handleRequestDelay() -> Single<Bool> {
         Single.from {
             self.preferences.verificationRequests
         }
-        .flatMap { verificationRequests in
-            
-            //If there is next allowed timestamp and it is in future, show the timer
+        .flatMap { _ in
+
+            // If there is next allowed timestamp and it is in future, show the timer
             if let nextAllowedTimestamp = self.getNextAllowedRequestTimestamp(),
                Date().timeIntervalSince1970 < nextAllowedTimestamp {
                 return AlertViewControllerFactory.createAlertViewControllerRx(
@@ -169,7 +169,7 @@ public class PhoneNumberVerificationService {
                                 .ignoreElements()
                                 .andThen(Single.just(Void()))
                         } else if let error = event.error {
-                            throw error //Just push back any errors
+                            throw error // Just push back any errors
                         }
                         return Single.just(Void())
                     }
@@ -177,11 +177,11 @@ public class PhoneNumberVerificationService {
                     .ignoreElements()
                     .andThen(Single.from { Date().timeIntervalSince1970 < nextAllowedTimestamp })
             }
-            //Just complete if there is no timestamp or it is in the past already
+            // Just complete if there is no timestamp or it is in the past already
             return Single.just(false)
         }
     }
-    
+
     /// Requests new TAN and emits a challenge if everything went well. It handles all internal errors by itself, so it won't emit any errors.
     private func requestNewTAN(parsedNumber: PhoneNumber) -> Maybe<String> {
         let formattedNumber = phoneNumberKit.format(parsedNumber, toType: .e164)
@@ -201,7 +201,7 @@ public class PhoneNumberVerificationService {
             .observeOn(MainScheduler.instance)
             .catchError { error in
                 var alert: UIAlertController
-                if let localizedTitledError = error as? LocalizedTitledError  {
+                if let localizedTitledError = error as? LocalizedTitledError {
                     alert = UIAlertController.infoAlert(title: localizedTitledError.localizedTitle, message: localizedTitledError.localizedDescription)
                 } else {
                     alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Verification.PhoneNumber.requestFailure)
@@ -210,26 +210,26 @@ public class PhoneNumberVerificationService {
                 return Maybe.empty()
             }
     }
-    
+
     private func getNextAllowedRequestTimestamp() -> Double? {
         let timeframe = timeoutBase*pow(2, 4)
         let timeframeBegin = Date().timeIntervalSince1970 - timeframe
         let requestsInTimeoutTimeframe = preferences.verificationRequests
-            
-            //Take only entries from current day
+
+            // Take only entries from current day
             .filter { Date().timeIntervalSince1970 - $0.date.timeIntervalSince1970 < 24.0 * 60.0 * 60.0 }
-            
-            .filter { $0.date.timeIntervalSince1970 > timeframeBegin } 
+
+            .filter { $0.date.timeIntervalSince1970 > timeframeBegin }
         let sorted = requestsInTimeoutTimeframe.sorted(by: { $0.date > $1.date })
-        
-        //If there are some requests sent in given timeframe
+
+        // If there are some requests sent in given timeframe
         if let last = sorted.first {
             let nextTimeframe = timeoutBase * pow(2, Double(requestsInTimeoutTimeframe.count - 1))
             return last.date.timeIntervalSince1970 + nextTimeframe
         }
-        
-        //There are no requests in given timeframe
+
+        // There are no requests in given timeframe
         return nil
     }
-    
+
 }

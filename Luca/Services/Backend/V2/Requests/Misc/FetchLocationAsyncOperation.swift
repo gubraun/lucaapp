@@ -14,15 +14,14 @@ extension FetchLocationError {
 }
 
 class FetchLocationAsyncOperation: BackendAsyncDataOperation<KeyValueParameters, Location, FetchLocationError> {
-    
+
     init(backendAddress: BackendAddress, locationId: UUID) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("locations")
             .appendingPathComponent(locationId.uuidString.lowercased())
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [404: .notFound])
     }
 }
-

@@ -13,6 +13,9 @@
         <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Form View Controller-->
@@ -44,13 +47,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="438"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wie heißt du?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8AJ-9l-t3X">
-                                                <rect key="frame" x="0.0" y="32" width="256" height="24.5"/>
+                                                <rect key="frame" x="0.0" y="32" width="256" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byy-Rs-yAi" customClass="FormView" customModule="Luca" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="71.5" width="256" height="366.5"/>
+                                                <rect key="frame" x="0.0" y="70.5" width="256" height="367.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
@@ -80,6 +83,9 @@
                             </scrollView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.33000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="gFb-bG-7Ex">
                                 <rect key="frame" x="0.0" y="24" width="320" height="4"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="mlA-ax-4CE"/>
                                 </constraints>
@@ -165,7 +171,7 @@
                                             <fragment>
                                                 <string key="content">luca hilft dir bei der anonymen und sicheren Angabe deiner Kontaktinformationen. Sodass du dir keine Sorgen um deine Daten machen musst, wenn du Veranstaltungen, Kulturstätten, Restaurants, Cafés oder Bars besuchst.</string>
                                                 <attributes>
-                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="14" name="Montserrat-Medium"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" minimumLineHeight="20" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
@@ -213,7 +219,7 @@
                                         <attributedString key="attributedText">
                                             <fragment content="Hiermit stimme ich den AGBs zu">
                                                 <attributes>
-                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="12" name="Montserrat-Medium"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
@@ -347,11 +353,11 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="QXf-1g-to1">
-                                        <rect key="frame" x="0.0" y="127" width="256" height="44"/>
+                                        <rect key="frame" x="0.0" y="126" width="256" height="44"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Bitte gib im nächsten Schritt deine Kontaktinformationen an.">
                                                 <attributes>
-                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                                    <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="14" name="Montserrat-Medium"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" minimumLineHeight="22" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
@@ -360,7 +366,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deine Daten" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsX-UP-Nht">
-                                        <rect key="frame" x="0.0" y="78.5" width="131.5" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="78.5" width="110" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -436,11 +442,11 @@
                                 <rect key="frame" x="0.0" y="153.5" width="320" height="414.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OyL-mb-d5X">
-                                        <rect key="frame" x="32" y="5.5" width="256" height="44"/>
+                                        <rect key="frame" x="32" y="4.5" width="256" height="44"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Du kannst jetzt deine Kontaktdaten verschlüsselt übermitteln.">
                                                 <attributes>
-                                                    <color key="NSColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="14" name="Montserrat-Medium"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" minimumLineHeight="22" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
@@ -478,7 +484,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fertig" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0C6-jb-Bxr">
-                                <rect key="frame" x="32" y="110.5" width="63" height="24.5"/>
+                                <rect key="frame" x="32" y="110.5" width="51.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>

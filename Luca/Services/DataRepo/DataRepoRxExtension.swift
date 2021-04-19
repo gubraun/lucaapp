@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 extension DataRepoProtocol {
-    
+
     func store(object: Model) -> Single<Model> {
         Single<Model>.create { (observer) -> Disposable in
             self.store(object: object) { (stored) in
@@ -14,7 +14,7 @@ extension DataRepoProtocol {
             return Disposables.create()
         }
     }
-    
+
     func store(objects: [Model]) -> Single<[Model]> {
         Single<[Model]>.create { (observer) -> Disposable in
             self.store(objects: objects) { (stored) in
@@ -26,7 +26,7 @@ extension DataRepoProtocol {
             return Disposables.create()
         }
     }
-    
+
     func restore() -> Single<[Model]> {
         Single<[Model]>.create { (observer) -> Disposable in
             self.restore { (restored) in
@@ -38,7 +38,7 @@ extension DataRepoProtocol {
             return Disposables.create()
         }
     }
-    
+
     func remove(identifiers: [Int]) -> Completable {
         Completable.create { (observer) -> Disposable in
             self.remove(identifiers: identifiers) {
@@ -50,7 +50,7 @@ extension DataRepoProtocol {
             return Disposables.create()
         }
     }
-    
+
     func removeAll() -> Completable {
         Completable.create { (observer) -> Disposable in
             self.removeAll {

@@ -2,13 +2,13 @@ import Foundation
 import RxSwift
 
 public class AsyncDataOperation<ErrorType, Result> where ErrorType: Error {
-    
+
     /// - returns: cancel token. Operation will be canceled if executed
     @discardableResult
-    func execute(completion: @escaping (Result) -> Void, failure: @escaping (ErrorType) -> Void) -> (()->Void) {
+    func execute(completion: @escaping (Result) -> Void, failure: @escaping (ErrorType) -> Void) -> (() -> Void) {
         fatalError("Not implemented")
     }
-    
+
 }
 
 extension AsyncDataOperation {

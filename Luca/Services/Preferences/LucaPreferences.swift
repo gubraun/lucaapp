@@ -2,15 +2,15 @@ import Foundation
 import RxSwift
 
 class LucaPreferences {
-    
+
     static let shared = LucaPreferences()
-    
+
     private let preferences: UserDataPreferences
-    
+
     init() {
         preferences = UserDataPreferences(suiteName: "LucaPreferences")
     }
-    
+
     var currentOnboardingPage: Int? {
         get {
             preferences.retrieve(key: "currentOnboardingPage")
@@ -19,7 +19,7 @@ class LucaPreferences {
             preferences.store(newValue!, key: "currentOnboardingPage")
         }
     }
-    
+
     var userRegistrationData: UserRegistrationData? {
         get {
             preferences.retrieve(key: "userRegistrationData", type: UserRegistrationData.self)
@@ -32,7 +32,7 @@ class LucaPreferences {
             }
         }
     }
-    
+
     var firstName: String? {
         get {
             self.userRegistrationData?.firstName
@@ -43,7 +43,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var lastName: String? {
         get {
             self.userRegistrationData?.lastName
@@ -54,7 +54,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var street: String? {
         get {
             self.userRegistrationData?.street
@@ -65,7 +65,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var houseNumber: String? {
         get {
             self.userRegistrationData?.houseNumber
@@ -76,7 +76,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var postCode: String? {
         get {
             self.userRegistrationData?.postCode
@@ -87,7 +87,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var city: String? {
         get {
             self.userRegistrationData?.city
@@ -98,7 +98,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var phoneNumber: String? {
         get {
             self.userRegistrationData?.phoneNumber
@@ -109,7 +109,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var emailAddress: String? {
         get {
             self.userRegistrationData?.email
@@ -120,7 +120,7 @@ class LucaPreferences {
             self.userRegistrationData = data
         }
     }
-    
+
     var uuid: UUID? {
         get {
             preferences.retrieve(key: "uuid")
@@ -136,13 +136,13 @@ class LucaPreferences {
         }
     }
     private var uuidPublisher = PublishSubject<UUID?>()
-    
+
     /// Emits current value on subscribe and every subsequent changes
     public var uuidChanges: Observable<UUID?> {
         let current = Single.from { self.uuid }
         return Observable.merge(current.asObservable(), uuidPublisher)
     }
-    
+
     var onboardingComplete: Bool {
         get {
             preferences.retrieve(key: "onboardingComplete") ?? false
@@ -151,7 +151,7 @@ class LucaPreferences {
             preferences.store(newValue, key: "onboardingComplete")
         }
     }
-    
+
     var welcomePresented: Bool {
         get {
             preferences.retrieve(key: "welcomePresented") ?? false
@@ -160,7 +160,7 @@ class LucaPreferences {
             preferences.store(newValue, key: "welcomePresented")
         }
     }
-    
+
     var donePresented: Bool {
         get {
             preferences.retrieve(key: "donePresented") ?? false
@@ -169,7 +169,7 @@ class LucaPreferences {
             preferences.store(newValue, key: "donePresented")
         }
     }
-    
+
     var dataPrivacyPresented: Bool {
         get {
             preferences.retrieve(key: "dataPrivacyPresented") ?? false
@@ -177,7 +177,7 @@ class LucaPreferences {
             preferences.store(newValue, key: "dataPrivacyPresented")
         }
     }
-    
+
     var phoneNumberVerified: Bool {
         get {
             preferences.retrieve(key: "phoneNumberVerified") ?? false
@@ -186,7 +186,7 @@ class LucaPreferences {
             preferences.store(newValue, key: "phoneNumberVerified")
         }
     }
-    
+
     var autoCheckout: Bool {
         get {
             preferences.retrieve(key: "autoCheckout") ?? false
@@ -195,7 +195,7 @@ class LucaPreferences {
             preferences.store(newValue, key: "autoCheckout")
         }
     }
-    
+
     var verificationRequests: [PhoneNumberVerificationRequest] {
         get {
             preferences.retrieve(key: "phoneVerificationRequest", type: [PhoneNumberVerificationRequest].self) ?? []
@@ -204,7 +204,7 @@ class LucaPreferences {
             preferences.store(newValue, key: "phoneVerificationRequest")
         }
     }
-    
+
     var checkoutNotificationScheduled: Bool {
         get {
             preferences.retrieve(key: "checkoutNotificationScheduled") ?? false
@@ -213,5 +213,5 @@ class LucaPreferences {
             preferences.store(newValue, key: "checkoutNotificationScheduled")
         }
     }
-    
+
 }

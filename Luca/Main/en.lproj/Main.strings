@@ -9,7 +9,7 @@
 "2Zk-La-qde.normalTitle" = "Ok";
 
 /* Class = "UIButton"; normalTitle = "Historie freigeben"; ObjectID = "8QA-9l-0BZ"; */
-"8QA-9l-0BZ.normalTitle" = "Share data";
+"8QA-9l-0BZ.normalTitle" = "SHARE DATA";
 
 /* Class = "UILabel"; text = "Automatischer Checkout"; ObjectID = "Bcn-E7-j3C"; */
 "Bcn-E7-j3C.text" = "Automatic checkout";
@@ -81,3 +81,7 @@
 "Dff-7n-2wE.text" = "No data requests from health departments in the last 14 days.";
 
 "IhH-Il-kJ6.text" = "Contact data";
+
+"hcG-bW-6DW.text" = "END MEETING";
+
+"jTb-nz-RLb.text" = "DELETE HISTORY";

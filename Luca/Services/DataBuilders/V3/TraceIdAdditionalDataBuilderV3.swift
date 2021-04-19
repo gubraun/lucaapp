@@ -13,23 +13,23 @@ struct TraceIdAdditionalDataPayloadV3: Codable {
 }
 
 class TraceIdAdditionalDataBuilderV3 {
-    
-    func decrypt<T>(destination: T.Type, venuePrivKey: KeySource, userPubKey: KeySource, data: Data, iv: Data) throws -> T where T: Decodable{
+
+    func decrypt<T>(destination: T.Type, venuePrivKey: KeySource, userPubKey: KeySource, data: Data, iv: Data) throws -> T where T: Decodable {
         let ecdh = ECDHSharedSecretKeySource(publicKeySource: userPubKey, privateKeySource: venuePrivKey)
         let ecdhKey: Data = try ecdh.retrieveKey()
-        
+
         var tempData = ecdhKey
         tempData.append(0x01)
         let decKey = tempData.sha256().prefix(16)
-        
+
         let crypto = self.crypto(encKey: decKey, iv: iv)
         let decrypted = try crypto.decrypt(data: data)
-        
+
         let parsed = try JSONDecoder().decode(T.self, from: decrypted)
         return parsed
     }
 
-    func build<T>(traceId: TraceId, scannerId: String, venuePubKey: KeySource, additionalData: T, scannerEPrivKey: SecKey? = nil) throws -> TraceIdAdditionalDataPayloadV3 where T: Encodable{
+    func build<T>(traceId: TraceId, scannerId: String, venuePubKey: KeySource, additionalData: T, scannerEPrivKey: SecKey? = nil) throws -> TraceIdAdditionalDataPayloadV3 where T: Encodable {
 
         var privateEKey: SecKey! = scannerEPrivKey
         if privateEKey == nil {

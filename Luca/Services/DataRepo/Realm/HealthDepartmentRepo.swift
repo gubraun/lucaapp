@@ -2,7 +2,7 @@ import Foundation
 import RealmSwift
 
 class HealthDepartmentRealmModel: RealmSaveModel<HealthDepartment> {
-    
+
     @objc dynamic var departmentId = ""
     @objc dynamic var name = ""
     @objc dynamic var publicHDEKP = ""
@@ -34,7 +34,7 @@ class HealthDepartmentRepo: RealmDataRepo<HealthDepartmentRealmModel, HealthDepa
     override func createSaveModel() -> HealthDepartmentRealmModel {
         return HealthDepartmentRealmModel()
     }
-    
+
     init() {
         super.init(schemaVersion: 0)
     }

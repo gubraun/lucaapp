@@ -31,7 +31,7 @@ extension UserServiceError {
             return "\(self)"
         }
     }
-    
+
     var localizedTitle: String {
         switch self {
         case .networkError(let error):
@@ -51,24 +51,23 @@ extension UserServiceError {
 }
 
 class UserService {
-    
+
     enum Result {
         case userExists
         case userRecreated
     }
-    //MARK: - private properties
+    // MARK: - private properties
     private let preferences: LucaPreferences
     private let backend: BackendUserV3
     private let userKeysBundle: UserKeysBundle
     private let dailyKeyRepoHandler: DailyKeyRepoHandler
-    
-    //MARK: - events
+
+    // MARK: - events
     public let onUserRegistered = "UserService.onUserRegistered"
     public let onUserUpdated = "UserService.onUserUpdated"
     public let onUserDataTransfered = "UserService.onUserDataTransfered"
-    
-    
-    //MARK: - implementation
+
+    // MARK: - implementation
     init(preferences: LucaPreferences,
          backend: BackendUserV3,
          userKeysBundle: UserKeysBundle,
@@ -78,29 +77,29 @@ class UserService {
         self.userKeysBundle = userKeysBundle
         self.dailyKeyRepoHandler = dailyKeyRepoHandler
     }
-    
+
     var isDataComplete: Bool {
         guard let user = preferences.userRegistrationData else {
             return false
         }
         return user.dataComplete
     }
-    
+
     var isPersonalDataComplete: Bool {
         guard let user = preferences.userRegistrationData else {
             return false
         }
         return user.personalDataComplete
     }
-    
-    func uploadCurrentData(completion: @escaping ()->Void, failure: @escaping (UserServiceError)->Void) {
+
+    func uploadCurrentData(completion: @escaping () -> Void, failure: @escaping (UserServiceError) -> Void) {
         guard let userData = preferences.userRegistrationData,
               userData.dataComplete else {
             log("Upload current data: local data incomplete", entryType: .error)
             failure(.localDataIncomplete)
             return
         }
-        
+
         guard let userId = preferences.uuid else {
             log("Upload current data: no user id", entryType: .error)
             failure(.localDataIncomplete)
@@ -115,8 +114,8 @@ class UserService {
                 failure(.userUpdateError(error: error))
             }
     }
-    
-    func transferUserData(completion: @escaping (String)->Void, failure: @escaping (UserServiceError)->Void) {
+
+    func transferUserData(completion: @escaping (String) -> Void, failure: @escaping (UserServiceError) -> Void) {
         guard let userId = preferences.uuid else {
             log("Upload current data: no user id", entryType: .error)
             failure(.localDataIncomplete)
@@ -130,29 +129,29 @@ class UserService {
             failure(.userTransferError(error: error))
         }
     }
-    
-    func registerIfNeeded(completion: @escaping (Result) -> Void, failure: @escaping (UserServiceError)->Void) {
-        
+
+    func registerIfNeeded(completion: @escaping (Result) -> Void, failure: @escaping (UserServiceError) -> Void) {
+
         if !isDataComplete {
             failure(.localDataIncomplete)
             return
         }
-        
+
         guard let userData = preferences.userRegistrationData else {
             failure(.localDataIncomplete)
             return
         }
-        
+
         guard let uuid = preferences.uuid else {
             registerUser(userData: userData, completion: { completion(.userRecreated) }, failure: failure)
             return
         }
-        
+
         backend.userExists(userId: uuid)
             .execute {
                 completion(.userExists)
             } failure: { (error) in
-                
+
                 if let backendError = error.backendError,
                    backendError == .notFound {
                     self.registerUser(userData: userData, completion: { completion(.userRecreated) }, failure: failure)
@@ -163,10 +162,10 @@ class UserService {
                 }
             }
     }
-    
-    private func registerUser(userData: UserRegistrationData, completion: @escaping ()->Void, failure: @escaping (UserServiceError)->Void) {
+
+    private func registerUser(userData: UserRegistrationData, completion: @escaping () -> Void, failure: @escaping (UserServiceError) -> Void) {
         self.log("Registering user: regenerating keys")
-        
+
         do {
             try self.userKeysBundle.generateKeys(forceRefresh: true)
         } catch let error {
@@ -175,12 +174,12 @@ class UserService {
             return
         }
         self.log("Registering user: keys regenerated")
-        
+
         // Delete all daily keys to make sure there are no leftovers from other backend.
         // It should solve the problem with keys mismatch when switching between production and staging
         dailyKeyRepoHandler.removeAll()
         dailyKeyRepoHandler.fetch {
-            
+
             self.backend.create(userData: userData)
                 .execute { (userId) in
                     self.preferences.uuid = userId
@@ -191,7 +190,7 @@ class UserService {
                     self.log("Registering user failed: \(error)", entryType: .error)
                     failure(.userRegistrationError(error: error))
                 }
-            
+
         } failure: { (error) in
             self.log("Fetching daily key failed: \(error)", entryType: .error)
             failure(.dailyKeyRepoError(error: error))

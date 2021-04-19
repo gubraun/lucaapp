@@ -4,7 +4,7 @@ public enum CryptoError: Error {
     case privateKeyNotRetrieved
     case publicKeyNotRetrieved
     case symmetricKeyNotRetrieved
-    
+
     case noPublicKeySource
     case noPrivateKeySource
     case noSharedKeySource

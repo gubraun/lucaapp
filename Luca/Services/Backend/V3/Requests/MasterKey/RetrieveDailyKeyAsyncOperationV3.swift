@@ -35,18 +35,18 @@ extension RetrieveDailyKeyError {
 }
 
 class RetrieveDailyKeyAsyncOperationV3: BackendAsyncDataOperation<KeyValueParameters, PublicKeyFetchResultV3, RetrieveDailyKeyError> {
-    
+
     init(backendAddress: BackendAddressV3) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("keys")
             .appendingPathComponent("daily")
             .appendingPathComponent("current")
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [404: .notFound])
     }
-    
+
     override func execute(completion: @escaping (PublicKeyFetchResultV3) -> Void, failure: @escaping (BackendError<RetrieveDailyKeyError>) -> Void) -> (() -> Void) {
         return super.execute { (result) in
             if result.parsedKey == nil {
@@ -60,4 +60,3 @@ class RetrieveDailyKeyAsyncOperationV3: BackendAsyncDataOperation<KeyValueParame
 
     }
 }
-

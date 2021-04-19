@@ -26,12 +26,12 @@ extension PrivateMeetingQRCodeV3 {
 class PrivateMeetingQRCodeBuilderV3 {
     private let backendAddress: BackendAddressV3
     private let preferences: LucaPreferences
-    
+
     init(backendAddress: BackendAddressV3, preferences: LucaPreferences) {
         self.backendAddress = backendAddress
         self.preferences = preferences
     }
-    
+
     func build(scannerId: String) throws -> PrivateMeetingQRCodeV3 {
         guard let firstName = preferences.userRegistrationData?.firstName,
               let lastName = preferences.userRegistrationData?.lastName else {

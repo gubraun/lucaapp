@@ -18,18 +18,18 @@ extension IssuerKeysFetchResultV3 {
 }
 
 class RetrieveIssuerKeysAsyncOperationV3: BackendAsyncDataOperation<KeyValueParameters, IssuerKeysFetchResultV3, RetrieveDailyKeyError> {
-    
+
     init(backendAddress: BackendAddressV3, issuerId: String) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("keys")
             .appendingPathComponent("issuers")
             .appendingPathComponent(issuerId)
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [404: .notFound])
     }
-    
+
     override func execute(completion: @escaping (IssuerKeysFetchResultV3) -> Void, failure: @escaping (BackendError<RetrieveDailyKeyError>) -> Void) -> (() -> Void) {
         return super.execute { (result) in
             if result.parsedPublicHDSKP == nil {

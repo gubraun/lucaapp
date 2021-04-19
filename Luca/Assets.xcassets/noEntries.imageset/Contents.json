@@ -6,12 +6,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "error@2.png",
+      "filename" : "error@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "error@3.png",
+      "filename" : "error@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

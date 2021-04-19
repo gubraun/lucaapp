@@ -66,3 +66,5 @@ fastlane/screenshots
 fastlane/test_output
 
 .DS_Store
+BackendCredentials.generated.swift
+env-vars_*.sh

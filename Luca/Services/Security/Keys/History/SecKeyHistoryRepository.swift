@@ -10,7 +10,7 @@ class SecKeyHistoryRepository<IndexType>: KeyHistoryRepository<IndexType, SecKey
         }
         addIndex(index: index)
     }
-    
+
     override func restore(index: IndexType, enableFactoryIfAvailable: Bool = true) throws -> SecKey {
         let repo = try repository(for: index)
         if let key = repo.restore() {
@@ -23,20 +23,20 @@ class SecKeyHistoryRepository<IndexType>: KeyHistoryRepository<IndexType, SecKey
         }
         throw NSError(domain: "Some error on key retrieval", code: 0, userInfo: nil)
     }
-    
+
     override func remove(index: IndexType) {
         if let repo = try? repository(for: index) {
             repo.purge()
             removeIndex(index: index)
         }
     }
-    
+
     override func removeAll() {
         for index in indices {
             remove(index: index)
         }
     }
-    
+
     private func repository(for index: IndexType) throws -> SecKeyRepository {
         let object: [String: IndexType] = ["index": index]
         let serializedIndex = try JSONEncoder().encode(object)

@@ -18,21 +18,21 @@ extension CheckOutError {
 }
 
 class CheckOutAsyncOperationV3: BackendAsyncOperation<CheckOutPayloadV3, CheckOutError> {
-    
-    var buildingError: CheckOutError? = nil
-    
+
+    var buildingError: CheckOutError?
+
     init(backendAddress: BackendAddressV3, checkOutBuilder: CheckOutPayloadBuilderV3, traceId: TraceId, timestamp: Date) {
-        var checkoutPayload: CheckOutPayloadV3? = nil
+        var checkoutPayload: CheckOutPayloadV3?
         do {
             checkoutPayload = try checkOutBuilder.build(traceId: traceId, checkOutDate: timestamp)
         } catch let error {
             buildingError = .failedToBuildCheckOutPayload(error: error)
         }
-        
+
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("traces")
             .appendingPathComponent("checkout")
-        
+
         super.init(url: fullUrl,
                    method: .post,
                    parameters: checkoutPayload,
@@ -41,7 +41,7 @@ class CheckOutAsyncOperationV3: BackendAsyncOperation<CheckOutPayloadV3, CheckOu
                                    404: .notFound,
                                    409: .checkInTimeLargerThanCheckOutTime])
     }
-    
+
     override func execute(completion: @escaping () -> Void, failure: @escaping (BackendError<CheckOutError>) -> Void) -> (() -> Void) {
         if let error = buildingError {
             failure(BackendError(backendError: error))
@@ -50,4 +50,3 @@ class CheckOutAsyncOperationV3: BackendAsyncOperation<CheckOutPayloadV3, CheckOu
         return super.execute(completion: completion, failure: failure)
     }
 }
-

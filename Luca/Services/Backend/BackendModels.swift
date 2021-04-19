@@ -8,11 +8,11 @@ struct HealthDepartment: Codable, Equatable, Hashable {
 }
 
 extension HealthDepartment: DataRepoModel {
-    
+
     var identifier: Int? {
         get {
             let checksum = departmentId.data(using: .utf8)!.crc32
-            
+
             return Int(checksum)
         }
         set { }
@@ -47,16 +47,16 @@ struct Location: Codable {
     var endsAt: Int?
 }
 extension Location: DataRepoModel, Hashable {
-    
+
     var identifier: Int? {
         get {
             let checksum = locationId.data(using: .utf8)!.crc32
-            
+
             return Int(checksum)
         }
         set { }
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(locationId)
     }
@@ -113,7 +113,7 @@ struct TraceInfo: Codable {
 }
 
 extension TraceInfo: DataRepoModel {
-    
+
     var identifier: Int? {
         get {
             var checksum = Data()

@@ -10,19 +10,18 @@ class DataAccessViewController: UIViewController {
     private var progressHud = JGProgressHUD.lucaLoading()
     var dataAccesses: [(department: HealthDepartment, infos: [(traceInfo: TraceInfo, location: Location)])] = []
     var disposeBag: DisposeBag?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setTranslucent()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(DataAccessHeaderView.self, forHeaderFooterViewReuseIdentifier: "DataAccessHeaderView")
     }
-    
+
     func loadEntries() {
         let newDisposeBag = DisposeBag()
         self.progressHud.show(in: self.view)
-        
+
         ServiceContainer.shared.accessedTraceIdRepo
             .restore()
             .asObservable()
@@ -48,21 +47,24 @@ class DataAccessViewController: UIViewController {
             .disposed(by: newDisposeBag)
         disposeBag = newDisposeBag
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadEntries()
+        self.navigationController?.setTranslucent()
+        self.navigationController?.navigationBar.tintColor = .white
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         disposeBag = nil
     }
-    
+
     func showEmptyState() {
         emptyStateView.isHidden = false
         tableView.isHidden = true
     }
-    
+
     func hideEmptyState() {
         emptyStateView.isHidden = true
         tableView.isHidden = false
@@ -70,19 +72,20 @@ class DataAccessViewController: UIViewController {
 
 }
 extension DataAccessViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return dataAccesses.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataAccesses[section].infos.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // swiftlint:disable:next force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "DataAccessTableViewCell", for: indexPath) as! DataAccessTableViewCell
         let dataAccess = dataAccesses[indexPath.section].infos[indexPath.row]
-        
+
         cell.locationName.text = dataAccess.location.name
         let checkin = dataAccess.traceInfo.checkInDate
         if let checkout = dataAccess.traceInfo.checkOutDate {
@@ -93,16 +96,17 @@ extension DataAccessViewController: UITableViewDataSource, UITableViewDelegate {
 
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // swiftlint:disable:next force_cast
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "DataAccessHeaderView") as! DataAccessHeaderView
         view.departmentLabel.text = dataAccesses[section].department.name
-        
+
         return view
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
-    
+
 }

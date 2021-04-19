@@ -58,3 +58,12 @@
 "CtM-IJ-qZj.normalTitle" = "OKAY";
 
 "d5g-Lu-YCc.normalTitle" = "ALL DATA REQUESTS";
+
+/* Class = "UILabel"; text = "Share data"; ObjectID = "lw6-oz-eBf"; */
+"lw6-oz-eBf.text" = "Share data";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "asd-HK-YFI"; */
+"asd-HK-YFI.normalTitle" = "CANCEL";
+
+/* Class = "UIButton"; normalTitle = "SHARE"; ObjectID = "XgK-DN-pW5"; */
+"XgK-DN-pW5.normalTitle" = "SHARE";

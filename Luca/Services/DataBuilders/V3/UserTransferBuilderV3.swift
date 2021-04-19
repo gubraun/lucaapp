@@ -25,7 +25,7 @@ class UserTransferBuilderV3 {
     let dailyKeyRepo: DailyPubKeyHistoryRepository
 
     var dailyPubKeySource: KeySource!
-    var newestId: DailyKeyIndex? = nil
+    var newestId: DailyKeyIndex?
 
     init(userKeysBundle: UserKeysBundle, dailyKeyRepo: DailyPubKeyHistoryRepository) {
         keysBundle = userKeysBundle
@@ -110,25 +110,25 @@ class UserTransferBuilderV3 {
     }
 
     func buildUserSecretsData(userId: UUID) throws -> Data {
-        
+
         guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -14, to: Date()) else {
             throw NSError(domain: "Couldn't generate threshold date for user secrets", code: 0, userInfo: nil)
         }
-        
+
         let dates = keysBundle.traceSecrets.indices.filter { $0 > thresholdDate || Calendar.current.isDate(thresholdDate, inSameDayAs: $0) }
-        
+
         let transferSecrets = dates
             .map { ($0.lucaTimestampInteger, try? keysBundle.traceSecrets.restore(index: $0)) }
             .filter { $0.1 != nil }
             .map { ($0.0, $0.1!) }
-        
+
         let dataSecret: Data = try keysBundle.dataSecret.retrieveKey()
-        
+
         let userSecrets = UserSecrets(
             uid: userId.uuidString.lowercased(),
             uts: transferSecrets.map { UserSecretEntry(ts: Int($0.0), s: $0.1.base64EncodedString()) },
             uds: dataSecret.base64EncodedString())
-        
+
         return try JSONEncoderUnescaped().encode(userSecrets)
     }
 }

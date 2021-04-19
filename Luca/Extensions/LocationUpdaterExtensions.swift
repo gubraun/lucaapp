@@ -10,7 +10,7 @@ extension LocationUpdater {
             .unwrapOptional(errorOnNil: true)
             .map { $0["locations"] as? [CLLocation] }
             .unwrapOptional(errorOnNil: true)
-        
+
         return Observable.merge(bufferred, newLocations)
     }
 }

@@ -5,13 +5,13 @@ import BackgroundTasks
 struct AccessedTraceId: Equatable {
     var healthDepartmentId: Int
     var traceInfoIds: [Int]
-    
+
     /// Date when this data set has been sighted
     var sightDate: Date
-    
+
     /// Date when this dataset has been notified to user per local notification
     var localNotificationDate: Date?
-    
+
     /// Date when this dataset has been actually seen by the user
     var consumptionDate: Date?
 }
@@ -20,33 +20,33 @@ extension AccessedTraceId {
     var hasBeenSeenByUser: Bool {
         consumptionDate != nil && Date().timeIntervalSince1970 > consumptionDate!.timeIntervalSince1970
     }
-    
+
     var hasBeenNotified: Bool {
         localNotificationDate != nil && Date().timeIntervalSince1970 > localNotificationDate!.timeIntervalSince1970
     }
 }
 
 class AccessedTraceIdChecker {
-    
+
     private let backend: BackendMiscV3
     private let traceInfoRepo: TraceInfoRepo
     private let accessedTraceIdRepo: AccessedTraceIdRepo
     private let healthDepartmentRepo: HealthDepartmentRepo
-    
+
     private let _accessedTraceIds = BehaviorSubject(value: [AccessedTraceId]())
 
     private var notificationDisposeBag: DisposeBag?
-    
+
     /// Emits current and updated accessedTraceIds; No filtering at all
     var accessedTraceIds: Observable<[AccessedTraceId]> {
         _accessedTraceIds
         .distinctUntilChanged()
     }
-    
+
     var currentAccessedTraceIds: [AccessedTraceId] {
         (try? _accessedTraceIds.value()) ?? []
     }
-    
+
     init(
         backend: BackendMiscV3,
         traceInfoRepo: TraceInfoRepo,
@@ -57,7 +57,7 @@ class AccessedTraceIdChecker {
         self.accessedTraceIdRepo = accessedTraceIdRepo
         self.healthDepartmentRepo = healthDepartmentRepo
     }
-    
+
     func fetchAccessedTraceIds() -> Completable {
         self.backend.fetchAccessedTraces()
             .asSingle()
@@ -68,7 +68,7 @@ class AccessedTraceIdChecker {
             .ignoreElements()
             .onErrorComplete()
     }
-    
+
     func consume(accessedTraces: [AccessedTraceId]) -> Completable {
         if accessedTraces.isEmpty {
             return Completable.empty()
@@ -84,13 +84,13 @@ class AccessedTraceIdChecker {
             .do(onSuccess: { self._accessedTraceIds.onNext($0) })
             .asCompletable()
     }
-    
+
     private func generateHashedTraceInfoDictionary(_ traceInfos: [TraceInfo], with healthDepartmentId: UUID) -> [String: TraceInfo] {
         let hdID = Data(healthDepartmentId.bytes)
         let hmac = HMACSHA256(key: hdID)
         let retVal = traceInfos.reduce([String: TraceInfo]()) { (dict, traceInfo: TraceInfo) in
             var d = dict
-            
+
             if let traceIdData = traceInfo.traceIdData {
                 let hashed = (try? hmac.encrypt(data: traceIdData.data)) ?? Data()
                 d[hashed.prefix(16).base64EncodedString()] = traceInfo
@@ -99,15 +99,15 @@ class AccessedTraceIdChecker {
         }
         return retVal
     }
-    
+
     private func storeHealthDepartments(accessedTraces: [AccessedTrace]) -> Completable {
         healthDepartmentRepo.store(objects: accessedTraces.map { $0.healthDepartment }).asObservable().ignoreElements()
     }
-    
+
     private func storeAccessedTraceIds(ids: [AccessedTraceId]) -> Single<[AccessedTraceId]> {
         accessedTraceIdRepo.store(objects: ids)
     }
-    
+
     private func prepareAccessedTraces(accessedTraces: [AccessedTrace]) -> Completable {
         Observable.combineLatest(retrievePastTraceInfos().asObservable(), retrieveAccessedTraceInfos().asObservable())
             .take(1)
@@ -115,21 +115,21 @@ class AccessedTraceIdChecker {
             .map { (traceInfos: [TraceInfo], accessedTraceInfos: [AccessedTraceId]) -> [AccessedTraceId] in
                 return accessedTraces
                     .map { (accessedTraceId: AccessedTrace) in
-                        
+
                         let hdID = UUID(uuidString: accessedTraceId.healthDepartment.departmentId) ?? UUID()
-                        
+
                         let hashedTraceIds = self.generateHashedTraceInfoDictionary(traceInfos, with: hdID)
-                        
+
                         // Contains the intersection between users trace ids and fetched trace ids
                         let intersection = accessedTraceId.intersection(with: hashedTraceIds)
-                        
+
                         return AccessedTraceId(
                             healthDepartmentId: accessedTraceId.healthDepartment.identifier ?? -1,
                             traceInfoIds: intersection.map { $0.identifier ?? -1 },
                             sightDate: Date())
                     }
                     .filter { !$0.traceInfoIds.isEmpty }
-                    
+
                     // Filter out those, which are already in the database to not overwrite informations about usage like sightDate etc.
                     .filter { (generatedAccessedTraceId: AccessedTraceId) in
                         !accessedTraceInfos.contains(where: { $0.identifier == generatedAccessedTraceId.identifier })
@@ -141,7 +141,7 @@ class AccessedTraceIdChecker {
             .asObservable()
             .ignoreElements()
     }
-    
+
     private func retrievePastTraceInfos() -> Single<[TraceInfo]> {
         self.traceInfoRepo
             .restore()
@@ -151,33 +151,33 @@ class AccessedTraceIdChecker {
         self.accessedTraceIdRepo
             .restore()
     }
-    
+
     var newNotificationDisposeBag = DisposeBag()
     @available(iOS 13.0, *)
     func sendNotificationOnMatch(task: BGAppRefreshTask) {
         performFetchForNotification()
             .do(onSuccess: { _ in
                 task.setTaskCompleted(success: true)
-            }, onError: { error in
+            }, onError: { _ in
                 task.setTaskCompleted(success: false)
             })
             .subscribe()
             .disposed(by: newNotificationDisposeBag)
         notificationDisposeBag = newNotificationDisposeBag
     }
-    
+
     func sendNotificationOnMatch(completionHandler: @escaping(UIBackgroundFetchResult) -> Void) {
         performFetchForNotification()
-            .do(onSuccess: { elements in
+            .do(onSuccess: { _ in
                 completionHandler(.newData)
-            }, onError: { error in
+            }, onError: { _ in
                 completionHandler(.noData)
             })
             .subscribe()
             .disposed(by: newNotificationDisposeBag)
         notificationDisposeBag = newNotificationDisposeBag
     }
-    
+
     private func performFetchForNotification() -> Single<[AccessedTraceId]> {
         fetchAccessedTraceIds()
             .andThen(accessedTraceIds)
@@ -193,7 +193,7 @@ class AccessedTraceIdChecker {
                 self.setAsNotified(accessedTraces: notifiedElements).andThen(Single.just(notifiedElements))
             }
     }
-    
+
     private func setAsNotified(accessedTraces: [AccessedTraceId]) -> Completable {
         if accessedTraces.isEmpty {
             return Completable.empty()
@@ -209,25 +209,25 @@ class AccessedTraceIdChecker {
             .do(onSuccess: { self._accessedTraceIds.onNext($0) })
             .asCompletable()
     }
-    
+
     func disposeNotificationOnMatch() {
         notificationDisposeBag = nil
     }
-    
+
 }
 
 extension AccessedTraceIdChecker: LogUtil, UnsafeAddress {}
 
 class AccessedTraceIdPairer {
-    
+
     private static let logUtil = GeneralPurposeLog(subsystem: "App", category: "AccessedTraceIdPairer", subDomains: [])
-    
+
     static func pairAccessedTraceProperties(accessedTraceId: AccessedTraceId) -> Single<[HealthDepartment: [(TraceInfo, Location)]]> {
         return pairTraceInfos(accessedTraceId: accessedTraceId).flatMap {
             pairLocation(infos: $0)
         }
     }
-    
+
     static func pairTraceInfos(accessedTraceId: AccessedTraceId) -> Single<(HealthDepartment, [TraceInfo])> {
         ServiceContainer.shared.traceInfoRepo
             .restore()
@@ -242,7 +242,7 @@ class AccessedTraceIdPairer {
                 }
             }
     }
-    
+
     static func pairHealthDepartment(departmentId: Int) -> Single<HealthDepartment> {
         ServiceContainer.shared.healthDepartmentRepo
             .restore()
@@ -256,7 +256,7 @@ class AccessedTraceIdPairer {
             .debug("Pair health department")
             .logError(logUtil, "Health department id could not be matched")
     }
-    
+
     static func pairLocation(infos: (HealthDepartment, [TraceInfo])) -> Single<[HealthDepartment: [(TraceInfo, Location)]]> {
         ServiceContainer.shared.locationRepo
             .restore()
@@ -269,5 +269,5 @@ class AccessedTraceIdPairer {
                 return [infos.0: traces]
             }
     }
-    
+
 }

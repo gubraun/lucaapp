@@ -58,3 +58,12 @@
 "CtM-IJ-qZj.normalTitle" = "OKAY";
 
 "d5g-Lu-YCc.normalTitle" = "ALLE DATENZUGRIFFE";
+
+/* Class = "UILabel"; text = "Daten freigeben"; ObjectID = "lw6-oz-eBf"; */
+"lw6-oz-eBf.text" = "Daten freigeben";
+
+/* Class = "UIButton"; normalTitle = "ABBRECHEN"; ObjectID = "asd-HK-YFI"; */
+"asd-HK-YFI.normalTitle" = "ABBRECHEN";
+
+/* Class = "UIButton"; normalTitle = "FREIGEBEN"; ObjectID = "XgK-DN-pW5"; */
+"XgK-DN-pW5.normalTitle" = "FREIGEBEN";

@@ -6,7 +6,7 @@ class TraceInfoRealmModel: RealmSaveModel<TraceInfo> {
     @objc dynamic var traceId = ""
     @objc dynamic var checkin = 0
     @objc dynamic var locationId = ""
-    
+
     var checkout = RealmOptional<Int>()
     var createdAt = RealmOptional<Int>()
 
@@ -38,7 +38,7 @@ class TraceInfoRepo: RealmDataRepo<TraceInfoRealmModel, TraceInfo> {
     override func createSaveModel() -> TraceInfoRealmModel {
         return TraceInfoRealmModel()
     }
-    
+
     init() {
         super.init(schemaVersion: 0)
     }

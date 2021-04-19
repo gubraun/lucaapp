@@ -26,6 +26,8 @@ target 'Luca' do
   pod 'LicensesViewController', '~> 0.9.0'
   pod 'RealmSwift'
   pod 'SwiftBase32'
+  pod 'Sourcery', '~> 1.3.4'
+  pod 'SwiftLint'
   
   post_install do |pi|
       pi.pods_project.targets.each do |t|

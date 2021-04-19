@@ -1,14 +1,14 @@
 import Foundation
 
 public class CheckinTimer {
-    
+
     static let shared = CheckinTimer()
-    
-    var delegate: TimerDelegate?
-    
+
+    weak var delegate: TimerDelegate?
+
     private(set) var isPlaying = false
     private(set) var begin: Date?
-    
+
     private var timer: Timer? = nil {
         willSet {
             timer?.invalidate()
@@ -20,7 +20,7 @@ public class CheckinTimer {
         }
         return 0.0
     }
-    
+
     func start(from date: Date?) {
         if isPlaying {
             return
@@ -32,16 +32,16 @@ public class CheckinTimer {
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         isPlaying = true
     }
-    
+
     func stop() {
         timer?.invalidate()
         timer = nil
         isPlaying = false
         begin = nil
     }
-    
+
     @objc func timerAction() {
         delegate?.timerDidTick()
     }
-    
+
 }

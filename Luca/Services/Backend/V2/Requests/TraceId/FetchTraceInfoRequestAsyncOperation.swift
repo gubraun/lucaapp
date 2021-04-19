@@ -14,12 +14,12 @@ extension FetchTraceInfoError {
 }
 
 class FetchTraceInfoRequestAsyncOperation: BackendAsyncDataOperation<KeyValueParameters, TraceInfo, FetchTraceInfoError> {
-    
+
     init(backendAddress: BackendAddress, traceId: TraceId) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("traces")
             .appendingPathComponent(traceId.data.toHexString())
-        
+
         super.init(url: fullUrl,
                    method: .get,
                    errorMappings: [404: .notFound])

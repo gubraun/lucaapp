@@ -1,6 +1,7 @@
 import Foundation
 import RxSwift
 
+// swiftlint:disable file_length
 enum TraceIdServiceError: LocalizedError {
     case userCheckedInAlready
     case privateMeetingRunning
@@ -12,7 +13,7 @@ enum TraceIdServiceError: LocalizedError {
     case unableToBuildTraceId
     case locationNotFound
     case networkError(error: NetworkError)
-    
+
     case unknown
 }
 
@@ -33,6 +34,7 @@ extension TraceIdServiceError {
     }
 }
 
+// swiftlint:disable:next type_body_length
 class TraceIdService {
     private let qrCodeGenerator: QRCodePayloadBuilderV3
     private let lucaPreferences: LucaPreferences
@@ -46,23 +48,23 @@ class TraceIdService {
     private let privateMeetingService: PrivateMeetingService
     private let traceInfoRepo: TraceInfoRepo
     private let locationRepo: LocationRepo
-    
-    //MARK: - event names
+
+    // MARK: - event names
     public let onCheckIn: String = "TraceIdService.onCheckIn"
     public let onCheckOut: String = "TraceIdService.onCheckOut"
-    
-    //MARK: - Persisted properties
+
+    // MARK: - Persisted properties
     private(set) var currentTraces: [TraceIdCore] {
         get {
             let now = Date()
             return (preferences.retrieve(key: "currentTraces", type: [TraceIdCore].self) ?? [])
-                .filter { now.timeIntervalSince1970 - $0.date.timeIntervalSince1970 < 3600.0 } //Only traceIds from the last hour
+                .filter { now.timeIntervalSince1970 - $0.date.timeIntervalSince1970 < 3600.0 } // Only traceIds from the last hour
         }
         set {
             preferences.store(newValue, key: "currentTraces")
         }
     }
-    
+
     private var traceInfos: [TraceInfo] {
         get {
             preferences.retrieve(key: "traceInfos", type: [TraceInfo].self) ?? []
@@ -71,7 +73,7 @@ class TraceIdService {
             preferences.store(newValue, key: "traceInfos")
         }
     }
-    
+
     private(set) var currentLocationInfo: Location? {
         get {
             preferences.retrieve(key: "location", type: Location.self)
@@ -84,11 +86,12 @@ class TraceIdService {
             }
         }
     }
-    
+
     var additionalData: Codable? {
         if let value = preferences.retrieve(key: "additionalData", type: TraceIdAdditionalData.self) { return value }
         if let value = preferences.retrieve(key: "additionalData", type: PrivateMeetingQRCodeV3AdditionalData.self) { return value }
-        if let value = preferences.retrieve(key: "additionalData", type: [String: String].self) { return value } //This should be always checked as last value as it is at least restrictive and wins with other structs that have this data format
+        // This should be always checked as last value as it is at least restrictive and wins with other structs that have this data format
+        if let value = preferences.retrieve(key: "additionalData", type: [String: String].self) { return value }
         return nil
     }
     private func store<T>(additionalData: T) where T: Codable {
@@ -97,25 +100,25 @@ class TraceIdService {
     private func removeAdditionalData() {
         preferences.remove(key: "additionalData")
     }
-    
-    //MARK: - helper properties
-    
+
+    // MARK: - helper properties
+
     var currentTraceInfo: TraceInfo? {
         return traceInfos.filter { $0.isCheckedIn }.sorted(by: { $0.checkin > $1.checkin }).first
     }
-    
+
     var checkedInTraceId: TraceId? {
         return currentTraceInfo?.traceIdData
     }
-    
+
     /// It returns current known status without checking with backend
     var isCurrentlyCheckedIn: Bool {
         return checkedInTraceId != nil
     }
-    
+
     private var cachedTraceIds: [TraceIdCore: TraceId] = [:]
-    
-    //MARK: - public implementation
+
+    // MARK: - public implementation
     init(qrCodeGenerator: QRCodePayloadBuilderV3,
          lucaPreferences: LucaPreferences,
          dailyKeyRepo: DailyPubKeyHistoryRepository,
@@ -128,7 +131,7 @@ class TraceIdService {
          privateMeetingService: PrivateMeetingService,
          traceInfoRepo: TraceInfoRepo,
          locationRepo: LocationRepo) {
-        
+
         self.qrCodeGenerator = qrCodeGenerator
         self.lucaPreferences = lucaPreferences
         self.dailyKeyRepo = dailyKeyRepo
@@ -142,7 +145,7 @@ class TraceIdService {
         self.traceInfoRepo = traceInfoRepo
         self.locationRepo = locationRepo
     }
-    
+
     public func getOrCreateQRCode() throws -> QRCodePayloadV3 {
         let newOnes = currentTraces.filter { Date().timeIntervalSince1970 - $0.date.timeIntervalSince1970 < 60.0 }
         if let first = newOnes.first {
@@ -150,17 +153,17 @@ class TraceIdService {
         }
         return try generateQRCode()
     }
-    
+
     /// Fetches current status and updates internals. It does not fetch location data, it should be fetched explicit.
-    public func fetchTraceStatus(completion: @escaping ()->Void, failure: @escaping (TraceIdServiceError)->Void) {
-        
+    public func fetchTraceStatus(completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
+
         if let currentTraceId = self.currentTraceInfo?.traceIdData {
             checkStatusWhenCheckedIn(currentTraceId: currentTraceId, completion: completion, failure: failure)
         } else {
             checkStatusWhenNotCheckedIn(completion: completion, failure: failure)
         }
     }
-    
+
     /// Fetches the informations. Those informations will be later persisted in `TraceIdService.currentLocationInfo` so it can be accessed later event without internet
     public func fetchCurrentLocationInfo() -> Single<Location> {
         Completable.from {
@@ -180,7 +183,7 @@ class TraceIdService {
         .map { location in
             if let privateMeeting = self.additionalData as? PrivateMeetingQRCodeV3AdditionalData {
                 var locationInfo = location
-                locationInfo.name = "\(privateMeeting.fn) \(privateMeeting.ln)"
+                locationInfo.groupName = "\(privateMeeting.fn) \(privateMeeting.ln)"
                 return locationInfo
             }
             return location
@@ -188,13 +191,13 @@ class TraceIdService {
         .asSingle()
         .do(onSuccess: { self.currentLocationInfo = $0 })
     }
-    
-    public func checkOut(completion: @escaping ()->Void, failure: @escaping (TraceIdServiceError)->Void) {
+
+    public func checkOut(completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
         guard let currentTraceId = self.checkedInTraceId else {
             failure(TraceIdServiceError.notCheckedIn)
             return
         }
-        
+
         backend.checkOut(traceId: currentTraceId, timestamp: Date())
             .execute {
                 self.performCheckOut()
@@ -208,7 +211,7 @@ class TraceIdService {
                     switch backendError {
                     default:
                         failure(TraceIdServiceError.unableToCheckOut)
-                    //All those cases shouldn't be of interest of the user of this service (I guess)
+                    // All those cases shouldn't be of interest of the user of this service (I guess)
 //                    case .checkInTimeLargerThanCheckOutTime:
 //                    case .failedToBuildCheckOutPayload(let failedToBuildCheckoutPayloadError):
 //                    case .invalidInput:
@@ -220,11 +223,11 @@ class TraceIdService {
                 failure(TraceIdServiceError.unknown)
             }
     }
-    
+
     public func checkInRx(selfCheckin: SelfCheckin) -> Completable {
         let checkInLogic = self.fetchScanner(for: selfCheckin)
             .asObservable()
-            
+
             // Wrap internal error to another one.
             // If scanner is not available and this error is not faulted by system or connectivity,
             // its a signal that the event is outdated
@@ -234,7 +237,7 @@ class TraceIdService {
                     throw TraceIdServiceError.unableToCheckInToOutdatedEvent
                 }
             })
-            
+
             .flatMap { (scannerInfo: ScannerInfo) -> Observable<Never> in
                 guard let qrCode = try? self.getOrCreateQRCode() else {
                     return Observable.error(NSError(domain: "Couldn't obtain qr code", code: 0, userInfo: nil))
@@ -257,7 +260,7 @@ class TraceIdService {
             }
             .asObservable()
             .ignoreElements()
-        
+
         return Completable
             .from {
                 if self.isCurrentlyCheckedIn {
@@ -272,7 +275,7 @@ class TraceIdService {
             .andThen(checkInLogic)
             .logError(self, "check in")
     }
-    
+
     private func fetchScanner(for checkin: SelfCheckin) -> Single<ScannerInfo> {
         if let privateMeeting = checkin as? PrivateMeetingSelfCheckin {
             return backendMisc.fetchScanner(scannerId: privateMeeting.scannerId).asSingle()
@@ -282,14 +285,14 @@ class TraceIdService {
             return Single<ScannerInfo>.error(NSError(domain: "Unsupported self checkin data", code: 0, userInfo: nil))
         }
     }
-    
+
     private func updateAdditionalData(for checkin: SelfCheckin, traceId: TraceId, venuePubKey: SecKey) -> Completable {
         if let privateMeeting = checkin as? PrivateMeetingSelfCheckin {
-            
+
             let firstName = self.lucaPreferences.firstName ?? "..."
             let lastName = self.lucaPreferences.lastName ?? "..."
             let usersAdditionalData = PrivateMeetingQRCodeV3AdditionalData(fn: firstName, ln: lastName)
-            
+
             return backend.updateAdditionalData(
                 traceId: traceId,
                 scannerId: privateMeeting.scannerId,
@@ -297,11 +300,11 @@ class TraceIdService {
                 additionalData: usersAdditionalData)
                 .asCompletable()
                 .andThen(Completable.from { self.store(additionalData: privateMeeting.additionalData) })
-            
+
         } else if let tableCheckin = checkin as? TableSelfCheckin {
-            
+
             if let table = tableCheckin.additionalData {
-                
+
                 return backend.updateAdditionalData(
                     traceId: traceId,
                     scannerId: tableCheckin.scannerId,
@@ -309,9 +312,9 @@ class TraceIdService {
                     additionalData: table)
                     .asCompletable()
                     .andThen(Completable.from { self.store(additionalData: table) })
-                
+
             } else if let keyValuePairs = tableCheckin.keyValues {
-                
+
                 return backend.updateAdditionalData(
                     traceId: traceId,
                     scannerId: tableCheckin.scannerId,
@@ -320,13 +323,13 @@ class TraceIdService {
                     .asCompletable()
                     .andThen(Completable.from { self.store(additionalData: keyValuePairs) })
             } else {
-                return Completable.empty() //No additional data
+                return Completable.empty() // No additional data
             }
         } else {
             return Completable.error(NSError(domain: "Unsupported self checkin data", code: 0, userInfo: nil))
         }
     }
-    
+
     /// Should be used to dispose data when user is not longer available or data are corrupted
     public func disposeData(clearTraceHistory: Bool) {
         if clearTraceHistory {
@@ -343,12 +346,12 @@ class TraceIdService {
         self.ePubKeyRepo.removeAll()
         self.ePrivKeyRepo.removeAll()
     }
-    
-    //MARK: - private helper
+
+    // MARK: - private helper
     private func generateQRCode() throws -> QRCodePayloadV3 {
         let newestKeyId = try retrieveNewestKeyId()
         let traceIdCore = TraceIdCore(date: Date(), keyId: UInt8(newestKeyId.keyId))
-        
+
         let keyIndex = Int(traceIdCore.date.lucaTimestampInteger)
         let privKeyPresent = (try? ePrivKeyRepo.restore(index: keyIndex)) != nil
         let pubKeyPresent = (try? ePubKeyRepo.restore(index: keyIndex)) != nil
@@ -368,50 +371,50 @@ class TraceIdService {
         currentTraces = traces
         return code
     }
-    
+
     private func buildQRCode(core: TraceIdCore) throws -> QRCodePayloadV3 {
         let userId = try retrieveUserId()
         let code = try qrCodeGenerator.build(for: core, userID: userId)
         return code
     }
-    
+
     private func retrieveUserId() throws -> UUID {
         guard let userId = lucaPreferences.uuid else {
             throw NSError(domain: "Couldn't retrieve user id", code: 0, userInfo: nil)
         }
         return userId
     }
-    
+
     private func retrieveNewestKeyId() throws -> DailyKeyIndex {
         guard let newestId = dailyKeyRepo.newestId else {
             throw NSError(domain: "No daily pub key", code: 0, userInfo: nil)
         }
         return newestId
     }
-    
-    private func checkStatusWhenNotCheckedIn(completion: @escaping ()->Void, failure: @escaping (TraceIdServiceError)->Void) {
-        
-        //Trace ID computing does not have to be computed on the main thread
+
+    private func checkStatusWhenNotCheckedIn(completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
+
+        // Trace ID computing does not have to be computed on the main thread
         DispatchQueue.global(qos: .default).async {
-            
+
             let traces = self.currentTraces
             if traces.count == 0 {
                 self.log("Traces are empty", entryType: .debug)
                 completion()
                 return
             }
-            
+
             let traceIds: [TraceId]
             do {
                 traceIds = try traces.map { try self.getOrCreateTraceId(core: $0) }
-            } catch let error { 
+            } catch let error {
                 self.log("Unable to getOrCreateTraceID. Error: \(error)", entryType: .error)
                 failure(TraceIdServiceError.unableToBuildTraceId)
                 return
             }
-            
+
             print("checking following traceIds: \(traceIds.map { $0.traceIdString })")
-            
+
             self.backend.fetchInfo(traceIds: traceIds)
                 .execute { (traceInfos) in
                     self.traceInfos = traceInfos
@@ -420,9 +423,9 @@ class TraceIdService {
                     }
                     completion()
                 } failure: { (error) in
-                    
-                    //This error is an expected value in case user hasn't been checked in
-                    
+
+                    // This error is an expected value in case user hasn't been checked in
+
                     if let backendError = error.backendError,
                        case FetchTraceInfoError.notFound = backendError {
                         completion()
@@ -436,8 +439,8 @@ class TraceIdService {
                 }
         }
     }
-    
-    private func checkStatusWhenCheckedIn(currentTraceId: TraceId, completion: @escaping ()->Void, failure: @escaping (TraceIdServiceError)->Void) {
+
+    private func checkStatusWhenCheckedIn(currentTraceId: TraceId, completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
         print("Current traceId: \(currentTraceId.traceIdString)")
         backend.fetchInfo(traceId: currentTraceId)
             .execute { (traceInfo) in
@@ -458,17 +461,17 @@ class TraceIdService {
                 }
             }
     }
-    
+
     private func performCheckOut() {
         let hasBeenCheckedIn = isCurrentlyCheckedIn
-        var capturedTraceInfos = traceInfos
+        let capturedTraceInfos = traceInfos
         self.traceInfos = []
-        
+
         traceInfoRepo
             .store(objects: capturedTraceInfos)
             .debug("TraceInfo Storing 0")
             .logError(self, "TraceInfo Storing")
-            .subscribe() //Doesn't need to add to dispose bag as this stream ends and disposes automatically
+            .subscribe() // Doesn't need to add to dispose bag as this stream ends and disposes automatically
 
         self.cachedTraceIds = [:]
         if hasBeenCheckedIn {
@@ -476,10 +479,10 @@ class TraceIdService {
         }
         self.currentLocationInfo = nil
         self.removeAdditionalData()
-        
+
         self.disposeData(clearTraceHistory: false)
     }
-    
+
     func getOrCreateTraceId(core: TraceIdCore) throws -> TraceId {
         guard let uuid = lucaPreferences.uuid else {
             throw TraceIdServiceError.unableToRetrieveUserID
@@ -491,7 +494,7 @@ class TraceIdService {
         cachedTraceIds[core] = traceId
         return traceId
     }
-    
+
 }
 
 extension TraceIdService: UnsafeAddress, LogUtil {}

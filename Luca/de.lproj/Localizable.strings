@@ -32,6 +32,14 @@
 
 "userData.navigation.edit" = "Kontaktdaten bearbeiten";
 
+"userData.form.firstName.accessibilityError" = "Bitte gib deinen Vornamen ein, um fortzufahren.";
+"userData.form.lastName.accessibilityError" = "Bitte gib deinen Nachnamen ein, um fortzufahren.";
+"userData.form.phoneNumber.accessibilityError" = "Bitte gib deine Telefonnummer ein, um fortzufahren.";
+"userData.form.street.accessibilityError" = "Bitte gib deine Straße ein, um fortzufahren.";
+"userData.form.houseNumber.accessibilityError" = "Bitte gib deine Hausnummer ein, um fortzufahren.";
+"userData.form.postCode.accessibilityError" = "Bitte gib deine Postleitzahl ein, um fortzufahren.";
+"userData.form.city.accessibilityError" = "Bitte gib deine Stadt ein, um fortzufahren.";
+
 // Basic Navigation
 "navigation.basic.next" = "WEITER";
 
@@ -72,13 +80,17 @@
 
 "history.alert.title" = "Daten freigeben";
 
-"history.alert.description" = "Möchtest du deine Historie der letzten 14 Tage und deine Kontaktdaten für das Gesundheitsamt freigeben?";
+"history.alert.description" = "Möchtest du deine Historie der letzten 14 Tage und deine Kontaktdaten für das Gesundheitsamt freigeben? Dies erfolgt nur aufgrund deiner freiwilligen Einwilligung gem. Art. 9 (2) a) DSGVO (mehr: %@).";
+
+"history.alert.link" = "Datenschutz - App";
 
 "history.dataAccess.count" = "%@ Datenzugriffe";
 
 "history.data.updated" = "Daten aktualisiert";
 
 "history.data.shared" = "Daten freigegeben";
+
+"history.accessibility.dataAccessButton" = "Datenzugriffe ansehen";
 
 // Data release
 "dataRelease.tan.title" = "TAN";
@@ -175,12 +187,6 @@
 
 "locationCheckinViewController.checkOutFailed.locationNotAvailable.message" = "Es gibt keine Informationen über diese Location.";
 
-"locationCheckinViewController.permission.beforePrompt.title" = "Info";
-
-"locationCheckinViewController.permission.beforePrompt.message" = "Wir brauchen deine Position, um zu überprüfen ob du dich bei %@ befindest. Wähle in deinen Luca Standort Einstellungen die Option \"Immer\".";
-
-"locationCheckinViewController.permission.beforePrompt.messageWithoutName" = "Wir brauchen deine Position, um zu überprüfen ob du dich bei der Location befindest. Wähle in deinen Luca Standort Einstellungen die Option \"Immer\".";
-
 "locationCheckinViewController.permission.change.title" = "Standort Einstellungen";
 
 "locationCheckinViewController.permission.change.message" = "Um Auto-checkout zu nutzen, musst du in deinen Luca Standort Einstellungen die Position \"Immer\" wählen.";
@@ -194,6 +200,18 @@
 "locationCheckinViewController.autoCheckoutPermissionDisabled.message" = "Schalte in deinen Einstellungen die Standorteinstellung für Luca auf \"Immer\".";
 
 "locationCheckinViewController.welcomeMessage" = "Du bist eingecheckt!";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.title" = "Automatischer Checkout";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.message" = "Die Funktion des automatischen Check-outs nutzt Geofencing. Wenn ein luca-Standort diese Funktion verwendet, kannst du durch Nutzung deines Standortes durch die GPS-Funktion deines Handys automatisch auschecken, selbst wenn die App geschlossen ist. Dies erfolgt nur aufgrund deiner Einwilligung gem. Art. 6 (1) 1 a) DSGVO (mehr: %@). Natürlich kannst du dich auch jederzeit manuell auschecken.";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.link" = "Datenschutz - App";
+
+"locationCheckinViewController.autoCheckout.permission.beforePrompt.okButton" = "OKAY";
+
+"locationCheckinViewController.accessibility.directCheckout" = "Checke dich aus diesem Standort aus";
+
+"locationCheckinViewController.accessibility.checkoutSlider" = "Auschecken";
 
 // MainTabBarViewController
 
@@ -234,7 +252,14 @@
 // WelcomeViewController
 "welcomeViewController.termsAndConditions.checkboxMessage" = "Ich akzeptiere die AGB.";
 
+"welcomeViewController.termsAndConditions.checkboxAccessibility" = "AGB Checkbox";
+
+"welcomeViewController.termsAndConditions.checkboxAccessibilityOn" = "Bestätigt";
+"welcomeViewController.termsAndConditions.checkboxAccessibilityOff" = "Nicht bestätigt";
+
 "welcomeViewController.privacyPolicy.checkboxMessage" = "Ich habe die Datenschutzerklärung gelesen und akzeptiere sie.";
+
+"welcomeViewController.privacyPolicy.checkboxAccessibility" = "Datenschutzerklärung Checkbox";
 
 "welcomeViewController.termT_C" = "AGB";
 
@@ -297,9 +322,9 @@
 "phoneNumber.confirmation.description.fixed" = "Stelle sicher, dass das Telefon in deiner Nähe ist und überprüfe, ob diese Nummer korrekt ist. Du wirst im nächsten Schritt angerufen und erhältst durch eine Ansage deine TAN für die Verifizierung dieser Telefonnummer.";
 
 // Menu
-"data.deleteAccount.title" = "Account löschen";
+"data.resetData.title" = "App zurücksetzen";
 
-"data.deleteAccount.description" = "Möchtest du deinen Account wirklich löschen?\nLöschst du deinen Account, kannst du keine neuen Check-ins vornehmen und auf deine Historie zugreifen.\nDaten, die durch einen Check-in bei einem Betreiber verschlüsselt hinterlegt wurden, werden gemäß der Corona/COVID-19 Infektionsschutzverordnung nach 4 Wochen gelöscht.\nNach der Löschung des Accounts kannst du noch bis zu 4 Wochen nach dem letzten Check-in von dem Gesundheitsamt benachrichtigt werden.";
+"data.resetData.description" = "Möchtest du deine App wirklich zurücksetzen?\nWenn du die App zurücksetzt kannst du keine neuen Check-ins vornehmen und nicht mehr auf deine Historie zugreifen.";
 
 "data.clear.title" = "Historie leeren";
 
@@ -309,6 +334,12 @@
 "contact.qr.button.selfCheckin" = "SELBST EINCHECKEN";
 
 "contact.qr.button.closeScanner" = "QR-CODE SCANNER SCHLIESSEN";
+
+"contact.qr.button.more" = "Mehr Menu";
+
+"contact.qr.accessibility.qrCode" = "QR Code";
+
+"contact.qr.accessibility.qrCodeScanner" = "QR Code Scanner";
 
 // Data access
 "data.access.title" = "Neue Datenanfrage";
@@ -326,6 +357,11 @@
 
 // Errors
 "error.network.badGateway" = "Der luca-Service ist im Moment nicht verfügbar, bitte versuche es später erneut.";
+
+// Share data
+"data.shared.title" = "Daten freigegeben";
+
+"data.shared.description" = "Du hast deine Check-ins der letzten 14 Tage für das Gesundheitsamt freigegeben.";
 
 // Acknowledgements
 // Title of the acknowlegements cannot be set outside the source code of LicensesViewController pod. The pod sets the title using NSLocalizedString("Acknowledgements", comment: "Acknowledgements")

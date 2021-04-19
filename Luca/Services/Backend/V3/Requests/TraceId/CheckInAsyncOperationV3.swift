@@ -9,8 +9,8 @@ enum CheckInError: RequestError {
 
 extension CheckInError {
     var errorDescription: String? {
-        
-        switch self  {
+
+        switch self {
         case .timeMismatch:
             return "Check-in timestamp must be greater than the meeting start timestamp. Please wait a minute and try again."
         default:
@@ -23,23 +23,23 @@ extension CheckInError {
 }
 
 class CheckInAsyncOperationV3: BackendAsyncOperation<CheckInPayloadV3, CheckInError> {
-    
-    private var buildingError: CheckInError? = nil
-    
+
+    private var buildingError: CheckInError?
+
     init(backendAddress: BackendAddressV3, checkInBuilder: CheckInPayloadBuilderV3,
          qrCodePayload: QRCodePayloadV3, venuePubKey: KeySource, scannerId: String) {
-        
+
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("traces")
             .appendingPathComponent("checkin")
-        
-        var payload: CheckInPayloadV3? = nil
+
+        var payload: CheckInPayloadV3?
         do {
             payload = try checkInBuilder.build(qrCode: qrCodePayload, venuePublicKey: venuePubKey, scannerId: scannerId)
         } catch let error {
             buildingError = .unableToBuildCheckInPayload(error: error)
         }
-        
+
         super.init(url: fullUrl,
                    method: .post,
                    parameters: payload,
@@ -47,7 +47,7 @@ class CheckInAsyncOperationV3: BackendAsyncOperation<CheckInPayloadV3, CheckInEr
                                    404: .notFound,
                                    409: .timeMismatch])
     }
-    
+
     override func execute(completion: @escaping () -> Void, failure: @escaping (BackendError<CheckInError>) -> Void) -> (() -> Void) {
         if let error = buildingError {
             failure(BackendError(backendError: error))

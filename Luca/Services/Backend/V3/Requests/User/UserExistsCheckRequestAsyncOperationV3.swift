@@ -14,12 +14,12 @@ extension UserExistsError {
 }
 
 class UserExistsCheckRequestAsyncOperationV3: BackendAsyncOperation<KeyValueParameters, UserExistsError> {
-    
+
     init(backendAddress: BackendAddress, userId: UUID) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("users")
             .appendingPathComponent(userId.uuidString.lowercased())
-        
+
         super.init(url: fullUrl,
                    method: .head,
                    errorMappings: [404: .notFound])

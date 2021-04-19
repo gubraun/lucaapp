@@ -1,9 +1,9 @@
 import Foundation
 
 class DailyDataKeyRepository: KeyHistoryRepository<Date, Data> {
-    
+
     private var underlying: RawKeyHistoryRepository<Int>
-    
+
     override var factory: ((Date) throws -> Data)? {
         didSet {
             if let factory = self.factory {
@@ -13,16 +13,16 @@ class DailyDataKeyRepository: KeyHistoryRepository<Date, Data> {
             }
         }
     }
-    
+
     override var indices: Set<Date> {
         Set(underlying.indices.map { Date(timeIntervalSince1970: Double($0)) })
     }
-    
+
     override init(header: String) {
         underlying = RawKeyHistoryRepository(header: header)
         super.init(header: header)
     }
-    
+
     override func store(key: Data, index: Date) throws {
         try underlying.store(key: key, index: toDailyDate(date: index))
     }
@@ -35,7 +35,7 @@ class DailyDataKeyRepository: KeyHistoryRepository<Date, Data> {
     override func removeAll() {
         underlying.removeAll()
     }
-    
+
     private func toDailyDate(date: Date) -> Int {
         Int(Calendar.current.startOfDay(for: date).timeIntervalSince1970)
     }

@@ -1,17 +1,17 @@
 import UIKit
 
 extension UIApplication {
-    
+
     func openApplicationSettings() {
         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
             return
         }
-        
+
         if UIApplication.shared.canOpenURL(settingsUrl) {
             UIApplication.shared.open(settingsUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }
     }
-    
+
     var topViewController: UIViewController? {
         if var topController = keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
@@ -25,6 +25,6 @@ extension UIApplication {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+private func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

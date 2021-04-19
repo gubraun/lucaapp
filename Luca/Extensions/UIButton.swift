@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIButton {
-    
+
     func leftIcon(image: UIImage?) {
         if let icon = image {
             self.setImage(icon.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -9,5 +9,5 @@ extension UIButton {
             self.imageView?.contentMode = .scaleAspectFit
         }
     }
-    
+
 }

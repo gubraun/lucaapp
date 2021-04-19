@@ -1,7 +1,5 @@
 import Foundation
 
-public protocol TimerDelegate {
-    
+public protocol TimerDelegate: class {
     func timerDidTick()
-    
 }

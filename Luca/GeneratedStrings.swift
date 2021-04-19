@@ -85,9 +85,17 @@ internal enum L10n {
 
   internal enum Contact {
     internal enum Qr {
+      internal enum Accessibility {
+        /// QR Code
+        internal static let qrCode = L10n.tr("Localizable", "contact.qr.accessibility.qrCode")
+        /// QR Code Scanner
+        internal static let qrCodeScanner = L10n.tr("Localizable", "contact.qr.accessibility.qrCodeScanner")
+      }
       internal enum Button {
         /// CLOSE QR CODE SCANNER
         internal static let closeScanner = L10n.tr("Localizable", "contact.qr.button.closeScanner")
+        /// More Menu
+        internal static let more = L10n.tr("Localizable", "contact.qr.button.more")
         /// SELF CHECK-IN
         internal static let selfCheckin = L10n.tr("Localizable", "contact.qr.button.selfCheckin")
       }
@@ -149,11 +157,17 @@ internal enum L10n {
       /// Clear history
       internal static let title = L10n.tr("Localizable", "data.clear.title")
     }
-    internal enum DeleteAccount {
-      /// Do you really want to delete your account?\nIf you delete your account, you will not be able to check in or access your history.\nIn accordance with the Corona/COVID-19 infection control regulations, all encrypted check-in data will be deleted after 4 weeks.\nOnce your account is deleted, you can still be notified by a health department up to 4 weeks after your last check-in.
-      internal static let description = L10n.tr("Localizable", "data.deleteAccount.description")
-      /// Delete Account
-      internal static let title = L10n.tr("Localizable", "data.deleteAccount.title")
+    internal enum ResetData {
+      /// Do you really want to reset your app?\nIf you reset your app, you will not be able to check in or access your history.
+      internal static let description = L10n.tr("Localizable", "data.resetData.description")
+      /// Reset app
+      internal static let title = L10n.tr("Localizable", "data.resetData.title")
+    }
+    internal enum Shared {
+      /// You have shared your check-ins from the last 14 days with the health department.
+      internal static let description = L10n.tr("Localizable", "data.shared.description")
+      /// Data shared
+      internal static let title = L10n.tr("Localizable", "data.shared.title")
     }
   }
 
@@ -251,9 +265,17 @@ internal enum L10n {
   }
 
   internal enum History {
+    internal enum Accessibility {
+      /// View data accesses
+      internal static let dataAccessButton = L10n.tr("Localizable", "history.accessibility.dataAccessButton")
+    }
     internal enum Alert {
-      /// Would you like to share your contact data and the last 14 days of your history with the health department?
-      internal static let description = L10n.tr("Localizable", "history.alert.description")
+      /// Would you like to share your contact data and the last 14 days of your history with the health department? This is only done with your voluntary consent under art. 9 (2) a) GDPR (more: %@).
+      internal static func description(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "history.alert.description", String(describing: p1))
+      }
+      /// data privacy - app
+      internal static let link = L10n.tr("Localizable", "history.alert.link")
       /// Share data
       internal static let title = L10n.tr("Localizable", "history.alert.title")
     }
@@ -274,6 +296,28 @@ internal enum L10n {
   internal enum LocationCheckinViewController {
     /// You're checked in!
     internal static let welcomeMessage = L10n.tr("Localizable", "locationCheckinViewController.welcomeMessage")
+    internal enum Accessibility {
+      /// Checkout
+      internal static let checkoutSlider = L10n.tr("Localizable", "locationCheckinViewController.accessibility.checkoutSlider")
+      /// Checkout of location
+      internal static let directCheckout = L10n.tr("Localizable", "locationCheckinViewController.accessibility.directCheckout")
+    }
+    internal enum AutoCheckout {
+      internal enum Permission {
+        internal enum BeforePrompt {
+          /// data privacy - app
+          internal static let link = L10n.tr("Localizable", "locationCheckinViewController.autoCheckout.permission.beforePrompt.link")
+          /// This automatic checkout feature uses geofencing. If a luca-location uses it as well, you can check out automatically using your location through the GPS function of your phone, even when the app is closed. This is only done with your consent under art. 6 (1) 1 a) GDPR (more: %@). However, you can still check out manually at any time.
+          internal static func message(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "locationCheckinViewController.autoCheckout.permission.beforePrompt.message", String(describing: p1))
+          }
+          /// OKAY
+          internal static let okButton = L10n.tr("Localizable", "locationCheckinViewController.autoCheckout.permission.beforePrompt.okButton")
+          /// Automatic checkout
+          internal static let title = L10n.tr("Localizable", "locationCheckinViewController.autoCheckout.permission.beforePrompt.title")
+        }
+      }
+    }
     internal enum AutoCheckoutPermissionDisabled {
       /// Change your luca location permission to "Always".
       internal static let message = L10n.tr("Localizable", "locationCheckinViewController.autoCheckoutPermissionDisabled.message")
@@ -313,16 +357,6 @@ internal enum L10n {
       }
     }
     internal enum Permission {
-      internal enum BeforePrompt {
-        /// We need your position to check if you are still at %@. Please choose the option "Always" in your luca settings.
-        internal static func message(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "locationCheckinViewController.permission.beforePrompt.message", String(describing: p1))
-        }
-        /// We need your position to check if you are still at the location. Please choose the option "Always" in your luca settings.
-        internal static let messageWithoutName = L10n.tr("Localizable", "locationCheckinViewController.permission.beforePrompt.messageWithoutName")
-        /// Info
-        internal static let title = L10n.tr("Localizable", "locationCheckinViewController.permission.beforePrompt.title")
-      }
       internal enum Change {
         /// To use auto-checkout you must choose the option "Always" in your luca location settings.
         internal static let message = L10n.tr("Localizable", "locationCheckinViewController.permission.change.message")
@@ -502,6 +536,22 @@ internal enum L10n {
         /// Where do you live?
         internal static let formTitle = L10n.tr("Localizable", "userData.form.address.formTitle")
       }
+      internal enum City {
+        /// Please enter your city to continue.
+        internal static let accessibilityError = L10n.tr("Localizable", "userData.form.city.accessibilityError")
+      }
+      internal enum FirstName {
+        /// Please enter your first name to continue.
+        internal static let accessibilityError = L10n.tr("Localizable", "userData.form.firstName.accessibilityError")
+      }
+      internal enum HouseNumber {
+        /// Please enter your house number to continue.
+        internal static let accessibilityError = L10n.tr("Localizable", "userData.form.houseNumber.accessibilityError")
+      }
+      internal enum LastName {
+        /// Please enter your last name to continue.
+        internal static let accessibilityError = L10n.tr("Localizable", "userData.form.lastName.accessibilityError")
+      }
       internal enum Name {
         /// What's your name?
         internal static let formTitle = L10n.tr("Localizable", "userData.form.name.formTitle")
@@ -509,6 +559,18 @@ internal enum L10n {
       internal enum Phone {
         /// How can you be contacted?
         internal static let formTitle = L10n.tr("Localizable", "userData.form.phone.formTitle")
+      }
+      internal enum PhoneNumber {
+        /// Please enter your phone number to continue.
+        internal static let accessibilityError = L10n.tr("Localizable", "userData.form.phoneNumber.accessibilityError")
+      }
+      internal enum PostCode {
+        /// Please enter your zip code to continue.
+        internal static let accessibilityError = L10n.tr("Localizable", "userData.form.postCode.accessibilityError")
+      }
+      internal enum Street {
+        /// Please enter your street to continue.
+        internal static let accessibilityError = L10n.tr("Localizable", "userData.form.street.accessibilityError")
       }
     }
     internal enum Navigation {
@@ -584,10 +646,18 @@ internal enum L10n {
     /// terms of use
     internal static let termTC = L10n.tr("Localizable", "welcomeViewController.termT_C")
     internal enum PrivacyPolicy {
+      /// Privacy Policy Checkbox
+      internal static let checkboxAccessibility = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkboxAccessibility")
       /// I have read and agree to the privacy policy.
       internal static let checkboxMessage = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkboxMessage")
     }
     internal enum TermsAndConditions {
+      /// Terms of Use Checkbox
+      internal static let checkboxAccessibility = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkboxAccessibility")
+      /// Not confirmed
+      internal static let checkboxAccessibilityOff = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkboxAccessibilityOff")
+      /// Confirmed
+      internal static let checkboxAccessibilityOn = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkboxAccessibilityOn")
       /// I accept the terms of use.
       internal static let checkboxMessage = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkboxMessage")
     }

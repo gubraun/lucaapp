@@ -11,7 +11,7 @@ extension UserService {
     var onUserDataTransferedRx: Observable<Void> {
         NotificationCenter.default.rx.notification(NSNotification.Name(self.onUserDataTransfered), object: self).map { _ in Void() }
     }
-    
+
     func registerIfNeededRx() -> Single<Result> {
         Single.create { (observer) -> Disposable in
             self.registerIfNeeded { (result) in

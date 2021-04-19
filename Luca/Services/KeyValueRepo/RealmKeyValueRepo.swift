@@ -16,7 +16,7 @@ extension KeyValueRepoEntry: DataRepoModel {
 }
 
 class KeyValueRepoEntryRealmModel: RealmSaveModel<KeyValueRepoEntry> {
-    
+
     @objc dynamic var data = Data()
     @objc dynamic var key = ""
 
@@ -42,7 +42,7 @@ class RealmKeyValueUnderlyingRepo: RealmDataRepo<KeyValueRepoEntryRealmModel, Ke
     override func createSaveModel() -> KeyValueRepoEntryRealmModel {
         return KeyValueRepoEntryRealmModel()
     }
-    
+
     init() {
         super.init(schemaVersion: 0)
     }
@@ -61,21 +61,21 @@ extension RealmKeyValueRepoError {
     var localizedTitle: String {
         return L10n.Navigation.Basic.error
     }
-    
+
     var errorDescription: String? {
         return "\(self)"
     }
 }
 
 class RealmKeyValueRepo: KeyValueRepoProtocol {
-    
+
     private let underlying: RealmKeyValueUnderlyingRepo
-    
+
     init() {
         underlying = RealmKeyValueUnderlyingRepo()
     }
-    
-    func store<T>(_ key: String, value: T, completion: @escaping (() -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T : Encodable {
+
+    func store<T>(_ key: String, value: T, completion: @escaping (() -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Encodable {
         guard let data = try? JSONEncoder().encode(value) else {
             failure(RealmKeyValueRepoError.encodingFailed)
             return
@@ -86,8 +86,8 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
             failure: { _ in failure(RealmKeyValueRepoError.storingFailed) }
         )
     }
-    
-    func load<T>(_ key: String, completion: @escaping ((T) -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T : Decodable {
+
+    func load<T>(_ key: String, completion: @escaping ((T) -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Decodable {
         underlying.restore { (entries) in
             guard let entry = entries.first(where: { $0.key == key }) else {
                 failure(RealmKeyValueRepoError.objectNotFound)
@@ -106,7 +106,7 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
             failure(RealmKeyValueRepoError.loadingFailed)
         }
     }
-    
+
     func remove(_ key: String, completion: @escaping (() -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) {
         underlying.restore { (entries) in
             guard let entry = entries.first(where: { $0.key == key }) else {
@@ -131,7 +131,7 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
             failure(RealmKeyValueRepoError.loadingFailed)
         }
     }
-    
+
     func removeAll(completion: @escaping (() -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) {
         underlying.removeAll(completion: completion, failure: { (error) in
             if let expectedError = error as? LocalizedTitledError {
@@ -141,5 +141,5 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
             failure(RealmKeyValueRepoError.removingFailed)
         })
     }
-    
+
 }

@@ -2,29 +2,30 @@ import UIKit
 import JGProgressHUD
 
 class TANReleaseViewController: UIViewController {
-    
+
     @IBOutlet weak var tanLabel: UILabel!
-    
+
     var progressHud = JGProgressHUD.lucaLoading()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setTranslucent()
         self.tanLabel.alpha = 0.0
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setTranslucent()
+        self.navigationController?.navigationBar.tintColor = .white
         DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(1000)) {
-            
-            //If its still loading, present the HUD
+
+            // If its still loading, present the HUD
             if self.tanLabel.alpha == 0.0 {
                 self.progressHud.show(in: self.view)
             }
         }
-        
+
         ServiceContainer.shared.userService.transferUserData { (challengeId) in
-            
+
             let formattedString = challengeId
                 .uppercased()
                 .split(every: 4)
@@ -32,10 +33,10 @@ class TANReleaseViewController: UIViewController {
                     return "\(res)-\(group)"
                 }
                 .dropFirst()
-            
+
             DispatchQueue.main.async {
                 self.progressHud.dismiss()
-                
+
                 self.tanLabel.text = String(formattedString.uppercased())
                 UIView.animate(withDuration: 0.3) {
                     self.tanLabel.alpha = 1.0
@@ -52,11 +53,11 @@ class TANReleaseViewController: UIViewController {
         }
 
     }
-    
+
     @IBAction func dataReleasePressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
 }
 
 extension TANReleaseViewController: LogUtil, UnsafeAddress {}

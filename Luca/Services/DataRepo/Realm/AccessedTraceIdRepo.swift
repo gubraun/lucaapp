@@ -5,14 +5,14 @@ class AccessedTraceIdRealmModel: RealmSaveModel<AccessedTraceId> {
 
     @objc dynamic var healthDepartmentId = 0
     @objc dynamic var sightDate = Date()
-    @objc dynamic var localNotificationDate: Date? = nil
-    @objc dynamic var consumptionDate: Date? = nil
+    @objc dynamic var localNotificationDate: Date?
+    @objc dynamic var consumptionDate: Date?
     let traceInfoIds = List<Int>()
 
     override func create() -> AccessedTraceId {
         return AccessedTraceId(healthDepartmentId: 0, traceInfoIds: [Int](), sightDate: Date())
     }
-    
+
     override func populate(from: AccessedTraceId) {
         super.populate(from: from)
         healthDepartmentId = from.healthDepartmentId
@@ -22,7 +22,7 @@ class AccessedTraceIdRealmModel: RealmSaveModel<AccessedTraceId> {
         localNotificationDate = from.localNotificationDate
         consumptionDate = from.consumptionDate
     }
-    
+
     override var model: AccessedTraceId {
         var m = super.model
         m.healthDepartmentId = healthDepartmentId
@@ -36,7 +36,7 @@ class AccessedTraceIdRealmModel: RealmSaveModel<AccessedTraceId> {
 }
 
 extension AccessedTraceId: DataRepoModel {
-    
+
     var identifier: Int? {
         get {
             var checksum = Data()
@@ -46,15 +46,15 @@ extension AccessedTraceId: DataRepoModel {
         }
         set { }
     }
-    
+
 }
 
 class AccessedTraceIdRepo: RealmDataRepo<AccessedTraceIdRealmModel, AccessedTraceId> {
-    
+
     override func createSaveModel() -> AccessedTraceIdRealmModel {
         return AccessedTraceIdRealmModel()
     }
-    
+
     init() {
         super.init(schemaVersion: 1) { (migration, oldSchema) in
             if oldSchema < 1 {
@@ -62,5 +62,5 @@ class AccessedTraceIdRepo: RealmDataRepo<AccessedTraceIdRealmModel, AccessedTrac
             }
         }
     }
-    
+
 }

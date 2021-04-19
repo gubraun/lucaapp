@@ -23,7 +23,7 @@ public class Lockable<U> {
     public init(target: U) {
         self.target = target
     }
-    
+
     public func synchronized<T>(_ closure: () throws -> T) rethrows -> T {
         defer {
             objc_sync_exit(lock)
@@ -63,7 +63,7 @@ extension Lockable {
     func synchronized<T>(_ closure: (U) -> T) -> T {
         self.synchronized { closure(self.target) }
     }
-    
+
     func synchronized<T>(_ closure: (U) throws -> T) rethrows -> T {
         try self.synchronized { try closure(self.target) }
     }

@@ -4,12 +4,12 @@ import Security
 public class RSAOAEPSHA256Crypto: Encryption, Decryption {
     private let publicKey: KeySource?
     private let privateKey: KeySource?
-    
+
     init(publicKey: KeySource?, privateKey: KeySource? = nil) {
         self.publicKey = publicKey
         self.privateKey = privateKey
     }
-    
+
     public func encrypt(data: Data) throws -> Data {
         guard let publicKeySource = publicKey else {
             log("Encrypt: No public key source", entryType: .error)
@@ -26,7 +26,7 @@ public class RSAOAEPSHA256Crypto: Encryption, Decryption {
         }
         return encrypted
     }
-    
+
     public func decrypt(data: Data) throws -> Data {
         guard let privateKeySource = privateKey else {
             log("Decrypt: No private key source!", entryType: .error)

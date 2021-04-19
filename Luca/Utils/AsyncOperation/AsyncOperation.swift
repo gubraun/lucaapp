@@ -2,12 +2,12 @@ import Foundation
 import RxSwift
 
 public class AsyncOperation<ErrorType> where ErrorType: Error {
-    
+
     @discardableResult
-    func execute(completion: @escaping () -> Void, failure: @escaping (ErrorType) -> Void) -> (()->Void) {
+    func execute(completion: @escaping () -> Void, failure: @escaping (ErrorType) -> Void) -> (() -> Void) {
         fatalError("Not implemented")
     }
-    
+
 }
 
 extension AsyncOperation {

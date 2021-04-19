@@ -10,7 +10,7 @@ class UserRegistrationDataIntermediate: Codable {
     var phoneNumber: String?
     var email: String?
     var version = 2
-    
+
     init(userRegistrationData: UserRegistrationData) {
         self.firstName = userRegistrationData.firstName
         self.lastName = userRegistrationData.lastName
@@ -21,7 +21,7 @@ class UserRegistrationDataIntermediate: Codable {
         self.phoneNumber = userRegistrationData.phoneNumber
         self.email = userRegistrationData.email
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case firstName = "fn"
         case lastName = "ln"

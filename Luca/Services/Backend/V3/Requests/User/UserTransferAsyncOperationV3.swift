@@ -17,20 +17,20 @@ extension UserTransferError {
 }
 
 class UserTransferAsyncOperationV3: MappedBackendAsyncDataOperation<UserTransferDataV3, String, UserTransferError> {
-    
-    private var buildingError: UserTransferError? = nil
-    
+
+    private var buildingError: UserTransferError?
+
     init(backendAddress: BackendAddressV3, userTransferBuilder: UserTransferBuilderV3, userId: UUID) {
-        var payload: UserTransferDataV3? = nil
+        var payload: UserTransferDataV3?
         do {
             payload = try userTransferBuilder.build(userId: userId)
         } catch let error {
             buildingError = .unableToBuildUserTransferData(error: error)
         }
-        
+
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("userTransfers")
-        
+
         super.init(url: fullUrl,
                    method: .post,
                    parameters: payload,
@@ -38,7 +38,7 @@ class UserTransferAsyncOperationV3: MappedBackendAsyncDataOperation<UserTransfer
                                    403: .invalidSignature,
                                    404: .notFound])
     }
-    
+
     override func execute(completion: @escaping (String) -> Void, failure: @escaping (BackendError<UserTransferError>) -> Void) -> (() -> Void) {
         if let error = buildingError {
             failure(BackendError(backendError: error))
@@ -46,8 +46,8 @@ class UserTransferAsyncOperationV3: MappedBackendAsyncDataOperation<UserTransfer
         }
         return super.execute(completion: completion, failure: failure)
     }
-    
-    override func map(dict: [String : Any]) throws -> String {
+
+    override func map(dict: [String: Any]) throws -> String {
         if let tan = dict["tan"] as? String {
             return tan
         }

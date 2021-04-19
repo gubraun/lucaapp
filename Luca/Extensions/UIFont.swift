@@ -1,16 +1,16 @@
 import UIKit
 
 extension UIFont {
-    
+
     static var montserratRegularTimer: UIFont {
         // Italic font as an alternative so that we know something is broken.
         UIFont(name: "Montserrat-Regular", size: 50.0) ?? UIFont.italicSystemFont(ofSize: 60.0)
     }
-    
+
     static var montserratCheckbox: UIFont {
         UIFont(name: "Montserrat-Medium", size: 12.0) ?? UIFont.italicSystemFont(ofSize: 12.0)
     }
-    
+
     static var montserratTableViewTitle: UIFont {
         UIFont(name: "Montserrat-Bold", size: 16.0) ?? UIFont.italicSystemFont(ofSize: 16.0)
     }
@@ -19,6 +19,13 @@ extension UIFont {
         UIFont(name: "Montserrat-Medium", size: 14.0) ?? UIFont.italicSystemFont(ofSize: 14.0)
     }
     
+    static var montserratDataAccessAlertDescriptionBold: UIFont {
+        UIFont(name: "Montserrat-Bold", size: 14.0) ?? UIFont.italicSystemFont(ofSize: 14.0)
+    }
+
+    static var montserratDataAccessAlertDescription: UIFont {
+        UIFont(name: "Montserrat-Medium", size: 14.0) ?? UIFont.italicSystemFont(ofSize: 14.0)
+    }
 }
 
 extension UIFont {
