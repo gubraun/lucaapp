@@ -146,6 +146,7 @@
 		D5888699252F4F9300CAAB82 /* StandardLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5888698252F4F9300CAAB82 /* StandardLog.swift */; };
 		D58F4B7F2577E0B10085A3D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B48BB48724EEB85800FC6780 /* Localizable.strings */; };
 		D58F4BA02577E3440085A3D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D58F4B632577D85C0085A3D1 /* InfoPlist.strings */; };
+		D59261C5262F2EBF00D3A489 /* .gitlab-ci.yml in Resources */ = {isa = PBXBuildFile; fileRef = D59261C4262F2EBF00D3A489 /* .gitlab-ci.yml */; };
 		D5986015251CF7EF0086D5CA /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5986014251CF7EF0086D5CA /* UITextField.swift */; };
 		D5996E8225B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5996E8125B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift */; };
 		D59A0968258A2465001683A2 /* LocationCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59A0967258A2465001683A2 /* LocationCheckinViewController.swift */; };
@@ -377,6 +378,7 @@
 		D59261BA262F2B7700D3A489 /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
 		D59261BB262F2B7700D3A489 /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
 		D59261BF262F2BAF00D3A489 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
+		D59261C4262F2EBF00D3A489 /* .gitlab-ci.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = ".gitlab-ci.yml"; sourceTree = "<group>"; };
 		D5986014251CF7EF0086D5CA /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		D5996E8125B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyChallengeBulkRequestAsyncOperation.swift; sourceTree = "<group>"; };
 		D59A0967258A2465001683A2 /* LocationCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCheckinViewController.swift; sourceTree = "<group>"; };
@@ -992,6 +994,7 @@
 		D59261B8262F2B5A00D3A489 /* CI Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				D59261C4262F2EBF00D3A489 /* .gitlab-ci.yml */,
 				D59261BF262F2BAF00D3A489 /* Gemfile */,
 				D59261B9262F2B7700D3A489 /* fastlane */,
 			);
@@ -1249,6 +1252,7 @@
 				B4808E2325B1F0DB00DE38E0 /* AlertsSE.storyboard in Resources */,
 				D50D89902625F0780020A02C /* BackendCredentials.stencil in Resources */,
 				B434E3D424EBC04E009305CA /* Assets.xcassets in Resources */,
+				D59261C5262F2EBF00D3A489 /* .gitlab-ci.yml in Resources */,
 				D58F4BA02577E3440085A3D1 /* InfoPlist.strings in Resources */,
 				D5E1B29E25D18A8C0062E17A /* *.luca-app.de.cer in Resources */,
 				B4F1B13924ED392F006D6D73 /* Montserrat-SemiBold.ttf in Resources */,
