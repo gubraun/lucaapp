@@ -374,6 +374,9 @@
 		D5888698252F4F9300CAAB82 /* StandardLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardLog.swift; sourceTree = "<group>"; };
 		D58F4B622577D85C0085A3D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D58F4B662577D85F0085A3D1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D59261BA262F2B7700D3A489 /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
+		D59261BB262F2B7700D3A489 /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
+		D59261BF262F2BAF00D3A489 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
 		D5986014251CF7EF0086D5CA /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		D5996E8125B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyChallengeBulkRequestAsyncOperation.swift; sourceTree = "<group>"; };
 		D59A0967258A2465001683A2 /* LocationCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCheckinViewController.swift; sourceTree = "<group>"; };
@@ -489,6 +492,7 @@
 		B434E3BE24EBC04B009305CA = {
 			isa = PBXGroup;
 			children = (
+				D59261B8262F2B5A00D3A489 /* CI Configuration */,
 				B434E3C924EBC04B009305CA /* Luca */,
 				B434E3C824EBC04B009305CA /* Products */,
 				5332B7D210A0E837B453D0EE /* Pods */,
@@ -983,6 +987,24 @@
 				D581112D25360800006448EA /* DataKeyRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		D59261B8262F2B5A00D3A489 /* CI Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				D59261BF262F2BAF00D3A489 /* Gemfile */,
+				D59261B9262F2B7700D3A489 /* fastlane */,
+			);
+			name = "CI Configuration";
+			sourceTree = "<group>";
+		};
+		D59261B9262F2B7700D3A489 /* fastlane */ = {
+			isa = PBXGroup;
+			children = (
+				D59261BA262F2B7700D3A489 /* Appfile */,
+				D59261BB262F2B7700D3A489 /* Fastfile */,
+			);
+			path = fastlane;
 			sourceTree = "<group>";
 		};
 		D5A8751B2514EF48001C0E5E /* DataBuilders */ = {
