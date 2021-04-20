@@ -1,5 +1,8 @@
 image: "ruby:2.4"
 
+before_script:
+  - ruby -v                                   # Print out ruby version for debugging
+
 stages:
   - build
   - test
