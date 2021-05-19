@@ -1,14 +1,22 @@
 PODS:
-  - Alamofire (5.2.2)
+  - Alamofire (5.4.3)
   - base64url (1.1.0)
-  - CryptoSwift (1.3.1)
-  - DeviceKit (3.2.0)
+  - BlueCryptor (1.0.32)
+  - BlueECC (1.2.5)
+  - BlueRSA (1.0.34)
+  - CryptoSwift (1.4.0)
+  - DeviceKit (4.4.0)
   - IQKeyboardManagerSwift (6.5.6)
-  - JGProgressHUD (2.1)
+  - JGProgressHUD (2.2)
+  - KituraContracts (1.2.1):
+    - LoggerAPI (~> 1.7)
   - LicensesViewController (0.9.0)
-  - MaterialComponents/AnimationTiming (113.1.0)
-  - MaterialComponents/Availability (113.1.0)
-  - MaterialComponents/Buttons (113.1.0):
+  - LoggerAPI (1.9.200):
+    - Logging (~> 1.1)
+  - Logging (1.4.0)
+  - MaterialComponents/AnimationTiming (124.1.1)
+  - MaterialComponents/Availability (124.1.1)
+  - MaterialComponents/Buttons (124.1.1):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
@@ -20,35 +28,35 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - MaterialComponents/Elevation (113.1.0):
+  - MaterialComponents/Elevation (124.1.1):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Ink (113.1.0):
+  - MaterialComponents/Ink (124.1.1):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Palettes (113.1.0)
-  - MaterialComponents/private/Application (113.1.0)
-  - MaterialComponents/private/Color (113.1.0):
+  - MaterialComponents/Palettes (124.1.1)
+  - MaterialComponents/private/Application (124.1.1)
+  - MaterialComponents/private/Color (124.1.1):
     - MaterialComponents/Availability
-  - MaterialComponents/private/Math (113.1.0)
-  - MaterialComponents/Ripple (113.1.0):
+  - MaterialComponents/private/Math (124.1.1)
+  - MaterialComponents/Ripple (124.1.1):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/ShadowElevations (113.1.0)
-  - MaterialComponents/ShadowLayer (113.1.0):
+  - MaterialComponents/ShadowElevations (124.1.1)
+  - MaterialComponents/ShadowLayer (124.1.1):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (113.1.0):
+  - MaterialComponents/ShapeLibrary (124.1.1):
     - MaterialComponents/private/Math
     - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (113.1.0):
+  - MaterialComponents/Shapes (124.1.1):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/TextFields (113.1.0):
+  - MaterialComponents/TextFields (124.1.1):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Buttons
     - MaterialComponents/Elevation
@@ -56,72 +64,85 @@ PODS:
     - MaterialComponents/private/Math
     - MaterialComponents/Typography
     - MDFInternationalization
-  - MaterialComponents/Typography (113.1.0):
+  - MaterialComponents/Typography (124.1.1):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
     - MDFTextAccessibility
   - MDFInternationalization (2.0.0)
-  - MDFTextAccessibility (2.0.0)
+  - MDFTextAccessibility (2.0.1)
   - Mocker (2.2.0)
-  - PhoneNumberKit (3.3.0):
-    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.0)
-    - PhoneNumberKit/UIKit (= 3.3.0)
-  - PhoneNumberKit/PhoneNumberKitCore (3.3.0)
-  - PhoneNumberKit/UIKit (3.3.0):
+  - PhoneNumberKit (3.3.3):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.3)
+    - PhoneNumberKit/UIKit (= 3.3.3)
+  - PhoneNumberKit/PhoneNumberKitCore (3.3.3)
+  - PhoneNumberKit/UIKit (3.3.3):
     - PhoneNumberKit/PhoneNumberKitCore
-  - Realm (5.4.3):
-    - Realm/Headers (= 5.4.3)
-  - Realm/Headers (5.4.3)
-  - RealmSwift (5.4.3):
-    - Realm (= 5.4.3)
-  - RxAppState (1.6.0):
-    - RxCocoa (~> 5.0)
-    - RxSwift (~> 5.0)
-  - RxCocoa (5.1.1):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxRelay (5.1.1):
-    - RxSwift (~> 5)
-  - RxSwift (5.1.1)
+  - Realm (5.5.1):
+    - Realm/Headers (= 5.5.1)
+  - Realm/Headers (5.5.1)
+  - RealmSwift (5.5.1):
+    - Realm (= 5.5.1)
+  - RxAppState (1.7.0):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxCocoa (6.1.0):
+    - RxRelay (= 6.1.0)
+    - RxSwift (= 6.1.0)
+  - RxRelay (6.1.0):
+    - RxSwift (= 6.1.0)
+  - RxSwift (6.1.0)
   - SimpleCheckbox (2.1.0)
-  - Sourcery (1.3.4)
-  - SwiftBase32 (0.8.0)
-  - SwiftGen (6.2.1)
-  - SwiftLint (0.43.0)
+  - Sourcery (1.4.1)
+  - SwiftBase32 (0.9.0)
+  - SwiftGen (6.4.0)
+  - SwiftJWT (3.6.200):
+    - BlueCryptor (~> 1.0)
+    - BlueECC (~> 1.1)
+    - BlueRSA (~> 1.0)
+    - KituraContracts (~> 1.2)
+    - LoggerAPI (~> 1.7)
+  - SwiftLint (0.43.1)
   - TTTAttributedLabel (2.0.0)
   - Validator (3.2.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.2)
-  - base64url
-  - CryptoSwift (~> 1.0)
-  - DeviceKit (~> 3)
-  - IQKeyboardManagerSwift
-  - JGProgressHUD
+  - Alamofire (~> 5.4.3)
+  - base64url (~> 1.1.0)
+  - CryptoSwift (~> 1.4.0)
+  - DeviceKit (~> 4.4.0)
+  - IQKeyboardManagerSwift (~> 6.5.6)
+  - JGProgressHUD (~> 2.2)
   - LicensesViewController (~> 0.9.0)
-  - MaterialComponents/TextFields
+  - MaterialComponents/TextFields (~> 124.1.1)
   - Mocker (~> 2.2.0)
-  - PhoneNumberKit (~> 3.3)
-  - RealmSwift
-  - RxAppState
-  - RxSwift
-  - SimpleCheckbox
-  - Sourcery (~> 1.3.4)
-  - SwiftBase32
-  - SwiftGen (~> 6.0)
-  - SwiftLint
-  - TTTAttributedLabel
-  - Validator
+  - PhoneNumberKit (~> 3.3.3)
+  - RealmSwift (~> 5.5.1)
+  - RxAppState (~> 1.7.0)
+  - RxSwift (~> 6.1.0)
+  - SimpleCheckbox (~> 2.1.0)
+  - Sourcery (~> 1.4.1)
+  - SwiftBase32 (~> 0.9.0)
+  - SwiftGen (~> 6.4.0)
+  - SwiftJWT (~> 3.6.200)
+  - SwiftLint (~> 0.43.1)
+  - TTTAttributedLabel (~> 2.0.0)
+  - Validator (~> 3.2.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - base64url
+    - BlueCryptor
+    - BlueECC
+    - BlueRSA
     - CryptoSwift
     - DeviceKit
     - IQKeyboardManagerSwift
     - JGProgressHUD
+    - KituraContracts
     - LicensesViewController
+    - LoggerAPI
+    - Logging
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -137,37 +158,45 @@ SPEC REPOS:
     - Sourcery
     - SwiftBase32
     - SwiftGen
+    - SwiftJWT
     - SwiftLint
     - TTTAttributedLabel
     - Validator
 
 SPEC CHECKSUMS:
-  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   base64url: 92e81bb256f2070359a34fc93a7a7d4b9a9d689f
-  CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
-  DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
+  BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
+  BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
+  BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
+  CryptoSwift: 7cc902df1784de3b389a387756c7d710f197730c
+  DeviceKit: 2c5d7485a2fa10b65c0091b2952d30843a6ba06d
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
-  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   LicensesViewController: 6487b7721aa19d81d90f2ede98b44177f74bcf1f
-  MaterialComponents: 2dd68a6e240ec31c37a4559f176b7bcfe31ef92c
+  LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
+  Logging: beeb016c9c80cf77042d62e83495816847ef108b
+  MaterialComponents: b9f58f24bf74588a83b2dce05802a11aaed5257d
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
-  MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
   Mocker: d0ceb340eddd5c28539a691ce67d068674cef9a0
-  PhoneNumberKit: edd7d55c9bcf5b00cb7675c045b24c698a43c874
-  Realm: e3d5fcc50fd79ddf87a2d86301f6edbf57531f84
-  RealmSwift: db608068eccc54bce47928e8118bde13c120c307
-  RxAppState: b633d7370970ecb80081912ea08a7bf3eb644b4e
-  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  PhoneNumberKit: 4ce83273551c4d2ae10b7361162f4283dd02835f
+  Realm: c2ffe0667f9c98c9ba65f608ba85684d39826145
+  RealmSwift: 5a35c1c35c3e1925e6fcd092c881d5cc4a826bff
+  RxAppState: 20985b89f0b5d19aa67cf9b0ca38d07878e2fcae
+  RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
+  RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
+  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SimpleCheckbox: ddcd433ab8c3a8f57300bebda13151a8f302c7f9
-  Sourcery: 1b5b0f816fbed6d0c7c066786fff4074e470e796
-  SwiftBase32: 723fd05e2fce776f2b98f26fe423bd20fa80e411
-  SwiftGen: 62e69d127507be1538d4263e137b2290cd6ab272
-  SwiftLint: 0c645fdc6feed3e390c1701ab3cc669f88b42752
+  Sourcery: db66600e8b285c427701821598d07cf3c7e6c476
+  SwiftBase32: 9399c25a80666dc66b51e10076bf591e3bbb8f17
+  SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
+  SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: c3e45fd3d5aa0bf6b49aafd577f4d5bfda6f27dd
+PODFILE CHECKSUM: 0f6f0842101b7ae01a8f0f556958c1a406348b40
 
 COCOAPODS: 1.10.1

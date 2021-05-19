@@ -5,9 +5,10 @@ import TTTAttributedLabel
 class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var termsAndConditionsCheckbox: Checkbox!
-
+    @IBOutlet weak var termsAndConditionsCheckboxError: UIImageView!
     @IBOutlet weak var termsAndConditionsTextView: TTTAttributedLabel!
     @IBOutlet weak var privacyPolicyCheckbox: Checkbox!
+    @IBOutlet weak var privacyPolicyCheckboxError: UIImageView!
     @IBOutlet weak var privacyPolicyTextView: TTTAttributedLabel!
 
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -30,9 +31,12 @@ class WelcomeViewController: UIViewController {
         privacyPolicyCheckbox.addTarget(self, action: #selector(checkboxValueChanged(_:)), for: .valueChanged)
         termsAndConditionsCheckbox.addTarget(self, action: #selector(checkboxValueChanged(_:)), for: .valueChanged)
 
-        okButton.isEnabled = false
+        setupCheckboxError(termsAndConditionsCheckboxError)
+        setupCheckboxError(privacyPolicyCheckboxError)
 
         descriptionLabel.text = L10n.Welcome.Info.description
+
+        okButton.layer.cornerRadius = okButton.frame.size.height / 2
 
         buildTappableLabel(
             wholeTerm: L10n.WelcomeViewController.PrivacyPolicy.checkboxMessage,
@@ -48,9 +52,9 @@ class WelcomeViewController: UIViewController {
 
     }
 
-    func setupCheckbox(_ checkbox: Checkbox, accessibilityLabel: String) {
-        checkbox.checkedBorderColor = UIColor.white
-        checkbox.uncheckedBorderColor = UIColor.white
+    private func setupCheckbox(_ checkbox: Checkbox, accessibilityLabel: String) {
+        checkbox.checkedBorderColor = .white
+        checkbox.uncheckedBorderColor = .white
         checkbox.borderStyle = .square
         checkbox.borderLineWidth = 1
         checkbox.borderCornerRadius = 2
@@ -60,6 +64,13 @@ class WelcomeViewController: UIViewController {
 
         checkbox.accessibilityLabel = accessibilityLabel
         checkbox.isAccessibilityElement = true
+    }
+
+    private func setupCheckboxError(_ errorImage: UIImageView) {
+        let image = UIImage(cgImage: #imageLiteral(resourceName: "infoIcon").cgImage!, scale: #imageLiteral(resourceName: "infoIcon").scale, orientation: .down)
+        errorImage.image = image.withRenderingMode(.alwaysTemplate)
+        errorImage.tintColor = .lucaError
+        errorImage.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -79,30 +90,42 @@ class WelcomeViewController: UIViewController {
         }
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        okButton.layer.cornerRadius = okButton.frame.size.height / 2
-        updateOkButton()
-    }
-
     @IBAction func onOkButton(_ sender: UIButton) {
+        guard validateCheckboxes() else {
+            highlightUncheckedCheckboxes()
+            return
+        }
         LucaPreferences.shared.welcomePresented = true
         self.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func checkboxValueChanged(_ sender: Checkbox) {
-        okButton.isEnabled = termsAndConditionsCheckbox.isChecked && privacyPolicyCheckbox.isChecked
+        sender.removeErrorStyling()
         sender.accessibilityValue = sender.isChecked ? L10n.WelcomeViewController.TermsAndConditions.checkboxAccessibilityOn : L10n.WelcomeViewController.TermsAndConditions.checkboxAccessibilityOff
-        updateOkButton()
+        if sender == termsAndConditionsCheckbox {
+            termsAndConditionsCheckboxError.isHidden = true
+        } else if sender == privacyPolicyCheckbox {
+            privacyPolicyCheckboxError.isHidden = true
+        }
     }
 
-    private func updateOkButton() {
-        okButton.backgroundColor = okButton.isEnabled ? UIColor.lucaLightGrey : UIColor.lucaGrey
+    private func validateCheckboxes() -> Bool {
+        termsAndConditionsCheckbox.isChecked && privacyPolicyCheckbox.isChecked
+    }
+
+    private func highlightUncheckedCheckboxes() {
+        if !termsAndConditionsCheckbox.isChecked {
+            termsAndConditionsCheckbox.styleForError()
+            termsAndConditionsCheckboxError.isHidden = false
+        }
+
+        if !privacyPolicyCheckbox.isChecked {
+            privacyPolicyCheckbox.styleForError()
+            privacyPolicyCheckboxError.isHidden = false
+        }
     }
 
     private func buildTappableLabel(wholeTerm: String, linkTerms: [String], linkURLs: [URL], tappableLabel: TTTAttributedLabel) {
-
         if linkTerms.count != linkURLs.count {
             self.log("Terms and links should be the same size", entryType: .error)
             return
@@ -137,3 +160,14 @@ extension WelcomeViewController: TTTAttributedLabelDelegate {
 }
 
 extension WelcomeViewController: UnsafeAddress, LogUtil {}
+
+private extension Checkbox {
+    func styleForError() {
+        uncheckedBorderColor = .lucaError
+        setNeedsDisplay()
+    }
+
+    func removeErrorStyling() {
+        uncheckedBorderColor = .white
+    }
+}

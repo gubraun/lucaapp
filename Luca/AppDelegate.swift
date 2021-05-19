@@ -100,13 +100,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      continue userActivity: NSUserActivity,
                      restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-              let incomingURL = userActivity.webpageURL,
-              let selfCheckin = CheckInURLParser.parse(url: incomingURL) else {
+              let incomingURL = userActivity.webpageURL else {
             return false
         }
-        ServiceContainer.shared.selfCheckin.add(selfCheckinPayload: selfCheckin)
+
+        if let selfCheckin = CheckInURLParser.parse(url: incomingURL) {
+            ServiceContainer.shared.selfCheckin.add(selfCheckinPayload: selfCheckin)
+        } else if incomingURL.absoluteString.hasPrefix(CoronaTestDeeplinkService.deeplinkTestPrefix) {
+            CoronaTestDeeplinkService.postDeeplinkNotification(test: incomingURL.absoluteString)
+        }
 
         return true
     }

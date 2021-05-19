@@ -37,7 +37,7 @@ class DataAccessViewController: UIViewController {
                     }
                 }
                 return retVal
-            }.observeOn(MainScheduler.instance)
+            }.observe(on: MainScheduler.instance)
             .do(onSuccess: { dict in
                 dict.isEmpty ? self.showEmptyState() : self.hideEmptyState()
                 self.dataAccesses = Array(zip(dict.keys, dict.values))

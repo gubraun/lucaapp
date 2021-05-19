@@ -15,13 +15,13 @@ extension KeyValueRepoProtocol {
             return Disposables.create()
         }
     }
-    func load<T>(_ key: String) -> Single<T> where T: Decodable {
+    func load<T>(_ key: String, type: T.Type) -> Single<T> where T: Decodable {
         Single.create { (observer) -> Disposable in
 
-            self.load(key) { (value) in
+            self.load(key, type: type) { (value) in
                 observer(.success(value))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create()

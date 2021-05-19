@@ -35,7 +35,7 @@ class ContactQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        scannerService = ScannerService(view: qrCodeImageView, presenting: self)
+        scannerService = ScannerService()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -56,12 +56,12 @@ class ContactQRViewController: UIViewController {
             remindIfAddressNotFilled()
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.removeTransparency()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -90,7 +90,7 @@ class ContactQRViewController: UIViewController {
                 .consume(accessedTraces: self.accessedTraces)
                 .andThen(Single.just(dict))
             }
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .do(onSuccess: { dict in
                 self.showDataAccessAlert(accesses: dict)
             })
@@ -177,7 +177,7 @@ class ContactQRViewController: UIViewController {
     }
 
     func startScanner() {
-        scannerService.startScanner()
+        scannerService.startScanner(onParent: self, in: qrCodeImageView)
         selfCheckinButton.setTitle(L10n.Contact.Qr.Button.closeScanner, for: .normal)
         descriptionLabel.text = L10n.Checkin.Scanner.description
         titleLabel.text = L10n.Checkin.Scanner.title
@@ -200,7 +200,7 @@ class ContactQRViewController: UIViewController {
     private func createPrivateMeeting() {
         if ServiceContainer.shared.privateMeetingService.currentMeeting == nil {
             _ = ServiceContainer.shared.privateMeetingService.createMeeting()
-                .subscribeOn(MainScheduler.instance)
+                .subscribe(on: MainScheduler.instance)
                 .do(onSubscribe: { self.progressHud.show(in: self.view) })
                 .do(onDispose: { self.progressHud.dismiss() })
                 .do(onSuccess: { meeting in
@@ -286,7 +286,7 @@ class ContactQRViewController: UIViewController {
                         Observable<Int>.timer(.seconds(0), period: .seconds(10), scheduler: LucaScheduling.backgroundScheduler)
                             .flatMapFirst { _ in self.handleQRCodeGeneration() }
                     }
-                    .ignoreElements()
+                    .ignoreElementsAsCompletable()
             }
             .debug("QR Image")
             .logError(self, "QR Image")
@@ -300,7 +300,7 @@ class ContactQRViewController: UIViewController {
     private func handleQRCodeGeneration() -> Completable {
         Single.from { try ServiceContainer.shared.traceIdService.getOrCreateQRCode().qrCodeData }
             .asObservable()
-            .catchError({ (error) -> Observable<Data> in
+            .catch({ (error) -> Observable<Data> in
 
                 defer { self.errorsCount += 1 }
 
@@ -311,13 +311,13 @@ class ContactQRViewController: UIViewController {
                 return UIAlertController.infoAlertRx(viewController: self,
                                                      title: L10n.Navigation.Basic.error,
                                                      message: L10n.QrCodeGeneration.Failure.message(error.localizedDescription))
-                    .ignoreElements()
+                    .ignoreElementsAsCompletable()
                     .andThen(Observable<Data>.error(error))
                     // Do not consume the error, push it further to cause the restart of the stream. The alerts won't be cumulated as the alert Rx waits until user disposes it.
             })
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .do(onNext: { data in self.setupQrImage(qrCodeData: data) })
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
     }
 
     /// Returns true if phone number is not verified yet

@@ -28,7 +28,7 @@ var testedBackendError: Int?
 #endif
 
 let userAgent = "luca/\(appVersion) \(mode) (iOS \(sysVersion);\(deviceModel))"
-private let authorizationCredentials = "\(backendCreds.login):\(backendCreds.password)".data(using: .utf8)!.base64EncodedString()
+private let authorizationCredentials = "\(secrets.backendLogin):\(secrets.backendPassword)".data(using: .utf8)!.base64EncodedString()
 let authorizationContent = "Basic \(authorizationCredentials)"
 
 class LucaAlamofireSessionBuilder {
@@ -51,7 +51,7 @@ class LucaAlamofireSessionBuilder {
         let trustManager = ServerTrustManager(
             evaluators:
                 ["app.luca-app.de": PinnedCertificatesTrustEvaluator(),     // Alamofire does not support wildcards
-                 "staging.luca-app.de": PinnedCertificatesTrustEvaluator()
+                 "app-dev.luca-app.de": PinnedCertificatesTrustEvaluator()
                 ])
 
         return Session(configuration: configuration, serverTrustManager: trustManager)

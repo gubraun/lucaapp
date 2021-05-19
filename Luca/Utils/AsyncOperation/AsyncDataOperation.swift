@@ -17,7 +17,7 @@ extension AsyncDataOperation {
             let execution = self.execute { result in
                 observer(.success(result))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create {

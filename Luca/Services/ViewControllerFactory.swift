@@ -147,6 +147,18 @@ class AlertViewControllerFactory {
             }
         }
     }
+
+    static func createTestPrivacyConsent(confirmAction: @escaping () -> Void) -> AlertWithLinkViewController {
+        let alert: AlertWithLinkViewController = instantiateViewController(identifier: "AlertWithLinkViewController")
+        let link = L10n.History.Alert.link
+        alert.setup(withTitle: L10n.Tests.Uniqueness.Consent.title,
+                    description: L10n.Tests.Uniqueness.Consent.description(link),
+                    link: link,
+                    url: ServiceContainer.shared.backendAddressV3.privacyPolicyUrl,
+                    confirmAction: confirmAction)
+        alert.view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        return alert
+    }
 }
 
 extension AlertViewControllerFactory {
@@ -178,7 +190,7 @@ extension AlertViewControllerFactory {
                 alert.dismiss(animated: true, completion: nil)
             }
         }
-        .subscribeOn(MainScheduler.instance)
+        .subscribe(on: MainScheduler.instance)
     }
 }
 
@@ -227,6 +239,10 @@ class MainViewControllerFactory {
 
     static func createQRScannerViewController() -> QRScannerViewController {
         return instantiateViewController(identifier: "QRScannerViewController")
+    }
+
+    static func createTestQRScannerViewController() -> TestQRCodeScannerController {
+        return instantiateViewController(identifier: "TestQRCodeScannerController")
     }
 
 }

@@ -40,7 +40,7 @@ extension UIAlertController {
                 alert.dismiss(animated: true, completion: nil)
             }
         }
-        .subscribeOn(MainScheduler.instance)
+        .subscribe(on: MainScheduler.instance)
     }
 
     static func noInternetError(onOk: (() -> Void)? = nil) -> UIAlertController {
@@ -69,7 +69,7 @@ extension UIAlertController {
                 alert.dismiss(animated: true, completion: nil)
             }
         }
-        .subscribeOn(MainScheduler.instance)
+        .subscribe(on: MainScheduler.instance)
     }
 
     static func yesOrNo(title: String, message: String, onYes: (() -> Void)? = nil, onNo: (() -> Void)? = nil) -> UIAlertController {
@@ -90,7 +90,7 @@ extension UIAlertController {
                 alert.dismiss(animated: true, completion: nil)
             }
         }
-        .subscribeOn(MainScheduler.instance)
+        .subscribe(on: MainScheduler.instance)
     }
 
     static func okAndCancelAlert(title: String, message: String, completed: @escaping(Bool) -> Void) -> UIAlertController {
@@ -166,7 +166,7 @@ extension UIAlertController {
         for action in additionalActions { self.addAction(action) }
         viewController.present(self, animated: true)
     }
-    
+
     func openLicenses(viewController: UIViewController) {
         let vc = LicensesViewController()
         vc.loadPlist(Bundle.main, resourceName: "Credits")

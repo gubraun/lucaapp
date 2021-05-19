@@ -38,7 +38,7 @@ class LaunchViewController: UIViewController {
                     .unwrapOptional()
                     .map { $0 >= supportedVersions.minimumVersion  }
             }
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .flatMap { isSupported -> Completable in
                 if !isSupported,
                    let topVC = UIApplication.shared.topViewController {
@@ -46,7 +46,7 @@ class LaunchViewController: UIViewController {
                     return UIAlertController.infoBoxRx(viewController: topVC,
                                                        title: L10n.Navigation.Basic.error,
                                                        message: L10n.VersionSupportChecker.failureMessage)
-                        .ignoreElements()
+                        .ignoreElementsAsCompletable()
 
                 }
                 return Completable.empty()

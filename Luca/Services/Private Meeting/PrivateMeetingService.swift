@@ -176,7 +176,7 @@ extension PrivateMeetingService {
             self.createMeeting { (meeting) in
                 observer(.success(meeting))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create()
@@ -202,7 +202,7 @@ extension PrivateMeetingService {
             self.refresh(meeting: meeting) { (meeting) in
                 observer(.success(meeting))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create()

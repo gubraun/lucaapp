@@ -47,15 +47,15 @@ class CheckinSlider: UIControl {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggedView))
         sliderImage.isUserInteractionEnabled = true
         sliderImage.addGestureRecognizer(panGesture)
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedView(_:)))
         sliderImage.addGestureRecognizer(tapGesture)
-        
+
         sliderImage.accessibilityLabel = L10n.LocationCheckinViewController.Accessibility.checkoutSlider
         sliderImage.isAccessibilityElement = true
         sliderImage.accessibilityTraits = [.allowsDirectInteraction]
     }
-    
+
     @objc func tappedView(_ gesture: UITapGestureRecognizer) {
         guard sliderImage.accessibilityElementIsFocused() && UIAccessibility.isVoiceOverRunning else { return }
         self.completed.onNext(true)

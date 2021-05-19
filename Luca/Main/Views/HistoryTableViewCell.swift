@@ -24,10 +24,11 @@ class HistoryTableViewCell: UITableViewCell {
             checkinLocationNameLabel.text = L10n.History.Data.updated
             checkinGroupNameLabel.isHidden = true
             checkinDateLabel.text = userUpdate.date.formattedDate
-        } else if historyEvent as? UserDataTransfer != nil {
+        } else if let event = historyEvent as? UserDataTransfer {
             checkinLocationNameLabel.text = L10n.History.Data.shared
             checkinGroupNameLabel.isHidden = true
             infoButton.isHidden = false
+            checkinDateLabel.text = event.date.formattedDate
         }
 
         bottomHistoryLineView.isHidden = false

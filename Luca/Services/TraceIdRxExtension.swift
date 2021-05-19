@@ -10,7 +10,7 @@ extension TraceIdService {
             self.fetchTraceStatus { () in
                 observer(.success(self.isCurrentlyCheckedIn))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create()

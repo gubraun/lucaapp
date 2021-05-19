@@ -87,7 +87,7 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
         )
     }
 
-    func load<T>(_ key: String, completion: @escaping ((T) -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Decodable {
+    func load<T>(_ key: String, type: T.Type, completion: @escaping ((T) -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Decodable {
         underlying.restore { (entries) in
             guard let entry = entries.first(where: { $0.key == key }) else {
                 failure(RealmKeyValueRepoError.objectNotFound)

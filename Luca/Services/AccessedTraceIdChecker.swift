@@ -62,10 +62,10 @@ class AccessedTraceIdChecker {
         self.backend.fetchAccessedTraces()
             .asSingle()
             .asObservable()
-            .observeOn(LucaScheduling.backgroundScheduler)
+            .observe(on: LucaScheduling.backgroundScheduler)
             .flatMap { self.storeHealthDepartments(accessedTraces: $0).andThen(Observable.just($0)) }
             .flatMap { self.prepareAccessedTraces(accessedTraces: $0) }
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
             .onErrorComplete()
     }
 
@@ -101,7 +101,9 @@ class AccessedTraceIdChecker {
     }
 
     private func storeHealthDepartments(accessedTraces: [AccessedTrace]) -> Completable {
-        healthDepartmentRepo.store(objects: accessedTraces.map { $0.healthDepartment }).asObservable().ignoreElements()
+        healthDepartmentRepo.store(objects: accessedTraces.map { $0.healthDepartment })
+            .asObservable()
+            .ignoreElementsAsCompletable()
     }
 
     private func storeAccessedTraceIds(ids: [AccessedTraceId]) -> Single<[AccessedTraceId]> {
@@ -139,7 +141,7 @@ class AccessedTraceIdChecker {
             .flatMap { _ in self.accessedTraceIdRepo.restore() }
             .do(onSuccess: { self._accessedTraceIds.onNext($0) })
             .asObservable()
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
     }
 
     private func retrievePastTraceInfos() -> Single<[TraceInfo]> {

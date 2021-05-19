@@ -8,9 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		0216395F2626EEBE0004A1C8 /* AlertWithLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0216395E2626EEBE0004A1C8 /* AlertWithLinkViewController.swift */; };
+		021AE894261F12FF007EA85A /* FetchAccessedTracesAsyncDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AE893261F12FF007EA85A /* FetchAccessedTracesAsyncDataOperation.swift */; };
 		0238CDA82604A0D1001958C8 /* UIAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238CDA72604A0D1001958C8 /* UIAccessibility.swift */; };
+		024777BD263036E60096C370 /* test_io_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = 024777BC263036E60096C370 /* test_io_jwtRS256.key.pub */; };
 		025FE95C26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FE95B26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift */; };
 		025FE9A32614B1DA00A3ADEA /* TimeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FE9A22614B1D900A3ADEA /* TimeUnit.swift */; };
+		0287FA7C263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FA7B263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift */; };
+		0287FA8C263AA38300F961A8 /* TableSelfCheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FA8B263AA38300F961A8 /* TableSelfCheckinTests.swift */; };
+		0287FA92263AB4AC00F961A8 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FA91263AB4AB00F961A8 /* Collection.swift */; };
+		0287FC80263C005300F961A8 /* Secrets.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FC7F263C005300F961A8 /* Secrets.generated.swift */; };
+		02F3CF6F260B5952002950A0 /* TestQRCodeScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */; };
 		A05156D9478067F6C7947871 /* Pods_Luca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FBCBF1BF7D5A8C90B8AF24 /* Pods_Luca.framework */; };
 		B41228F4250A490100F5F82B /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41228F3250A490100F5F82B /* UINavigationController.swift */; };
 		B42078E125DBF40C00C3C70C /* ScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42078E025DBF40C00C3C70C /* ScannerService.swift */; };
@@ -53,6 +60,11 @@
 		B48BB49124EEBE4400FC6780 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BB49024EEBE4400FC6780 /* FormView.swift */; };
 		B48BB49424EEBE5E00FC6780 /* FormComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BB49324EEBE5E00FC6780 /* FormComponentType.swift */; };
 		B48BD2402524DA68001FE9D5 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BD23F2524DA68001FE9D5 /* NotificationScheduler.swift */; };
+		B48BEB5C2608E59C0038EC6B /* CoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB5B2608E59C0038EC6B /* CoronaTest.swift */; };
+		B48BEB602608F2500038EC6B /* CoronaTestProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB5F2608F2500038EC6B /* CoronaTestProcessingService.swift */; };
+		B48BEB642608F63E0038EC6B /* CoronaTestRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB632608F63E0038EC6B /* CoronaTestRepo.swift */; };
+		B48BEB6D260908100038EC6B /* CoronaTestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB6C260908100038EC6B /* CoronaTestTableViewCell.swift */; };
+		B48BEB71260908650038EC6B /* HealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB70260908650038EC6B /* HealthViewController.swift */; };
 		B48C86F924F7CEB5009C353C /* CheckinTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48C86F824F7CEB5009C353C /* CheckinTimer.swift */; };
 		B48C86FB24F7CFB5009C353C /* TimerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48C86FA24F7CFB5009C353C /* TimerDelegate.swift */; };
 		B48DCD8D2539BEF200780208 /* PhoneNumberVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DCD8C2539BEF200780208 /* PhoneNumberVerificationService.swift */; };
@@ -62,6 +74,7 @@
 		B49C0DC125A4B0FC00148F17 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49C0DC025A4B0FC00148F17 /* NotificationService.swift */; };
 		B4A0A43C261C828D007DE487 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4A0A43B261C828D007DE487 /* Credits.plist */; };
 		B4A0A48B261CCFDB007DE487 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B4A0A48A261CCFDB007DE487 /* LICENSE.txt */; };
+		B4AB26DB264AEAD500782EFB /* CoronaTestUniquenessCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB26DA264AEAD400782EFB /* CoronaTestUniquenessCheckerTests.swift */; };
 		B4ACEA20255180A700B55154 /* DataPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ACEA1F255180A700B55154 /* DataPrivacyViewController.swift */; };
 		B4AF3BBA24EED37000F72C80 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF3BB924EED37000F72C80 /* OnboardingStep.swift */; };
 		B4AF3BBF24EEDB8A00F72C80 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = B4AF3BBE24EEDB8A00F72C80 /* swiftgen.yml */; };
@@ -91,8 +104,7 @@
 		D5053D282547145C00D79B61 /* TraceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5053D272547145C00D79B61 /* TraceId.swift */; };
 		D5066F042541C26000112CDB /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5066F032541C26000112CDB /* UserService.swift */; };
 		D5071CC325596DC00071FE66 /* UserSecretsConsistencyChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5071CC225596DC00071FE66 /* UserSecretsConsistencyChecker.swift */; };
-		D50D89902625F0780020A02C /* BackendCredentials.stencil in Resources */ = {isa = PBXBuildFile; fileRef = D50D898F2625F0780020A02C /* BackendCredentials.stencil */; };
-		D50D89B02625F2E10020A02C /* BackendCredentials.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50D89AF2625F2E10020A02C /* BackendCredentials.generated.swift */; };
+		D50D89902625F0780020A02C /* Secrets.stencil in Resources */ = {isa = PBXBuildFile; fileRef = D50D898F2625F0780020A02C /* Secrets.stencil */; };
 		D50E1D5D2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E1D5C2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift */; };
 		D5155293256FE03400F29551 /* UserTransferBuilderV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5155292256FE03400F29551 /* UserTransferBuilderV3.swift */; };
 		D5155297256FE2E300F29551 /* UserTransferAsyncOperationV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5155296256FE2E300F29551 /* UserTransferAsyncOperationV3.swift */; };
@@ -150,6 +162,8 @@
 		D5996E8225B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5996E8125B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift */; };
 		D59A0968258A2465001683A2 /* LocationCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59A0967258A2465001683A2 /* LocationCheckinViewController.swift */; };
 		D59FC86C25E5482D005F8DC6 /* AccessedTraceIdChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59FC86B25E5482D005F8DC6 /* AccessedTraceIdChecker.swift */; };
+		D5A25D13264983BB0097B867 /* CoronaTestUniquenessChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A25D12264983BB0097B867 /* CoronaTestUniquenessChecker.swift */; };
+		D5A25D1A26498F450097B867 /* RedeemCoronaTestAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A25D1926498F450097B867 /* RedeemCoronaTestAsyncOperation.swift */; };
 		D5A4EF19251A453C000A731F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A4EF18251A453C000A731F /* WebViewController.swift */; };
 		D5A4EF1C251A4983000A731F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5A4EF1B251A4983000A731F /* WebKit.framework */; };
 		D5A8751A2514D0E6001C0E5E /* RSAOAEPSHA256Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A875192514D0E6001C0E5E /* RSAOAEPSHA256Crypto.swift */; };
@@ -159,7 +173,6 @@
 		D5A8AB132538B0D1005F173F /* RawKeyHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AB122538B0D1005F173F /* RawKeyHistoryRepository.swift */; };
 		D5A8AB172538B382005F173F /* DailyPubKeyHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AB162538B382005F173F /* DailyPubKeyHistoryRepository.swift */; };
 		D5A8AB1D2538B46A005F173F /* KeyHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8AB1C2538B46A005F173F /* KeyHistoryRepository.swift */; };
-		D5A8F09225E4326700FC2951 /* FetchAccessedTracesAsyncDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8F09125E4326700FC2951 /* FetchAccessedTracesAsyncDataOperation.swift */; };
 		D5AA98382521DF1C0075DFFA /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA98372521DF1C0075DFFA /* String.swift */; };
 		D5AE4FCC25F9102600C5CDE7 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE4FCB25F9102500C5CDE7 /* DataExtensions.swift */; };
 		D5B342BD256E70B5006E6554 /* RetrieveDailyKeyAsyncOperationV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B342BC256E70B5006E6554 /* RetrieveDailyKeyAsyncOperationV3.swift */; };
@@ -215,13 +228,39 @@
 		D5F1DB27252387D4005D8260 /* RxExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F1DB26252387D4005D8260 /* RxExtenstions.swift */; };
 		D5F32C8125DAB6E500C13127 /* DailyKeyRepoHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F32C8025DAB6E500C13127 /* DailyKeyRepoHandler.swift */; };
 		D5F87A3F25DD91EB0091A7E7 /* KeyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F87A3E25DD91EB0091A7E7 /* KeyStorage.swift */; };
+		E3196708264144FA0027411B /* TicketIOCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3196707264144FA0027411B /* TicketIOCoronaTest.swift */; };
+		E319670C26418A570027411B /* UbirchCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319670B26418A560027411B /* UbirchCoronaTest.swift */; };
+		E31967152642C45E0027411B /* CoronaTestPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31967142642C45E0027411B /* CoronaTestPayload.swift */; };
+		E319671B2642D48C0027411B /* CoronaTestRepoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319671A2642D48C0027411B /* CoronaTestRepoService.swift */; };
+		E319671F2642E0C20027411B /* CoronaTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319671E2642E0C20027411B /* CoronaTestFactory.swift */; };
+		E3AE0FD9264C30CD00E597E0 /* test_soda_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = E3AE0FD8264C30CD00E597E0 /* test_soda_jwtRS256.key.pub */; };
+		E3AE0FDD264C313800E597E0 /* SodaCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AE0FDC264C313800E597E0 /* SodaCoronaTest.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0287FA7E263A9C6E00F961A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B434E3BF24EBC04B009305CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B434E3C624EBC04B009305CA;
+			remoteInfo = Luca;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0216395E2626EEBE0004A1C8 /* AlertWithLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWithLinkViewController.swift; sourceTree = "<group>"; };
+		021AE893261F12FF007EA85A /* FetchAccessedTracesAsyncDataOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchAccessedTracesAsyncDataOperation.swift; sourceTree = "<group>"; };
 		0238CDA72604A0D1001958C8 /* UIAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAccessibility.swift; sourceTree = "<group>"; };
+		024777BC263036E60096C370 /* test_io_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_io_jwtRS256.key.pub; sourceTree = "<group>"; };
 		025FE95B26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveIssuerKeysAsyncOperationV3.swift; sourceTree = "<group>"; };
 		025FE9A22614B1D900A3ADEA /* TimeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
+		0287FA79263A9C6E00F961A8 /* LucaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0287FA7B263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMeetingSelfCheckinTests.swift; sourceTree = "<group>"; };
+		0287FA7D263A9C6E00F961A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0287FA8B263AA38300F961A8 /* TableSelfCheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSelfCheckinTests.swift; sourceTree = "<group>"; };
+		0287FA91263AB4AB00F961A8 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		0287FC7F263C005300F961A8 /* Secrets.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.generated.swift; sourceTree = "<group>"; };
+		02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQRCodeScannerController.swift; sourceTree = "<group>"; };
 		056FCE494E2D37A27929FB63 /* Pods-Luca.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.release.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.release.xcconfig"; sourceTree = "<group>"; };
 		67FBCBF1BF7D5A8C90B8AF24 /* Pods_Luca.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luca.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ADD7B717D2CAD67891A3988 /* Pods-Luca.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.debug.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.debug.xcconfig"; sourceTree = "<group>"; };
@@ -277,6 +316,11 @@
 		B48BB49024EEBE4400FC6780 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		B48BB49324EEBE5E00FC6780 /* FormComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormComponentType.swift; sourceTree = "<group>"; };
 		B48BD23F2524DA68001FE9D5 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		B48BEB5B2608E59C0038EC6B /* CoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTest.swift; sourceTree = "<group>"; };
+		B48BEB5F2608F2500038EC6B /* CoronaTestProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestProcessingService.swift; sourceTree = "<group>"; usesTabs = 0; };
+		B48BEB632608F63E0038EC6B /* CoronaTestRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRepo.swift; sourceTree = "<group>"; };
+		B48BEB6C260908100038EC6B /* CoronaTestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestTableViewCell.swift; sourceTree = "<group>"; };
+		B48BEB70260908650038EC6B /* HealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthViewController.swift; sourceTree = "<group>"; };
 		B48C86F824F7CEB5009C353C /* CheckinTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTimer.swift; sourceTree = "<group>"; };
 		B48C86FA24F7CFB5009C353C /* TimerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDelegate.swift; sourceTree = "<group>"; };
 		B48DCD8C2539BEF200780208 /* PhoneNumberVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVerificationService.swift; sourceTree = "<group>"; };
@@ -287,6 +331,7 @@
 		B4A0A43B261C828D007DE487 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credits.plist; sourceTree = "<group>"; };
 		B4A0A48A261CCFDB007DE487 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		B4A9ACAD2576A61300797B8D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		B4AB26DA264AEAD400782EFB /* CoronaTestUniquenessCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestUniquenessCheckerTests.swift; sourceTree = "<group>"; };
 		B4ACEA1F255180A700B55154 /* DataPrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPrivacyViewController.swift; sourceTree = "<group>"; };
 		B4ACEA372551A47D00B55154 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Onboarding.strings; sourceTree = "<group>"; };
 		B4AF3BB924EED37000F72C80 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
@@ -318,8 +363,7 @@
 		D5053D272547145C00D79B61 /* TraceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceId.swift; sourceTree = "<group>"; };
 		D5066F032541C26000112CDB /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D5071CC225596DC00071FE66 /* UserSecretsConsistencyChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSecretsConsistencyChecker.swift; sourceTree = "<group>"; };
-		D50D898F2625F0780020A02C /* BackendCredentials.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = BackendCredentials.stencil; sourceTree = "<group>"; };
-		D50D89AF2625F2E10020A02C /* BackendCredentials.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendCredentials.generated.swift; sourceTree = "<group>"; };
+		D50D898F2625F0780020A02C /* Secrets.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = Secrets.stencil; sourceTree = "<group>"; };
 		D50E1D5C2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucaLocationPermissionWorkflow.swift; sourceTree = "<group>"; };
 		D5155292256FE03400F29551 /* UserTransferBuilderV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransferBuilderV3.swift; sourceTree = "<group>"; };
 		D5155296256FE2E300F29551 /* UserTransferAsyncOperationV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransferAsyncOperationV3.swift; sourceTree = "<group>"; };
@@ -378,6 +422,8 @@
 		D5996E8125B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyChallengeBulkRequestAsyncOperation.swift; sourceTree = "<group>"; };
 		D59A0967258A2465001683A2 /* LocationCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCheckinViewController.swift; sourceTree = "<group>"; };
 		D59FC86B25E5482D005F8DC6 /* AccessedTraceIdChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessedTraceIdChecker.swift; sourceTree = "<group>"; };
+		D5A25D12264983BB0097B867 /* CoronaTestUniquenessChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestUniquenessChecker.swift; sourceTree = "<group>"; };
+		D5A25D1926498F450097B867 /* RedeemCoronaTestAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedeemCoronaTestAsyncOperation.swift; sourceTree = "<group>"; };
 		D5A4EF18251A453C000A731F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D5A4EF1B251A4983000A731F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D5A875192514D0E6001C0E5E /* RSAOAEPSHA256Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSAOAEPSHA256Crypto.swift; sourceTree = "<group>"; };
@@ -387,7 +433,6 @@
 		D5A8AB122538B0D1005F173F /* RawKeyHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawKeyHistoryRepository.swift; sourceTree = "<group>"; };
 		D5A8AB162538B382005F173F /* DailyPubKeyHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPubKeyHistoryRepository.swift; sourceTree = "<group>"; };
 		D5A8AB1C2538B46A005F173F /* KeyHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHistoryRepository.swift; sourceTree = "<group>"; };
-		D5A8F09125E4326700FC2951 /* FetchAccessedTracesAsyncDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAccessedTracesAsyncDataOperation.swift; sourceTree = "<group>"; };
 		D5A9980B2523958300A8FEF5 /* Lockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lockable.swift; sourceTree = "<group>"; };
 		D5AA98372521DF1C0075DFFA /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D5AE4FCB25F9102500C5CDE7 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
@@ -445,9 +490,24 @@
 		D5F1DB26252387D4005D8260 /* RxExtenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtenstions.swift; sourceTree = "<group>"; };
 		D5F32C8025DAB6E500C13127 /* DailyKeyRepoHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyKeyRepoHandler.swift; sourceTree = "<group>"; };
 		D5F87A3E25DD91EB0091A7E7 /* KeyStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStorage.swift; sourceTree = "<group>"; };
+		E3196707264144FA0027411B /* TicketIOCoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketIOCoronaTest.swift; sourceTree = "<group>"; };
+		E319670B26418A560027411B /* UbirchCoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbirchCoronaTest.swift; sourceTree = "<group>"; };
+		E31967142642C45E0027411B /* CoronaTestPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestPayload.swift; sourceTree = "<group>"; };
+		E319671A2642D48C0027411B /* CoronaTestRepoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRepoService.swift; sourceTree = "<group>"; };
+		E319671E2642E0C20027411B /* CoronaTestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestFactory.swift; sourceTree = "<group>"; };
+		E3AE0FD8264C30CD00E597E0 /* test_soda_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_soda_jwtRS256.key.pub; sourceTree = "<group>"; };
+		E3AE0FDC264C313800E597E0 /* SodaCoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SodaCoronaTest.swift; sourceTree = "<group>"; };
+		E3AE0FE6264C3AC500E597E0 /* test_soda_jwtRS256.key.pub */ = {isa = PBXFileReference; lastKnownFileType = text; name = test_soda_jwtRS256.key.pub; path = Luca/test_soda_jwtRS256.key.pub; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0287FA76263A9C6E00F961A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B434E3C424EBC04B009305CA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -460,6 +520,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0287FA7A263A9C6E00F961A8 /* LucaTests */ = {
+			isa = PBXGroup;
+			children = (
+				0287FA7B263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift */,
+				0287FA8B263AA38300F961A8 /* TableSelfCheckinTests.swift */,
+				0287FA7D263A9C6E00F961A8 /* Info.plist */,
+				B4AB26DA264AEAD400782EFB /* CoronaTestUniquenessCheckerTests.swift */,
+			);
+			path = LucaTests;
+			sourceTree = "<group>";
+		};
 		5332B7D210A0E837B453D0EE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,7 +560,9 @@
 		B434E3BE24EBC04B009305CA = {
 			isa = PBXGroup;
 			children = (
+				E3AE0FE6264C3AC500E597E0 /* test_soda_jwtRS256.key.pub */,
 				B434E3C924EBC04B009305CA /* Luca */,
+				0287FA7A263A9C6E00F961A8 /* LucaTests */,
 				B434E3C824EBC04B009305CA /* Products */,
 				5332B7D210A0E837B453D0EE /* Pods */,
 				B63D81C8D6858071A9F3FB9A /* Frameworks */,
@@ -500,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				B434E3C724EBC04B009305CA /* Luca Debug.app */,
+				0287FA79263A9C6E00F961A8 /* LucaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -527,8 +601,10 @@
 				B48BB48724EEB85800FC6780 /* Localizable.strings */,
 				D5876D4925503721009A27EC /* apple-app-site-association */,
 				D58F4B632577D85C0085A3D1 /* InfoPlist.strings */,
-				D50D898F2625F0780020A02C /* BackendCredentials.stencil */,
-				D50D89AF2625F2E10020A02C /* BackendCredentials.generated.swift */,
+				024777BC263036E60096C370 /* test_io_jwtRS256.key.pub */,
+				E3AE0FD8264C30CD00E597E0 /* test_soda_jwtRS256.key.pub */,
+				D50D898F2625F0780020A02C /* Secrets.stencil */,
+				0287FC7F263C005300F961A8 /* Secrets.generated.swift */,
 				D519058B2626F623009117EE /* README.md */,
 				B4A0A43B261C828D007DE487 /* Credits.plist */,
 			);
@@ -559,6 +635,7 @@
 				B45F2B6724F6949200BC256F /* CheckinSlider.swift */,
 				B4B4644424F6DD8C00B238C7 /* SearchTextField.swift */,
 				B462C84B24FCF5B40042000B /* HistoryTableViewCell.swift */,
+				B48BEB6C260908100038EC6B /* CoronaTestTableViewCell.swift */,
 				B43A487325F7A12E00F9CD89 /* DataAccessTableViewCell.swift */,
 				B430C3AF25F96923009E0F35 /* DataAccessHeaderView.swift */,
 			);
@@ -615,6 +692,7 @@
 		B48BB46D24EE8C7400FC6780 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B48BEB692608FF5D0038EC6B /* Health */,
 				B4D5503F24FD0D1E009FA094 /* History */,
 				B45F2B6A24F6C94900BC256F /* Luca */,
 				B48BB47024EE8EB500FC6780 /* MainTabBarViewController.swift */,
@@ -630,6 +708,32 @@
 				B4AF3BB924EED37000F72C80 /* OnboardingStep.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B48BEB5A2608E58E0038EC6B /* Corona Test */ = {
+			isa = PBXGroup;
+			children = (
+				B48BEB5B2608E59C0038EC6B /* CoronaTest.swift */,
+				B48BEB5F2608F2500038EC6B /* CoronaTestProcessingService.swift */,
+				B48BEB632608F63E0038EC6B /* CoronaTestRepo.swift */,
+				D5A25D12264983BB0097B867 /* CoronaTestUniquenessChecker.swift */,
+				E3196707264144FA0027411B /* TicketIOCoronaTest.swift */,
+				E3AE0FDC264C313800E597E0 /* SodaCoronaTest.swift */,
+				E319670B26418A560027411B /* UbirchCoronaTest.swift */,
+				E31967142642C45E0027411B /* CoronaTestPayload.swift */,
+				E319671A2642D48C0027411B /* CoronaTestRepoService.swift */,
+				E319671E2642E0C20027411B /* CoronaTestFactory.swift */,
+			);
+			path = "Corona Test";
+			sourceTree = "<group>";
+		};
+		B48BEB692608FF5D0038EC6B /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				B48BEB70260908650038EC6B /* HealthViewController.swift */,
+				02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */,
+			);
+			path = Health;
 			sourceTree = "<group>";
 		};
 		B48C86F724F7CE95009C353C /* Model */ = {
@@ -739,6 +843,7 @@
 				B4977BB025BEF7BB00F8FCE2 /* UIImage.swift */,
 				0238CDA72604A0D1001958C8 /* UIAccessibility.swift */,
 				D5AE4FCB25F9102500C5CDE7 /* DataExtensions.swift */,
+				0287FA91263AB4AB00F961A8 /* Collection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -746,6 +851,7 @@
 		B4F1B14C24ED5892006D6D73 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B48BEB5A2608E58E0038EC6B /* Corona Test */,
 				D577A66125FA763E00E554EB /* KeyValueRepo */,
 				D54E345225F116F6001FDBF3 /* DataRepo */,
 				B4C5D798257FAD94004E8F13 /* Private Meeting */,
@@ -864,11 +970,11 @@
 		D53FCCF4256D7BC600E5D886 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				021AE893261F12FF007EA85A /* FetchAccessedTracesAsyncDataOperation.swift */,
 				D53FCCF5256D7BE100E5D886 /* FetchLocationAsyncOperation.swift */,
 				D53FCCF9256D7C1C00E5D886 /* FetchDepartmentAsyncOperation.swift */,
 				D53FCCFD256D7C4B00E5D886 /* FetchScannerAsyncOperation.swift */,
 				D51552A2257021C100F29551 /* FetchSupportedVersionsAsyncOperation.swift */,
-				D5A8F09125E4326700FC2951 /* FetchAccessedTracesAsyncDataOperation.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -985,6 +1091,14 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		D5A25D1826498F250097B867 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				D5A25D1926498F450097B867 /* RedeemCoronaTestAsyncOperation.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
 		D5A8751B2514EF48001C0E5E /* DataBuilders */ = {
 			isa = PBXGroup;
 			children = (
@@ -1034,6 +1148,7 @@
 		D5B342B9256E5DF5006E6554 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				D5A25D1826498F250097B867 /* Misc */,
 				D5CC2B1F2580E7C5008D8AC3 /* Location */,
 				D55C438A256E7E870063BC79 /* TraceId */,
 				D5B342BB256E709F006E6554 /* MasterKey */,
@@ -1157,6 +1272,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0287FA78263A9C6E00F961A8 /* LucaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0287FA82263A9C6E00F961A8 /* Build configuration list for PBXNativeTarget "LucaTests" */;
+			buildPhases = (
+				0287FA75263A9C6E00F961A8 /* Sources */,
+				0287FA76263A9C6E00F961A8 /* Frameworks */,
+				0287FA77263A9C6E00F961A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0287FA7F263A9C6E00F961A8 /* PBXTargetDependency */,
+			);
+			name = LucaTests;
+			productName = LucaTests;
+			productReference = 0287FA79263A9C6E00F961A8 /* LucaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B434E3C624EBC04B009305CA /* Luca */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B434E3DB24EBC04E009305CA /* Build configuration list for PBXNativeTarget "Luca" */;
@@ -1164,12 +1297,12 @@
 				FE433FB004AB211F865310DD /* [CP] Check Pods Manifest.lock */,
 				D50D89922625F0EE0020A02C /* Generate credentials */,
 				B4AF3BBB24EED71E00F72C80 /* SwiftGen */,
+				B4A0A3802614A6EA007DE487 /* Copy Acknowledgements */,
 				021AE906261F3651007EA85A /* SwiftLint */,
 				B434E3C324EBC04B009305CA /* Sources */,
 				B434E3C424EBC04B009305CA /* Frameworks */,
 				B434E3C524EBC04B009305CA /* Resources */,
 				A9F2531AD6E0928BEEADEC02 /* [CP] Embed Pods Frameworks */,
-				B4A0A3802614A6EA007DE487 /* Copy Acknowledgements */,
 			);
 			buildRules = (
 			);
@@ -1186,10 +1319,14 @@
 		B434E3BF24EBC04B009305CA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "neXenio GmbH";
 				TargetAttributes = {
+					0287FA78263A9C6E00F961A8 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = B434E3C624EBC04B009305CA;
+					};
 					B434E3C624EBC04B009305CA = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -1210,28 +1347,38 @@
 			projectRoot = "";
 			targets = (
 				B434E3C624EBC04B009305CA /* Luca */,
+				0287FA78263A9C6E00F961A8 /* LucaTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0287FA77263A9C6E00F961A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B434E3C524EBC04B009305CA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3AE0FD9264C30CD00E597E0 /* test_soda_jwtRS256.key.pub in Resources */,
 				B4A0A43C261C828D007DE487 /* Credits.plist in Resources */,
 				B4F1B13524ED2BFD006D6D73 /* Montserrat-Regular.ttf in Resources */,
 				B4F1B13324ED2BFD006D6D73 /* Montserrat-Light.ttf in Resources */,
 				B434E3D724EBC04E009305CA /* LaunchScreen.storyboard in Resources */,
 				B4808E1825B1F0CB00DE38E0 /* Alerts.storyboard in Resources */,
 				B4808E2325B1F0DB00DE38E0 /* AlertsSE.storyboard in Resources */,
-				D50D89902625F0780020A02C /* BackendCredentials.stencil in Resources */,
+				D50D89902625F0780020A02C /* Secrets.stencil in Resources */,
 				B434E3D424EBC04E009305CA /* Assets.xcassets in Resources */,
 				D58F4BA02577E3440085A3D1 /* InfoPlist.strings in Resources */,
 				D5E1B29E25D18A8C0062E17A /* *.luca-app.de.cer in Resources */,
 				B4F1B13924ED392F006D6D73 /* Montserrat-SemiBold.ttf in Resources */,
 				B45F2B5624F64CFA00BC256F /* Main.storyboard in Resources */,
 				B4F1B13424ED2BFD006D6D73 /* Montserrat-Bold.ttf in Resources */,
+				024777BD263036E60096C370 /* test_io_jwtRS256.key.pub in Resources */,
 				B4A0A48B261CCFDB007DE487 /* LICENSE.txt in Resources */,
 				D58F4B7F2577E0B10085A3D1 /* Localizable.strings in Resources */,
 				B4F1B13224ED2BFD006D6D73 /* Montserrat-Medium.ttf in Resources */,
@@ -1246,6 +1393,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		021AE906261F3651007EA85A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1260,7 +1408,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n    ${PODS_ROOT}/SwiftLint/swiftlint autocorrect && ${PODS_ROOT}/SwiftLint/swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		A9F2531AD6E0928BEEADEC02 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1281,6 +1429,7 @@
 		};
 		B4A0A3802614A6EA007DE487 /* Copy Acknowledgements */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1292,6 +1441,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${PROJECT_DIR}/Luca/Credits.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1330,7 +1480,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${PROJECT_DIR}/Luca/BackendCredentials.generated.swift",
+				"${PROJECT_DIR}/Luca/Secrets.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1362,6 +1512,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0287FA75263A9C6E00F961A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0287FA8C263AA38300F961A8 /* TableSelfCheckinTests.swift in Sources */,
+				0287FA7C263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift in Sources */,
+				B4AB26DB264AEAD500782EFB /* CoronaTestUniquenessCheckerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B434E3C324EBC04B009305CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1369,13 +1529,18 @@
 				D54751B625123D9900EC1758 /* ProgressHud.swift in Sources */,
 				B4808DEA25AF484400DE38E0 /* PhoneNumberConfirmationViewController.swift in Sources */,
 				D53FCCFE256D7C4B00E5D886 /* FetchScannerAsyncOperation.swift in Sources */,
+				0287FA92263AB4AC00F961A8 /* Collection.swift in Sources */,
+				E319671F2642E0C20027411B /* CoronaTestFactory.swift in Sources */,
 				D5BE457C2518FDBC008F7525 /* WelcomeViewController.swift in Sources */,
 				B458EE1A250A7F7100D7FBD2 /* UIApplication.swift in Sources */,
 				025FE9A32614B1DA00A3ADEA /* TimeUnit.swift in Sources */,
+				E319671B2642D48C0027411B /* CoronaTestRepoService.swift in Sources */,
 				D5D27EC4253EF6500069DAC1 /* BackendProtocol.swift in Sources */,
 				D5D27F2B254080F20069DAC1 /* BackendModels.swift in Sources */,
+				E3AE0FDD264C313800E597E0 /* SodaCoronaTest.swift in Sources */,
 				D53FCCE5256D63B700E5D886 /* FetchTraceInfosRequestAsyncOperation.swift in Sources */,
 				B434E3CB24EBC04B009305CA /* AppDelegate.swift in Sources */,
+				021AE894261F12FF007EA85A /* FetchAccessedTracesAsyncDataOperation.swift in Sources */,
 				D54751C12512858100EC1758 /* Encryption.swift in Sources */,
 				B458EE1C250A819900D7FBD2 /* PermissionState.swift in Sources */,
 				B4977BB125BEF7BB00F8FCE2 /* UIImage.swift in Sources */,
@@ -1391,13 +1556,15 @@
 				D50E1D5D2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift in Sources */,
 				D5BB91DA2566E09800B3D88C /* UserDataPackageBuilderV3.swift in Sources */,
 				D57EF30D256C2BFF00A43AF9 /* SMSRequestChallengeAsyncDataOperation.swift in Sources */,
+				E31967152642C45E0027411B /* CoronaTestPayload.swift in Sources */,
 				B48BB47324EE8F1800FC6780 /* LaunchViewController.swift in Sources */,
 				D5BEBD1325FFDBD0001E46A4 /* HealthDepartmentRepo.swift in Sources */,
 				B4354815252F2F3400D5D82B /* RegionMonitor.swift in Sources */,
 				D54751C32512859E00EC1758 /* Decryption.swift in Sources */,
-				D50D89B02625F2E10020A02C /* BackendCredentials.generated.swift in Sources */,
+				B48BEB602608F2500038EC6B /* CoronaTestProcessingService.swift in Sources */,
 				B48BD2402524DA68001FE9D5 /* NotificationScheduler.swift in Sources */,
 				B48BB47124EE8EB500FC6780 /* MainTabBarViewController.swift in Sources */,
+				D5A25D1A26498F450097B867 /* RedeemCoronaTestAsyncOperation.swift in Sources */,
 				D59A0968258A2465001683A2 /* LocationCheckinViewController.swift in Sources */,
 				D5155297256FE2E300F29551 /* UserTransferAsyncOperationV3.swift in Sources */,
 				D53FCCF6256D7BE100E5D886 /* FetchLocationAsyncOperation.swift in Sources */,
@@ -1429,6 +1596,7 @@
 				B48DCD902539C92400780208 /* PhoneNumberVerificationViewController.swift in Sources */,
 				D5F32C8125DAB6E500C13127 /* DailyKeyRepoHandler.swift in Sources */,
 				D5EF1B5025810B5500351CAD /* LocationPrivateKeyHistoryRepository.swift in Sources */,
+				0287FC80263C005300F961A8 /* Secrets.generated.swift in Sources */,
 				D5ED2ADC25C18D2F007E120E /* RequestError.swift in Sources */,
 				B43A487E25F7B8DB00F9CD89 /* AccessedTraceIdRepo.swift in Sources */,
 				D5BB91B02566D33F00B3D88C /* UserRegistrationIntermediate.swift in Sources */,
@@ -1468,6 +1636,7 @@
 				D5ED2AD825C18CBB007E120E /* NetworkError.swift in Sources */,
 				B45F2B5424F5503C00BC256F /* LucaTextField.swift in Sources */,
 				D5A8AAFD25388CA6005F173F /* TraceIdCore.swift in Sources */,
+				02F3CF6F260B5952002950A0 /* TestQRCodeScannerController.swift in Sources */,
 				D5053D282547145C00D79B61 /* TraceId.swift in Sources */,
 				D54E347225F11710001FDBF3 /* RealmDataRepo.swift in Sources */,
 				B48DCD8D2539BEF200780208 /* PhoneNumberVerificationService.swift in Sources */,
@@ -1477,9 +1646,12 @@
 				D5A8AB0F2538AD16005F173F /* SecKeyHistoryRepository.swift in Sources */,
 				D5E5983825D5ABB400EAE3C6 /* DailyDataKeyRepository.swift in Sources */,
 				D54E347425F11710001FDBF3 /* DataRepoProtocol.swift in Sources */,
+				B48BEB71260908650038EC6B /* HealthViewController.swift in Sources */,
+				B48BEB5C2608E59C0038EC6B /* CoronaTest.swift in Sources */,
 				D5B4E5F525371D0300DD613A /* HMACSHA256.swift in Sources */,
 				B4808E3325B5E71000DE38E0 /* DataResetService.swift in Sources */,
 				D5EE1E2E251CA9CD0028B2D9 /* LogUtil.swift in Sources */,
+				E3196708264144FA0027411B /* TicketIOCoronaTest.swift in Sources */,
 				D51552A3257021C100F29551 /* FetchSupportedVersionsAsyncOperation.swift in Sources */,
 				D551CB4E2559830300619B1C /* ServiceContainer.swift in Sources */,
 				D5A8751A2514D0E6001C0E5E /* RSAOAEPSHA256Crypto.swift in Sources */,
@@ -1493,6 +1665,7 @@
 				D5A4EF19251A453C000A731F /* WebViewController.swift in Sources */,
 				D5405651257E60050019EDC7 /* LocationCheckInViewModel.swift in Sources */,
 				B4FF115C24F7A5F800A5821C /* Double.swift in Sources */,
+				D5A25D13264983BB0097B867 /* CoronaTestUniquenessChecker.swift in Sources */,
 				D581112B253605E2006448EA /* KeyRepository.swift in Sources */,
 				B430C3B425F96AEB009E0F35 /* NewDataAccessHeaderView.swift in Sources */,
 				B48BB48D24EEB9DD00FC6780 /* GeneratedStrings.swift in Sources */,
@@ -1513,9 +1686,9 @@
 				B441697B2551BF13000E9015 /* QRScannerViewController.swift in Sources */,
 				D54E347525F11710001FDBF3 /* DataRepo.swift in Sources */,
 				D52481F5254C4EBB00F2360E /* UserServiceRxExtension.swift in Sources */,
-				D5A8F09225E4326700FC2951 /* FetchAccessedTracesAsyncDataOperation.swift in Sources */,
 				B4F1B14524ED4FF1006D6D73 /* UIColor.swift in Sources */,
 				D5CC2B212580E891008D8AC3 /* CreatePrivateMeetingAsyncOperation.swift in Sources */,
+				B48BEB642608F63E0038EC6B /* CoronaTestRepo.swift in Sources */,
 				B430C3A525F8FA1D009E0F35 /* DataAccessAlertViewController.swift in Sources */,
 				D5D6721F256C318D0065D35C /* VerifyChallengeRequestAsyncOperation.swift in Sources */,
 				B4430F5F255417FF0056B99B /* URL.swift in Sources */,
@@ -1531,12 +1704,14 @@
 				D54751BD25127DCC00EC1758 /* KeyFactory.swift in Sources */,
 				D5DBE6CE256E8AC600C86168 /* CheckInAsyncOperationV3.swift in Sources */,
 				D5DBE6EC256EC6E600C86168 /* TraceIdAdditionalDataBuilderV3.swift in Sources */,
+				E319670C26418A570027411B /* UbirchCoronaTest.swift in Sources */,
 				D5DBE6D8256E9A7A00C86168 /* CheckOutAsyncOperationV3.swift in Sources */,
 				D5BB919C2566A64D00B3D88C /* BackendV3Protocol.swift in Sources */,
 				D55C4390256E7FBA0063BC79 /* CheckInPayloadBuilderV3.swift in Sources */,
 				D5F87A3F25DD91EB0091A7E7 /* KeyStorage.swift in Sources */,
 				B4C5D79A257FADA2004E8F13 /* PrivateMeetingService.swift in Sources */,
 				D577A66725FA7AE300E554EB /* RealmKeyValueRepo.swift in Sources */,
+				B48BEB6D260908100038EC6B /* CoronaTestTableViewCell.swift in Sources */,
 				B48BB47524EE911700FC6780 /* ContactQRViewController.swift in Sources */,
 				B4ACEA20255180A700B55154 /* DataPrivacyViewController.swift in Sources */,
 				D53FCCB2256D3F8000E5D886 /* BackendAsyncOperations.swift in Sources */,
@@ -1557,6 +1732,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0287FA7F263A9C6E00F961A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B434E3C624EBC04B009305CA /* Luca */;
+			targetProxy = 0287FA7E263A9C6E00F961A8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B434E3D024EBC04B009305CA /* Onboarding.storyboard */ = {
@@ -1630,6 +1813,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0287FA80263A9C6E00F961A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LucaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nexenio.LucaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luca Debug.app/Luca Debug";
+			};
+			name = Debug;
+		};
+		0287FA81263A9C6E00F961A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LucaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nexenio.LucaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luca Debug.app/Luca Debug";
+			};
+			name = Release;
+		};
 		B434E3D924EBC04E009305CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1753,14 +1978,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_VERSION = 5.0;
@@ -1775,14 +2000,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1793,6 +2018,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0287FA82263A9C6E00F961A8 /* Build configuration list for PBXNativeTarget "LucaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0287FA80263A9C6E00F961A8 /* Debug */,
+				0287FA81263A9C6E00F961A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B434E3C224EBC04B009305CA /* Build configuration list for PBXProject "Luca" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

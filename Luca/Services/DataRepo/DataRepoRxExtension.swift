@@ -8,7 +8,7 @@ extension DataRepoProtocol {
             self.store(object: object) { (stored) in
                 observer(.success(stored))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create()
@@ -20,7 +20,7 @@ extension DataRepoProtocol {
             self.store(objects: objects) { (stored) in
                 observer(.success(stored))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create()
@@ -32,7 +32,7 @@ extension DataRepoProtocol {
             self.restore { (restored) in
                 observer(.success(restored))
             } failure: { (error) in
-                observer(.error(error))
+                observer(.failure(error))
             }
 
             return Disposables.create()

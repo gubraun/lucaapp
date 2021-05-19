@@ -14,11 +14,11 @@ extension UIFont {
     static var montserratTableViewTitle: UIFont {
         UIFont(name: "Montserrat-Bold", size: 16.0) ?? UIFont.italicSystemFont(ofSize: 16.0)
     }
-    
+
     static var montserratTableViewDescription: UIFont {
         UIFont(name: "Montserrat-Medium", size: 14.0) ?? UIFont.italicSystemFont(ofSize: 14.0)
     }
-    
+
     static var montserratDataAccessAlertDescriptionBold: UIFont {
         UIFont(name: "Montserrat-Bold", size: 14.0) ?? UIFont.italicSystemFont(ofSize: 14.0)
     }

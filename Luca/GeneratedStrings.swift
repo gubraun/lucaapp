@@ -8,7 +8,7 @@ import Foundation
 // MARK: - Strings
 
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
-// swiftlint:disable nesting type_body_length type_name
+// swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
   /// Licenses
   internal static let acknowledgements = L10n.tr("Localizable", "Acknowledgements")
@@ -120,7 +120,7 @@ internal enum L10n {
       }
     }
     internal enum ShouldSave {
-      /// Apply all changes?
+      /// Apply all changes? If you've changed your name and it doesn't match the name in your imported tests, these might be deleted.
       internal static let message = L10n.tr("Localizable", "contactViewController.shouldSave.message")
       /// Save changes
       internal static let title = L10n.tr("Localizable", "contactViewController.shouldSave.title")
@@ -397,6 +397,13 @@ internal enum L10n {
     }
   }
 
+  internal enum My {
+    internal enum Luca {
+      /// My luca
+      internal static let title = L10n.tr("Localizable", "my.luca.title")
+    }
+  }
+
   internal enum Navigation {
     internal enum Basic {
       /// Attention!
@@ -423,6 +430,8 @@ internal enum L10n {
     internal enum Tab {
       /// Check in
       internal static let checkin = L10n.tr("Localizable", "navigation.tab.checkin")
+      /// My luca
+      internal static let health = L10n.tr("Localizable", "navigation.tab.health")
       /// History
       internal static let history = L10n.tr("Localizable", "navigation.tab.history")
     }
@@ -504,6 +513,116 @@ internal enum L10n {
       /// QR Code could not be generated: %@
       internal static func message(_ p1: Any) -> String {
         return L10n.tr("Localizable", "qrCodeGeneration.failure.message", String(describing: p1))
+      }
+    }
+  }
+
+  internal enum Test {
+    internal enum Add {
+      /// Add test
+      internal static let title = L10n.tr("Localizable", "test.add.title")
+    }
+    internal enum Delete {
+      /// Do you really want to delete this test?
+      internal static let description = L10n.tr("Localizable", "test.delete.description")
+      /// Delete Test
+      internal static let title = L10n.tr("Localizable", "test.delete.title")
+    }
+    internal enum Expiry {
+      /// h
+      internal static let hours = L10n.tr("Localizable", "test.expiry.hours")
+      /// m
+      internal static let minutes = L10n.tr("Localizable", "test.expiry.minutes")
+    }
+    internal enum Result {
+      /// Expiry: %@
+      internal static func expiry(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "test.result.expiry", String(describing: p1))
+      }
+      /// Rapid test
+      internal static let fast = L10n.tr("Localizable", "test.result.fast")
+      /// Negative
+      internal static let negative = L10n.tr("Localizable", "test.result.negative")
+      /// Other
+      internal static let other = L10n.tr("Localizable", "test.result.other")
+      /// PCR test
+      internal static let pcr = L10n.tr("Localizable", "test.result.pcr")
+      /// Positive
+      internal static let positive = L10n.tr("Localizable", "test.result.positive")
+      /// Successful
+      internal static let success = L10n.tr("Localizable", "test.result.success")
+      internal enum Delete {
+        /// It was not possible to delete this test.
+        internal static let error = L10n.tr("Localizable", "test.result.delete.error")
+      }
+      internal enum Expiration {
+        /// Unfortunately, the test cannot be imported because it already expired.
+        internal static let error = L10n.tr("Localizable", "test.result.expiration.error")
+      }
+      internal enum Name {
+        internal enum Validation {
+          /// It was not possible to validate your name. Please check if your name is entered correctly in the app.
+          internal static let error = L10n.tr("Localizable", "test.result.name.validation.error")
+        }
+      }
+      internal enum Parsing {
+        /// The QR code could not be scanned. This could have happened because we only support certain test providers at the moment. Check with your test provider to see if it is included.
+        internal static let error = L10n.tr("Localizable", "test.result.parsing.error")
+        /// Your test was added successfully.
+        internal static let success = L10n.tr("Localizable", "test.result.parsing.success")
+      }
+      internal enum Positive {
+        /// Not possible to add test\n\nluca helps you to check in easily. Since positive test results are not relevant for checkin, you can only add negative results right now.
+        internal static let error = L10n.tr("Localizable", "test.result.positive.error")
+      }
+      internal enum Validation {
+        /// It was not possible to validate that this test belongs to you. Please check if your name is entered correctly in the app.
+        internal static let error = L10n.tr("Localizable", "test.result.validation.error")
+      }
+      internal enum Verification {
+        /// Unfortunately, the test cannot be imported because the signature is not valid.
+        internal static let error = L10n.tr("Localizable", "test.result.verification.error")
+      }
+    }
+    internal enum Scanner {
+      /// QR code scanner
+      internal static let camera = L10n.tr("Localizable", "test.scanner.camera")
+      /// Close
+      internal static let close = L10n.tr("Localizable", "test.scanner.close")
+    }
+    internal enum Uniqueness {
+      internal enum Create {
+        internal enum RandomTag {
+          /// Failed to create a random tag.
+          internal static let error = L10n.tr("Localizable", "test.uniqueness.create.randomTag.error")
+        }
+      }
+      internal enum Encoding {
+        /// Failed to encode test data.
+        internal static let error = L10n.tr("Localizable", "test.uniqueness.encoding.error")
+      }
+      internal enum Rate {
+        internal enum Limit {
+          /// The rate limit has been reached.
+          internal static let error = L10n.tr("Localizable", "test.uniqueness.rate.limit.error")
+        }
+      }
+      internal enum Redeemed {
+        /// Someone already imported this test.
+        internal static let error = L10n.tr("Localizable", "test.uniqueness.redeemed.error")
+      }
+    }
+  }
+
+  internal enum Tests {
+    internal enum Uniqueness {
+      internal enum Consent {
+        /// I hereby give my consent in accordance with Art. 9 (2) a) DSGVO (more: %@) to the transmission of a pseudonymized identifier in the course of storing my COVID-19 test in the luca app. This serves exclusively to prevent misuse, so that the same test cannot be stored multiple times in the luca app, possibly by different people. The individual identifier is automatically deleted from the luca system after 72 hours. It is not possible to remove the identifier beforehand.
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "tests.uniqueness.consent.description", String(describing: p1))
+        }
+        /// DSGVO
+        internal static let title = L10n.tr("Localizable", "tests.uniqueness.consent.title")
       }
     }
   }
@@ -664,7 +783,7 @@ internal enum L10n {
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
-// swiftlint:enable nesting type_body_length type_name
+// swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
 
 // MARK: - Implementation Details
 
@@ -678,7 +797,11 @@ extension L10n {
 // swiftlint:disable convenience_type
 private final class BundleToken {
   static let bundle: Bundle = {
-    Bundle(for: BundleToken.self)
+    #if SWIFT_PACKAGE
+    return Bundle.module
+    #else
+    return Bundle(for: BundleToken.self)
+    #endif
   }()
 }
 // swiftlint:enable convenience_type

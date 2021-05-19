@@ -55,10 +55,10 @@ public class PhoneNumberVerificationService {
             .flatMap { _ in self.retrieveOpenChallenges() }
             .flatMap { challenges -> Completable in
                 self.handlePhoneNumberVC(challenges: challenges)
-                    .observeOn(MainScheduler.instance)
+                    .observe(on: MainScheduler.instance)
                     .do(onCompleted: { self.preferences.phoneNumberVerified = true; completion(true) })
             }
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .do(onError: { _ in completion(false) })
             .debug("verify sms")
             .subscribe()
@@ -104,7 +104,7 @@ public class PhoneNumberVerificationService {
                 phoneNumberVC.dismiss(animated: true, completion: nil)
             }
         }
-        .subscribeOn(MainScheduler.instance)
+        .subscribe(on: MainScheduler.instance)
     }
 
     func confirmPhoneNumber(phoneNumber: PhoneNumber) -> Single<PhoneNumber> {
@@ -113,7 +113,7 @@ public class PhoneNumberVerificationService {
             viewController.modalTransitionStyle = .crossDissolve
             viewController.modalPresentationStyle = .overFullScreen
             viewController.onSuccess = { observer(.success(phoneNumber)) }
-            viewController.onCancel = { observer(.error(NSError(domain: "Phone number unconfirmed", code: 0, userInfo: nil))) }
+            viewController.onCancel = { observer(.failure(NSError(domain: "Phone number unconfirmed", code: 0, userInfo: nil))) }
             self.parentViewController.present(viewController, animated: true, completion: nil)
             return Disposables.create {
                 viewController.dismiss(animated: true, completion: nil)
@@ -126,7 +126,7 @@ public class PhoneNumberVerificationService {
             let parsedNumber = try self.phoneNumberKit.parse(number)
             return parsedNumber
         }
-        .catchError { _ in
+        .catch { _ in
             return self.wrongFormatAlert().andThen(Maybe.empty())
         }
     }
@@ -137,7 +137,7 @@ public class PhoneNumberVerificationService {
             title: L10n.Navigation.Basic.error,
             message: L10n.Verification.PhoneNumber.wrongFormat,
             firstButtonTitle: L10n.Navigation.Basic.ok.uppercased())
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
     }
 
     /// Emits `true` if timeout is active
@@ -159,14 +159,14 @@ public class PhoneNumberVerificationService {
                     .flatMapLatest { event -> Single<Void> in
                         if let alert = event.element {
                             return Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
-                                .takeUntil(TakeUntilBehavior.inclusive) { _ in Date().timeIntervalSince1970 >= nextAllowedTimestamp }
+                                .take(until: { _ in Date().timeIntervalSince1970 >= nextAllowedTimestamp }, behavior: .inclusive)
                                 .do(onNext: { _ in
                                     let totalSeconds = Int(abs(nextAllowedTimestamp - Date().timeIntervalSince1970))
                                     let minutes = totalSeconds / 60
                                     let seconds = totalSeconds - (minutes * 60)
                                     alert.message = L10n.Verification.PhoneNumber.TimerDelay.message(String(format: "%02i:%02i", minutes, seconds))
                                 })
-                                .ignoreElements()
+                                .ignoreElementsAsCompletable()
                                 .andThen(Single.just(Void()))
                         } else if let error = event.error {
                             throw error // Just push back any errors
@@ -174,7 +174,7 @@ public class PhoneNumberVerificationService {
                         return Single.just(Void())
                     }
                     .take(1)
-                    .ignoreElements()
+                    .ignoreElementsAsCompletable()
                     .andThen(Single.from { Date().timeIntervalSince1970 < nextAllowedTimestamp })
             }
             // Just complete if there is no timestamp or it is in the past already
@@ -198,8 +198,8 @@ public class PhoneNumberVerificationService {
                                     phoneNumber: formattedNumber))
                 self.preferences.verificationRequests = requests
             })
-            .observeOn(MainScheduler.instance)
-            .catchError { error in
+            .observe(on: MainScheduler.instance)
+            .catch { error in
                 var alert: UIAlertController
                 if let localizedTitledError = error as? LocalizedTitledError {
                     alert = UIAlertController.infoAlert(title: localizedTitledError.localizedTitle, message: localizedTitledError.localizedDescription)

@@ -60,9 +60,20 @@ extension UIColor {
     static var lucaGrey: UIColor {
         UIColor(named: "lucaGrey") ?? .magenta
     }
-    
+
+    static var lucaHealthGreen: UIColor {
+        UIColor(named: "lucaHealthGreen") ?? .magenta
+    }
+
+    static var lucaHealthRed: UIColor {
+        UIColor(named: "lucaHealthRed") ?? .magenta
+    }
+
     static var lucaBlack: UIColor {
         UIColor(named: "lucaBlack") ?? .magenta
     }
-    
+
+    static var lucaError: UIColor {
+        UIColor(named: "lucaError") ?? .magenta
+    }
 }

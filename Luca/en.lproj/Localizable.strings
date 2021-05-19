@@ -65,6 +65,8 @@
 
 "navigation.tab.history" = "History";
 
+"navigation.tab.health" = "My luca";
+
 // Checkin
 "checkin.slider.date" = "Check-in: %@ Uhr";
 
@@ -163,7 +165,7 @@
 
 "contactViewController.shouldSave.title" = "Save changes";
 
-"contactViewController.shouldSave.message" = "Apply all changes?";
+"contactViewController.shouldSave.message" = "Apply all changes? If you've changed your name and it doesn't match the name in your imported tests, these might be deleted.";
 
 "contactViewController.saveFailed.message" = "Save failed: %@";
 
@@ -358,6 +360,47 @@
 // Errors
 "error.network.badGateway" = "The luca Service is currently unavailable, please try again later.";
 
+// Corona Test
+"test.result.negative" = "Negative";
+
+"test.result.positive" = "Positive";
+
+"test.result.expiry" = "Expiry: %@";
+
+"test.result.delete.error" = "It was not possible to delete this test.";
+
+"test.result.fast" = "Rapid test";
+
+"test.result.pcr" = "PCR test";
+
+"test.result.other" = "Other";
+
+"test.result.parsing.error" = "The QR code could not be scanned. This could have happened because we only support certain test providers at the moment. Check with your test provider to see if it is included.";
+
+"test.result.validation.error" = "It was not possible to validate that this test belongs to you. Please check if your name is entered correctly in the app.";
+
+"test.result.verification.error" = "Unfortunately, the test cannot be imported because the signature is not valid.";
+
+"test.result.expiration.error" = "Unfortunately, the test cannot be imported because it already expired.";
+
+"test.result.name.validation.error" = "It was not possible to validate your name. Please check if your name is entered correctly in the app.";
+
+"test.result.positive.error" = "Not possible to add test\n\nluca helps you to check in easily. Since positive test results are not relevant for checkin, you can only add negative results right now.";
+
+"test.result.parsing.success" = "Your test was added successfully.";
+
+"test.result.success" = "Successful";
+
+"test.expiry.hours" = "h";
+
+"test.expiry.minutes" = "m";
+
+"test.delete.title" = "Delete Test";
+
+"test.delete.description" = "Do you really want to delete this test?";
+
+"test.add.title" = "Add test";
+
 // Share data
 "data.shared.title" = "Data shared";
 
@@ -366,3 +409,24 @@
 // Acknowledgements
 // Title of the acknowlegements cannot be set outside the source code of LicensesViewController pod. The pod sets the title using NSLocalizedString("Acknowledgements", comment: "Acknowledgements")
 "Acknowledgements" = "Licenses";
+
+// Test scanner
+"test.scanner.close" = "Close";
+
+"test.scanner.camera" = "QR code scanner";
+
+// My luca
+"my.luca.title" = "My luca";
+
+// Corona Test Uniqueness
+"tests.uniqueness.consent.title" = "DSGVO";
+
+"tests.uniqueness.consent.description" = "I hereby give my consent in accordance with Art. 9 (2) a) DSGVO (more: %@) to the transmission of a pseudonymized identifier in the course of storing my COVID-19 test in the luca app. This serves exclusively to prevent misuse, so that the same test cannot be stored multiple times in the luca app, possibly by different people. The individual identifier is automatically deleted from the luca system after 72 hours. It is not possible to remove the identifier beforehand.";
+
+"test.uniqueness.create.randomTag.error" = "Failed to create a random tag.";
+
+"test.uniqueness.encoding.error" = "Failed to encode test data.";
+
+"test.uniqueness.redeemed.error" = "Someone already imported this test.";
+
+"test.uniqueness.rate.limit.error" = "The rate limit has been reached.";

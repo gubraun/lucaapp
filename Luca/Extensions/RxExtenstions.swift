@@ -11,7 +11,6 @@ public enum CommonRxError: Error {
 }
 
 public extension Completable {
-
     static func zip(_ stream: Observable<Completable>) -> Completable {
         return stream
             .toArray()
@@ -61,14 +60,11 @@ public extension Completable {
             }
         })
     }
-
 }
 
 public enum ObservableError: Error {
-
     /// Occures when the value in the .cast() operator couldn't be casted
     case casting(from: String, to: String)
-
 }
 
 public protocol OptionalType {
@@ -84,7 +80,6 @@ extension Optional: OptionalType {
 }
 
 public extension ObservableType where Element: OptionalType {
-
     func unwrapOptional(errorOnNil: Bool = false) -> Observable<Element.Wrapped> {
         self.filter { (value) in
             if value.value == nil {
@@ -100,7 +95,6 @@ public extension ObservableType where Element: OptionalType {
 }
 
 public extension PrimitiveSequence where Trait == SingleTrait, Element: OptionalType {
-
     func unwrapOptional(errorOnNil: Bool = false) -> Single<Element.Wrapped> {
         self.filter { (value) in
             if value.value == nil {
@@ -118,7 +112,6 @@ public extension PrimitiveSequence where Trait == SingleTrait, Element: Optional
 }
 
 public extension PrimitiveSequence where Trait == MaybeTrait, Element: OptionalType {
-
     func unwrapOptional(errorOnNil: Bool = false) -> Maybe<Element.Wrapped> {
         self.filter { (value) in
             if value.value == nil {
@@ -134,9 +127,8 @@ public extension PrimitiveSequence where Trait == MaybeTrait, Element: OptionalT
 }
 
 public extension ObservableType {
-
     func retry(maxAttempts: Int, delay: RxTimeInterval, scheduler: SchedulerType) -> Observable<Element> {
-        return self.retryWhen { errors in
+        return self.retry { errors in
             return errors.enumerated().flatMap { (index, error) -> Observable<Int64> in
                 if index <= maxAttempts {
                     return Observable<Int64>.timer(delay, scheduler: scheduler)
@@ -148,7 +140,7 @@ public extension ObservableType {
     }
 
     func retry(delay: RxTimeInterval, scheduler: SchedulerType) -> Observable<Element> {
-        return self.retryWhen { errors in
+        return self.retry { errors in
             return errors.enumerated().flatMap { (_, _) -> Observable<Int64> in
                 return Observable<Int64>.timer(delay, scheduler: scheduler)
             }
@@ -270,10 +262,13 @@ public extension ObservableType {
         .filter { $0.1 }
         .map { $0.0 }
     }
+
+    func ignoreElementsAsCompletable() -> Completable {
+        ignoreElements().asCompletable()
+    }
 }
 
 public extension ObservableType where Element: Comparable {
-
     static func min(_ source: Observable<Element>) -> Single<Element> {
         return select(source, comparator: { $0 < $1 })
     }
@@ -289,7 +284,6 @@ public extension ObservableType where Element: Comparable {
     func max() -> Single<Element> {
         return Observable.max(self.asObservable())
     }
-
 }
 
 public extension PrimitiveSequenceType where Trait == SingleTrait {
@@ -337,11 +331,9 @@ public extension PrimitiveSequenceType where Trait == SingleTrait {
             logUtil.log("[\(identifier)] disposed", entryType: .info)
         })
     }
-
 }
 
 public extension PrimitiveSequenceType where Trait == MaybeTrait {
-
     static func from(_ closure: @escaping () throws -> Element?) -> Maybe<Element> {
         return Maybe<Element>.deferred {
             do {
@@ -374,12 +366,11 @@ public extension PrimitiveSequenceType where Trait == MaybeTrait {
             }
         })
     }
-
 }
 
 public extension PrimitiveSequence {
     func retry(maxAttempts: Int, delay: RxTimeInterval, scheduler: SchedulerType) -> PrimitiveSequence<Trait, Element> {
-        return self.retryWhen { errors in
+        return self.retry { errors in
             return errors.enumerated().flatMap { (index, error) -> Observable<Int64> in
                 if index <= maxAttempts {
                     return Observable<Int64>.timer(delay, scheduler: scheduler)
@@ -391,7 +382,7 @@ public extension PrimitiveSequence {
     }
 
     func retry(delay: RxTimeInterval, scheduler: SchedulerType) -> PrimitiveSequence<Trait, Element> {
-        return self.retryWhen { errors in
+        return self.retry { errors in
             return errors.enumerated().flatMap { (_, _) -> Observable<Int64> in
                 return Observable<Int64>.timer(delay, scheduler: scheduler)
             }

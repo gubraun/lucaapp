@@ -55,6 +55,12 @@ public class ServiceContainer {
     var keyValueRepo: KeyValueRepoProtocol!
     var healthDepartmentRepo: HealthDepartmentRepo!
 
+    var coronaTestRepo: CoronaTestRepo!
+    var coronaTestFactory: CoronaTestFactory!
+    var coronaTestRepoService: CoronaTestRepoService!
+    var coronaTestProcessingService: CoronaTestProcessingService!
+    var coronaTestUniquenessChecker: CoronaTestUniquenessChecker!
+
     private(set) var isSetup = false
 
     // swiftlint:disable:next function_body_length
@@ -157,6 +163,16 @@ public class ServiceContainer {
             backend: backendMiscV3,
             traceInfoRepo: traceInfoRepo,
             healthDepartmentRepo: healthDepartmentRepo, accessedTraceIdRepo: accessedTraceIdRepo)
+
+        coronaTestRepo = CoronaTestRepo()
+        coronaTestFactory = CoronaTestFactory()
+        coronaTestRepoService = CoronaTestRepoService(coronaTestRepo: coronaTestRepo,
+                                                      coronaTestFactory: coronaTestFactory)
+        coronaTestUniquenessChecker = CoronaTestUniquenessChecker(backend: backendMiscV3, keyValueRepo: keyValueRepo)
+        coronaTestProcessingService = CoronaTestProcessingService(coronaTestRepoService: coronaTestRepoService,
+                                                                  coronaTestFactory: coronaTestFactory,
+                                                                  preferences: LucaPreferences.shared,
+                                                                  uniquenessChecker: coronaTestUniquenessChecker)
 
         isSetup = true
     }

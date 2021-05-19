@@ -25,6 +25,7 @@ protocol BackendMisc {
     func fetchScanner(scannerId: String) -> AsyncDataOperation<BackendError<FetchScannerError>, ScannerInfo>
     func fetchSupportedVersions() -> AsyncDataOperation<BackendError<FetchSupportedVersionError>, SupportedVersions>
     func fetchAccessedTraces() -> AsyncDataOperation<BackendError<FetchAccessedTracesError>, [AccessedTrace]>
+    func redeemCoronaTest(hash: Data, tag: Data) -> AsyncOperation<BackendError<RedeemCoronaTestError>>
 }
 
 struct PrivateMeetingIds: Codable {

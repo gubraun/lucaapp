@@ -24,58 +24,14 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>app.luca-app.de</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-				<key>NSExceptionRequiresForwardSecrecy</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSRequiresCertificateTransparency</key>
-				<false/>
-				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-				<false/>
-				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-				<true/>
-			</dict>
-			<key>staging.luca-app.de</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-				<key>NSExceptionRequiresForwardSecrecy</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSRequiresCertificateTransparency</key>
-				<false/>
-				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-				<false/>
-				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Erlauben Sie den Kamerazugriff um den QR Code zu scannen.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Geben Sie hier immer die Erlaubnis, sonst müssen Sie in den Einstellungen die Erlaubnis auf immer setzen um Auto-Checkout benutzen zu können.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die "Immer" Erlaubnis.  Damit kann Ihr Smartphone Sie automatisch auschecken.</string>
+	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die &quot;Immer&quot; Erlaubnis.  Damit kann Ihr Smartphone Sie automatisch auschecken.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die "Immer" Erlaubnis.</string>
+	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die &quot;Immer&quot; Erlaubnis.</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIBackgroundModes</key>

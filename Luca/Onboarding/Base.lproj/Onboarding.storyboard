@@ -239,18 +239,37 @@
                                             </fragment>
                                         </attributedString>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iXX-rh-zP6" userLabel="Terms and Conditions Error">
+                                        <rect key="frame" x="240" y="295" width="16" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="16" id="BVU-fF-mjb"/>
+                                            <constraint firstAttribute="height" constant="16" id="KOj-Ah-I2j"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M13-P0-CkZ" userLabel="Privacy Policy Error">
+                                        <rect key="frame" x="240" y="343" width="16" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="SIA-Al-fl7"/>
+                                            <constraint firstAttribute="width" constant="16" id="zXw-9l-KdD"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="S89-g9-lx7" firstAttribute="trailing" secondItem="iXX-rh-zP6" secondAttribute="leading" constant="-16" id="0iZ-og-fkW"/>
+                                    <constraint firstItem="M13-P0-CkZ" firstAttribute="trailing" secondItem="Yxe-Ct-nqT" secondAttribute="trailing" id="2kT-vj-jpQ"/>
                                     <constraint firstItem="JDw-TJ-Ts9" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="Ahd-Je-THS"/>
                                     <constraint firstItem="Yxe-Ct-nqT" firstAttribute="top" secondItem="Ayy-OI-Pt8" secondAttribute="bottom" constant="24" id="ESv-2o-KzE"/>
                                     <constraint firstItem="FTT-jn-ynW" firstAttribute="top" secondItem="fJB-W4-hyV" secondAttribute="top" id="GFS-E1-7KP"/>
+                                    <constraint firstItem="IKK-RC-G6K" firstAttribute="trailing" secondItem="M13-P0-CkZ" secondAttribute="leading" constant="-16" id="LFi-my-rGh"/>
                                     <constraint firstItem="Yxe-Ct-nqT" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="MyX-GU-fJq"/>
                                     <constraint firstItem="Ayy-OI-Pt8" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="Oju-jp-eqB"/>
                                     <constraint firstItem="IKK-RC-G6K" firstAttribute="leading" secondItem="S89-g9-lx7" secondAttribute="leading" id="SuN-XR-ZpR"/>
+                                    <constraint firstItem="iXX-rh-zP6" firstAttribute="centerY" secondItem="S89-g9-lx7" secondAttribute="centerY" id="WAx-zi-9FZ"/>
                                     <constraint firstAttribute="bottom" secondItem="mqg-Xt-gNM" secondAttribute="bottom" id="YLY-AR-7cZ"/>
                                     <constraint firstItem="S89-g9-lx7" firstAttribute="centerY" secondItem="JDw-TJ-Ts9" secondAttribute="centerY" id="YvP-Vs-M8u"/>
                                     <constraint firstItem="JDw-TJ-Ts9" firstAttribute="top" secondItem="Yxe-Ct-nqT" secondAttribute="bottom" constant="25" id="Zvn-T3-H2V"/>
+                                    <constraint firstItem="M13-P0-CkZ" firstAttribute="centerY" secondItem="IKK-RC-G6K" secondAttribute="centerY" id="c17-wQ-HHB"/>
                                     <constraint firstItem="S89-g9-lx7" firstAttribute="leading" secondItem="JDw-TJ-Ts9" secondAttribute="trailing" constant="16" id="hHH-o9-MsV"/>
                                     <constraint firstItem="Ahv-Kh-t8G" firstAttribute="top" secondItem="JDw-TJ-Ts9" secondAttribute="bottom" constant="24" id="i6f-Rm-NFo"/>
                                     <constraint firstAttribute="trailing" secondItem="Yxe-Ct-nqT" secondAttribute="trailing" id="jbG-1W-apt"/>
@@ -258,10 +277,9 @@
                                     <constraint firstItem="FTT-jn-ynW" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="mkQ-cx-be9"/>
                                     <constraint firstItem="Ahv-Kh-t8G" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="oFC-zV-b10"/>
                                     <constraint firstItem="IKK-RC-G6K" firstAttribute="centerY" secondItem="Ahv-Kh-t8G" secondAttribute="centerY" id="qTH-1x-4Zr"/>
+                                    <constraint firstItem="iXX-rh-zP6" firstAttribute="trailing" secondItem="Yxe-Ct-nqT" secondAttribute="trailing" id="rXf-JX-TG7"/>
                                     <constraint firstAttribute="trailing" secondItem="mqg-Xt-gNM" secondAttribute="trailing" id="ssQ-xR-Gza"/>
-                                    <constraint firstItem="S89-g9-lx7" firstAttribute="trailing" secondItem="Yxe-Ct-nqT" secondAttribute="trailing" id="v9K-bs-aGK"/>
                                     <constraint firstItem="mqg-Xt-gNM" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="yCZ-Am-s1O"/>
-                                    <constraint firstItem="IKK-RC-G6K" firstAttribute="trailing" secondItem="S89-g9-lx7" secondAttribute="trailing" id="yY5-F6-h3d"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -280,8 +298,10 @@
                         <outlet property="logoImageView" destination="FTT-jn-ynW" id="iVd-Vg-lsc"/>
                         <outlet property="okButton" destination="mqg-Xt-gNM" id="R5g-Th-e8z"/>
                         <outlet property="privacyPolicyCheckbox" destination="Ahv-Kh-t8G" id="AeY-Fd-Uzt"/>
+                        <outlet property="privacyPolicyCheckboxError" destination="M13-P0-CkZ" id="FF5-Bz-aTE"/>
                         <outlet property="privacyPolicyTextView" destination="IKK-RC-G6K" id="juP-59-c7N"/>
                         <outlet property="termsAndConditionsCheckbox" destination="JDw-TJ-Ts9" id="Knw-9e-TeR"/>
+                        <outlet property="termsAndConditionsCheckboxError" destination="iXX-rh-zP6" id="EVz-W7-tgb"/>
                         <outlet property="termsAndConditionsTextView" destination="S89-g9-lx7" id="XBu-7i-AIX"/>
                     </connections>
                 </viewController>
@@ -516,10 +536,10 @@
     </scenes>
     <designables>
         <designable name="IKK-RC-G6K">
-            <size key="intrinsicContentSize" width="175" height="14"/>
+            <size key="intrinsicContentSize" width="199" height="15"/>
         </designable>
         <designable name="S89-g9-lx7">
-            <size key="intrinsicContentSize" width="175" height="14"/>
+            <size key="intrinsicContentSize" width="199" height="15"/>
         </designable>
     </designables>
     <resources>

@@ -19,7 +19,8 @@ class MainTabBarViewController: UITabBarController {
 
         if let tabBarItems = tabBar.items {
             tabBarItems[0].title = L10n.Navigation.Tab.checkin
-            tabBarItems[1].title = L10n.Navigation.Tab.history
+            tabBarItems[1].title = L10n.Navigation.Tab.health
+            tabBarItems[2].title = L10n.Navigation.Tab.history
         }
     }
 
@@ -33,7 +34,7 @@ class MainTabBarViewController: UITabBarController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.selectedIndex = 0
+        self.selectedIndex = 1
 
         ServiceContainer.shared.userService.registerIfNeeded { result in
             if result == .userRecreated {
@@ -57,11 +58,48 @@ class MainTabBarViewController: UITabBarController {
             .logError(self, "Accessed Trace Id check")
             .subscribe()
             .disposed(by: disposeBag)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didOpenDeeplink(_:)),
+                                               name: CoronaTestDeeplinkService.deeplinkNotificationName,
+                                               object: nil)
+    }
+
+    @objc func didOpenDeeplink(_ notification: Notification) {
+        guard let testString = notification.userInfo!["test"] as? String else {
+            return
+        }
+
+        let alert = AlertViewControllerFactory.createTestPrivacyConsent(confirmAction: {
+            self.parseQRCode(testString: testString)
+        })
+        alert.modalTransitionStyle = .crossDissolve
+        alert.modalPresentationStyle = .overCurrentContext
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func parseQRCode(testString: String) {
+        ServiceContainer.shared.coronaTestProcessingService
+            .parseQRCode(qr: testString)
+            .subscribe(onError: { error in
+                self.presentErrorAlert(for: error)
+            })
+            .disposed(by: disposeBag)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         disposeBag = DisposeBag()
+    }
+
+    private func presentErrorAlert(for error: Error) {
+        if let localizedError = error as? LocalizedTitledError {
+            let alert = UIAlertController.infoAlert(title: localizedError.localizedTitle, message: localizedError.localizedDescription)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Failure.Unknown.message(error.localizedDescription))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     private func subscribeToSelfCheckin() {
@@ -81,15 +119,16 @@ class MainTabBarViewController: UITabBarController {
                     .do(onSubscribe: { DispatchQueue.main.async { self.progressHud.show(in: self.view) } })
                     .do(onDispose: { DispatchQueue.main.async { self.progressHud.dismiss() } })
             }
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
             .debug("Self checkin")
-            .catchError {
+            .catch {
                 self.rxErrorAlert(for: $0)
             }
             .logError(self, "Pending self checkin")
             .retry(delay: .seconds(1), scheduler: MainScheduler.instance)
             .subscribe()
             .disposed(by: disposeBag)
+
     }
 
     private func rxErrorAlert(for error: Error) -> Completable {
@@ -97,7 +136,7 @@ class MainTabBarViewController: UITabBarController {
             viewController: self,
             title: L10n.MainTabBarViewController.ScannerFailure.title,
             message: error.localizedDescription)
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
             .andThen(Completable.error(error)) // Push the error through to retry the stream
     }
 }

@@ -1,29 +1,39 @@
 import UIKit
 import AVFoundation
+import RxSwift
 
 class QRScannerViewController: UIViewController {
+    enum Mode {
+        case checkIn
+        case healthTest
+    }
 
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
 
+    var onTestResult: ((String) -> Void)?
+    var mode = Mode.checkIn
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DispatchQueue.main.async {
-            self.captureSession = AVCaptureSession()
-            self.startScanning()
+        captureSession = AVCaptureSession()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if previewLayer != nil {
+            previewLayer.frame = view.layer.bounds
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBarToTranslucent()
-    }
 
-    func setNavigationBarToTranslucent() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+        DispatchQueue.main.async {
+            self.startScanning()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -31,15 +41,29 @@ class QRScannerViewController: UIViewController {
         stopRunning()
     }
 
-    func stopRunning() {
-        if let session = captureSession, session.isRunning {
-            DispatchQueue.main.async {
-                self.captureSession.stopRunning()
-            }
-        }
+    // MARK: - Public interface
+    func remove() {
+        stopRunning()
+
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
     }
 
-    func startScanning() {
+    func present(onParent parent: UIViewController, in parentView: UIView) {
+        parent.addChild(self)
+        parentView.addSubview(self.view)
+        didMove(toParent: parent)
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: parentView.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: parentView.bottomAnchor).isActive = true
+    }
+
+    // MARK: - Private helper
+    private func startScanning() {
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
         let videoInput: AVCaptureDeviceInput
 
@@ -77,24 +101,30 @@ class QRScannerViewController: UIViewController {
         }
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if previewLayer != nil {
-            previewLayer.frame = view.layer.bounds
+    private func stopRunning() {
+        if let session = captureSession, session.isRunning {
+            DispatchQueue.main.async {
+                self.captureSession.stopRunning()
+            }
         }
     }
 
-    func scanningFailed() {
+    private func scanningFailed() {
         let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Camera.Error.scanningFailed)
         self.present(alert, animated: true)
         captureSession = nil
     }
 
-    func wrongQRCode() {
+    private func wrongQRCode() {
         let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Camera.Error.wrongQR)
         self.present(alert, animated: true, completion: nil)
     }
 
+    private func setNavigationBarToTranslucent() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+    }
 }
 extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
 
@@ -102,12 +132,20 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            guard let url = URL(string: stringValue) else { return }
 
-            if let selfCheckin = CheckInURLParser.parse(url: url) {
-                checkin(checkin: selfCheckin)
-            } else {
-                wrongQRCode()
+            switch mode {
+            case .checkIn:
+                if let url = URL(string: stringValue), let selfCheckin = CheckInURLParser.parse(url: url) {
+                    checkin(checkin: selfCheckin)
+                } else {
+                    wrongQRCode()
+                }
+            case .healthTest:
+                if let onResult = onTestResult {
+                    onResult(stringValue)
+                } else {
+                    wrongQRCode()
+                }
             }
         }
     }

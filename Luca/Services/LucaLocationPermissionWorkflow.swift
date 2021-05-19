@@ -21,16 +21,16 @@ class LucaLocationPermissionWorkflow {
                     return infoAlert                                                                    // Show our info alert
                         .andThen(LocationPermissionHandler.shared.request(.authorizedWhenInUse))        // Prompt user
                         .andThen(LocationPermissionHandler.shared.permissionChanges.skip(1).take(1))    // Skip the first value (it's the current permission) and await the first value after that
-                        .ignoreElements()                                                               // Ignore elements and wait for complete
+                        .ignoreElementsAsCompletable()                                                               // Ignore elements and wait for complete
                 }
 
                 // If it's denied or unknown, inform user that he should change the settings
                 return infoAlert                                                                        // Show our info alert
                     .andThen(Completable.from { UIApplication.shared.openApplicationSettings() })
                     .andThen(UIApplication.shared.rx.didOpenApp.take(1))                                // Wait for user to come back
-                    .ignoreElements()                                                                   // Complete
+                    .ignoreElementsAsCompletable()                                                                   // Complete
             }
-            .ignoreElements()// Up until this moment user should have granted the permissions, if not, force him to do it or leave it be.
+            .ignoreElementsAsCompletable()// Up until this moment user should have granted the permissions, if not, force him to do it or leave it be.
             .andThen(LocationPermissionHandler.shared.permissionChanges.take(1))
             .asSingle()
             .debug("AUTH CHAIN TEST")
@@ -55,7 +55,7 @@ class LucaLocationPermissionWorkflow {
                         .andThen(UIApplication.shared.rx.didOpenApp.take(1))
                 }
                 return Observable.empty()
-            }.ignoreElements()
+            }.ignoreElementsAsCompletable()
             .andThen(LocationPermissionHandler.shared.permissionChanges.take(1))
             .asSingle()
     }

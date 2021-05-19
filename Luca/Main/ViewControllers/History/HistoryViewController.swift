@@ -2,17 +2,17 @@ import UIKit
 import RxSwift
 
 class HistoryViewController: UIViewController {
-    
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var leadingMargin: NSLayoutConstraint!
     @IBOutlet weak var dataAccessButtonView: UIView!
-    
+
     var events: [HistoryEvent] = []
 
     var disposeBag: DisposeBag?
     let bottomGradientLayer = CAGradientLayer()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -20,7 +20,7 @@ class HistoryViewController: UIViewController {
 
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 75, right: 0)
-        
+
         addBottomGradient()
         dataAccessButtonView.accessibilityLabel = L10n.History.Accessibility.dataAccessButton
         dataAccessButtonView.isAccessibilityElement = true
@@ -30,9 +30,9 @@ class HistoryViewController: UIViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+
         UIAccessibility.setFocusTo(titleLabel)
-        
+
         ServiceContainer.shared.history.removeOldEntries()
         events = ServiceContainer.shared.history.historyEvents
 
@@ -42,7 +42,7 @@ class HistoryViewController: UIViewController {
 
         ServiceContainer.shared.history
             .onEventAddedRx
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .do(onNext: { _ in
                 self.events = ServiceContainer.shared.history.historyEvents
                 self.tableView.reloadData()
@@ -58,7 +58,7 @@ class HistoryViewController: UIViewController {
 
         disposeBag = nil
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         bottomGradientLayer.frame = CGRect(x: leadingMargin.constant, y: tableView.frame.origin.y + tableView.frame.height - 100.0, width: tableView.bounds.width, height: 100.0)
@@ -70,11 +70,11 @@ class HistoryViewController: UIViewController {
         alert.modalPresentationStyle = .overCurrentContext
         present(alert, animated: true, completion: nil)
     }
-    
+
     @IBAction func deleteHistoryPressed(_ sender: UIButton) {
         resetLocallyAlert()
     }
-    
+
     func resetLocallyAlert() {
         UIAlertController(title: L10n.Data.Clear.title, message: L10n.Data.Clear.description, preferredStyle: .alert).actionAndCancelAlert(actionText: L10n.Data.Clear.title, action: {
             DataResetService.resetHistory()
@@ -89,13 +89,13 @@ class HistoryViewController: UIViewController {
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true, completion: nil)
     }
-    
+
     func addBottomGradient() {
         bottomGradientLayer.frame = CGRect(x: leadingMargin.constant, y: tableView.frame.origin.y + tableView.frame.height - 100.0, width: tableView.bounds.width, height: 100.0)
         bottomGradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         self.view.layer.addSublayer(bottomGradientLayer)
     }
-    
+
 }
 extension HistoryViewController: UITableViewDataSource, UITableViewDelegate {
 

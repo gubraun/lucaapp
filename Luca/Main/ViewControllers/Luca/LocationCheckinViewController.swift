@@ -18,9 +18,9 @@ class LocationCheckinViewController: UIViewController {
     @IBOutlet weak var tableNumberLabel: UILabel!
     @IBOutlet weak var automaticCheckoutLabel: UILabel!
     @IBOutlet weak var moreButtonView: UIView!
-    
+
     var viewModel: LocationCheckInViewModel!
-    
+
     var initialStatusBarStyle: UIStatusBarStyle?
 
     var loadingHUD = JGProgressHUD.lucaLoading()
@@ -43,9 +43,9 @@ class LocationCheckinViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+
         UIAccessibility.setFocusTo(locationNameLabel)
-        
+
         initialStatusBarStyle = UIApplication.shared.statusBarStyle
         if #available(iOS 13.0, *) {
             UIApplication.shared.setStatusBarStyle(.darkContent, animated: animated)
@@ -75,12 +75,12 @@ class LocationCheckinViewController: UIViewController {
         super.viewDidLayoutSubviews()
         setupCheckinSlider()
     }
-    
+
     @objc private func checkoutForAccessibility() -> Bool {
         checkout()
         return true
     }
-    
+
     private func checkout() {
         if checkOutDisposeBag != nil {
             return
@@ -89,7 +89,7 @@ class LocationCheckinViewController: UIViewController {
         let disposeBag = DisposeBag()
 
         viewModel.checkOut()
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .logError(self, "Check out")
             .do(onError: { (error) in
                 if let printableError = error as? PrintableError {
@@ -134,11 +134,11 @@ class LocationCheckinViewController: UIViewController {
 
         welcomeLabel.text = L10n.LocationCheckinViewController.welcomeMessage
         navigationItem.hidesBackButton = true
-        
+
         sliderDescriptionLabel.isAccessibilityElement = false
         moreButtonView.accessibilityLabel = L10n.Contact.Qr.Button.more
         moreButtonView.isAccessibilityElement = true
-        
+
         let accessibilityCompleteAction = UIAccessibilityCustomAction(
             name: L10n.LocationCheckinViewController.Accessibility.directCheckout,
             target: self,
@@ -156,6 +156,7 @@ class LocationCheckinViewController: UIViewController {
             .do { (isCheckedIn) in
                 if !isCheckedIn {
                     self.navigationController?.popViewController(animated: true)
+                    self.removeObservers()
                 }
             }
             .drive()

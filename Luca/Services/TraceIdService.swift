@@ -259,7 +259,7 @@ class TraceIdService {
                 }
             }
             .asObservable()
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
 
         return Completable
             .from {

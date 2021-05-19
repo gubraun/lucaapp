@@ -39,7 +39,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.firstName = newValue
+            data?.firstName = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }
@@ -50,7 +50,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.lastName = newValue
+            data?.lastName = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }
@@ -61,7 +61,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.street = newValue
+            data?.street = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }
@@ -72,7 +72,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.houseNumber = newValue
+            data?.houseNumber = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }
@@ -83,7 +83,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.postCode = newValue
+            data?.postCode = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }
@@ -94,7 +94,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.city = newValue
+            data?.city = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }
@@ -105,7 +105,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.phoneNumber = newValue
+            data?.phoneNumber = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }
@@ -116,7 +116,7 @@ class LucaPreferences {
         }
         set {
             let data = self.userRegistrationData
-            data?.email = newValue
+            data?.email = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
             self.userRegistrationData = data
         }
     }

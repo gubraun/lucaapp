@@ -48,6 +48,10 @@ class CommonBackendMisc: BackendMisc {
     func fetchAccessedTraces() -> AsyncDataOperation<BackendError<FetchAccessedTracesError>, [AccessedTrace]> {
         FetchAccessedTracesAsyncDataOperation(backendAddress: backendAddress)
     }
+
+    func redeemCoronaTest(hash: Data, tag: Data) -> AsyncOperation<BackendError<RedeemCoronaTestError>> {
+        RedeemCoronaTestAsyncOperation(backendAddress: backendAddress, hash: hash, tag: tag)
+    }
 }
 
 extension Bundle {

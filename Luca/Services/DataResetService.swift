@@ -29,6 +29,8 @@ class DataResetService {
         LucaPreferences.shared.welcomePresented = false
         LucaPreferences.shared.dataPrivacyPresented = false
         LucaPreferences.shared.currentOnboardingPage = 0
+        LucaPreferences.shared.phoneNumberVerified = false
+        LucaPreferences.shared.verificationRequests = []
     }
 
     static func resetHistory() {

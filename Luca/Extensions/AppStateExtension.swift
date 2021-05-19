@@ -5,7 +5,7 @@ import RxAppState
 extension Reactive where Base == UIApplication {
     var currentAndChangedAppState: Observable<AppState> {
         let current = Single.from { AppState(state: base.applicationState) }
-        return Observable.merge(appState, current.asObservable()).subscribeOn(MainScheduler.instance)
+        return Observable.merge(appState, current.asObservable()).subscribe(on: MainScheduler.instance)
     }
 }
 

@@ -11,9 +11,9 @@ class PrivateMeetingViewController: UIViewController {
     @IBOutlet weak var moreButtonView: UIView!
     @IBOutlet weak var slider: CheckinSlider!
     @IBOutlet weak var sliderLabel: UILabel!
-    
+
     var initialStatusBarStyle: UIStatusBarStyle?
-    
+
     var meeting: PrivateMeetingData! {
         didSet {
             let guests = meeting.guests
@@ -41,47 +41,47 @@ class PrivateMeetingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+
         initialStatusBarStyle = UIApplication.shared.statusBarStyle
         if #available(iOS 13.0, *) {
             UIApplication.shared.setStatusBarStyle(.darkContent, animated: animated)
         } else {
             UIApplication.shared.setStatusBarStyle(.default, animated: animated)
         }
-        
+
         UIAccessibility.setFocusTo(titleLabel)
 
         CheckinTimer.shared.delegate = self
         startTimer()
         installObservers()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         sliderWasSetup = false
-        
+
         if let statusBarStyle = initialStatusBarStyle {
             UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: animated)
         }
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         disposeBag = nil
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupSlider()
     }
-    
+
     func installObservers() {
         let newDisposeBag = DisposeBag()
-        
+
         Observable<Int>.interval(.seconds(10), scheduler: LucaScheduling.backgroundScheduler)
             .flatMapFirst { _ in ServiceContainer.shared.privateMeetingService.refresh(meeting: self.meeting) }
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .do(onNext: { refreshedMeeting in
                 self.meeting = refreshedMeeting
                 self.setupViews()
@@ -90,11 +90,11 @@ class PrivateMeetingViewController: UIViewController {
             .retry(delay: .seconds(1), scheduler: LucaScheduling.backgroundScheduler)
             .subscribe()
             .disposed(by: newDisposeBag)
-        
+
         slider.valueObservable.subscribe(onNext: { value in
             self.sliderLabel.alpha = value
         }).disposed(by: newDisposeBag)
-        
+
         slider.completed.subscribe(onNext: { completed in
             self.resetCheckInSlider()
             if completed {
@@ -108,13 +108,13 @@ class PrivateMeetingViewController: UIViewController {
     func startTimer() {
         CheckinTimer.shared.start(from: meeting.createdAt)
     }
-    
+
     private func resetCheckInSlider() {
         slider.reset()
         sliderLabel.isHidden = false
         sliderLabel.alpha = 1.0
     }
-    
+
     private var sliderWasSetup = false
     private func setupSlider() {
         guard !sliderWasSetup else { return }
@@ -125,7 +125,7 @@ class PrivateMeetingViewController: UIViewController {
     @IBAction func viewMorePressed(_ sender: UITapGestureRecognizer) {
         UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).dataPrivacyActionSheet(viewController: self)
     }
-    
+
     func endMeeting() {
         ServiceContainer.shared.privateMeetingService.close(meeting: meeting) {
             DispatchQueue.main.async {
@@ -139,7 +139,7 @@ class PrivateMeetingViewController: UIViewController {
             }
         }
     }
-    
+
     @IBAction func participantInfoButtonPressed(_ sender: UIButton) {
         let list = uniqueGuests.reduce("") { (result, guest) -> String in
             if result == "" {

@@ -7,10 +7,35 @@ struct SelfCheckInPayload {
     var additionalData: String
 }
 
+private struct SelfCheckInPayloadData {
+    let scannerId: String
+    let additionalData: Data
+}
+
 class SelfCheckin {
     var url: URL
     init(url: URL) {
         self.url = url
+    }
+
+    fileprivate static func payloadData(from urlString: String) -> SelfCheckInPayloadData? {
+        guard let parameters = urlString.split(separator: "/").last else {
+            return nil
+        }
+
+        let splitted = parameters.split(separator: "#")
+        guard splitted.count == 2,
+              let scannerId = splitted.first,
+              let additionalData = splitted.last,
+              scannerId != additionalData else {
+            return nil
+        }
+
+        guard let data = Data(base64urlEncoded: String(additionalData)) else {
+            return nil
+        }
+
+        return SelfCheckInPayloadData(scannerId: String(scannerId), additionalData: data)
     }
 }
 
@@ -27,27 +52,13 @@ class PrivateMeetingSelfCheckin: SelfCheckin {
             return nil
         }
 
-        guard let parameters = urlToParse.absoluteString.split(separator: "/").last else {
-            return nil
-        }
+        guard let payloadData = SelfCheckin.payloadData(from: urlToParse.absoluteString) else { return nil }
 
-        let splitted = parameters.split(separator: "#")
-        guard splitted.count == 2,
-              let scannerId = splitted.first,
-              let additionalData = splitted.last,
-              scannerId != additionalData else {
-            return nil
-        }
-
-        guard let data = Data(base64urlEncoded: String(additionalData)) else {
-            return nil
-        }
-
-        guard let parsedData = try? JSONDecoder().decode(PrivateMeetingQRCodeV3AdditionalData.self, from: data) else {
+        guard let parsedData = try? JSONDecoder().decode(PrivateMeetingQRCodeV3AdditionalData.self, from: payloadData.additionalData) else {
             return nil
         }
         self.additionalData = parsedData
-        self.scannerId = String(scannerId)
+        self.scannerId = payloadData.scannerId
 
         super.init(url: urlToParse)
     }
@@ -61,33 +72,23 @@ class TableSelfCheckin: SelfCheckin {
 
         guard let components = NSURLComponents(url: urlToParse, resolvingAgainstBaseURL: true),
               let componentArray = components.path?.split(separator: "/"),
-              componentArray.count == 2,
               componentArray.first == "webapp" else {
             return nil
         }
 
-        guard let parameters = urlToParse.absoluteString.split(separator: "/").last else {
-            return nil
+        var urlStringToParse = urlToParse.absoluteString
+        if let cwaRange = urlStringToParse.range(of: "/CWA1") {
+            urlStringToParse.removeSubrange(cwaRange.lowerBound..<urlStringToParse.endIndex)
         }
 
-        let splitted = parameters.split(separator: "#")
-        guard splitted.count == 2,
-              let scannerId = splitted.first,
-              let additionalData = splitted.last,
-              scannerId != additionalData else {
-            return nil
-        }
+        guard let payloadData = SelfCheckin.payloadData(from: urlStringToParse) else { return nil }
 
-        guard let data = Data(base64urlEncoded: String(additionalData)) else {
-            return nil
-        }
-
-        if let parsedData = try? JSONDecoder().decode(TraceIdAdditionalData.self, from: data) {
+        if let parsedData = try? JSONDecoder().decode(TraceIdAdditionalData.self, from: payloadData.additionalData) {
             self.additionalData = parsedData
-        } else if let keyValues = try? JSONDecoder().decode([String: String].self, from: data) {
+        } else if let keyValues = try? JSONDecoder().decode([String: String].self, from: payloadData.additionalData) {
             self.keyValues = keyValues
         }
-        self.scannerId = String(scannerId)
+        self.scannerId = payloadData.scannerId
 
         super.init(url: urlToParse)
     }

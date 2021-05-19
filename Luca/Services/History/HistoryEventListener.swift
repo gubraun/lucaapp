@@ -21,18 +21,18 @@ class HistoryEventListener {
 
         let newDisposeBag = DisposeBag()
 
-        let onUserUpdated = userService.onUserUpdatedRx.do(onNext: { _ in self.add(.userDataUpdate) }).ignoreElements()
-        let onUserDataTransfered = userService.onUserDataTransferedRx.do(onNext: { _ in self.add(.userDataTransfer) }).ignoreElements()
+        let onUserUpdated = userService.onUserUpdatedRx.do(onNext: { _ in self.add(.userDataUpdate) }).ignoreElementsAsCompletable()
+        let onUserDataTransfered = userService.onUserDataTransferedRx.do(onNext: { _ in self.add(.userDataTransfer) }).ignoreElementsAsCompletable()
 
         let onCheckIn = traceIdService.onCheckInRx()
             .flatMap { _ in self.fetchCurrentLocation() }
             .do(onNext: { self.add(.checkIn, location: $0) })
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
 
         let onCheckOut = traceIdService.onCheckOutRx()
             .flatMap { _ in self.retrieveCurrentLocation() }
             .do(onNext: { self.add(.checkOut, location: $0) })
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
 
         let onMeetingCreated = privateMeetingService
             .onMeetingCreatedRx
@@ -41,7 +41,7 @@ class HistoryEventListener {
                 let namesList = guestList.map { "\($0.fn) \($0.ln)" }
                 self.add(.checkIn, guestlist: namesList)
             })
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
 
         let onMeetingClosed = privateMeetingService
             .onMeetingClosedRx
@@ -50,7 +50,7 @@ class HistoryEventListener {
                 let namesList = guestList.map { "\($0.fn) \($0.ln)" }
                 self.add(.checkOut, guestlist: namesList)
             })
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
 
         Completable.zip(onUserUpdated,
                         onUserDataTransfered,
