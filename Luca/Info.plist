@@ -29,9 +29,9 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Geben Sie hier immer die Erlaubnis, sonst müssen Sie in den Einstellungen die Erlaubnis auf immer setzen um Auto-Checkout benutzen zu können.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die &quot;Immer&quot; Erlaubnis.  Damit kann Ihr Smartphone Sie automatisch auschecken.</string>
+	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die "Immer" Erlaubnis.  Damit kann Ihr Smartphone Sie automatisch auschecken.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die &quot;Immer&quot; Erlaubnis.</string>
+	<string>Erlauben Sie die Lokationsbestimmung beim Verwenden der App, und in weiteren Meldungen, erteilen Sie bitte die "Immer" Erlaubnis.</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIBackgroundModes</key>

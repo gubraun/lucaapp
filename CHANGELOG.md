@@ -1,3 +1,7 @@
+# Release 1.6.2
+
+- important bug fix for CheckedIn Status Screen
+
 # Release 1.6.1
 
 - Minor improvements and bugfixes

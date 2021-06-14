@@ -793,10 +793,9 @@
 				B4A013BD265522AA00D6E894 /* DmCoronaTest.swift */,
 				E39BA946265408F70003ECB6 /* BaerCoronaTest.swift */,
 				E39BA9742654F86D0003ECB6 /* BaerCodeDecoder.swift */,
-				B46E42FD2657EA3500EBC231 /* BaerCodeKeyService.swift */,
 				E34CC95B265CE43A00362512 /* BaerCodeSignatureValidator.swift */,
 				E34CC957265CE1F600362512 /* ASN1.swift */,
-				B46E42FD2657EA3500EBC231 /* BaerKeyService.swift */,
+				B46E42FD2657EA3500EBC231 /* BaerCodeKeyService.swift */,
 			);
 			path = "Corona Test";
 			sourceTree = "<group>";
@@ -2125,14 +2124,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_VERSION = 5.0;
@@ -2147,14 +2146,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

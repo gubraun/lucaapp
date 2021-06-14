@@ -144,6 +144,7 @@ class TraceIdService {
         self.traceIdCoreRepo = traceIdCoreRepo
 
         migrateOldData()
+        _ = checkCorrectnessOfLocalTraceInfoData().andThen(fetchTraceStatus()).subscribe()
     }
 
     private func migrateOldData() {
@@ -397,6 +398,18 @@ class TraceIdService {
         self.ePrivKeyRepo.removeAll()
     }
 
+    func getOrCreateTraceId(core: TraceIdCore) throws -> TraceId {
+        guard let uuid = lucaPreferences.uuid else {
+            throw TraceIdServiceError.unableToRetrieveUserID
+        }
+        if let cached = cachedTraceIds[core] {
+            return cached
+        }
+        let traceId = try qrCodeGenerator.traceId(core: core, userID: uuid)
+        cachedTraceIds[core] = traceId
+        return traceId
+    }
+
     // MARK: - private helper
     private func generateNewTraceIdCore() -> Single<TraceIdCore> {
         Single.from { try self.retrieveNewestKeyId() }
@@ -501,21 +514,19 @@ class TraceIdService {
                 self.backend.fetchInfo(traceId: currentTraceId)
                     .asSingle()
                     .flatMap(self.traceInfoRepo.store)
-                    .do(onSuccess: { updatedTraceInfo in
+                    .flatMapCompletable { updatedTraceInfo in
                         if !updatedTraceInfo.isCheckedIn {
-                            self.performCheckOut(triggerCheckOutEvent: true, traceInfoToNotify: updatedTraceInfo)
+                            return self.performCheckOut(triggerCheckOutEvent: true, traceInfoToCheckOut: updatedTraceInfo)
                         }
-                    })
-                    .asObservable()
-                    .ignoreElementsAsCompletable()
+                        return Completable.empty()
+                    }
                     .catch { error in
                         guard let interpretedError = error as? BackendError<FetchTraceInfoError> else {
                             throw error
                         }
                         if let backendError = interpretedError.backendError,
                            case FetchTraceInfoError.notFound = backendError {
-                            self.performCheckOut(triggerCheckOutEvent: true, traceInfoToNotify: currentTraceInfo)
-                            return Completable.empty()
+                            return self.performCheckOut(triggerCheckOutEvent: true, traceInfoToCheckOut: currentTraceInfo)
                         }
                         self.log("Error Checking status when checked in. Error: \(error)", entryType: .error)
                         if let networkError = interpretedError.networkLayerError {
@@ -526,6 +537,34 @@ class TraceIdService {
             }
     }
 
+    private func performCheckOut(triggerCheckOutEvent: Bool, traceInfoToCheckOut: TraceInfo? = nil) -> Completable {
+        var checkedOutTraceInfo = traceInfoToCheckOut
+
+        if var traceInfo = traceInfoToCheckOut,
+           traceInfo.checkOutDate == nil {
+            traceInfo = closeNow(traceInfo: traceInfo)
+            checkedOutTraceInfo = traceInfo
+        }
+        return Maybe.from { checkedOutTraceInfo }
+            .flatMap { self.traceInfoRepo.store(object: $0).asMaybe() }
+            .asObservable()
+            .ignoreElementsAsCompletable()
+            .andThen(Completable.from {
+                if triggerCheckOutEvent {
+                    var userInfo: [String: Any]?
+                    if let traceInfo = checkedOutTraceInfo {
+                        userInfo = ["traceInfo": traceInfo]
+                    }
+                    NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckOut), object: self, userInfo: userInfo))
+                }
+                self.cachedTraceIds = [:]
+                self.removeAdditionalData()
+                self.disposeData(clearTraceHistory: false)
+        })
+    }
+
+    // MARK: - Data sanity logic
+
     /// Takes all open trace infos and asks backend if those are correct.
     /// This was needed due to migration from v1.6.0
     private func checkCorrectnessOfLocalTraceInfoData() -> Completable {
@@ -535,47 +574,66 @@ class TraceIdService {
             return Completable.empty()
         }
 
-        return traceInfoRepo.restore()
-            .map { array in array.filter { $0.isCheckedIn } }
-            .map { array in array
-                .map { $0.traceIdData }
-                .filter { $0 != nil }
-                .map { $0! }
-            }
-            .filter { !$0.isEmpty }
-            .asObservable()
-            .flatMap { self.backend.fetchInfo(traceIds: $0).asSingle() }
-            .flatMap { self.traceInfoRepo.store(objects: $0) }
-            .ignoreElementsAsCompletable()
+        return removeExpiredCheckIns()
+            .andThen(closeOldCheckIns())
             .do(onCompleted: {
                 self.consistencyCheckAlreadyRun = true
             })
     }
 
-    private func performCheckOut(triggerCheckOutEvent: Bool, traceInfoToNotify: TraceInfo? = nil) {
-        self.cachedTraceIds = [:]
-        if triggerCheckOutEvent {
-            var userInfo: [String: Any]?
-            if let traceInfo = traceInfoToNotify {
-                userInfo = ["traceInfo": traceInfo]
+    /// Sets the checkOut date to checkInDate + 24h if not set already.
+    ///
+    /// If the checkinDate is not so old, nothing will be changed.
+    /// If the checkOutDate is not nil, nothing will be changed either.
+    private func closeIfOlderThanOneDay(traceInfo: TraceInfo) -> TraceInfo {
+        if traceInfo.checkout == nil {
+            let now = Date()
+            let upperBound = Calendar.current.date(byAdding: .day, value: 1, to: traceInfo.checkInDate) ?? now
+            /// If upper bound has been reached
+            if now > upperBound {
+                var checkedOutTraceInfo = traceInfo
+                checkedOutTraceInfo.checkout = Int(upperBound.timeIntervalSince1970)
+                return checkedOutTraceInfo
             }
-            NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckOut), object: self, userInfo: userInfo))
         }
-        self.removeAdditionalData()
-
-        self.disposeData(clearTraceHistory: false)
+        return traceInfo
     }
 
-    func getOrCreateTraceId(core: TraceIdCore) throws -> TraceId {
-        guard let uuid = lucaPreferences.uuid else {
-            throw TraceIdServiceError.unableToRetrieveUserID
+    private func closeNow(traceInfo: TraceInfo) -> TraceInfo {
+        var closedAfterOneDay = closeIfOlderThanOneDay(traceInfo: traceInfo)
+        if closedAfterOneDay.checkout == nil {
+            closedAfterOneDay.checkout = Int(Date().timeIntervalSince1970)
         }
-        if let cached = cachedTraceIds[core] {
-            return cached
+        return closedAfterOneDay
+    }
+
+    /// Reads all saved TraceInfos and checks out all of those who are not closed and are older than 24h.
+    ///
+    /// It leaves out the newest one as this is the actual checkin that has to be checked out properly.
+    private func closeOldCheckIns() -> Completable {
+        traceInfoRepo.restore()
+            .map { array in array.filter { $0.isCheckedIn } }           // Get only checked in traceInfos
+            .map { array in array.sorted { $0.checkin < $1.checkin } }  // Sort ascending by check in
+            .map { array -> [TraceInfo] in
+                var modifiedArray = array
+                _ = modifiedArray.popLast()                             // Remove the newest one
+                return modifiedArray
+            }
+            .map { array in array.map(self.closeNow) }                  // Close all traceInfos
+            .flatMap(self.traceInfoRepo.store)
+            .asCompletable()
+    }
+
+    /// Removes all traceInfos older than 28 days.
+    private func removeExpiredCheckIns() -> Completable {
+        let today = Date()
+        guard let lowerBound = Calendar.current.date(byAdding: .day, value: -28, to: today) else {
+            return Completable.empty() // Will not happen, just for unwrapping Date optional
         }
-        let traceId = try qrCodeGenerator.traceId(core: core, userID: uuid)
-        cachedTraceIds[core] = traceId
-        return traceId
+        return traceInfoRepo.restore()
+            .map { array in array.filter { $0.checkInDate < lowerBound } }
+            .map { array in array.map { $0.identifier ?? 0 } }
+            .flatMapCompletable(self.traceInfoRepo.remove)
     }
 
 }
