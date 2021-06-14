@@ -2,9 +2,18 @@ import Foundation
 
 extension Date {
 
-    var formattedDate: String {
+    /// Format "dd.MM.yyyy HH.mm"
+    var formattedDateTime: String {
         let formatter = DateFormatter()
         formatter.dateFormat = L10n.Checkin.Slider.dateFormat
+        let date = formatter.string(from: self)
+        return date
+    }
+
+    /// Format "dd.MM.yyyy"
+    var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = L10n.Test.Result.dateFormat
         let date = formatter.string(from: self)
         return date
     }
@@ -16,6 +25,21 @@ extension Date {
 
         let date = formatter.string(from: self)
         return date
+    }
+
+    var durationSinceDate: String {
+
+        if let hour = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour,
+           let minute = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute {
+            if minute < 60 {
+                return L10n.Test.Result.Duration.minutes(minute)
+            } else if hour == 1 {
+                return L10n.Test.Result.Duration.hour
+            }
+            return L10n.Test.Result.Duration.hours(hour)
+        }
+
+        return "Time error"
     }
 
     /// Format string with ubirch date format (e.g. 19640812 = 12.Aug 1964)

@@ -23,13 +23,19 @@ struct HistoryEntry: Codable {
     // Optional value for data shared events
     var numberOfDaysShared: Int?
 
-    init(date: Date, type: HistoryEntryType, location: Location?) {
+    // Optional value for check ins as guest
+    var traceInfo: TraceInfo?
+
+    /// Produces a history event that correspondets to a check in as guest
+    init(date: Date, type: HistoryEntryType, location: Location?, traceInfo: TraceInfo?) {
         self.date = date
         self.type = type
         self.location = location
         self.role = .guest
+        self.traceInfo = traceInfo
     }
 
+    /// Produces a history event that correspondents to a private meetin as host
     init(date: Date, type: HistoryEntryType, location: Location?, guestlist: [String]?) {
         self.date = date
         self.type = type
@@ -38,6 +44,7 @@ struct HistoryEntry: Codable {
         self.role = .host
     }
 
+    /// Produces a history event for history share
     init(date: Date, type: HistoryEntryType, numberOfDaysShared: Int?) {
         self.date = date
         self.type = type
@@ -84,9 +91,9 @@ class UserEvent: HistoryEvent {
             let maxCheckoutDate = Calendar.current.date(byAdding: .hour, value: 24, to: checkin.date) ?? Date()
 
             let validDate = checkout.date < maxCheckoutDate ? checkout.date : maxCheckoutDate
-            return "\(checkin.date.formattedDate) - \n\(validDate.formattedDate)"
+            return "\(checkin.date.formattedDateTime) - \n\(validDate.formattedDateTime)"
         } else {
-            return checkin.date.formattedDate
+            return checkin.date.formattedDateTime
         }
     }
 }

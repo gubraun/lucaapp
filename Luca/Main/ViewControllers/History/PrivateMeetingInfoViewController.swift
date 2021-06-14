@@ -20,10 +20,10 @@ class PrivateMeetingInfoViewController: UIViewController {
         }
 
         if let event = historyEvent as? UserEvent, let checkout = event.checkout {
-            dateLabel.text = "\(event.checkin.date.formattedDate) - \(checkout.date.formattedDate)"
+            dateLabel.text = "\(event.checkin.date.formattedDateTime) - \(checkout.date.formattedDateTime)"
             setup(entry: checkout)
         } else if let event = historyEvent as? UserEvent {
-            dateLabel.text = event.checkin.date.formattedDate
+            dateLabel.text = event.checkin.date.formattedDateTime
             setup(entry: event.checkin)
         }
 

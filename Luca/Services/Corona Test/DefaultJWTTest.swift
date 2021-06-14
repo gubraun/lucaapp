@@ -41,6 +41,11 @@ enum Category: String, Codable {
     case fast = "f"
     case pcr = "p"
     case other = "o"
+    case unknown
+
+    public init(from decoder: Decoder) throws {
+        self = try Category(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+    }
 
     var category: String {
         switch self {
@@ -51,7 +56,7 @@ enum Category: String, Codable {
     }
 
 }
-protocol DefaultJWTTest: CoronaTest {
+protocol DefaultJWTTest: CoronaTest & DocumentCellViewModel {
 
     var version: Int { get }
     var name: String { get }

@@ -163,7 +163,9 @@ public class ServiceContainer {
             traceIdService: traceIdService,
             userService: userService,
             privateMeetingService: privateMeetingService,
-            locationRepo: locationRepo)
+            locationRepo: locationRepo,
+            historyRepo: historyRepo,
+            traceInfoRepo: traceInfoRepo)
 
         historyListener.enable()
 

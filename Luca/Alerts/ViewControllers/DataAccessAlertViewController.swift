@@ -55,9 +55,9 @@ extension DataAccessAlertViewController: UITableViewDataSource, UITableViewDeleg
         cell.locationLabel.text = newDataAccess.location.name
         let checkin = newDataAccess.traceInfo.checkInDate
         if let checkout = newDataAccess.traceInfo.checkOutDate {
-            cell.dateLabel.text = "\(checkin.formattedDate) - \(checkout.formattedDate)"
+            cell.dateLabel.text = "\(checkin.formattedDateTime) - \(checkout.formattedDateTime)"
         } else {
-            cell.dateLabel.text = "\(checkin.formattedDate)"
+            cell.dateLabel.text = "\(checkin.formattedDateTime)"
         }
 
         return cell

@@ -84,11 +84,25 @@
 
 "dOi-Ne-4nw.text" = "Kategorie";
 
-"eOQ-Li-y72.text" = "Ausgestellt von";
+"TFM-6N-1K2.text" = "Erstellt vor:";
 
-"nfW-h8-Eb7.text" = "Durchgeführt von";
+"eOQ-Li-y72.text" = "Ausgestellt:";
+
+"kgr-uj-gbh.text" = "Ausgestellt:";
+
+"tYG-dG-DZ8.text" = "Ausgestellt:";
+
+"nfW-h8-Eb7.text" = "Tester:";
+
+"XU-La-zA8.text" = "Impfdatum:";
+
+"T5t-jW-LIR.text" = "Gültig am:";
 
 "GgQ-nw-fy4.normalTitle" = "LÖSCHEN";
+
+"jkz-Jy-UeR.normalTitle" = "LÖSCHEN";
+
+"s85-qk-0ok.normalTitle" = "LÖSCHEN";
 
 "bXZ-sD-Eeo.text" = "Mein luca";
 
@@ -100,7 +114,7 @@
 
 "jTb-nz-RLb.text" = "HISTORIE LÖSCHEN";
 
-"0Fw-Nz-0VB.text" = "Das ist dein persönlicher Bereich. Hier kannst du Dokumente hinzufügen, die dir den Check-in erleichtern.";
+"0Fw-Nz-0VB.text" = "Das ist dein persönlicher Bereich. Hier kannst du Dokumente hinzufügen, die dir den Check-in erleichtern. Wenn du an einem Standort einchecken willst, gehe auf „Einchecken“ unten links.";
 
 "Ys2-Mr-oem.text" = "Willkommen bei \"Mein luca\"";
 

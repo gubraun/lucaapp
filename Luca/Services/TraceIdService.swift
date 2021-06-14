@@ -213,14 +213,7 @@ class TraceIdService {
             locationSource = downloadCurrentLocationInfo().catch { _ in self.loadCurrentLocationInfo() }
         }
 
-        return locationSource.map { location in
-            if let privateMeeting = self.additionalData as? PrivateMeetingQRCodeV3AdditionalData {
-                var locationInfo = location
-                locationInfo.groupName = "\(privateMeeting.fn) \(privateMeeting.ln)"
-                return locationInfo
-            }
-            return location
-        }
+        return locationSource
     }
 
     /// Loads location info if retrieved and if user is currently checked in.
@@ -242,6 +235,14 @@ class TraceIdService {
             .ifEmpty(switchTo: Single<UUID>.error(TraceIdServiceError.notCheckedIn))
             .flatMap { locationId in
                 self.backendLocation.fetchLocation(locationId: locationId).asSingle()
+            }
+            .map { location in
+                if let privateMeeting = self.additionalData as? PrivateMeetingQRCodeV3AdditionalData {
+                    var locationInfo = location
+                    locationInfo.groupName = "\(privateMeeting.fn) \(privateMeeting.ln)"
+                    return locationInfo
+                }
+                return location
             }
             .flatMap { self.locationRepo.store(object: $0) }
     }
@@ -480,10 +481,11 @@ class TraceIdService {
                     .flatMap { traceInfos in
                         self.traceInfoRepo.store(objects: traceInfos)
                     }
-                    .flatMap { _ in self.isCurrentlyCheckedIn }
-                    .do(onNext: { isCheckedIn in
-                        if isCheckedIn {
-                            NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckIn), object: self, userInfo: nil))
+                    .flatMap { _ in self.currentTraceInfo }
+                    .do(onNext: { traceInfo in
+                        if traceInfo.isCheckedIn {
+                            let userInfo: [String: Any] = ["traceInfo": traceInfo]
+                            NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckIn), object: self, userInfo: userInfo))
                         }
                     })
                     .ignoreElementsAsCompletable()

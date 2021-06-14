@@ -9,20 +9,19 @@ extension TraceIdService {
     }
 
     /// Emits new void signals whenever user has been checked out
-    func onCheckOutRx() -> Observable<TraceInfo?> {
+    func onCheckOutRx() -> Observable<TraceInfo> {
         NotificationCenter.default.rx.notification(NSNotification.Name(self.onCheckOut), object: self)
             .map { $0.userInfo?["traceInfo"] }
             .map { $0 as? TraceInfo }
+            .unwrapOptional()
     }
 
     /// Emits new void signals whenever user has been checked in
     func onCheckInRx() -> Observable<TraceInfo> {
         NotificationCenter.default.rx.notification(NSNotification.Name(self.onCheckIn), object: self)
-            .flatMap { _ in
-
-                // Force error if empty
-                self.currentTraceInfo.asObservable().asSingle()
-            }
+            .map { $0.userInfo?["traceInfo"] }
+            .map { $0 as? TraceInfo }
+            .unwrapOptional()
             .logError(self, "onCheckInRx")
     }
 

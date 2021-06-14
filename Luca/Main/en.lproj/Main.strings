@@ -84,11 +84,25 @@
 
 "dOi-Ne-4nw.text" = "Category";
 
-"eOQ-Li-y72.text" = "Issued by";
+"TFM-6N-1K2.text" = "Tested:";
 
-"nfW-h8-Eb7.text" = "Performed by";
+"eOQ-Li-y72.text" = "Issued:";
+
+"kgr-uj-gbh.text" = "Issued:";
+
+"tYG-dG-DZ8.text" = "Issued:";
+
+"nfW-h8-Eb7.text" = "Tester:";
+
+"XU-La-zA8.text" = "Date:";
+
+"T5t-jW-LIR.text" = "Valid on:";
 
 "GgQ-nw-fy4.normalTitle" = "DELETE";
+
+"jkz-Jy-UeR.normalTitle" = "DELETE";
+
+"s85-qk-0ok.normalTitle" = "DELETE";
 
 "bXZ-sD-Eeo.text" = "My luca";
 
@@ -100,7 +114,7 @@
 
 "jTb-nz-RLb.text" = "DELETE HISTORY";
 
-"0Fw-Nz-0VB.text" = "This is your personal space, where you can add documents to make your check in easier.";
+"0Fw-Nz-0VB.text" = "This is your personal space, where you can add documents to make your check in easier. If you want to check in at a location, go to the Check-in tab at the bottom left.";
 
 "Ys2-Mr-oem.text" = "Welcome to \"My luca\"";
 

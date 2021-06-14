@@ -375,6 +375,14 @@
 
 "test.result.other" = "Other";
 
+"test.result.dateFormat" = "dd.MM.yyyy";
+
+"test.result.duration.minutes" = "%i minutes";
+
+"test.result.duration.hour" = "one hour";
+
+"test.result.duration.hours" = "%i hours";
+
 "test.result.parsing.error" = "The QR code could not be scanned. This could have happened because we only support certain test providers at the moment. Check with your test provider to see if it is included.";
 
 "test.result.validation.error" = "It was not possible to validate that this test belongs to you. Please check if your name is entered correctly in the app.";
@@ -417,7 +425,7 @@
 
 "vaccine.result.partially" = "Partially Vaccinated";
 
-"vaccine.result.description" = "Vaccination %i - %@";
+"vaccine.result.description" = "%i. vaccination:";
 
 // Share data
 "data.shared.title" = "Data shared";

@@ -36,7 +36,7 @@ struct BaerCoronaProcedure: Codable {
     var date: Int
 }
 
-struct BaerCoronaTest: CoronaTest {
+struct BaerCoronaTest: CoronaTest & DocumentCellViewModel {
     var version: Int
     var firstName: String
     var lastName: String
@@ -131,4 +131,24 @@ struct BaerCoronaTest: CoronaTest {
     static func decodeTestCode(parse code: String) -> Single<CoronaTest> {
         return BaerCodeDecoder().decodeCode(code)
     }
+
+    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, test: CoronaTest, delegate: DocumentCellDelegate) -> UITableViewCell {
+
+        if let test = test as? BaerCoronaTest,
+           test.isVaccine() {
+            return dequeueVaccineCell(tableView, indexPath, vaccine: test, delegate: delegate)
+        }
+
+        return (self as DocumentCellViewModel).dequeueCell(tableView, indexPath, test: test, delegate: delegate)
+    }
+
+    private func dequeueVaccineCell(_ tableView: UITableView, _ indexPath: IndexPath, vaccine: BaerCoronaTest, delegate: DocumentCellDelegate) -> UITableViewCell {
+        // swiftlint:disable:next force_cast
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaVaccineTableViewCell", for: indexPath) as! CoronaVaccineTableViewCell
+        cell.coronaVaccine = vaccine
+        cell.delegate = delegate
+
+        return cell
+    }
+
 }

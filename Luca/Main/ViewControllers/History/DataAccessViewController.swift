@@ -89,9 +89,9 @@ extension DataAccessViewController: UITableViewDataSource, UITableViewDelegate {
         cell.locationName.text = dataAccess.location.name
         let checkin = dataAccess.traceInfo.checkInDate
         if let checkout = dataAccess.traceInfo.checkOutDate {
-            cell.dateLabel.text = "\(checkin.formattedDate) - \(checkout.formattedDate)"
+            cell.dateLabel.text = "\(checkin.formattedDateTime) - \(checkout.formattedDateTime)"
         } else {
-            cell.dateLabel.text = "\(checkin.formattedDate)"
+            cell.dateLabel.text = "\(checkin.formattedDateTime)"
         }
 
         return cell

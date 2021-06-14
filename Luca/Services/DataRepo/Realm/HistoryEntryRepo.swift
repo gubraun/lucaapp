@@ -8,9 +8,10 @@ class HistoryEntryRealmModel: RealmSaveModel<HistoryEntry> {
     @objc dynamic var location: Data?
     @objc dynamic var role: Data?
     @objc dynamic var guestlist: Data?
+    @objc dynamic var traceInfo: Data?
 
     override func create() -> HistoryEntry {
-        return HistoryEntry(date: Date(), type: .checkIn, location: nil)
+        return HistoryEntry(date: Date(), type: .checkIn, location: nil, traceInfo: nil)
     }
 
     override func populate(from: HistoryEntry) {
@@ -20,6 +21,7 @@ class HistoryEntryRealmModel: RealmSaveModel<HistoryEntry> {
         location = nil
         role = nil
         guestlist = nil
+        traceInfo = nil
 
         let jsonEncoder = JSONEncoder()
         if let location = from.location,
@@ -34,6 +36,10 @@ class HistoryEntryRealmModel: RealmSaveModel<HistoryEntry> {
         if let guestlist = from.guestlist,
            let serialized = try? jsonEncoder.encode(guestlist) {
             self.guestlist = serialized
+        }
+        if let traceInfo = from.traceInfo,
+           let serialized = try? jsonEncoder.encode(traceInfo) {
+            self.traceInfo = serialized
         }
     }
 
@@ -58,6 +64,11 @@ class HistoryEntryRealmModel: RealmSaveModel<HistoryEntry> {
            let deserialized = try? jsonDecoder.decode([String].self, from: guestlist) {
             m.guestlist = deserialized
         }
+
+        if let traceInfo = self.traceInfo,
+           let deserialized = try? jsonDecoder.decode(TraceInfo.self, from: traceInfo) {
+            m.traceInfo = deserialized
+        }
         return m
     }
 }
@@ -68,6 +79,12 @@ class HistoryRepo: RealmDataRepo<HistoryEntryRealmModel, HistoryEntry> {
     }
 
     init(key: Data) {
-        super.init(filenameSalt: "HistoryRepo", schemaVersion: 0, encryptionKey: key)
+        super.init(filenameSalt: "HistoryRepo", schemaVersion: 1, migrationBlock: { (migration, schemaVersion) in
+            if schemaVersion < 1 {
+                migration.enumerateObjects(ofType: HistoryEntryRealmModel.className()) { _, newObject in
+                    newObject?["traceInfo"] = nil
+                }
+            }
+        }, encryptionKey: key)
     }
 }

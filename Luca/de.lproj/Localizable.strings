@@ -375,6 +375,14 @@
 
 "test.result.other" = "Sonstige";
 
+"test.result.dateFormat" = "dd.MM.yyyy";
+
+"test.result.duration.minutes" = "%i Minuten";
+
+"test.result.duration.hour" = "eine Stunde";
+
+"test.result.duration.hours" = "%i Stunden";
+
 "test.result.parsing.error" = "Der QR-Code konnte nicht gelesen werden. Das kann daran liegen, dass wir aktuell nur bestimmte Testzentren unterstützen. Erkundige dich bei deinem Testzentrum, ob dieses dazugehört.";
 
 "test.result.validation.error" = "Es konnte nicht validiert werden, dass dieser Test von dir gemacht wurde. Bitte prüfe, ob dein Name richtig in der App hinterlegt ist.";
@@ -417,7 +425,7 @@
 
 "vaccine.result.partially" = "Teilweise immunisiert";
 
-"vaccine.result.description" = "Impfung %i - %@";
+"vaccine.result.description" = "%i. Impfung:";
 
 // Share data
 "data.shared.title" = "Daten freigegeben";

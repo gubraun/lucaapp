@@ -551,6 +551,8 @@ internal enum L10n {
       internal static let minutes = L10n.tr("Localizable", "test.expiry.minutes")
     }
     internal enum Result {
+      /// dd.MM.yyyy
+      internal static let dateFormat = L10n.tr("Localizable", "test.result.dateFormat")
       /// Expiry: %@
       internal static func expiry(_ p1: Any) -> String {
         return L10n.tr("Localizable", "test.result.expiry", String(describing: p1))
@@ -570,6 +572,18 @@ internal enum L10n {
       internal enum Delete {
         /// It was not possible to delete this test.
         internal static let error = L10n.tr("Localizable", "test.result.delete.error")
+      }
+      internal enum Duration {
+        /// one hour
+        internal static let hour = L10n.tr("Localizable", "test.result.duration.hour")
+        /// %i hours
+        internal static func hours(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "test.result.duration.hours", p1)
+        }
+        /// %i minutes
+        internal static func minutes(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "test.result.duration.minutes", p1)
+        }
       }
       internal enum Expiration {
         /// Unfortunately, the test cannot be imported because it already expired.
@@ -726,9 +740,9 @@ internal enum L10n {
       internal static let cormirnaty = L10n.tr("Localizable", "vaccine.result.cormirnaty")
       /// Vaccination
       internal static let `default` = L10n.tr("Localizable", "vaccine.result.default")
-      /// Vaccination %i - %@
-      internal static func description(_ p1: Int, _ p2: Any) -> String {
-        return L10n.tr("Localizable", "vaccine.result.description", p1, String(describing: p2))
+      /// %i. vaccination:
+      internal static func description(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "vaccine.result.description", p1)
       }
       /// Johnson & Johnson
       internal static let janssen = L10n.tr("Localizable", "vaccine.result.janssen")

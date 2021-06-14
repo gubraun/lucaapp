@@ -47,7 +47,7 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
     }
 
     var checkInTime: Driver<String> {
-        Single.from { L10n.Checkin.Slider.date(self.traceInfo.checkInDate.formattedDate) }.asDriver(onErrorJustReturn: "")
+        Single.from { L10n.Checkin.Slider.date(self.traceInfo.checkInDate.formattedDateTime) }.asDriver(onErrorJustReturn: "")
     }
 
     /// Emits true when the label with additional data should be hidden

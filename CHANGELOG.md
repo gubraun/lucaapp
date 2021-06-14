@@ -1,3 +1,7 @@
+# Release 1.6.3
+
+- bug fix of shown history
+
 # Release 1.6.2
 
 - important bug fix for CheckedIn Status Screen

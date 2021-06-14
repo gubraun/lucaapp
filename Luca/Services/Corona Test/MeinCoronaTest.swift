@@ -22,7 +22,7 @@ struct MeinCoronaTestClaims: TestClaims {
     }
 }
 
-struct MeinCoronaTest: CoronaTest {
+struct MeinCoronaTest: CoronaTest & DocumentCellViewModel {
     var version: Int
     var name: String
     var time: Int

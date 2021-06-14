@@ -1,6 +1,10 @@
 import UIKit
 import RxSwift
 
+protocol DocumentCellDelegate: AnyObject {
+    func deleteButtonPressed(for test: CoronaTest)
+}
+
 class HealthViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -13,10 +17,12 @@ class HealthViewController: UIViewController {
     private var disposeBag: DisposeBag?
     private var deleteDisposeBag: DisposeBag?
 
-    private var coronaTests = [CoronaTest]()
+    private var viewModels = [TestCellViewModel]()
 
     private var collapsedCellHeight: CGFloat = 100
     private var expandedCellIndices = [IndexPath]()
+
+    private let calendarURLString = "https://www.luca-app.de/coronatest/search"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +46,9 @@ class HealthViewController: UIViewController {
 
         ServiceContainer.shared.coronaTestProcessingService.currentAndNewTests
             .subscribe(onNext: { tests in
-                self.coronaTests = tests
+
+                self.viewModels = tests.compactMap { $0 as? TestCellViewModel }
+
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.styleForTestCount(tests.count)
@@ -76,6 +84,12 @@ class HealthViewController: UIViewController {
         deleteDisposeBag = nil
     }
 
+    @IBAction private func calendarViewPressed(_ sender: UIButton) {
+        if let url = URL(string: calendarURLString) {
+            UIApplication.shared.open(url)
+        }
+    }
+
     @IBAction func addTestPressed(_ sender: UIButton) {
         let testScanner = MainViewControllerFactory.createTestQRScannerViewController()
         present(testScanner, animated: true, completion: nil)
@@ -93,7 +107,7 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         // Use sections instead of rows in order to have section footers between rows
-        return coronaTests.count
+        return viewModels.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,33 +115,8 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let test = coronaTests[indexPath.section] as? BaerCoronaTest,
-           test.isVaccine() {
-            return dequeueVaccineCell(tableView, indexPath, vaccine: test)
-        }
-        return dequeueTestCell(tableView, indexPath)
-    }
-
-    private func dequeueTestCell(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaTestTableViewCell", for: indexPath) as! CoronaTestTableViewCell
-        cell.coronaTest = coronaTests[indexPath.section]
-        cell.selectionStyle = .none
-        cell.deleteButton.addTarget(self, action: #selector(didPressDelete(sender:)), for: .touchUpInside)
-        cell.deleteButton.tag = indexPath.section
-
-        return cell
-    }
-
-    private func dequeueVaccineCell(_ tableView: UITableView, _ indexPath: IndexPath, vaccine: BaerCoronaTest) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaVaccineTableViewCell", for: indexPath) as! CoronaVaccineTableViewCell
-        cell.coronaVaccine = vaccine
-        cell.selectionStyle = .none
-        cell.deleteButton.addTarget(self, action: #selector(didPressDelete(sender:)), for: .touchUpInside)
-        cell.deleteButton.tag = indexPath.section
-
-        return cell
+        let viewModel = viewModels[indexPath.section]
+        return viewModel.dequeueCell(tableView, indexPath, test: viewModel, delegate: self)
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -156,11 +145,12 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
+}
 
-    @objc private func didPressDelete(sender: UIButton) {
+extension HealthViewController: DocumentCellDelegate {
+    func deleteButtonPressed(for test: CoronaTest) {
         let alert = UIAlertController.yesOrNo(title: L10n.Test.Delete.title, message: L10n.Test.Delete.description, onYes: {
-            let tag = sender.tag
-            guard let identifier = self.coronaTests[tag].identifier else {
+            guard let identifier = test.identifier else {
                 return
             }
             let newDisposeBag = DisposeBag()
@@ -180,5 +170,4 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
 
         present(alert, animated: true, completion: nil)
     }
-
 }

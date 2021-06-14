@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import SwiftJWT
 
-struct TestNowCoronaTest: DefaultJWTTest {
+struct DRKCoronaTest: DefaultJWTTest {
 
     var version: Int
     var name: String
@@ -32,16 +32,11 @@ struct TestNowCoronaTest: DefaultJWTTest {
                     parameters = String(code.suffix(from: index))
                     parameters.removeFirst()
                 }
-                let publicKeyPath = Bundle.main.url(forResource: "test_now_jwtRS256", withExtension: "key.pub")!
+                let publicKeyPath = Bundle.main.url(forResource: "drk_jwtRS256", withExtension: "key.pub")!
                 let publicKey: Data = try Data(contentsOf: publicKeyPath, options: .alwaysMapped)
                 let verifier = JWTVerifier.rs256(publicKey: publicKey)
                 let jwt = try JWT<DefaultJWTTestClaims>(jwtString: parameters, verifier: verifier)
-                // TODO remove after EM
-                if jwt.claims.lab.hasPrefix("DFB") {
-                    observer(.success(EMCoronaTest(claims: jwt.claims, originalCode: parameters)))
-                } else {
-                    observer(.success(TestNowCoronaTest(claims: jwt.claims, originalCode: parameters)))
-                }
+                observer(.success(DRKCoronaTest(claims: jwt.claims, originalCode: parameters)))
             } catch let error {
                 if let jwtError = error as? JWTError, jwtError.localizedDescription.contains("JWT verifier failed") {
                     observer(.failure(CoronaTestProcessingError.verificationFailed))
@@ -55,7 +50,7 @@ struct TestNowCoronaTest: DefaultJWTTest {
     }
 
 }
-extension TestNowCoronaTest {
+extension DRKCoronaTest {
 
     var identifier: Int? {
         get {

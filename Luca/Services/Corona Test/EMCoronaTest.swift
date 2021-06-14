@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import SwiftJWT
 
-struct TestNowCoronaTest: DefaultJWTTest {
+struct EMCoronaTest: DefaultJWTTest {
 
     var version: Int
     var name: String
@@ -12,6 +12,22 @@ struct TestNowCoronaTest: DefaultJWTTest {
     var lab: String
     var doctor: String
     var originalCode: String
+
+    var identifier: Int? {
+        get {
+            var checksum = Data()
+            checksum = name.data(using: .utf8)!
+            checksum.append(time.data)
+            checksum.append(lab.data(using: .utf8)!)
+            return Int(checksum.crc32)
+        }
+        set { }
+    }
+
+    var isNegative: Bool {
+        // EM Codes are always true
+        return true
+    }
 
     init(claims: DefaultJWTTestClaims, originalCode: String) {
         self.version = claims.version
@@ -36,12 +52,7 @@ struct TestNowCoronaTest: DefaultJWTTest {
                 let publicKey: Data = try Data(contentsOf: publicKeyPath, options: .alwaysMapped)
                 let verifier = JWTVerifier.rs256(publicKey: publicKey)
                 let jwt = try JWT<DefaultJWTTestClaims>(jwtString: parameters, verifier: verifier)
-                // TODO remove after EM
-                if jwt.claims.lab.hasPrefix("DFB") {
-                    observer(.success(EMCoronaTest(claims: jwt.claims, originalCode: parameters)))
-                } else {
-                    observer(.success(TestNowCoronaTest(claims: jwt.claims, originalCode: parameters)))
-                }
+                observer(.success(TestNowCoronaTest(claims: jwt.claims, originalCode: parameters)))
             } catch let error {
                 if let jwtError = error as? JWTError, jwtError.localizedDescription.contains("JWT verifier failed") {
                     observer(.failure(CoronaTestProcessingError.verificationFailed))
@@ -55,17 +66,20 @@ struct TestNowCoronaTest: DefaultJWTTest {
     }
 
 }
-extension TestNowCoronaTest {
 
-    var identifier: Int? {
-        get {
-            var checksum = Data()
-            checksum = name.data(using: .utf8)!
-            checksum.append(time.data)
-            checksum.append(lab.data(using: .utf8)!)
-            return Int(checksum.crc32)
-        }
-        set { }
+extension EMCoronaTest {
+
+    var game: String {
+        return doctor
+    }
+
+    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, test: CoronaTest, delegate: DocumentCellDelegate) -> UITableViewCell {
+        // swiftlint:disable:next force_cast
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EMTestTableViewCell", for: indexPath) as! EMTestTableViewCell
+        cell.coronaTest = test as? EMCoronaTest
+        cell.delegate = delegate
+
+        return cell
     }
 
 }

@@ -79,7 +79,7 @@ class PrivateMeetingViewController: UIViewController {
     func installObservers() {
         let newDisposeBag = DisposeBag()
 
-        Observable<Int>.interval(.seconds(10), scheduler: LucaScheduling.backgroundScheduler)
+        Observable<Int>.timer(.seconds(1), period: .seconds(10), scheduler: LucaScheduling.backgroundScheduler)
             .flatMapFirst { _ in ServiceContainer.shared.privateMeetingService.refresh(meeting: self.meeting) }
             .observe(on: MainScheduler.instance)
             .do(onNext: { refreshedMeeting in
