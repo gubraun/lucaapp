@@ -8,6 +8,7 @@ class AlertWithLinkViewController: UIViewController {
     @IBOutlet weak var continueButton: UIButton!
 
     private var confirmAction: (() -> Void)?
+    private var cancelAction: (() -> Void)?
     private var titleText: String?
     private var descriptionText: String?
     private var linkText: String?
@@ -27,13 +28,14 @@ class AlertWithLinkViewController: UIViewController {
         view.accessibilityElements = [titleLabel, descriptionLabel, cancelButton, continueButton].map { $0 as Any }
     }
 
-    func setup(withTitle title: String, description: String, link: String, url: URL?, hasCancelButton: Bool = true, continueButtonTitle: String? = nil, confirmAction: (() -> Void)?) {
+    func setup(withTitle title: String, description: String, link: String, url: URL?, hasCancelButton: Bool = true, continueButtonTitle: String? = nil, confirmAction: (() -> Void)?, cancelAction: (() -> Void)? = nil) {
         self.titleText = title
         self.descriptionText = description
         self.linkText = link
         self.url = url
         self.confirmAction = confirmAction
         self.hasCancelButton = hasCancelButton
+        self.cancelAction = cancelAction
         self.continueButtonTitle = continueButtonTitle
     }
 
@@ -84,6 +86,9 @@ class AlertWithLinkViewController: UIViewController {
 
     @IBAction func cancelActionTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        if let cancel = cancelAction {
+            cancel()
+        }
     }
 }
 

@@ -101,6 +101,10 @@ class QRScannerViewController: UIViewController {
         }
     }
 
+    func startRunning() {
+        self.captureSession.startRunning()
+    }
+
     private func stopRunning() {
         if let session = captureSession, session.isRunning {
             DispatchQueue.main.async {
@@ -116,7 +120,9 @@ class QRScannerViewController: UIViewController {
     }
 
     private func wrongQRCode() {
-        let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Camera.Error.wrongQR)
+        let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Camera.Error.wrongQR, onOk: {
+            self.startRunning()
+        })
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -133,16 +139,22 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
 
+            stopRunning()
+
             switch mode {
             case .checkIn:
                 if let url = URL(string: stringValue), let selfCheckin = CheckInURLParser.parse(url: url) {
                     checkin(checkin: selfCheckin)
+                } else if let url = URL(string: stringValue), UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
                     wrongQRCode()
                 }
             case .healthTest:
                 if let onResult = onTestResult {
                     onResult(stringValue)
+                } else if let url = URL(string: stringValue), UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
                     wrongQRCode()
                 }
@@ -152,7 +164,6 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
 
     func checkin(checkin: SelfCheckin) {
         ServiceContainer.shared.selfCheckin.add(selfCheckinPayload: checkin)
-        stopRunning()
     }
 
 }

@@ -53,11 +53,11 @@
 /* Class = "UILabel"; text = "Daten freigeben"; ObjectID = "w3Z-P6-Xnn"; */
 "w3Z-P6-Xnn.text" = "Daten freigeben";
 
-"Qex-M6-uBv.text" = "Ein oder mehrere Gesundheitsämter haben im Rahmen einer Datenanfrage deine Kontaktdaten erhalten.\n\nIm Rahmen einer Kontaktnachverfolgung wurden deine Kontaktdaten von einem oder mehreren Gesundheitsämtern entschlüsselt. Diese werten gerade aus, ob ein Risiko besteht und werden sich möglicherweise bei dir melden. Bis dahin besteht kein Handlungsbedarf.\n\nBitte handle verantwortungsvoll.";
+"Qex-M6-uBv.text" = "Ein oder mehrere Gesundheitsämter haben im Rahmen einer Datenanfrage deine Kontaktdaten erhalten.\n\nIm Rahmen einer Kontaktnachverfolgung wurden deine Kontaktdaten von einem oder mehreren Gesundheitsämtern entschlüsselt. Diese werten gerade aus, ob ein Risiko besteht und werden sich möglicherweise bei dir melden.\n\nBitte handle verantwortungsvoll.";
 
 "CtM-IJ-qZj.normalTitle" = "OKAY";
 
-"d5g-Lu-YCc.normalTitle" = "ALLE DATENZUGRIFFE";
+"d5g-Lu-YCc.normalTitle" = "ALLE DATENANFRAGEN";
 
 "lw6-oz-eBf.text" = "Freigeben bestätigen";
 

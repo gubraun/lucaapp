@@ -46,7 +46,7 @@ class CoronaTestTableViewCell: UITableViewCell {
 
         deleteButton.addTarget(self, action: #selector(didPressDelete(sender:)), for: .touchUpInside)
         deleteButton.layer.borderWidth = 1
-        deleteButton.layer.borderColor = UIColor.lucaBlack.cgColor
+        deleteButton.layer.borderColor = UIColor.black.cgColor
         deleteButton.layer.cornerRadius = 16
     }
 

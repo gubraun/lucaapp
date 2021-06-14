@@ -234,6 +234,8 @@
 
 "general.imprint" = "Imprint";
 
+"general.faq" = "FAQ";
+
 "general.linkImprint" = "https://www.luca-app.de/impressum/";
 
 "general.failure.unknown.message" = "Unknown error: %@";
@@ -270,6 +272,8 @@
 "welcomeViewController.termPrivacyPolicy" = "privacy policy";
 
 "welcomeViewController.linkPrivacyPolicy" = "https://luca-app.de/app-privacy-policy/";
+
+"welcomeViewController.linkFAQ" = "https://www.luca-app.de/faq/";
 
 // Checkin/Checkout
 "checkin.noun" = "Check-in";

@@ -161,6 +161,9 @@ extension UIAlertController {
         self.addAction(UIAlertAction(title: L10n.acknowledgements, style: .default) { _ in
             self.openLicenses(viewController: viewController)
         })
+        self.addAction(UIAlertAction(title: L10n.General.faq, style: .default) { _ in
+            self.openFAQLink(viewController: viewController)
+        })
 
         self.addAction(UIAlertAction(title: L10n.Navigation.Basic.cancel, style: .cancel, handler: nil))
         for action in additionalActions { self.addAction(action) }
@@ -188,6 +191,13 @@ extension UIAlertController {
 
     func openTermsAndConditionsLink(viewController: UIViewController) {
         guard let url = URL(string: L10n.WelcomeViewController.linkTC) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:])
+    }
+
+    func openFAQLink(viewController: UIViewController) {
+        guard let url = URL(string: L10n.WelcomeViewController.linkFAQ) else {
             return
         }
         UIApplication.shared.open(url, options: [:])

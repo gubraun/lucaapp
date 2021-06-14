@@ -156,7 +156,7 @@ class AlertViewControllerFactory {
         }
     }
 
-    static func createTestPrivacyConsent(confirmAction: @escaping () -> Void) -> AlertWithLinkViewController {
+    static func createTestPrivacyConsent(confirmAction: @escaping () -> Void, cancelAction: (() -> Void)? = nil) -> AlertWithLinkViewController {
         let alert: AlertWithLinkViewController = instantiateViewController(identifier: "AlertWithLinkViewController")
         let link = L10n.History.Alert.link
         alert.setup(withTitle: L10n.Tests.Uniqueness.Consent.title,
@@ -164,7 +164,8 @@ class AlertViewControllerFactory {
                     link: link,
                     url: ServiceContainer.shared.backendAddressV3.privacyPolicyUrl,
                     continueButtonTitle: L10n.Navigation.Basic.yes.uppercased(),
-                    confirmAction: confirmAction)
+                    confirmAction: confirmAction,
+                    cancelAction: cancelAction)
         alert.view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         return alert
     }

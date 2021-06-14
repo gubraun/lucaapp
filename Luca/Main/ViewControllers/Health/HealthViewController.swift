@@ -51,7 +51,7 @@ class HealthViewController: UIViewController {
 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    self.styleForTestCount(tests.count)
+                    self.updateViewControllerStyle()
                 }
             })
             .disposed(by: newDisposeBag)
@@ -95,9 +95,11 @@ class HealthViewController: UIViewController {
         present(testScanner, animated: true, completion: nil)
     }
 
-    private func styleForTestCount(_ count: Int) {
-        let isEmptyState = count == 0
+    private func updateViewControllerStyle() {
+        let isEmptyState = viewModels.isEmpty
         tableView.isHidden = isEmptyState
+        subtitleLabel.isHidden = !isEmptyState
+        descriptionLabel.isHidden = !isEmptyState
         emptyStateImageView.isHidden = !isEmptyState
         isEmptyState ? setupAccessibilityViewsEmptyState() : setupAccessibilityViews()
     }

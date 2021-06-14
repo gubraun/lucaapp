@@ -50,6 +50,8 @@ class TestQRCodeScannerController: UIViewController {
         scannerVC.onTestResult = { [weak self] urlToParse in
             let alert = AlertViewControllerFactory.createTestPrivacyConsent(confirmAction: {
                 self?.parseQRCode(urlToParse: urlToParse)
+            }, cancelAction: {
+                self?.scannerVC.startRunning()
             })
             alert.modalTransitionStyle = .crossDissolve
             alert.modalPresentationStyle = .overCurrentContext
@@ -77,10 +79,14 @@ class TestQRCodeScannerController: UIViewController {
 
     private func presentScannerErrorAlert(for error: Error) {
         if let localizedError = error as? LocalizedTitledError {
-            let alert = UIAlertController.infoAlert(title: localizedError.localizedTitle, message: localizedError.localizedDescription)
+            let alert = UIAlertController.infoAlert(title: localizedError.localizedTitle, message: localizedError.localizedDescription, onOk: {
+                self.scannerVC.startRunning()
+            })
             self.present(alert, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Failure.Unknown.message(error.localizedDescription))
+            let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Failure.Unknown.message(error.localizedDescription), onOk: {
+                self.scannerVC.startRunning()
+            })
             self.present(alert, animated: true, completion: nil)
         }
     }

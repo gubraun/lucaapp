@@ -254,6 +254,8 @@ internal enum L10n {
   internal enum General {
     /// Privacy policy
     internal static let dataPrivacy = L10n.tr("Localizable", "general.dataPrivacy")
+    /// FAQ
+    internal static let faq = L10n.tr("Localizable", "general.faq")
     /// Imprint
     internal static let imprint = L10n.tr("Localizable", "general.imprint")
     /// https://www.luca-app.de/impressum/
@@ -809,6 +811,8 @@ internal enum L10n {
   }
 
   internal enum WelcomeViewController {
+    /// https://www.luca-app.de/faq/
+    internal static let linkFAQ = L10n.tr("Localizable", "welcomeViewController.linkFAQ")
     /// https://luca-app.de/app-privacy-policy/
     internal static let linkPrivacyPolicy = L10n.tr("Localizable", "welcomeViewController.linkPrivacyPolicy")
     /// https://luca-app.de/app-terms-and-conditions
