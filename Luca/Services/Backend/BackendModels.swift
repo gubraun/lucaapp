@@ -45,6 +45,7 @@ struct Location: Codable {
     var radius: Double
     var startsAt: Int?
     var endsAt: Int?
+    var isPrivate: Bool?
 }
 extension Location: DataRepoModel, Hashable {
 

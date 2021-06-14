@@ -1,3 +1,10 @@
+# Release 1.6.5
+
+- UI adjustments
+- Bugfixes
+
+This update includes some bugfixes. Furthermore, we have made minor UI adjustments.
+
 # Release 1.6.4
 
 - Text and UI adjustments

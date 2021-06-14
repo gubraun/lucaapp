@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.async { NotificationScheduler.shared.scheduleNotification(title: "App delegate", message: "for iOS 13+") }
         #endif
 
+        ServiceContainer.shared.notificationService.removePendingNotificationsIfNotCheckedIn()
+
         return true
     }
 
@@ -95,6 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Pull keys when app enters foreground
         ServiceContainer.shared.baerCodeKeyService.setup()
+        ServiceContainer.shared.notificationService.removePendingNotificationsIfNotCheckedIn()
     }
 
     func application(_ application: UIApplication,

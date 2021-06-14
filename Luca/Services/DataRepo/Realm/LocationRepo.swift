@@ -22,6 +22,7 @@ class LocationRealmModel: RealmSaveModel<Location> {
     var lng = RealmOptional<Double>()
     var startsAt = RealmOptional<Int>()
     var endsAt = RealmOptional<Int>()
+    var isPrivate = RealmOptional<Bool>()
 
     override func create() -> Location {
         return Location(locationId: "", publicKey: "", radius: 0)
@@ -49,6 +50,7 @@ class LocationRealmModel: RealmSaveModel<Location> {
         lng.value = from.lng
         startsAt.value = from.startsAt
         endsAt.value = from.endsAt
+        isPrivate.value = from.isPrivate
     }
 
     override var model: Location {
@@ -73,6 +75,7 @@ class LocationRealmModel: RealmSaveModel<Location> {
         m.lng = lng.value
         m.startsAt = startsAt.value
         m.endsAt = endsAt.value
+        m.isPrivate = isPrivate.value
         return m
     }
 }
@@ -83,6 +86,12 @@ class LocationRepo: RealmDataRepo<LocationRealmModel, Location> {
     }
 
     init(key: Data) {
-        super.init(filenameSalt: "LocationRepo", schemaVersion: 0, encryptionKey: key)
+        super.init(filenameSalt: "LocationRepo", schemaVersion: 1, migrationBlock: { (migration, schemaVersion) in
+            if schemaVersion < 1 {
+                migration.enumerateObjects(ofType: LocationRealmModel.className()) { _, newObject in
+                    newObject?["isPrivate"] = nil
+                }
+            }
+        }, encryptionKey: key)
     }
 }

@@ -15,6 +15,9 @@ enum TraceIdServiceError: LocalizedError {
     case locationNotFound
     case networkError(error: NetworkError)
 
+    /// This is thrown when user wants to check in to a private meeting and isPrivate flag is not true
+    case missingIsPrivateFlag
+
     case unknown
 }
 
@@ -27,6 +30,8 @@ extension TraceIdServiceError {
             return L10n.Checkin.Failure.PrivateMeetingRunning.message
         case .unableToCheckInToOutdatedEvent:
             return L10n.Checkin.Failure.NotAvailableAnymore.message
+        case .missingIsPrivateFlag:
+            return L10n.Checkin.Failure.MissingIsPrivateFlag.message
         case .networkError(let error):
             return error.errorDescription
         default:
@@ -96,8 +101,7 @@ class TraceIdService {
     private var consistencyCheckAlreadyRun = false
 
     var currentTraceInfo: Maybe<TraceInfo> {
-        checkCorrectnessOfLocalTraceInfoData()
-            .andThen(traceInfoRepo.restore())
+        traceInfoRepo.restore()
             .asObservable()
             .flatMap { array in Maybe.from { array.filter { $0.isCheckedIn }.sorted(by: { $0.checkin > $1.checkin }).first } }
             .asMaybe()
@@ -143,11 +147,11 @@ class TraceIdService {
         self.locationRepo = locationRepo
         self.traceIdCoreRepo = traceIdCoreRepo
 
-        migrateOldData()
+        migrateDataFrom_v1_6_0_to_v1_6_1()
         _ = checkCorrectnessOfLocalTraceInfoData().andThen(fetchTraceStatus()).subscribe()
     }
 
-    private func migrateOldData() {
+    private func migrateDataFrom_v1_6_0_to_v1_6_1() {
         let loadedCurrentTraces = oldCurrentTraces
         let loadedCurrentTraceInfos = oldTraceInfos
 
@@ -169,14 +173,16 @@ class TraceIdService {
             do {
             _ = try self.traceInfoRepo.store(objects: loadedCurrentTraceInfos)
                 .logError(self, "Migrating current trace infos")
-                .do(onSuccess: { _ in
-                    self.oldTraceInfos = []
-                })
                 .toBlocking() // It should block
                 .toArray()
             } catch let error {
                 self.log("Error migrating current trace id infos: \(error)", entryType: .error)
             }
+
+            // It should delete the old data only when current data has been double checked with the backend
+            _ = checkCorrectnessOfLocalTraceInfoData()
+                .do(onCompleted: { self.oldTraceInfos = [] })
+                .subscribe()
         }
     }
 
@@ -230,12 +236,9 @@ class TraceIdService {
     /// Downloads location info if user is currently checked in.
     public func downloadCurrentLocationInfo() -> Single<Location> {
         currentTraceInfo
-            .map { $0.parsedLocationId }
-            .unwrapOptional()
-            .ifEmpty(switchTo: Single<UUID>.error(TraceIdServiceError.notCheckedIn))
-            .flatMap { locationId in
-                self.backendLocation.fetchLocation(locationId: locationId).asSingle()
-            }
+            .map { $0.locationId }
+            .ifEmpty(switchTo: Single.error(TraceIdServiceError.notCheckedIn))
+            .flatMap { self.downloadLocationInfo(for: $0) }
             .map { location in
                 if let privateMeeting = self.additionalData as? PrivateMeetingQRCodeV3AdditionalData {
                     var locationInfo = location
@@ -247,10 +250,20 @@ class TraceIdService {
             .flatMap { self.locationRepo.store(object: $0) }
     }
 
+    /// Tries to load a location from the local DB
     private func locationInfo(for locationId: UUID) -> Single<Location> {
         locationRepo.restore()
             .map { array in array.first(where: { $0.locationId.lowercased() == locationId.uuidString.lowercased() }) }
             .unwrapOptional()
+    }
+
+    /// Downloads a location and stores it in locationRepo
+    private func downloadLocationInfo(for locationId: String) -> Single<Location> {
+        Single.from { locationId }
+            .map { UUID(uuidString: $0) }
+            .unwrapOptional(errorOnNil: true)
+            .flatMap { self.backendLocation.fetchLocation(locationId: $0).asSingle() }
+            .flatMap { self.locationRepo.store(object: $0) }
     }
 
     // completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void
@@ -291,28 +304,31 @@ class TraceIdService {
             })
 
             .flatMapCompletable { (scannerInfo: ScannerInfo) in
-                self.getOrCreateQRCode()
-                    .flatMapCompletable { qrCode -> Completable in
-                        guard let keyData = Data(base64Encoded: scannerInfo.publicKey) else {
-                            throw NSError(domain: "Couldn't obtain key data", code: 0, userInfo: nil)
-                        }
-                        guard let key = KeyFactory.create(from: keyData, type: .ecsecPrimeRandom, keyClass: .public) else {
-                            throw NSError(domain: "Couldn't create key from key data", code: 0, userInfo: nil)
-                        }
-                        let checkin = self.backend.checkIn(
-                            qrCode: qrCode,
-                            venuePubKey: ValueKeySource(key: key),
-                            scannerId: scannerInfo.scannerId)
-                        .asCompletable()
+                self.checkLocationsPrivateMeetingFlag(checkIn: selfCheckin, scanner: scannerInfo)
+                    .andThen(
+                    self.getOrCreateQRCode()
+                        .flatMapCompletable { qrCode -> Completable in
+                            guard let keyData = Data(base64Encoded: scannerInfo.publicKey) else {
+                                throw NSError(domain: "Couldn't obtain key data", code: 0, userInfo: nil)
+                            }
+                            guard let key = KeyFactory.create(from: keyData, type: .ecsecPrimeRandom, keyClass: .public) else {
+                                throw NSError(domain: "Couldn't create key from key data", code: 0, userInfo: nil)
+                            }
+                            let checkin = self.backend.checkIn(
+                                qrCode: qrCode,
+                                venuePubKey: ValueKeySource(key: key),
+                                scannerId: scannerInfo.scannerId)
+                            .asCompletable()
 
-                        if let traceId = qrCode.parsedTraceId {
-                            return checkin.andThen(
-                                self.updateAdditionalData(for: selfCheckin, traceId: traceId, venuePubKey: key)
-                            )
-                        } else {
-                            return checkin
+                            if let traceId = qrCode.parsedTraceId {
+                                return checkin.andThen(
+                                    self.updateAdditionalData(for: selfCheckin, traceId: traceId, venuePubKey: key)
+                                )
+                            } else {
+                                return checkin
+                            }
                         }
-                    }
+                    )
             }
             .asObservable()
             .ignoreElementsAsCompletable()
@@ -328,6 +344,22 @@ class TraceIdService {
                 return checkInLogic
             }
             .logError(self, "check in")
+    }
+
+    private func checkLocationsPrivateMeetingFlag(checkIn: SelfCheckin, scanner: ScannerInfo) -> Completable {
+        if checkIn as? PrivateMeetingSelfCheckin == nil {
+            return Completable.empty()
+        }
+        return Single.from { scanner.locationId }
+            .flatMap(self.downloadLocationInfo)
+            .map { $0.isPrivate ?? false }
+            .map { (isPrivate: Bool) -> Bool in
+                if !isPrivate {
+                    throw TraceIdServiceError.missingIsPrivateFlag
+                }
+                return isPrivate
+            }
+            .asCompletable()
     }
 
     private func fetchScanner(for checkin: SelfCheckin) -> Single<ScannerInfo> {

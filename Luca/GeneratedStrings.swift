@@ -47,6 +47,10 @@ internal enum L10n {
         /// You are already checked in.
         internal static let message = L10n.tr("Localizable", "checkin.failure.alreadyCheckedIn.message")
       }
+      internal enum MissingIsPrivateFlag {
+        /// Check-in not possible. Apparently, this QR-Code is not valid.
+        internal static let message = L10n.tr("Localizable", "checkin.failure.missingIsPrivateFlag.message")
+      }
       internal enum NotAvailableAnymore {
         /// It is not possible to check in here any more.
         internal static let message = L10n.tr("Localizable", "checkin.failure.notAvailableAnymore.message")
@@ -260,6 +264,8 @@ internal enum L10n {
     internal static let imprint = L10n.tr("Localizable", "general.imprint")
     /// https://www.luca-app.de/impressum/
     internal static let linkImprint = L10n.tr("Localizable", "general.linkImprint")
+    /// Support
+    internal static let support = L10n.tr("Localizable", "general.support")
     /// Terms and conditions
     internal static let termsAndConditions = L10n.tr("Localizable", "general.termsAndConditions")
     internal enum Failure {
@@ -277,6 +283,18 @@ internal enum L10n {
         /// Unknown error: %@
         internal static func message(_ p1: Any) -> String {
           return L10n.tr("Localizable", "general.failure.unknown.message", String(describing: p1))
+        }
+      }
+    }
+    internal enum Support {
+      /// hello@luca-app.de
+      internal static let email = L10n.tr("Localizable", "general.support.email")
+      /// It is not possible to send an email from this device because no email account is connected.
+      internal static let error = L10n.tr("Localizable", "general.support.error")
+      internal enum Email {
+        /// Dear luca support,<br><br>The following problem occurred while using the app:<br><ul><li>WHAT is the problem?</li><li>WHAT steps were taken in advance?</li></ul>[DESCRIBE PROBLEM HERE]<br><br>Device: %@<br>Operating system: iOS %@<br>App version: %@
+        internal static func body(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
+          return L10n.tr("Localizable", "general.support.email.body", String(describing: p1), String(describing: p2), String(describing: p3))
         }
       }
     }
@@ -621,6 +639,12 @@ internal enum L10n {
       internal static let camera = L10n.tr("Localizable", "test.scanner.camera")
       /// Close
       internal static let close = L10n.tr("Localizable", "test.scanner.close")
+      internal enum WrongScanner {
+        /// This scanner is only for adding documents. If you want to check in at a location, switch to the "Check in" tab (bottom left of the navigation bar). There you will find the "Self check-in" button.
+        internal static let description = L10n.tr("Localizable", "test.scanner.wrongScanner.description")
+        /// You cannot check in here
+        internal static let title = L10n.tr("Localizable", "test.scanner.wrongScanner.title")
+      }
     }
     internal enum Uniqueness {
       internal enum Create {

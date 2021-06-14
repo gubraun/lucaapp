@@ -35,7 +35,7 @@ class CoronaTestTableViewCell: UITableViewCell {
         durationSinceLabel.text = test.date.durationSinceDate
         dateLabel.text = test.date.formattedDateTime
         dateLabel.accessibilityLabel = test.date.accessibilityDate
-        labLabel.text = test.laboratory
+        labLabel.text = test.laboratory.replacingOccurrences(of: "\\s[\\s]+", with: "\n", options: .regularExpression, range: nil)
         doctorLabel.text = test.doctor
 
         qrCodeImageView.layer.cornerRadius = 8

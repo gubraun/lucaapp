@@ -505,7 +505,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DataAccessTableViewCell" rowHeight="73" id="6EU-fM-Sf3" customClass="DataAccessTableViewCell" customModule="Luca" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="311" height="73"/>
+                                        <rect key="frame" x="0.0" y="28" width="311" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6EU-fM-Sf3" id="p8G-y7-FCW">
                                             <rect key="frame" x="0.0" y="0.0" width="311" height="73"/>
@@ -683,7 +683,7 @@
                                     <fragment content="Herzlich Willkommen! ">
                                         <attributes>
                                             <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="system" size="14"/>
+                                            <font key="NSFont" size="14" name="Montserrat-Medium"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" minimumLineHeight="22" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -785,14 +785,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryTableViewCell" id="qPX-5P-y2e" customClass="HistoryTableViewCell" customModule="Luca" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="311" height="185"/>
+                                        <rect key="frame" x="0.0" y="28" width="311" height="185.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qPX-5P-y2e" id="2iF-yJ-917">
-                                            <rect key="frame" x="0.0" y="0.0" width="311" height="185"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="311" height="185.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="qWO-dw-zmG">
-                                                    <rect key="frame" x="31" y="11" width="238.5" height="163"/>
+                                                    <rect key="frame" x="31" y="11" width="238.5" height="163.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Check-in Langer Text Check-in Langer Text Check-in Langer Text Check-in Langer Text Check-in Langer Text Check-in Langer Text " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daZ-3a-VWk">
                                                             <rect key="frame" x="0.0" y="0.0" width="182.5" height="117.5"/>
@@ -807,12 +807,12 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNK-KF-ECG">
-                                                            <rect key="frame" x="0.0" y="143.5" width="132" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="143.5" width="137" height="20"/>
                                                             <attributedString key="attributedText">
                                                                 <fragment content="20.08.2020 16.00 ">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" metaFont="system" size="16"/>
+                                                                        <font key="NSFont" size="16" name="Montserrat-Medium"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -822,7 +822,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCS-QH-uxW">
-                                                    <rect key="frame" x="5" y="74" width="1" height="111"/>
+                                                    <rect key="frame" x="5" y="74" width="1" height="111.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="wsh-eJ-cQx"/>
@@ -849,7 +849,7 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkS-Em-2od">
-                                                    <rect key="frame" x="269.5" y="72.5" width="41.5" height="40"/>
+                                                    <rect key="frame" x="269.5" y="73" width="41.5" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="5aA-y7-zWP"/>
                                                         <constraint firstAttribute="width" secondItem="CkS-Em-2od" secondAttribute="height" multiplier="25:24" id="eJd-qU-25g"/>
@@ -1063,10 +1063,10 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CoronaTestTableViewCell" id="RFp-rq-5RP" customClass="CoronaTestTableViewCell" customModule="Luca" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="311" height="546"/>
+                                        <rect key="frame" x="0.0" y="28" width="311" height="545.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RFp-rq-5RP" id="GQN-48-La4">
-                                            <rect key="frame" x="0.0" y="0.0" width="311" height="546"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="311" height="545.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Negativ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMg-UQ-E2H">
@@ -1098,16 +1098,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Testzentrum Rostock" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wld-G4-Hxi">
-                                                    <rect key="frame" x="116" y="127" width="179" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="z3K-I0-6Vq"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="116" y="127" width="179" height="17.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tester:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfW-h8-Eb7">
-                                                    <rect key="frame" x="16" y="153" width="84" height="18"/>
+                                                    <rect key="frame" x="16" y="152.5" width="84" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="FGQ-3h-pgM"/>
                                                     </constraints>
@@ -1116,7 +1113,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prof. Doc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0f-V1-aJ8">
-                                                    <rect key="frame" x="116" y="153" width="179" height="18"/>
+                                                    <rect key="frame" x="116" y="152.5" width="179" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="7PS-hs-JCI"/>
                                                     </constraints>
@@ -1125,7 +1122,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgQ-nw-fy4">
-                                                    <rect key="frame" x="195" y="482" width="100" height="40"/>
+                                                    <rect key="frame" x="195" y="481.5" width="100" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="7Ze-CR-1tU"/>
                                                         <constraint firstAttribute="height" constant="40" id="kzF-xu-s1R"/>
@@ -1136,7 +1133,7 @@
                                                     </state>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NPE-md-kde">
-                                                    <rect key="frame" x="16" y="187" width="279" height="279"/>
+                                                    <rect key="frame" x="16" y="186.5" width="279" height="279"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="NPE-md-kde" secondAttribute="height" id="Ply-Gz-vZU"/>
                                                         <constraint firstAttribute="height" constant="225" id="Qr2-Et-GBM"/>
@@ -1234,7 +1231,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CoronaVaccineTableViewCell" id="605-eL-Ltt" customClass="CoronaVaccineTableViewCell" customModule="Luca" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="570.5" width="311" height="482"/>
+                                        <rect key="frame" x="0.0" y="573.5" width="311" height="482"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="605-eL-Ltt" id="8Kc-Yz-eEJ">
                                             <rect key="frame" x="0.0" y="0.0" width="311" height="482"/>
@@ -1270,9 +1267,6 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Testzentrum Rostock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKe-As-nD2">
                                                     <rect key="frame" x="122" y="73" width="173" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="MHD-6k-cTh"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1349,7 +1343,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EMTestTableViewCell" id="6MH-XZ-VzU" customClass="EMTestTableViewCell" customModule="Luca" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1052.5" width="311" height="533.5"/>
+                                        <rect key="frame" x="0.0" y="1055.5" width="311" height="533.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6MH-XZ-VzU" id="GU5-0W-PO6">
                                             <rect key="frame" x="0.0" y="0.0" width="311" height="533.5"/>
@@ -1549,7 +1543,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcZ-Jg-Oef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-436" y="2611.394302848576"/>
+            <point key="canvasLocation" x="-494" y="2957"/>
         </scene>
         <!--TestQR Code Scanner Controller-->
         <scene sceneID="uBE-yQ-HdQ">
@@ -1713,12 +1707,12 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkO-97-CeH">
-                                <rect key="frame" x="32" y="99.5" width="311" height="44"/>
+                                <rect key="frame" x="32" y="99.5" width="311" height="66"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Lass deine Freunde und Familie den QR-Code scannen um bei deinem Treffen einzuchecken.">
                                         <attributes>
                                             <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <font key="NSFont" metaFont="system" size="14"/>
+                                            <font key="NSFont" size="14" name="Montserrat-Medium"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" minimumLineHeight="22" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -1761,10 +1755,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVb-3W-ejf">
-                                <rect key="frame" x="0.0" y="146.5" width="375" height="326"/>
+                                <rect key="frame" x="0.0" y="168.5" width="375" height="304"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iuG-zt-Jnz">
-                                        <rect key="frame" x="121" y="96" width="133" height="133.5"/>
+                                        <rect key="frame" x="121" y="85" width="133" height="133.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="iuG-zt-Jnz" secondAttribute="height" multiplier="1:1" id="UT3-mE-JlA"/>
                                         </constraints>

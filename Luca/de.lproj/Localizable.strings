@@ -78,6 +78,8 @@
 
 "checkin.failure.notAvailableAnymore.message" = "Ein Check-in ist hier nicht mehr möglich.";
 
+"checkin.failure.missingIsPrivateFlag.message" = "Check-in nicht möglich. Anscheinend handelt es sich um einen ungültigen QR-Code.";
+
 // History
 
 "history.alert.title" = "Freigeben bestätigen";
@@ -233,6 +235,14 @@
 "general.termsAndConditions" = "AGB";
 
 "general.imprint" = "Impressum";
+
+"general.support" = "Support";
+
+"general.support.email" = "hello@luca-app.de";
+
+"general.support.email.body" = "Lieber luca-Support,<br><br>bei der Nutzung der App tritt folgendes Problem auf:<br><ul><li>WAS ist das Problem?</li><li>WELCHE Schritte wurden im Vorfelt getätigt?</li></ul>[HIER PROBLEM BESCHREIBEN]<br><br>Gerät: %@<br>Betriebssystem: iOS %@<br>App Version: %@";
+
+"general.support.error" = "Es können keine E-mails von diesem Gerät gesendet werden, da aktuell kein Mail-Account verknüpft ist.";
 
 "general.faq" = "FAQ";
 
@@ -444,6 +454,10 @@
 "test.scanner.close" = "Schließen";
 
 "test.scanner.camera" = "QR-Code Scanner";
+
+"test.scanner.wrongScanner.title" = "Check-in hier nicht möglich";
+
+"test.scanner.wrongScanner.description" = "Dieser Scanner ist nur für das Hinzufügen von Dokumenten gedacht. Wenn du an einem Standort einchecken möchtest, wechlse in den Tab \"Einchecken\" (unten links in der Navigationsleiste). Dort findest du die Funktion \"Selbst einchecken\".";
 
 // My luca
 "my.luca.title" = "Mein luca";

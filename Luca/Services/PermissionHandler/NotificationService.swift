@@ -4,10 +4,14 @@ import RxSwift
 /// Service for the checkout notification which triggers to remind you to checkout from the location.
 public class NotificationService {
 
-    public static let shared = NotificationService()
     private static let repeatingCheckoutNotification = "repeatingCheckoutNotification"
     private static let checkoutNotification = "checkoutNotification"
     private var notificationCenter = UNUserNotificationCenter.current()
+    private var traceIdService: TraceIdService!
+
+    init(traceIdService: TraceIdService) {
+        self.traceIdService = traceIdService
+    }
 
     func addNotification() {
         if !LucaPreferences.shared.checkoutNotificationScheduled {
@@ -34,6 +38,15 @@ public class NotificationService {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [Self.repeatingCheckoutNotification, Self.checkoutNotification])
         notificationCenter.removeDeliveredNotifications(withIdentifiers: [Self.repeatingCheckoutNotification, Self.checkoutNotification ])
         LucaPreferences.shared.checkoutNotificationScheduled = false
+    }
+
+    func removePendingNotificationsIfNotCheckedIn() {
+        _ = traceIdService.isCurrentlyCheckedIn
+            .observe(on: MainScheduler.instance)
+            .do(onSuccess: { checkedIn in
+                if !checkedIn { self.removePendingNotifications() }
+            })
+            .subscribe()
     }
 
 }

@@ -109,14 +109,14 @@
 		B4F1B15C24ED8009006D6D73 /* UserDataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F1B15B24ED8009006D6D73 /* UserDataPreferences.swift */; };
 		B4F1B15E24ED80C5006D6D73 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F1B15D24ED80C5006D6D73 /* Preferences.swift */; };
 		B4FF115C24F7A5F800A5821C /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF115B24F7A5F800A5821C /* Double.swift */; };
-		B4FFDB55266CBA4900C62415 /* CosiamaCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFDB54266CBA4900C62415 /* CosiamaCoronaTest.swift */; };
-		B4FFDB59266CBDB000C62415 /* cosiama_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B4FFDB58266CBDB000C62415 /* cosiama_jwtRS256.key.pub */; };
 		B4FFDA9D2668CBB900C62415 /* ProbatixCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFDA9C2668CBB900C62415 /* ProbatixCoronaTest.swift */; };
 		B4FFDAA12668CC8300C62415 /* probatix_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B4FFDAA02668CC8300C62415 /* probatix_jwtRS256.key.pub */; };
 		B4FFDAA72668D69B00C62415 /* Platform8CoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFDAA62668D69B00C62415 /* Platform8CoronaTest.swift */; };
 		B4FFDAAB2668D7ED00C62415 /* platform8_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B4FFDAAA2668D7ED00C62415 /* platform8_jwtRS256.key.pub */; };
 		B4FFDAF3266A325100C62415 /* drk_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B4FFDAF2266A325100C62415 /* drk_jwtRS256.key.pub */; };
 		B4FFDAF7266A329600C62415 /* DRKCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFDAF6266A329600C62415 /* DRKCoronaTest.swift */; };
+		B4FFDB55266CBA4900C62415 /* CosiamaCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFDB54266CBA4900C62415 /* CosiamaCoronaTest.swift */; };
+		B4FFDB59266CBDB000C62415 /* cosiama_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B4FFDB58266CBDB000C62415 /* cosiama_jwtRS256.key.pub */; };
 		D501438E25138BCB00A8E8B1 /* KeySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D501438D25138BCB00A8E8B1 /* KeySource.swift */; };
 		D501439325138C2E00A8E8B1 /* ECDHSharedSecretKeySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D501439225138C2E00A8E8B1 /* ECDHSharedSecretKeySource.swift */; };
 		D5014395251391DC00A8E8B1 /* RawKeySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5014394251391DC00A8E8B1 /* RawKeySource.swift */; };
@@ -405,14 +405,14 @@
 		B4F1B15B24ED8009006D6D73 /* UserDataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataPreferences.swift; sourceTree = "<group>"; };
 		B4F1B15D24ED80C5006D6D73 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		B4FF115B24F7A5F800A5821C /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
-		B4FFDB54266CBA4900C62415 /* CosiamaCoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosiamaCoronaTest.swift; sourceTree = "<group>"; };
-		B4FFDB58266CBDB000C62415 /* cosiama_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cosiama_jwtRS256.key.pub; sourceTree = "<group>"; };
 		B4FFDA9C2668CBB900C62415 /* ProbatixCoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProbatixCoronaTest.swift; sourceTree = "<group>"; };
 		B4FFDAA02668CC8300C62415 /* probatix_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probatix_jwtRS256.key.pub; sourceTree = "<group>"; };
 		B4FFDAA62668D69B00C62415 /* Platform8CoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform8CoronaTest.swift; sourceTree = "<group>"; };
 		B4FFDAAA2668D7ED00C62415 /* platform8_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = platform8_jwtRS256.key.pub; sourceTree = "<group>"; };
 		B4FFDAF2266A325100C62415 /* drk_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = drk_jwtRS256.key.pub; sourceTree = "<group>"; };
 		B4FFDAF6266A329600C62415 /* DRKCoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRKCoronaTest.swift; sourceTree = "<group>"; };
+		B4FFDB54266CBA4900C62415 /* CosiamaCoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosiamaCoronaTest.swift; sourceTree = "<group>"; };
+		B4FFDB58266CBDB000C62415 /* cosiama_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cosiama_jwtRS256.key.pub; sourceTree = "<group>"; };
 		D501438D25138BCB00A8E8B1 /* KeySource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySource.swift; sourceTree = "<group>"; };
 		D501439225138C2E00A8E8B1 /* ECDHSharedSecretKeySource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECDHSharedSecretKeySource.swift; sourceTree = "<group>"; };
 		D5014394251391DC00A8E8B1 /* RawKeySource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawKeySource.swift; sourceTree = "<group>"; };
@@ -2176,14 +2176,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.4;
+				MARKETING_VERSION = 1.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_VERSION = 5.0;
@@ -2198,14 +2198,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.4;
+				MARKETING_VERSION = 1.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -69,6 +69,7 @@ public class ServiceContainer {
     var coronaTestUniquenessChecker: CoronaTestUniquenessChecker!
 
     var baerCodeKeyService: BaerCodeKeyService!
+    var notificationService: NotificationService!
 
     private(set) var isSetup = false
 
@@ -191,6 +192,7 @@ public class ServiceContainer {
                                                                   preferences: LucaPreferences.shared,
                                                                   uniquenessChecker: coronaTestUniquenessChecker)
         baerCodeKeyService = BaerCodeKeyService(preferences: LucaPreferences.shared)
+        notificationService = NotificationService(traceIdService: traceIdService)
 
         isSetup = true
     }

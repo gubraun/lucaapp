@@ -78,6 +78,8 @@
 
 "checkin.failure.notAvailableAnymore.message" = "It is not possible to check in here any more.";
 
+"checkin.failure.missingIsPrivateFlag.message" = "Check-in not possible. Apparently, this QR-Code is not valid.";
+
 // History
 
 "history.alert.title" = "Confirm share";
@@ -233,6 +235,14 @@
 "general.termsAndConditions" = "Terms and conditions";
 
 "general.imprint" = "Imprint";
+
+"general.support" = "Support";
+
+"general.support.email" = "hello@luca-app.de";
+
+"general.support.email.body" = "Dear luca support,<br><br>The following problem occurred while using the app:<br><ul><li>WHAT is the problem?</li><li>WHAT steps were taken in advance?</li></ul>[DESCRIBE PROBLEM HERE]<br><br>Device: %@<br>Operating system: iOS %@<br>App version: %@";
+
+"general.support.error" = "It is not possible to send an email from this device because no email account is connected.";
 
 "general.faq" = "FAQ";
 
@@ -444,6 +454,10 @@
 "test.scanner.close" = "Close";
 
 "test.scanner.camera" = "QR code scanner";
+
+"test.scanner.wrongScanner.title" = "You cannot check in here";
+
+"test.scanner.wrongScanner.description" = "This scanner is only for adding documents. If you want to check in at a location, switch to the \"Check in\" tab (bottom left of the navigation bar). There you will find the \"Self check-in\" button.";
 
 // My luca
 "my.luca.title" = "My luca";

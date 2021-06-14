@@ -126,6 +126,11 @@ class QRScannerViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
+    private func wrongScanner() {
+        let alert = UIAlertController.infoAlert(title: L10n.Test.Scanner.WrongScanner.title, message: L10n.Test.Scanner.WrongScanner.description)
+        self.present(alert, animated: true, completion: nil)
+    }
+
     private func setNavigationBarToTranslucent() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -151,7 +156,9 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                     wrongQRCode()
                 }
             case .healthTest:
-                if let onResult = onTestResult {
+                if let url = URL(string: stringValue), CheckInURLParser.parse(url: url) != nil {
+                    wrongScanner()
+                } else if let onResult = onTestResult {
                     onResult(stringValue)
                 } else if let url = URL(string: stringValue), UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)

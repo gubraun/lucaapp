@@ -228,7 +228,7 @@ class MainViewControllerFactory {
             locationUpdater: sc.locationUpdater,
             locationPermissionHandler: LocationPermissionHandler.shared,
             regionMonitor: sc.regionMonitor,
-            notificationService: NotificationService.shared)
+            notificationService: sc.notificationService)
 
         return viewController
     }

@@ -63,6 +63,32 @@ class MainTabBarViewController: UITabBarController {
                                                selector: #selector(didOpenDeeplink(_:)),
                                                name: CoronaTestDeeplinkService.deeplinkNotificationName,
                                                object: nil)
+
+        // If app was terminated
+        if ServiceContainer.shared.privateMeetingService.currentMeeting != nil {
+            self.selectedIndex = 0
+        }
+        _ = ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn
+            .observe(on: MainScheduler.instance)
+            .do(onSuccess: { checkedIn in
+                if checkedIn { self.selectedIndex = 0 }
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
+
+        // If entering app from background
+        UIApplication.shared.rx.applicationWillEnterForeground
+            .flatMap { _ -> Single<(Bool)> in
+                ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn.map { checkedIn -> (Bool) in
+                    let privateMeeting = ServiceContainer.shared.privateMeetingService.currentMeeting != nil
+                    return (checkedIn || privateMeeting)
+                }
+            }.asObservable()
+            .observe(on: MainScheduler.instance)
+            .do(onNext: { checkedIn in
+                if checkedIn { self.selectedIndex = 0 }
+            }).subscribe()
+            .disposed(by: disposeBag)
     }
 
     @objc func didOpenDeeplink(_ notification: Notification) {
@@ -116,7 +142,12 @@ class MainTabBarViewController: UITabBarController {
             .flatMap { pendingCheckin in
                 return Completable.from { ServiceContainer.shared.selfCheckin.consumeCurrent() }
                     .andThen(ServiceContainer.shared.traceIdService.checkIn(selfCheckin: pendingCheckin.0))
-                    .do(onSubscribe: { DispatchQueue.main.async { self.progressHud.show(in: self.view) } })
+                    .do(onSubscribe: {
+                            DispatchQueue.main.async {
+                                self.progressHud.show(in: self.view)
+                                self.selectedIndex = 0
+                            }
+                    })
                     .do(onDispose: { DispatchQueue.main.async { self.progressHud.dismiss() } })
             }
             .ignoreElementsAsCompletable()

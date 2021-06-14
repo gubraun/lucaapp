@@ -6,6 +6,7 @@ import RxAppState
 import DeviceKit
 import AVFoundation
 import LicensesViewController
+import MessageUI
 
 // swiftlint:disable:next type_body_length
 class ContactQRViewController: UIViewController {
@@ -218,7 +219,7 @@ class ContactQRViewController: UIViewController {
     func showPrivateMeetingViewController() {
         if let meeting = ServiceContainer.shared.privateMeetingService.currentMeeting {
             let viewController = MainViewControllerFactory.createPrivateMeetingViewController(meeting: meeting)
-            navigationController?.pushViewController(viewController, animated: true)
+            navigationController?.pushViewController(viewController, animated: false)
         }
     }
 
@@ -266,7 +267,7 @@ class ContactQRViewController: UIViewController {
                     NotificationPermissionHandler.shared.setPermissionValue(permission: permission)
 
                     let autoCheckoutOff = (location.geoLocationRequired && !LucaPreferences.shared.autoCheckout) || !location.geoLocationRequired
-                    (permission == .authorized && autoCheckoutOff) ? NotificationService.shared.addNotification() : NotificationService.shared.removePendingNotifications()
+                    (permission == .authorized && autoCheckoutOff) ? ServiceContainer.shared.notificationService.addNotification() : ServiceContainer.shared.notificationService.removePendingNotifications()
                 }
                 .ignoreElementsAsCompletable()
             }
@@ -361,13 +362,33 @@ class ContactQRViewController: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
-        let additionalActions = [resetAction, editContactDataAction]
+        let supportAction = UIAlertAction(title: L10n.General.support, style: .default) { (_) in
+            self.sendSupportEmail(viewController: self)
+        }
+
+        let additionalActions = [resetAction, editContactDataAction, supportAction]
 
         UIAlertController(
             title: nil,
             message: nil,
             preferredStyle: .actionSheet)
             .dataPrivacyActionSheet(viewController: self, additionalActions: additionalActions)
+    }
+
+    func sendSupportEmail(viewController: UIViewController) {
+        if MFMailComposeViewController.canSendMail() {
+            let version = UIApplication.shared.applicationVersion ?? ""
+            let messageBody = L10n.General.Support.Email.body(Device.current.description, UIDevice.current.systemVersion, version)
+
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients([L10n.General.Support.email])
+            mail.setMessageBody(messageBody, isHTML: true)
+            present(mail, animated: true)
+        } else {
+            let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Support.error)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     func deleteAccountAlert() {
@@ -408,3 +429,11 @@ class ContactQRViewController: UIViewController {
 }
 
 extension ContactQRViewController: UnsafeAddress, LogUtil {}
+
+extension ContactQRViewController: MFMailComposeViewControllerDelegate {
+
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+
+}

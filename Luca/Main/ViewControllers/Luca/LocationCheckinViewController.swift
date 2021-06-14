@@ -4,6 +4,8 @@ import CoreLocation
 import RxSwift
 import RxCocoa
 import RxAppState
+import MessageUI
+import DeviceKit
 
 class LocationCheckinViewController: UIViewController {
 
@@ -122,7 +124,29 @@ class LocationCheckinViewController: UIViewController {
     }
 
     @IBAction func viewMorePressed(_ sender: UITapGestureRecognizer) {
-        UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).dataPrivacyActionSheet(viewController: self)
+        let supportAction = UIAlertAction(title: L10n.General.support, style: .default) { (_) in
+            self.sendSupportEmail(viewController: self)
+        }
+
+        let additionalActions = [supportAction]
+
+        UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).dataPrivacyActionSheet(viewController: self, additionalActions: additionalActions)
+    }
+
+    func sendSupportEmail(viewController: UIViewController) {
+        if MFMailComposeViewController.canSendMail() {
+            let version = UIApplication.shared.applicationVersion ?? ""
+            let messageBody = L10n.General.Support.Email.body(Device.current.description, UIDevice.current.systemVersion, version)
+
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients([L10n.General.Support.email])
+            mail.setMessageBody(messageBody, isHTML: true)
+            present(mail, animated: true)
+        } else {
+            let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Support.error)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     // MARK: View setup functions.
@@ -253,3 +277,11 @@ class LocationCheckinViewController: UIViewController {
 }
 
 extension LocationCheckinViewController: UnsafeAddress, LogUtil {}
+
+extension LocationCheckinViewController: MFMailComposeViewControllerDelegate {
+
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+
+}

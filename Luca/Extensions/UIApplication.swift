@@ -22,6 +22,11 @@ extension UIApplication {
         }
         return nil
     }
+
+    var applicationVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+
 }
 
 // Helper function inserted by Swift 4.2 migrator.

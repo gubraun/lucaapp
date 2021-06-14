@@ -150,13 +150,20 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
             .logError(self, "onNotificationPermissionChanges")
             .ignoreElementsAsCompletable()
 
+        let loadCurrentlySavedLocation = self.traceIdService.loadCurrentLocationInfo()
+            .do(onSuccess: { self.location.onNext($0) })
+            .asObservable()
+            .onErrorComplete()
+            .ignoreElementsAsCompletable()
+
         Completable.zip(
             fetchUserStatus,
             restoreCheckIn,
             notificationPermissionChanges,
             permissionChanges,
             handlePermissions,
-            fetchCurrentLocation()
+            fetchCurrentLocation(),
+            loadCurrentlySavedLocation
         )
             .subscribe(on: LucaScheduling.backgroundScheduler)
             .subscribe()
