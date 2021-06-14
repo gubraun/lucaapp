@@ -1,3 +1,7 @@
+# Release 1.6.6
+
+- minor bugfix of deeplink handling
+
 # Release 1.6.5
 
 - UI adjustments

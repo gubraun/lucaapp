@@ -111,7 +111,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let selfCheckin = CheckInURLParser.parse(url: incomingURL) {
             ServiceContainer.shared.selfCheckin.add(selfCheckinPayload: selfCheckin)
         } else if incomingURL.absoluteString.hasPrefix(CoronaTestDeeplinkService.deeplinkTestPrefix) {
-            CoronaTestDeeplinkService.postDeeplinkNotification(test: incomingURL.absoluteString)
+
+            // TODO: temporal solution, remove asap
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                CoronaTestDeeplinkService.postDeeplinkNotification(test: incomingURL.absoluteString)
+            }
         }
 
         return true
