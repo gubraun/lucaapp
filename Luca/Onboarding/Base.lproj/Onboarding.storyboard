@@ -13,9 +13,6 @@
         <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
-        <array key="Montserrat-Medium.ttf">
-            <string>Montserrat-Medium</string>
-        </array>
     </customFonts>
     <scenes>
         <!--Form View Controller-->
@@ -213,7 +210,7 @@
                                         </constraints>
                                     </view>
                                     <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="S89-g9-lx7" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="40" y="296" width="216" height="14"/>
+                                        <rect key="frame" x="40" y="296" width="184" height="14"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <attributedString key="attributedText">
@@ -227,7 +224,7 @@
                                         </attributedString>
                                     </label>
                                     <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="IKK-RC-G6K" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="40" y="344" width="216" height="14"/>
+                                        <rect key="frame" x="40" y="344" width="184" height="14"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <attributedString key="attributedText">
@@ -536,10 +533,10 @@
     </scenes>
     <designables>
         <designable name="IKK-RC-G6K">
-            <size key="intrinsicContentSize" width="199" height="15"/>
+            <size key="intrinsicContentSize" width="174.5" height="14"/>
         </designable>
         <designable name="S89-g9-lx7">
-            <size key="intrinsicContentSize" width="199" height="15"/>
+            <size key="intrinsicContentSize" width="174.5" height="14"/>
         </designable>
     </designables>
     <resources>

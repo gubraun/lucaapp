@@ -39,7 +39,7 @@ class TraceInfoRepo: RealmDataRepo<TraceInfoRealmModel, TraceInfo> {
         return TraceInfoRealmModel()
     }
 
-    init() {
-        super.init(schemaVersion: 0)
+    init(key: Data) {
+        super.init(filenameSalt: "TraceInfoRepo", schemaVersion: 0, encryptionKey: key)
     }
 }

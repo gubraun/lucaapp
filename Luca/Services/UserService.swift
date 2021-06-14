@@ -11,6 +11,7 @@ enum UserServiceError: LocalizedTitledError {
     case userRegistrationError(error: BackendError<CreateUserError>)
     case userTransferError(error: BackendError<UserTransferError>)
     case userUpdateError(error: BackendError<UpdateUserError>)
+    case userDeletionError(error: BackendError<DeleteUserError>)
     case unknown(error: Error)
 }
 
@@ -29,6 +30,29 @@ extension UserServiceError {
             return error.localizedDescription
         default:
             return "\(self)"
+        }
+    }
+
+    var error: Error? {
+        switch self {
+        case .localDataIncomplete:
+            return self
+        case .unableToGenerateKeys(error: let error):
+            return error
+        case .networkError(let error):
+            return error
+        case .dailyKeyRepoError(error: let error):
+            return error
+        case .userRegistrationError(error: let error):
+            return error.backendError
+        case .userTransferError(error: let error):
+            return error.backendError
+        case .userUpdateError(error: let error):
+            return error.backendError
+        case .userDeletionError(error: let error):
+            return error.backendError
+        case .unknown(error: let error):
+            return error
         }
     }
 
@@ -66,6 +90,7 @@ class UserService {
     public let onUserRegistered = "UserService.onUserRegistered"
     public let onUserUpdated = "UserService.onUserUpdated"
     public let onUserDataTransfered = "UserService.onUserDataTransfered"
+    public let onUserDataTransferedNumberOfDays = "UserService.onUserDataTransfered.numberOfDays"
 
     // MARK: - implementation
     init(preferences: LucaPreferences,
@@ -115,14 +140,28 @@ class UserService {
             }
     }
 
-    func transferUserData(completion: @escaping (String) -> Void, failure: @escaping (UserServiceError) -> Void) {
+    func deleteUserData(completion: @escaping () -> Void, failure: @escaping (UserServiceError) -> Void) {
+        guard let userId = preferences.uuid else {
+            log("Delete user: no user id", entryType: .error)
+            failure(.localDataIncomplete)
+            return
+        }
+        backend.delete(userId: userId).execute {
+            completion()
+        } failure: { error in
+            self.log("User data deletion error: \(error)", entryType: .error)
+            failure(.userDeletionError(error: error))
+        }
+    }
+
+    func transferUserData(forNumberOfDays numberOfDays: Int, completion: @escaping (String) -> Void, failure: @escaping (UserServiceError) -> Void) {
         guard let userId = preferences.uuid else {
             log("Upload current data: no user id", entryType: .error)
             failure(.localDataIncomplete)
             return
         }
-        backend.userTransfer(userId: userId).execute { (challengeId) in
-            NotificationCenter.default.post(Notification(name: Notification.Name(self.onUserDataTransfered), object: self, userInfo: nil))
+        backend.userTransfer(userId: userId, numberOfDays: numberOfDays).execute { (challengeId) in
+            NotificationCenter.default.post(Notification(name: Notification.Name(self.onUserDataTransfered), object: self, userInfo: [self.onUserDataTransferedNumberOfDays: numberOfDays]))
             completion(challengeId)
         } failure: { error in
             self.log("Transfer user data error: \(error)", entryType: .error)

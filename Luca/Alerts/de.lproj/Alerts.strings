@@ -44,11 +44,11 @@
 /* Class = "UILabel"; text = "I1LJ-86V6-H8O0"; ObjectID = "hnp-sa-7PZ"; */
 "hnp-sa-7PZ.text" = "I1LJ-86V6-H8O0";
 
-/* Class = "UILabel"; text = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:"; ObjectID = "mrp-ja-1P2"; */
-"mrp-ja-1P2.text" = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:";
+/* Class = "UILabel"; text = "Wenn du einem Gesundheitsamt diese TAN nennst, kann es deine Historie entschlüsseln und die luca-Standorte informieren. "; ObjectID = "mrp-ja-1P2"; */
+"mrp-ja-1P2.text" = "Wenn du einem Gesundheitsamt diese TAN nennst, kann es deine Historie entschlüsseln und die luca-Standorte informieren.";
 
 /* Class = "UIButton"; normalTitle = "OK"; ObjectID = "ubh-BL-vAv"; */
-"ubh-BL-vAv.normalTitle" = "OK";
+"ubh-BL-vAv.normalTitle" = "OKAY";
 
 /* Class = "UILabel"; text = "Daten freigeben"; ObjectID = "w3Z-P6-Xnn"; */
 "w3Z-P6-Xnn.text" = "Daten freigeben";
@@ -59,11 +59,16 @@
 
 "d5g-Lu-YCc.normalTitle" = "ALLE DATENZUGRIFFE";
 
-/* Class = "UILabel"; text = "Daten freigeben"; ObjectID = "lw6-oz-eBf"; */
-"lw6-oz-eBf.text" = "Daten freigeben";
+"lw6-oz-eBf.text" = "Freigeben bestätigen";
 
-/* Class = "UIButton"; normalTitle = "ABBRECHEN"; ObjectID = "asd-HK-YFI"; */
 "asd-HK-YFI.normalTitle" = "ABBRECHEN";
 
-/* Class = "UIButton"; normalTitle = "FREIGEBEN"; ObjectID = "XgK-DN-pW5"; */
-"XgK-DN-pW5.normalTitle" = "FREIGEBEN";
+"XgK-DN-pW5.normalTitle" = "TAN GENERIEREN";
+
+"muW-F5-sm3.text" = "Zeitraum festlegen";
+
+"o1a-He-LzM.text" = "Die Historie sammelt die Check-ins der letzten 14 Tage. Du kannst selbst entscheiden, wie viele Tage du davon mit dem Gesundheitsamt teilen möchtest. Lege zunächst die Anzahl der Tage fest: ";
+
+"k1N-fm-QGD.normalTitle" = "ABBRECHEN";
+
+"cdF-1p-Yt9.normalTitle" = "WÄHLEN";

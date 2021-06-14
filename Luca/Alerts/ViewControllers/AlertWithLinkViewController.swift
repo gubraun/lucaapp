@@ -23,6 +23,8 @@ class AlertWithLinkViewController: UIViewController {
             isModalInPresentation = true
         }
         configureSubviews()
+
+        view.accessibilityElements = [titleLabel, descriptionLabel, cancelButton, continueButton].map { $0 as Any }
     }
 
     func setup(withTitle title: String, description: String, link: String, url: URL?, hasCancelButton: Bool = true, continueButtonTitle: String? = nil, confirmAction: (() -> Void)?) {
@@ -71,6 +73,8 @@ class AlertWithLinkViewController: UIViewController {
             descriptionLabel.activeLinkAttributes = clickedAttributes
             descriptionLabel.addLink(to: url, with: NSRange(linkRange, in: description))
         }
+
+        descriptionLabel.accessibilityTraits = .link
     }
 
     @IBAction func confirmActionTapped(_ sender: Any) {

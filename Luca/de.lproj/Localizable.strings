@@ -80,9 +80,9 @@
 
 // History
 
-"history.alert.title" = "Daten freigeben";
+"history.alert.title" = "Freigeben bestätigen";
 
-"history.alert.description" = "Möchtest du deine Historie der letzten 14 Tage und deine Kontaktdaten für das Gesundheitsamt freigeben? Dies erfolgt nur aufgrund deiner freiwilligen Einwilligung gem. Art. 9 (2) a) DSGVO (mehr: %@).";
+"history.alert.description" = "Möchtest du deine Historie der letzten %@ Tage und deine Kontaktdaten für das Gesundheitsamt freigeben? Dies erfolgt nur aufgrund deiner freiwilligen Einwilligung gem. Art. 9 (2) a) DSGVO (mehr: %@).";
 
 "history.alert.link" = "Datenschutz - App";
 
@@ -324,9 +324,9 @@
 "phoneNumber.confirmation.description.fixed" = "Stelle sicher, dass das Telefon in deiner Nähe ist und überprüfe, ob diese Nummer korrekt ist. Du wirst im nächsten Schritt angerufen und erhältst durch eine Ansage deine TAN für die Verifizierung dieser Telefonnummer.";
 
 // Menu
-"data.resetData.title" = "App zurücksetzen";
+"data.resetData.title" = "Account löschen";
 
-"data.resetData.description" = "Möchtest du deine App wirklich zurücksetzen?\nWenn du die App zurücksetzt kannst du keine neuen Check-ins vornehmen und nicht mehr auf deine Historie zugreifen.";
+"data.resetData.description" = "Möchtest du deinen Account wirklich löschen?\n\nLöschst du deinen Account, kannst du keine neuen Check-ins vornehmen und auf deine Historie zugreifen.\n\nDaten, die durch einen Check-in bei einem Betreiber verschlüsselt hinterlegt wurden, werden gemäß der Corona/COVID-19 Infektionsschutzverordnung nach 4 Wochen gelöscht.\n\nNach der Löschung des Accounts kannst du noch bis zu 4 Wochen nach dem letzten Check-in von dem Gesundheitsamt benachrichtigt werden.";
 
 "data.clear.title" = "Historie leeren";
 
@@ -401,10 +401,28 @@
 
 "test.add.title" = "Test hinzufügen";
 
+// Corona vaccine
+
+"vaccine.result.default" = "Impfung";
+
+"vaccine.result.cormirnaty" = "BioNTech/Pfizer";
+
+"vaccine.result.janssen" = "Johnson & Johnson";
+
+"vaccine.result.moderna" = "Moderna";
+
+"vaccine.result.vaxzevria" = "AstraZeneca";
+
+"vaccine.result.complete" = "Vollständig immunisiert";
+
+"vaccine.result.partially" = "Teilweise immunisiert";
+
+"vaccine.result.description" = "Impfung %i - %@";
+
 // Share data
 "data.shared.title" = "Daten freigegeben";
 
-"data.shared.description" = "Du hast deine Check-ins der letzten 14 Tage für das Gesundheitsamt freigegeben.";
+"data.shared.description" = "Du hast deine Check-ins der letzten %@ Tage für das Gesundheitsamt freigegeben.";
 
 // Acknowledgements
 // Title of the acknowlegements cannot be set outside the source code of LicensesViewController pod. The pod sets the title using NSLocalizedString("Acknowledgements", comment: "Acknowledgements")
@@ -430,3 +448,16 @@
 "test.uniqueness.redeemed.error" = "Jemand hat diesen Test schon importiert.";
 
 "test.uniqueness.rate.limit.error" = "Die Ratenbegrenzung wurde erreicht.";
+
+// Delete user
+"error.deleteUser.badInput" = "Dein Account konnte nicht gelöscht werden. (400 - Bad Request Error)\n\nBitte kontaktiere den Support.";
+
+"error.deleteUser.invalidSignature" = "Dein Account konnte nicht gelöscht werden. (403 - Forbidden Error)\n\nBitte kontaktiere den Support.";
+
+"error.deleteUser.userNotFound" = "Dein Account existiert nicht.\n\nDu wirst jetzt zur Registrierung weitergeleitet.";
+
+"error.deleteUser.rateLimit" = "Dein Account konnte nicht gelöscht werden.\n\nVersuche es bitte nochmal.";
+
+"error.deleteUser.unableToBuildPayload" = "Dein Account konnte nicht gelöscht werden.\n\nBitte kontaktiere den Support.";
+
+"error.deleteUser.alreadyDeleted" = "Dein Account wurde schon gelöscht.\n\nDu wirst jetzt zur Registrierung weitergeleitet.";

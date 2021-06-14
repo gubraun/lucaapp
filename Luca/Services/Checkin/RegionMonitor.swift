@@ -12,27 +12,31 @@ public class RegionMonitor {
             return
         }
 
-        guard let location = ServiceContainer.shared.traceIdService.currentLocationInfo else {
-            log("Couldn't start monitoring because the location is not available", entryType: .error)
-            return
-        }
+        ServiceContainer.shared.traceIdService.fetchCurrentLocationInfo(checkLocalDBFirst: true)
+            .observeOn(MainScheduler.instance)
+            .do(onSuccess: { location in
 
-        guard let lat = location.lat,
-              let lng = location.lng else {
-            log("Couldn't start monitoring because the coordinates are not available", entryType: .error)
-            return
-        }
+                guard let lat = location.lat,
+                      let lng = location.lng else {
+                    self.log("Couldn't start monitoring because the coordinates are not available", entryType: .error)
+                    return
+                }
 
-        let venueLocation = CLLocation(latitude: lat, longitude: lng)
-        fenceRegion = CLCircularRegion(center: venueLocation.coordinate, radius: location.radius, identifier: location.groupName ?? "Unknown Venue")
-        fenceRegion!.notifyOnExit = true
+                let venueLocation = CLLocation(latitude: lat, longitude: lng)
+                let region = CLCircularRegion(center: venueLocation.coordinate, radius: location.radius, identifier: location.groupName ?? "Unknown Venue")
+                region.notifyOnExit = true
+                region.notifyOnEntry = true
 
-        #if DEBUG
-        NotificationScheduler.shared.scheduleNotification(title: "Started region monitoring", message: "")
-        #endif
+                #if DEBUG
+                NotificationScheduler.shared.scheduleNotification(title: "Started region monitoring", message: "")
+                #endif
 
-        LucaPreferences.shared.autoCheckout = true
-        ServiceContainer.shared.locationUpdater.startMonitoring(region: fenceRegion!)
+                LucaPreferences.shared.autoCheckout = true
+                ServiceContainer.shared.locationUpdater.startMonitoring(region: region)
+                self.fenceRegion = region
+            })
+            .logError(self)
+            .subscribe()
     }
 
     func stopRegionMonitoring() {

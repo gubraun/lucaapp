@@ -4,10 +4,12 @@ import Security
 class ECDSA: Signature {
     private let privateKeySource: KeySource?
     private let publicKeySource: KeySource?
+    private let algorithm: SecKeyAlgorithm
 
-    init(privateKeySource: KeySource?, publicKeySource: KeySource?) {
+    init(privateKeySource: KeySource?, publicKeySource: KeySource?, algorithm: SecKeyAlgorithm = .ecdsaSignatureMessageX962SHA256) {
         self.privateKeySource = privateKeySource
         self.publicKeySource = publicKeySource
+        self.algorithm = algorithm
     }
 
     func sign(data: Data) throws -> Data {
@@ -18,7 +20,7 @@ class ECDSA: Signature {
             throw CryptoError.privateKeyNotRetrieved
         }
         var error: Unmanaged<CFError>?
-        guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, data as CFData, &error) as Data? else {
+        guard let signature = SecKeyCreateSignature(privateKey, algorithm, data as CFData, &error) as Data? else {
             throw error!.takeRetainedValue()
         }
         return signature
@@ -33,7 +35,7 @@ class ECDSA: Signature {
         }
 
         var error: Unmanaged<CFError>?
-        let result = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &error)
+        let result = SecKeyVerifySignature(publicKey, algorithm, data as CFData, signature as CFData, &error)
         if let unwrappedError = error {
             throw unwrappedError.takeRetainedValue()
         }

@@ -3,7 +3,6 @@ import IQKeyboardManagerSwift
 import BackgroundTasks
 import RxSwift
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -19,10 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // It enables intelligent text field behavior when the keyboard is covering the text field.
         IQKeyboardManager.shared.enable = true
-
-        // Bugfix: Migrate data from 1.2.3
-        // It is important to run this before the whole app starts because the data is written on the same key but in different format
-        ServiceContainer.shared.history.migrateDataFrom_1_2_3()
 
         if #available(iOS 13, *) {
             BGTaskScheduler.shared.register(forTaskWithIdentifier: "de.culture4life.matchTraces",
@@ -95,6 +90,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             log("Could not schedule app refresh: \(error.localizedDescription)")
         }
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        // Pull keys when app enters foreground
+        ServiceContainer.shared.baerCodeKeyService.setup()
     }
 
     func application(_ application: UIApplication,

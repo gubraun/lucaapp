@@ -35,7 +35,7 @@ class HealthDepartmentRepo: RealmDataRepo<HealthDepartmentRealmModel, HealthDepa
         return HealthDepartmentRealmModel()
     }
 
-    init() {
-        super.init(schemaVersion: 0)
+    init(key: Data) {
+        super.init(filenameSalt: "HealthDepartmentRepo", schemaVersion: 0, encryptionKey: key)
     }
 }

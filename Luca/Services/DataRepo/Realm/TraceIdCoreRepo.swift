@@ -29,7 +29,7 @@ class TraceIdCoreRepo: RealmDataRepo<TraceIdCoreRealmModel, TraceIdCore> {
         return TraceIdCoreRealmModel()
     }
 
-    init() {
-        super.init(schemaVersion: 0)
+    init(key: Data) {
+        super.init(filenameSalt: "TraceIdCoreRepo", schemaVersion: 0, encryptionKey: key)
     }
 }

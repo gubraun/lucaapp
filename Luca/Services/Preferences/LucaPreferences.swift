@@ -33,6 +33,24 @@ class LucaPreferences {
         }
     }
 
+    var keyCache: [BaerCodeKey] {
+        get {
+            preferences.retrieve(key: "keyCache", type: [BaerCodeKey].self) ?? [BaerCodeKey]()
+        }
+        set {
+            preferences.store(newValue, key: "keyCache")
+        }
+    }
+
+    var lastFetched: Date? {
+        get {
+            preferences.retrieve(key: "lastFetched", type: Date.self) ?? nil
+        }
+        set {
+            preferences.store(newValue, key: "lastFetched")
+        }
+    }
+
     var firstName: String? {
         get {
             self.userRegistrationData?.firstName

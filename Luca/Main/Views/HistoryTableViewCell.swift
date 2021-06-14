@@ -44,11 +44,7 @@ class HistoryTableViewCell: UITableViewCell {
             checkinGroupNameLabel.text = nil
         }
 
-        if let checkout = userEvent.checkout {
-            checkinDateLabel.text = "\(userEvent.checkin.date.formattedDate) - \n\(checkout.date.formattedDate)"
-        } else {
-            checkinDateLabel.text = userEvent.checkin.date.formattedDate
-        }
+        checkinDateLabel.text = userEvent.formattingCheckinCheckoutDate()
 
         if userEvent.checkin.role == .host, let firstName = LucaPreferences.shared.firstName, let lastName = LucaPreferences.shared.lastName {
             checkinLocationNameLabel.text = "\(L10n.Private.Meeting.Info.title): \(firstName) \(lastName)"

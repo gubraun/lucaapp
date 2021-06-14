@@ -47,11 +47,25 @@
 /* Class = "UILabel"; text = "Privates Treffen"; ObjectID = "oHm-oj-9lg"; */
 "3Ow-0b-4Xn.text" = "Privates Treffen";
 
-/* Class = "UILabel"; text = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:"; ObjectID = "x86-uK-XAj"; */
-"x86-uK-XAj.text" = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:";
+/* Class = "UILabel"; text = "Wenn du einem Gesundheitsamt diese TAN nennst, kann es deine Historie entschlüsseln und die luca-Standorte informieren."; ObjectID = "x86-uK-XAj"; */
+"x86-uK-XAj.text" = "Wenn du einem Gesundheitsamt diese TAN nennst, kann es deine Historie entschlüsseln und die luca-Standorte informieren.";
 
 "Ru1-YU-N6h.text" = "Ein oder mehrere Gesundheitsämter haben im Rahmen einer Datenanfrage deine Kontaktdaten erhalten.\n\nIm Rahmen einer Kontaktnachverfolgung wurden deine Kontaktdaten von einem oder mehreren Gesundheitsämtern entschlüsselt. Diese werten gerade aus, ob ein Risiko besteht und werden sich möglicherweise bei dir melden. Bis dahin besteht kein Handlungsbedarf.\n\nBitte handle verantwortungsvoll.";
 
 "b6x-di-OUu.normalTitle" = "OKAY";
 
 "oKv-vi-4lN.normalTitle" = "ALLE DATENZUGRIFFE";
+
+"mKG-lv-mH1.text" = "Freigeben bestätigen";
+
+"wTe-oU-Qqp.normalTitle" = "ABBRECHEN";
+
+"KIG-IJ-t2n.normalTitle" = "EINWILLIGEN";
+
+"vd5-gh-ATs.text" = "Zeitraum festlegen";
+
+"D3W-0v-OT8.text" = "Die Historie sammelt die Check-ins der letzten 14 Tage. Du kannst selbst entscheiden, wie viele Tage du davon mit dem Gesundheitsamt teilen möchtest. Lege zunächst die Anzahl der Tage fest: ";
+
+"SI8-Tb-RA7.normalTitle" = "ABBRECHEN";
+
+"rYF-DE-3Bj.normalTitle" = "WÄHLEN";

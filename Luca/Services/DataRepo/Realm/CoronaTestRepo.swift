@@ -27,8 +27,8 @@ class CoronaTestRepo: RealmDataRepo<CoronaTestRealmModel, CoronaTestPayload> {
         return CoronaTestRealmModel()
     }
 
-    init() {
-        super.init(schemaVersion: 1) { (migration, oldSchema) in
+    init(key: Data) {
+        super.init(filenameSalt: "CoronaTestRepo", schemaVersion: 1, migrationBlock: { (migration, oldSchema) in
             if oldSchema < 1 {
                 migration.enumerateObjects(ofType: CoronaTestRealmModel.className()) { oldObject, newObject in
                     if let oldObject = oldObject,
@@ -37,7 +37,7 @@ class CoronaTestRepo: RealmDataRepo<CoronaTestRealmModel, CoronaTestPayload> {
                     }
                 }
             }
-        }
+        }, encryptionKey: key)
     }
 
 }

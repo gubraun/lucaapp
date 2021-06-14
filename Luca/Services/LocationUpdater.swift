@@ -1,5 +1,6 @@
 import UIKit
 import CoreLocation
+import RxSwift
 
 public class LocationUpdater: NSObject {
     public typealias CurrentLocationCompletion = (CLLocation) -> Void
@@ -45,13 +46,13 @@ public class LocationUpdater: NSObject {
     }
 
     public func start() {
-        print("LOCATION START")
+        print("LOCATION START: is main thread \(Thread.current.isMainThread)")
         locationManager.startUpdatingLocation()
         locationManager.startMonitoringSignificantLocationChanges()
     }
 
     public func stop() {
-        print("LOCATION STOP")
+        print("LOCATION STOP: is main thread \(Thread.current.isMainThread)")
         locationManager.stopUpdatingLocation()
         locationManager.stopMonitoringSignificantLocationChanges()
     }
@@ -77,10 +78,13 @@ public class LocationUpdater: NSObject {
     }
 
     public func startMonitoring(region: CLRegion) {
+        print("MONITOR START: is main thread \(Thread.current.isMainThread)")
         locationManager.startMonitoring(for: region)
+        print("Monitored regions: \(locationManager.monitoredRegions)")
     }
 
     public func stopMonitoring(region: CLRegion) {
+        print("MONITOR STOP: is main thread \(Thread.current.isMainThread)")
         locationManager.stopMonitoring(for: region)
     }
 
@@ -92,6 +96,9 @@ extension LocationUpdater: CLLocationManagerDelegate {
 
         bufferredLocations.append(contentsOf: locations)
         print("NEW LOCATIONS!. Current buffer size: \(bufferredLocations.count)")
+        for location in locations {
+            print("\tLocation: \(location)")
+        }
 
         if let location = locations.last {
             for completion in currentLocationRequestCompletions {
@@ -128,15 +135,21 @@ extension LocationUpdater: CLLocationManagerDelegate {
         log("Exitted region: \(region)")
 
         self.log("Geofence: trying to check out...")
-        if ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn, LucaPreferences.shared.autoCheckout {
-            self.log("Geofence: sending check out request")
-            ServiceContainer.shared.traceIdService.checkOut {
-                self.log("Geofence: on check out: \(ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn)")
-            } failure: { (error) in
-                self.log("Geofence: on check out error: \(error)", entryType: .error)
-            }
+        ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn
+            .flatMapCompletable { _ in
 
-        }
+                if LucaPreferences.shared.autoCheckout {
+                    self.log("Geofence: sending check out request")
+                    return ServiceContainer.shared.traceIdService
+                        .checkOut()
+                        .do(onError: { error in
+                            self.log("Geofence: on check out error: \(error)", entryType: .error)
+                        })
+                }
+                return Completable.empty()
+            }
+            .logError(self, "Check out routine")
+            .subscribe()
     }
 
 }

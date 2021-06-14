@@ -82,7 +82,7 @@ class LocationRepo: RealmDataRepo<LocationRealmModel, Location> {
         return LocationRealmModel()
     }
 
-    init() {
-        super.init(schemaVersion: 0, customFilename: "LocationRepo")
+    init(key: Data) {
+        super.init(filenameSalt: "LocationRepo", schemaVersion: 0, encryptionKey: key)
     }
 }

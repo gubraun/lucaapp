@@ -158,14 +158,16 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "data.clear.title")
     }
     internal enum ResetData {
-      /// Do you really want to reset your app?\nIf you reset your app, you will not be able to check in or access your history.
+      /// Do you really want to delete your account?\n\nIf you delete your account, you will not be able to check in or access your history.\n\nIn accordance with the Corona/COVID-19 infection control regulations, all encrypted check-in data will be deleted after 4 weeks.\n\nOnce your account is deleted, you can still be notified by a health department up to 4 weeks after your last check-in.
       internal static let description = L10n.tr("Localizable", "data.resetData.description")
-      /// Reset app
+      /// Delete account
       internal static let title = L10n.tr("Localizable", "data.resetData.title")
     }
     internal enum Shared {
-      /// You have shared your check-ins from the last 14 days with the health department.
-      internal static let description = L10n.tr("Localizable", "data.shared.description")
+      /// You have shared your check-ins from the last %@ days with the health department.
+      internal static func description(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "data.shared.description", String(describing: p1))
+      }
       /// Data shared
       internal static let title = L10n.tr("Localizable", "data.shared.title")
     }
@@ -199,6 +201,20 @@ internal enum L10n {
   }
 
   internal enum Error {
+    internal enum DeleteUser {
+      /// Your account has already been deleted.\n\nYou can now register again.
+      internal static let alreadyDeleted = L10n.tr("Localizable", "error.deleteUser.alreadyDeleted")
+      /// Your account could not be deleted. (400 - Bad Request Error)\n\nPlease contact our support.
+      internal static let badInput = L10n.tr("Localizable", "error.deleteUser.badInput")
+      /// Your account could not be deleted. (403 - Forbidden Error)\n\nPlease contact our support.
+      internal static let invalidSignature = L10n.tr("Localizable", "error.deleteUser.invalidSignature")
+      /// Your account could not be deleted.\n\nPlease try again.
+      internal static let rateLimit = L10n.tr("Localizable", "error.deleteUser.rateLimit")
+      /// Your account could not be deleted.\n\nPlease contact our support.
+      internal static let unableToBuildPayload = L10n.tr("Localizable", "error.deleteUser.unableToBuildPayload")
+      /// Your account does not exist.\n\nYou can now register again.
+      internal static let userNotFound = L10n.tr("Localizable", "error.deleteUser.userNotFound")
+    }
     internal enum Network {
       /// The luca Service is currently unavailable, please try again later.
       internal static let badGateway = L10n.tr("Localizable", "error.network.badGateway")
@@ -270,13 +286,13 @@ internal enum L10n {
       internal static let dataAccessButton = L10n.tr("Localizable", "history.accessibility.dataAccessButton")
     }
     internal enum Alert {
-      /// Would you like to share your contact data and the last 14 days of your history with the health department? This is only done with your voluntary consent under art. 9 (2) a) GDPR (more: %@).
-      internal static func description(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "history.alert.description", String(describing: p1))
+      /// Would you like to share your contact data and the last %@ days of your history with the health department? This is only done with your voluntary consent in accordance with art. 9 (2) a) GDPR (more: %@).
+      internal static func description(_ p1: Any, _ p2: Any) -> String {
+        return L10n.tr("Localizable", "history.alert.description", String(describing: p1), String(describing: p2))
       }
       /// data privacy - app
       internal static let link = L10n.tr("Localizable", "history.alert.link")
-      /// Share data
+      /// Confirm share
       internal static let title = L10n.tr("Localizable", "history.alert.title")
     }
     internal enum Data {
@@ -699,6 +715,29 @@ internal enum L10n {
     internal enum Phone {
       /// Please provide a correct mobile or landline number. This number will be used for verification. You can choose if you want to provide an email address.
       internal static let mandatory = L10n.tr("Localizable", "userData.phone.mandatory")
+    }
+  }
+
+  internal enum Vaccine {
+    internal enum Result {
+      /// Fully Vaccinated
+      internal static let complete = L10n.tr("Localizable", "vaccine.result.complete")
+      /// BioNTech/Pfizer
+      internal static let cormirnaty = L10n.tr("Localizable", "vaccine.result.cormirnaty")
+      /// Vaccination
+      internal static let `default` = L10n.tr("Localizable", "vaccine.result.default")
+      /// Vaccination %i - %@
+      internal static func description(_ p1: Int, _ p2: Any) -> String {
+        return L10n.tr("Localizable", "vaccine.result.description", p1, String(describing: p2))
+      }
+      /// Johnson & Johnson
+      internal static let janssen = L10n.tr("Localizable", "vaccine.result.janssen")
+      /// Moderna
+      internal static let moderna = L10n.tr("Localizable", "vaccine.result.moderna")
+      /// Partially Vaccinated
+      internal static let partially = L10n.tr("Localizable", "vaccine.result.partially")
+      /// AstraZeneca
+      internal static let vaxzevria = L10n.tr("Localizable", "vaccine.result.vaxzevria")
     }
   }
 

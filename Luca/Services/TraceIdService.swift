@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import RxBlocking
 
 // swiftlint:disable file_length
 enum TraceIdServiceError: LocalizedError {
@@ -48,13 +49,14 @@ class TraceIdService {
     private let privateMeetingService: PrivateMeetingService
     private let traceInfoRepo: TraceInfoRepo
     private let locationRepo: LocationRepo
+    private let traceIdCoreRepo: TraceIdCoreRepo
 
     // MARK: - event names
     public let onCheckIn: String = "TraceIdService.onCheckIn"
     public let onCheckOut: String = "TraceIdService.onCheckOut"
 
     // MARK: - Persisted properties
-    private(set) var currentTraces: [TraceIdCore] {
+    private var oldCurrentTraces: [TraceIdCore] {
         get {
             let now = Date()
             return (preferences.retrieve(key: "currentTraces", type: [TraceIdCore].self) ?? [])
@@ -65,25 +67,12 @@ class TraceIdService {
         }
     }
 
-    private var traceInfos: [TraceInfo] {
+    private var oldTraceInfos: [TraceInfo] {
         get {
             preferences.retrieve(key: "traceInfos", type: [TraceInfo].self) ?? []
         }
         set {
             preferences.store(newValue, key: "traceInfos")
-        }
-    }
-
-    private(set) var currentLocationInfo: Location? {
-        get {
-            preferences.retrieve(key: "location", type: Location.self)
-        }
-        set {
-            if let value = newValue {
-                preferences.store(value, key: "location")
-            } else {
-                preferences.remove(key: "location")
-            }
         }
     }
 
@@ -103,17 +92,24 @@ class TraceIdService {
 
     // MARK: - helper properties
 
-    var currentTraceInfo: TraceInfo? {
-        return traceInfos.filter { $0.isCheckedIn }.sorted(by: { $0.checkin > $1.checkin }).first
+    /// This indicates if the consistency check has been already run in current runtime
+    private var consistencyCheckAlreadyRun = false
+
+    var currentTraceInfo: Maybe<TraceInfo> {
+        checkCorrectnessOfLocalTraceInfoData()
+            .andThen(traceInfoRepo.restore())
+            .asObservable()
+            .flatMap { array in Maybe.from { array.filter { $0.isCheckedIn }.sorted(by: { $0.checkin > $1.checkin }).first } }
+            .asMaybe()
     }
 
-    var checkedInTraceId: TraceId? {
-        return currentTraceInfo?.traceIdData
+    var checkedInTraceId: Maybe<TraceId> {
+        return currentTraceInfo.map { $0.traceIdData }.unwrapOptional()
     }
 
     /// It returns current known status without checking with backend
-    var isCurrentlyCheckedIn: Bool {
-        return checkedInTraceId != nil
+    var isCurrentlyCheckedIn: Single<Bool> {
+        return checkedInTraceId.asObservable().count { _ in true }.map { $0 > 0 }
     }
 
     private var cachedTraceIds: [TraceIdCore: TraceId] = [:]
@@ -130,7 +126,8 @@ class TraceIdService {
          backendLocation: BackendLocationV3,
          privateMeetingService: PrivateMeetingService,
          traceInfoRepo: TraceInfoRepo,
-         locationRepo: LocationRepo) {
+         locationRepo: LocationRepo,
+         traceIdCoreRepo: TraceIdCoreRepo) {
 
         self.qrCodeGenerator = qrCodeGenerator
         self.lucaPreferences = lucaPreferences
@@ -144,43 +141,78 @@ class TraceIdService {
         self.privateMeetingService = privateMeetingService
         self.traceInfoRepo = traceInfoRepo
         self.locationRepo = locationRepo
+        self.traceIdCoreRepo = traceIdCoreRepo
+
+        migrateOldData()
     }
 
-    public func getOrCreateQRCode() throws -> QRCodePayloadV3 {
-        let newOnes = currentTraces.filter { Date().timeIntervalSince1970 - $0.date.timeIntervalSince1970 < 60.0 }
-        if let first = newOnes.first {
-            return try buildQRCode(core: first)
+    private func migrateOldData() {
+        let loadedCurrentTraces = oldCurrentTraces
+        let loadedCurrentTraceInfos = oldTraceInfos
+
+        if !loadedCurrentTraces.isEmpty {
+            do {
+                _ = try self.traceIdCoreRepo.store(objects: loadedCurrentTraces)
+                    .logError(self, "Migrating current trace id cores")
+                    .do(onSuccess: { _ in
+                        self.oldCurrentTraces = []
+                    })
+                    .toBlocking() // It should block
+                    .toArray()
+            } catch let error {
+                self.log("Error migrating current trace id cores: \(error)", entryType: .error)
+            }
         }
-        return try generateQRCode()
+
+        if !loadedCurrentTraceInfos.isEmpty {
+            do {
+            _ = try self.traceInfoRepo.store(objects: loadedCurrentTraceInfos)
+                .logError(self, "Migrating current trace infos")
+                .do(onSuccess: { _ in
+                    self.oldTraceInfos = []
+                })
+                .toBlocking() // It should block
+                .toArray()
+            } catch let error {
+                self.log("Error migrating current trace id infos: \(error)", entryType: .error)
+            }
+        }
+    }
+
+    public func getOrCreateQRCode() -> Single<QRCodePayloadV3> {
+        self.traceIdCoreRepo.restore()
+            .map { currentTraces in currentTraces.filter { Date().timeIntervalSince1970 - $0.date.timeIntervalSince1970 < 60.0 } }
+            .map { $0.first }
+            .flatMap { first in
+                if let first = first {
+                    return Single.from { first }
+                }
+                return self.generateNewTraceIdCore()
+            }
+            .flatMap { self.buildQRCode(core: $0) }
     }
 
     /// Fetches current status and updates internals. It does not fetch location data, it should be fetched explicit.
-    public func fetchTraceStatus(completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
-
-        if let currentTraceId = self.currentTraceInfo?.traceIdData {
-            checkStatusWhenCheckedIn(currentTraceId: currentTraceId, completion: completion, failure: failure)
-        } else {
-            checkStatusWhenNotCheckedIn(completion: completion, failure: failure)
-        }
+    public func fetchTraceStatus() -> Completable {
+        currentTraceInfo
+            .asObservable()
+            .map { $0.traceIdData }
+            .unwrapOptional()
+            .ifEmpty(switchTo: self.checkStatusWhenNotCheckedIn().andThen(Observable<TraceId>.empty()))
+            .flatMap { self.checkStatusWhenCheckedIn(currentTraceId: $0) }
+            .ignoreElementsAsCompletable()
     }
 
-    /// Fetches the informations. Those informations will be later persisted in `TraceIdService.currentLocationInfo` so it can be accessed later event without internet
-    public func fetchCurrentLocationInfo() -> Single<Location> {
-        Completable.from {
-            if !self.isCurrentlyCheckedIn {
-                throw TraceIdServiceError.notCheckedIn
-            }
+    /// Fetches and saves the informations from the internet. If no internet, it tries to load previously location
+    public func fetchCurrentLocationInfo(checkLocalDBFirst: Bool = false) -> Single<Location> {
+        let locationSource: Single<Location>
+        if checkLocalDBFirst {
+            locationSource = loadCurrentLocationInfo().catch { _ in self.downloadCurrentLocationInfo() }
+        } else {
+            locationSource = downloadCurrentLocationInfo().catch { _ in self.loadCurrentLocationInfo() }
         }
-        .andThen(Single.from {
-            if let locationId = self.currentTraceInfo?.parsedLocationId {
-                return locationId
-            }
-            throw TraceIdServiceError.unableToRetrieveLocationID
-        })
-        .asObservable()
-        .flatMap { self.backendLocation.fetchLocation(locationId: $0).asSingle() }
-        .flatMap { self.locationRepo.store(object: $0) }
-        .map { location in
+
+        return locationSource.map { location in
             if let privateMeeting = self.additionalData as? PrivateMeetingQRCodeV3AdditionalData {
                 var locationInfo = location
                 locationInfo.groupName = "\(privateMeeting.fn) \(privateMeeting.ln)"
@@ -188,45 +220,63 @@ class TraceIdService {
             }
             return location
         }
-        .asSingle()
-        .do(onSuccess: { self.currentLocationInfo = $0 })
     }
 
-    public func checkOut(completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
-        guard let currentTraceId = self.checkedInTraceId else {
-            failure(TraceIdServiceError.notCheckedIn)
-            return
-        }
-
-        backend.checkOut(traceId: currentTraceId, timestamp: Date())
-            .execute {
-                self.performCheckOut()
-                completion()
-            } failure: { error in
-                if let networkError = error.networkLayerError {
-                    failure(TraceIdServiceError.networkError(error: networkError))
-                    return
-                }
-                if let backendError = error.backendError {
-                    switch backendError {
-                    default:
-                        failure(TraceIdServiceError.unableToCheckOut)
-                    // All those cases shouldn't be of interest of the user of this service (I guess)
-//                    case .checkInTimeLargerThanCheckOutTime:
-//                    case .failedToBuildCheckOutPayload(let failedToBuildCheckoutPayloadError):
-//                    case .invalidInput:
-//                    case .invalidSignature:
-//                    case .notFound:
-                    }
-                    return
-                }
-                failure(TraceIdServiceError.unknown)
+    /// Loads location info if retrieved and if user is currently checked in.
+    public func loadCurrentLocationInfo() -> Single<Location> {
+        currentTraceInfo
+            .map { $0.parsedLocationId }
+            .unwrapOptional()
+            .ifEmpty(switchTo: Single<UUID>.error(TraceIdServiceError.notCheckedIn))
+            .flatMap { locationId in
+                self.locationInfo(for: locationId)
             }
     }
 
-    public func checkInRx(selfCheckin: SelfCheckin) -> Completable {
-        let checkInLogic = self.fetchScanner(for: selfCheckin)
+    /// Downloads location info if user is currently checked in.
+    public func downloadCurrentLocationInfo() -> Single<Location> {
+        currentTraceInfo
+            .map { $0.parsedLocationId }
+            .unwrapOptional()
+            .ifEmpty(switchTo: Single<UUID>.error(TraceIdServiceError.notCheckedIn))
+            .flatMap { locationId in
+                self.backendLocation.fetchLocation(locationId: locationId).asSingle()
+            }
+            .flatMap { self.locationRepo.store(object: $0) }
+    }
+
+    private func locationInfo(for locationId: UUID) -> Single<Location> {
+        locationRepo.restore()
+            .map { array in array.first(where: { $0.locationId.lowercased() == locationId.uuidString.lowercased() }) }
+            .unwrapOptional()
+    }
+
+    // completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void
+    public func checkOut() -> Completable {
+        checkedInTraceId
+            .ifEmpty(switchTo: Single<TraceId>.error(TraceIdServiceError.notCheckedIn))
             .asObservable()
+            .asSingle()
+            .flatMapCompletable {
+                self.backend
+                    .checkOut(traceId: $0, timestamp: Date())
+                    .asCompletable()
+                    .catch { error in
+                        guard let interpretedError = error as? BackendError<CheckOutError> else {
+                            throw error
+                        }
+                        if let backendError = interpretedError.backendError,
+                           case .notFound = backendError {
+                            return Completable.empty()
+                        }
+                        throw error
+                    }
+                    .andThen(self.checkStatusWhenCheckedIn(currentTraceId: $0))
+            }
+    }
+
+    public func checkIn(selfCheckin: SelfCheckin) -> Completable {
+        let checkInLogic = self.fetchScanner(for: selfCheckin)
 
             // Wrap internal error to another one.
             // If scanner is not available and this error is not faulted by system or connectivity,
@@ -238,41 +288,43 @@ class TraceIdService {
                 }
             })
 
-            .flatMap { (scannerInfo: ScannerInfo) -> Observable<Never> in
-                guard let qrCode = try? self.getOrCreateQRCode() else {
-                    return Observable.error(NSError(domain: "Couldn't obtain qr code", code: 0, userInfo: nil))
-                }
-                guard let keyData = Data(base64Encoded: scannerInfo.publicKey) else {
-                    return Observable.error(NSError(domain: "Couldn't obtain key data", code: 0, userInfo: nil))
-                }
-                guard let key = KeyFactory.create(from: keyData, type: .ecsecPrimeRandom, keyClass: .public) else {
-                    return Observable.error(NSError(domain: "Couldn't create key from key data", code: 0, userInfo: nil))
-                }
-                let checkin = self.backend.checkIn(qrCode: qrCode, venuePubKey: ValueKeySource(key: key), scannerId: scannerInfo.scannerId).asCompletable()
-                if let traceId = qrCode.parsedTraceId {
-                    return checkin.andThen(
-                        self.updateAdditionalData(for: selfCheckin, traceId: traceId, venuePubKey: key)
-                        .asObservable()
-                    )
-                } else {
-                    return checkin.asObservable()
-                }
+            .flatMapCompletable { (scannerInfo: ScannerInfo) in
+                self.getOrCreateQRCode()
+                    .flatMapCompletable { qrCode -> Completable in
+                        guard let keyData = Data(base64Encoded: scannerInfo.publicKey) else {
+                            throw NSError(domain: "Couldn't obtain key data", code: 0, userInfo: nil)
+                        }
+                        guard let key = KeyFactory.create(from: keyData, type: .ecsecPrimeRandom, keyClass: .public) else {
+                            throw NSError(domain: "Couldn't create key from key data", code: 0, userInfo: nil)
+                        }
+                        let checkin = self.backend.checkIn(
+                            qrCode: qrCode,
+                            venuePubKey: ValueKeySource(key: key),
+                            scannerId: scannerInfo.scannerId)
+                        .asCompletable()
+
+                        if let traceId = qrCode.parsedTraceId {
+                            return checkin.andThen(
+                                self.updateAdditionalData(for: selfCheckin, traceId: traceId, venuePubKey: key)
+                            )
+                        } else {
+                            return checkin
+                        }
+                    }
             }
             .asObservable()
             .ignoreElementsAsCompletable()
 
-        return Completable
-            .from {
-                if self.isCurrentlyCheckedIn {
+        return isCurrentlyCheckedIn
+            .flatMapCompletable { isCheckedIn in
+                if isCheckedIn {
                     throw TraceIdServiceError.userCheckedInAlready
                 }
-            }
-            .andThen(Completable.from {
                 if self.privateMeetingService.currentMeeting != nil {
                     throw TraceIdServiceError.privateMeetingRunning
                 }
-            })
-            .andThen(checkInLogic)
+                return checkInLogic
+            }
             .logError(self, "check in")
     }
 
@@ -333,49 +385,47 @@ class TraceIdService {
     /// Should be used to dispose data when user is not longer available or data are corrupted
     public func disposeData(clearTraceHistory: Bool) {
         if clearTraceHistory {
-            self.traceInfoRepo
+            _ = self.traceInfoRepo
                 .removeAll()
                 .debug("TraceInfo removal")
                 .logError(self, "TraceInfo removal")
                 .subscribe()
         }
-        self.currentTraces = []
-        self.traceInfos = []
+        _ = self.traceIdCoreRepo.removeAll().logError(self, "TraceIdCores removal").subscribe()
         self.removeAdditionalData()
-        self.currentLocationInfo = nil
         self.ePubKeyRepo.removeAll()
         self.ePrivKeyRepo.removeAll()
     }
 
     // MARK: - private helper
-    private func generateQRCode() throws -> QRCodePayloadV3 {
-        let newestKeyId = try retrieveNewestKeyId()
-        let traceIdCore = TraceIdCore(date: Date(), keyId: UInt8(newestKeyId.keyId))
+    private func generateNewTraceIdCore() -> Single<TraceIdCore> {
+        Single.from { try self.retrieveNewestKeyId() }
+            .map { TraceIdCore(date: Date(), keyId: UInt8($0.keyId)) }
+            .do(onSuccess: { traceIdCore in
 
-        let keyIndex = Int(traceIdCore.date.lucaTimestampInteger)
-        let privKeyPresent = (try? ePrivKeyRepo.restore(index: keyIndex)) != nil
-        let pubKeyPresent = (try? ePubKeyRepo.restore(index: keyIndex)) != nil
-        if !privKeyPresent || !pubKeyPresent {
-            guard let privKey = KeyFactory.createPrivate(tag: "PrivKey", type: .ecsecPrimeRandom, sizeInBits: 256) else {
-                throw NSError(domain: "Couldn't generate ephemeral private key", code: 0, userInfo: nil)
-            }
-            guard let pubKey = KeyFactory.derivePublic(from: privKey) else {
-                throw NSError(domain: "Couldn't derive public key", code: 0, userInfo: nil)
-            }
-            try ePrivKeyRepo.store(key: privKey, index: keyIndex)
-            try ePubKeyRepo.store(key: pubKey, index: keyIndex)
-        }
-        let code = try buildQRCode(core: traceIdCore)
-        var traces = currentTraces
-        traces.append(traceIdCore)
-        currentTraces = traces
-        return code
+                let keyIndex = Int(traceIdCore.date.lucaTimestampInteger)
+                let privKeyPresent = (try? self.ePrivKeyRepo.restore(index: keyIndex)) != nil
+                let pubKeyPresent = (try? self.ePubKeyRepo.restore(index: keyIndex)) != nil
+                if !privKeyPresent || !pubKeyPresent {
+                    guard let privKey = KeyFactory.createPrivate(tag: "PrivKey", type: .ecsecPrimeRandom, sizeInBits: 256) else {
+                        throw NSError(domain: "Couldn't generate ephemeral private key", code: 0, userInfo: nil)
+                    }
+                    guard let pubKey = KeyFactory.derivePublic(from: privKey) else {
+                        throw NSError(domain: "Couldn't derive public key", code: 0, userInfo: nil)
+                    }
+                    try self.ePrivKeyRepo.store(key: privKey, index: keyIndex)
+                    try self.ePubKeyRepo.store(key: pubKey, index: keyIndex)
+                }
+            })
+            .flatMap { self.traceIdCoreRepo.store(object: $0) }
     }
 
-    private func buildQRCode(core: TraceIdCore) throws -> QRCodePayloadV3 {
-        let userId = try retrieveUserId()
-        let code = try qrCodeGenerator.build(for: core, userID: userId)
-        return code
+    private func buildQRCode(core: TraceIdCore) -> Single<QRCodePayloadV3> {
+        Single.from {
+            let userId = try self.retrieveUserId()
+            let code = try self.qrCodeGenerator.build(for: core, userID: userId)
+            return code
+        }
     }
 
     private func retrieveUserId() throws -> UUID {
@@ -392,92 +442,125 @@ class TraceIdService {
         return newestId
     }
 
-    private func checkStatusWhenNotCheckedIn(completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
+    private func checkStatusWhenNotCheckedIn() -> Completable {
 
-        // Trace ID computing does not have to be computed on the main thread
-        DispatchQueue.global(qos: .default).async {
-
-            let traces = self.currentTraces
-            if traces.count == 0 {
-                self.log("Traces are empty", entryType: .debug)
-                completion()
-                return
-            }
-
-            let traceIds: [TraceId]
-            do {
-                traceIds = try traces.map { try self.getOrCreateTraceId(core: $0) }
-            } catch let error {
-                self.log("Unable to getOrCreateTraceID. Error: \(error)", entryType: .error)
-                failure(TraceIdServiceError.unableToBuildTraceId)
-                return
-            }
-
-            print("checking following traceIds: \(traceIds.map { $0.traceIdString })")
-
-            self.backend.fetchInfo(traceIds: traceIds)
-                .execute { (traceInfos) in
-                    self.traceInfos = traceInfos
-                    if self.isCurrentlyCheckedIn {
-                        NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckIn), object: self, userInfo: nil))
-                    }
-                    completion()
-                } failure: { (error) in
-
-                    // This error is an expected value in case user hasn't been checked in
-
-                    if let backendError = error.backendError,
-                       case FetchTraceInfoError.notFound = backendError {
-                        completion()
-                    } else if let networkError = error.networkLayerError {
-                        self.log("Error Checking status when NOT checked in. Error: \(error)", entryType: .error)
-                        failure(TraceIdServiceError.networkError(error: networkError))
-                    } else {
-                        self.log("Error Checking status when NOT checked in. Error: \(error)", entryType: .error)
-                        failure(TraceIdServiceError.unknown)
-                    }
+        traceIdCoreRepo
+            .restore()
+            .observe(on: LucaScheduling.backgroundScheduler)
+            .flatMapCompletable { traces -> Completable in
+                if traces.count == 0 {
+                    self.log("Traces are empty", entryType: .debug)
+                    return Completable.empty()
                 }
-        }
+
+                let traceIds: [TraceId]
+                do {
+                    traceIds = try traces.map { try self.getOrCreateTraceId(core: $0) }
+                } catch let error {
+                    self.log("Unable to getOrCreateTraceID. Error: \(error)", entryType: .error)
+                    throw TraceIdServiceError.unableToBuildTraceId
+                }
+
+                return self.backend.fetchInfo(traceIds: traceIds)
+                    .asSingle()
+                    .asObservable()
+                    .flatMap { traceInfos in
+                        self.traceInfoRepo.store(objects: traceInfos)
+                    }
+                    .flatMap { _ in self.isCurrentlyCheckedIn }
+                    .do(onNext: { isCheckedIn in
+                        if isCheckedIn {
+                            NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckIn), object: self, userInfo: nil))
+                        }
+                    })
+                    .ignoreElementsAsCompletable()
+                    .catch { (error) -> Completable in
+                        guard let error = error as? BackendError<FetchTraceInfoError> else {
+                            throw TraceIdServiceError.unknown
+                        }
+                        if let backendError = error.backendError,
+                           case FetchTraceInfoError.notFound = backendError {
+                            return Completable.empty()
+                        } else if let networkError = error.networkLayerError {
+                            self.log("Error Checking status when NOT checked in. Error: \(error)", entryType: .error)
+                            throw TraceIdServiceError.networkError(error: networkError)
+                        } else {
+                            self.log("Error Checking status when NOT checked in. Error: \(error)", entryType: .error)
+                            throw TraceIdServiceError.unknown
+                        }
+                    }
+            }
     }
 
-    private func checkStatusWhenCheckedIn(currentTraceId: TraceId, completion: @escaping () -> Void, failure: @escaping (TraceIdServiceError) -> Void) {
+    private func checkStatusWhenCheckedIn(currentTraceId: TraceId) -> Completable {
         print("Current traceId: \(currentTraceId.traceIdString)")
-        backend.fetchInfo(traceId: currentTraceId)
-            .execute { (traceInfo) in
-                if !traceInfo.isCheckedIn {
-                    self.performCheckOut()
-                }
-                completion()
-            } failure: { (error) in
-                if let backendError = error.backendError,
-                   case FetchTraceInfoError.notFound = backendError {
-                    self.performCheckOut()
-                }
-                self.log("Error Checking status when checked in. Error: \(error)", entryType: .error)
-                if let networkError = error.networkLayerError {
-                    failure(TraceIdServiceError.networkError(error: networkError))
-                } else {
-                    failure(TraceIdServiceError.unknown)
-                }
+        return traceInfoRepo.restore()
+            .map { traceInfos in traceInfos.first(where: { $0.traceId == currentTraceId.traceIdString }) }
+            .catchAndReturn(nil)
+            .flatMapCompletable { currentTraceInfo in
+                self.backend.fetchInfo(traceId: currentTraceId)
+                    .asSingle()
+                    .flatMap(self.traceInfoRepo.store)
+                    .do(onSuccess: { updatedTraceInfo in
+                        if !updatedTraceInfo.isCheckedIn {
+                            self.performCheckOut(triggerCheckOutEvent: true, traceInfoToNotify: updatedTraceInfo)
+                        }
+                    })
+                    .asObservable()
+                    .ignoreElementsAsCompletable()
+                    .catch { error in
+                        guard let interpretedError = error as? BackendError<FetchTraceInfoError> else {
+                            throw error
+                        }
+                        if let backendError = interpretedError.backendError,
+                           case FetchTraceInfoError.notFound = backendError {
+                            self.performCheckOut(triggerCheckOutEvent: true, traceInfoToNotify: currentTraceInfo)
+                            return Completable.empty()
+                        }
+                        self.log("Error Checking status when checked in. Error: \(error)", entryType: .error)
+                        if let networkError = interpretedError.networkLayerError {
+                            throw TraceIdServiceError.networkError(error: networkError)
+                        }
+                        throw error
+                    }
             }
     }
 
-    private func performCheckOut() {
-        let hasBeenCheckedIn = isCurrentlyCheckedIn
-        let capturedTraceInfos = traceInfos
-        self.traceInfos = []
+    /// Takes all open trace infos and asks backend if those are correct.
+    /// This was needed due to migration from v1.6.0
+    private func checkCorrectnessOfLocalTraceInfoData() -> Completable {
 
-        traceInfoRepo
-            .store(objects: capturedTraceInfos)
-            .debug("TraceInfo Storing 0")
-            .logError(self, "TraceInfo Storing")
-            .subscribe() // Doesn't need to add to dispose bag as this stream ends and disposes automatically
-
-        self.cachedTraceIds = [:]
-        if hasBeenCheckedIn {
-            NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckOut), object: self, userInfo: nil))
+        // It should run only once in a runtime
+        if consistencyCheckAlreadyRun {
+            return Completable.empty()
         }
-        self.currentLocationInfo = nil
+
+        return traceInfoRepo.restore()
+            .map { array in array.filter { $0.isCheckedIn } }
+            .map { array in array
+                .map { $0.traceIdData }
+                .filter { $0 != nil }
+                .map { $0! }
+            }
+            .filter { !$0.isEmpty }
+            .asObservable()
+            .flatMap { self.backend.fetchInfo(traceIds: $0).asSingle() }
+            .flatMap { self.traceInfoRepo.store(objects: $0) }
+            .ignoreElementsAsCompletable()
+            .do(onCompleted: {
+                self.consistencyCheckAlreadyRun = true
+            })
+    }
+
+    private func performCheckOut(triggerCheckOutEvent: Bool, traceInfoToNotify: TraceInfo? = nil) {
+        self.cachedTraceIds = [:]
+        if triggerCheckOutEvent {
+            var userInfo: [String: Any]?
+            if let traceInfo = traceInfoToNotify {
+                userInfo = ["traceInfo": traceInfo]
+            }
+            NotificationCenter.default.post(Notification(name: Notification.Name(self.onCheckOut), object: self, userInfo: userInfo))
+        }
         self.removeAdditionalData()
 
         self.disposeData(clearTraceHistory: false)

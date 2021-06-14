@@ -1,3 +1,17 @@
+# Release 1.6.1
+
+- Minor improvements and bugfixes
+
+In this update we have made minor adjustments to the "My luca" tab.
+
+# Release 1.6.0
+
+- Text and UI adjustments
+- Minor bugfixes
+- "My luca" tab
+
+In this update we introduce another tab: the "My luca" tab. Furthermore, we have made minor adjustments to text and UI.
+
 # Release 1.5.0
 
 - User is notified of data accesses from health departments

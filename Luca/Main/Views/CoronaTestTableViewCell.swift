@@ -7,6 +7,7 @@ class CoronaTestTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var labLabel: UILabel!
+    @IBOutlet weak var doctorLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var qrCodeImageView: UIImageView!
 
@@ -31,6 +32,7 @@ class CoronaTestTableViewCell: UITableViewCell {
         dateLabel.text = test.date.formattedDate
         dateLabel.accessibilityLabel = test.date.accessibilityDate
         labLabel.text = test.laboratory
+        doctorLabel.text = test.doctor
 
         qrCodeImageView.layer.cornerRadius = 8
         setupQRCodeImage(for: test)

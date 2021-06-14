@@ -1,4 +1,6 @@
 import Foundation
+import RxSwift
+import RxBlocking
 
 public class ServiceContainer {
 
@@ -8,6 +10,7 @@ public class ServiceContainer {
     var ePubKeyHistoryRepository: EphemeralPublicKeyHistoryRepository!
     var ePrivKeyHistoryRepository: EphemeralPrivateKeyHistoryRepository!
     var locationPrivateKeyHistoryRepository: LocationPrivateKeyHistoryRepository!
+    var localDBKeyRepository: DataKeyRepository!
 
     var backendAddressV3: BackendAddressV3!
 
@@ -52,14 +55,20 @@ public class ServiceContainer {
     var accessedTraceIdRepo: AccessedTraceIdRepo!
     var traceIdCoreRepo: TraceIdCoreRepo!
     var locationRepo: LocationRepo!
-    var keyValueRepo: KeyValueRepoProtocol!
+    var keyValueRepo: RealmKeyValueRepo!
     var healthDepartmentRepo: HealthDepartmentRepo!
-
+    var historyRepo: HistoryRepo!
     var coronaTestRepo: CoronaTestRepo!
+
+    /// Aggregated realm databases when some global changes on all DBs are needed.
+    var realmDatabaseUtils: [RealmDatabaseUtils] = []
+
     var coronaTestFactory: CoronaTestFactory!
     var coronaTestRepoService: CoronaTestRepoService!
     var coronaTestProcessingService: CoronaTestProcessingService!
     var coronaTestUniquenessChecker: CoronaTestUniquenessChecker!
+
+    var baerCodeKeyService: BaerCodeKeyService!
 
     private(set) var isSetup = false
 
@@ -74,6 +83,7 @@ public class ServiceContainer {
         ePubKeyHistoryRepository = EphemeralPublicKeyHistoryRepository()
         ePrivKeyHistoryRepository = EphemeralPrivateKeyHistoryRepository()
         locationPrivateKeyHistoryRepository = LocationPrivateKeyHistoryRepository()
+        localDBKeyRepository = DataKeyRepository(tag: "LocalDBKey")
 
         locationUpdater = LocationUpdater()
 
@@ -127,10 +137,7 @@ public class ServiceContainer {
             backend: backendLocationV3,
             traceIdAdditionalDataBuilder: traceIdAdditionalBuilderV3)
 
-        traceInfoRepo = TraceInfoRepo()
-        accessedTraceIdRepo = AccessedTraceIdRepo()
-        traceIdCoreRepo = TraceIdCoreRepo()
-        locationRepo = LocationRepo()
+        try setupRepos()
 
         traceIdService = TraceIdService(qrCodeGenerator: qrCodePayloadBuilderV3,
                                         lucaPreferences: LucaPreferences.shared,
@@ -143,11 +150,21 @@ public class ServiceContainer {
                                         backendLocation: backendLocationV3,
                                         privateMeetingService: privateMeetingService,
                                         traceInfoRepo: traceInfoRepo,
-                                        locationRepo: locationRepo)
+                                        locationRepo: locationRepo,
+                                        traceIdCoreRepo: traceIdCoreRepo)
 
-        history = HistoryService(preferences: UserDataPreferences(suiteName: "history"))
+        history = HistoryService(
+            preferences: UserDataPreferences(suiteName: "history"),
+            historyRepo: historyRepo
+        )
 
-        historyListener = HistoryEventListener(historyService: history, traceIdService: traceIdService, userService: userService, privateMeetingService: privateMeetingService)
+        historyListener = HistoryEventListener(
+            historyService: history,
+            traceIdService: traceIdService,
+            userService: userService,
+            privateMeetingService: privateMeetingService,
+            locationRepo: locationRepo)
+
         historyListener.enable()
 
         selfCheckin = SelfCheckinService()
@@ -157,14 +174,12 @@ public class ServiceContainer {
                                                                        userService: userService,
                                                                        lucaPreferences: LucaPreferences.shared,
                                                                        dailyKeyHandler: dailyKeyRepoHandler)
-        keyValueRepo = RealmKeyValueRepo()
-        healthDepartmentRepo = HealthDepartmentRepo()
+
         accessedTracesChecker = AccessedTraceIdChecker(
             backend: backendMiscV3,
             traceInfoRepo: traceInfoRepo,
             healthDepartmentRepo: healthDepartmentRepo, accessedTraceIdRepo: accessedTraceIdRepo)
 
-        coronaTestRepo = CoronaTestRepo()
         coronaTestFactory = CoronaTestFactory()
         coronaTestRepoService = CoronaTestRepoService(coronaTestRepo: coronaTestRepo,
                                                       coronaTestFactory: coronaTestFactory)
@@ -173,8 +188,68 @@ public class ServiceContainer {
                                                                   coronaTestFactory: coronaTestFactory,
                                                                   preferences: LucaPreferences.shared,
                                                                   uniquenessChecker: coronaTestUniquenessChecker)
+        baerCodeKeyService = BaerCodeKeyService(preferences: LucaPreferences.shared)
 
         isSetup = true
     }
 
+    func setupRepos() throws {
+        var currentKey: Data! = localDBKeyRepository.retrieveKey()
+        let keyWasAvailable = currentKey != nil
+        if !keyWasAvailable {
+            self.log("No DB Key found, generating one...")
+            guard let bytes = KeyFactory.randomBytes(size: 64) else {
+                throw NSError(domain: "Couldn't generate random bytes for local DB key", code: 0, userInfo: nil)
+            }
+            if !localDBKeyRepository.store(key: bytes, removeIfExists: true) {
+                throw NSError(domain: "Couldn't store local DB key", code: 0, userInfo: nil)
+            }
+            currentKey = bytes
+            self.log("DB Key generated and stored succesfully.")
+        }
+
+        traceInfoRepo = TraceInfoRepo(key: currentKey)
+        accessedTraceIdRepo = AccessedTraceIdRepo(key: currentKey)
+        traceIdCoreRepo = TraceIdCoreRepo(key: currentKey)
+        locationRepo = LocationRepo(key: currentKey)
+        historyRepo = HistoryRepo(key: currentKey)
+        keyValueRepo = RealmKeyValueRepo(key: currentKey)
+        healthDepartmentRepo = HealthDepartmentRepo(key: currentKey)
+        coronaTestRepo = CoronaTestRepo(key: currentKey)
+
+        realmDatabaseUtils = [
+            traceInfoRepo,
+            accessedTraceIdRepo,
+            traceIdCoreRepo,
+            locationRepo,
+            historyRepo,
+            keyValueRepo,
+            healthDepartmentRepo,
+            coronaTestRepo
+        ]
+
+        if !keyWasAvailable {
+            self.log("Applying new key to the repos")
+
+            let changeEncryptionCompletables = self.realmDatabaseUtils
+                .map { $0.changeEncryptionSettings(oldKey: nil, newKey: currentKey)
+                    .logError(self, "\(String(describing: $0.self)): Changing encryption")
+                }
+
+            let array = try Completable.zip(changeEncryptionCompletables)
+            .debug("KT TOTAL")
+            .do(onError: { error in
+                fatalError("failed to change encryption settings. Error: \(error)")
+            })
+            .toBlocking() // This blocking is crucial here. I want to block the app until the settings are done.
+            .toArray()
+
+            self.log("New keys applied successfully")
+
+            print(array)
+        }
+
+    }
 }
+
+extension ServiceContainer: UnsafeAddress, LogUtil {}

@@ -80,9 +80,9 @@
 
 // History
 
-"history.alert.title" = "Share data";
+"history.alert.title" = "Confirm share";
 
-"history.alert.description" = "Would you like to share your contact data and the last 14 days of your history with the health department? This is only done with your voluntary consent under art. 9 (2) a) GDPR (more: %@).";
+"history.alert.description" = "Would you like to share your contact data and the last %@ days of your history with the health department? This is only done with your voluntary consent in accordance with art. 9 (2) a) GDPR (more: %@).";
 
 "history.alert.link" = "data privacy - app";
 
@@ -324,9 +324,9 @@
 "phoneNumber.confirmation.description.fixed" = "You will receive a call with a message containing the TAN that is needed to verify your phone number in the next step. Please make sure the phone is nearby and the number is correct:";
 
 // Menu
-"data.resetData.title" = "Reset app";
+"data.resetData.title" = "Delete account";
 
-"data.resetData.description" = "Do you really want to reset your app?\nIf you reset your app, you will not be able to check in or access your history.";
+"data.resetData.description" = "Do you really want to delete your account?\n\nIf you delete your account, you will not be able to check in or access your history.\n\nIn accordance with the Corona/COVID-19 infection control regulations, all encrypted check-in data will be deleted after 4 weeks.\n\nOnce your account is deleted, you can still be notified by a health department up to 4 weeks after your last check-in.";
 
 "data.clear.title" = "Clear history";
 
@@ -401,10 +401,28 @@
 
 "test.add.title" = "Add test";
 
+// Corona vaccine
+
+"vaccine.result.default" = "Vaccination";
+
+"vaccine.result.cormirnaty" = "BioNTech/Pfizer";
+
+"vaccine.result.janssen" = "Johnson & Johnson";
+
+"vaccine.result.moderna" = "Moderna";
+
+"vaccine.result.vaxzevria" = "AstraZeneca";
+
+"vaccine.result.complete" = "Fully Vaccinated";
+
+"vaccine.result.partially" = "Partially Vaccinated";
+
+"vaccine.result.description" = "Vaccination %i - %@";
+
 // Share data
 "data.shared.title" = "Data shared";
 
-"data.shared.description" = "You have shared your check-ins from the last 14 days with the health department.";
+"data.shared.description" = "You have shared your check-ins from the last %@ days with the health department.";
 
 // Acknowledgements
 // Title of the acknowlegements cannot be set outside the source code of LicensesViewController pod. The pod sets the title using NSLocalizedString("Acknowledgements", comment: "Acknowledgements")
@@ -430,3 +448,16 @@
 "test.uniqueness.redeemed.error" = "Someone already imported this test.";
 
 "test.uniqueness.rate.limit.error" = "The rate limit has been reached.";
+
+// Delete user
+"error.deleteUser.badInput" = "Your account could not be deleted. (400 - Bad Request Error)\n\nPlease contact our support.";
+
+"error.deleteUser.invalidSignature" = "Your account could not be deleted. (403 - Forbidden Error)\n\nPlease contact our support.";
+
+"error.deleteUser.userNotFound" = "Your account does not exist.\n\nYou can now register again.";
+
+"error.deleteUser.rateLimit" = "Your account could not be deleted.\n\nPlease try again.";
+
+"error.deleteUser.unableToBuildPayload" = "Your account could not be deleted.\n\nPlease contact our support.";
+
+"error.deleteUser.alreadyDeleted" = "Your account has already been deleted.\n\nYou can now register again.";

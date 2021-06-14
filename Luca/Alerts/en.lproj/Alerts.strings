@@ -44,11 +44,11 @@
 /* Class = "UILabel"; text = "I1LJ-86V6-H8O0"; ObjectID = "hnp-sa-7PZ"; */
 "hnp-sa-7PZ.text" = "I1LJ-86V6-H8O0";
 
-/* Class = "UILabel"; text = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:"; ObjectID = "mrp-ja-1P2"; */
-"mrp-ja-1P2.text" = "Please provide this TAN as soon as the health department asks you for it:";
+/* Class = "UILabel"; text = "If you give this TAN to a health department, they can decrypt your history and inform luca places. "; ObjectID = "mrp-ja-1P2"; */
+"mrp-ja-1P2.text" = "If you give this TAN to a health department, they can decrypt your history and inform luca places. ";
 
 /* Class = "UIButton"; normalTitle = "OK"; ObjectID = "ubh-BL-vAv"; */
-"ubh-BL-vAv.normalTitle" = "OK";
+"ubh-BL-vAv.normalTitle" = "OKAY";
 
 /* Class = "UILabel"; text = "Daten freigeben"; ObjectID = "w3Z-P6-Xnn"; */
 "w3Z-P6-Xnn.text" = "Share data";
@@ -59,11 +59,22 @@
 
 "d5g-Lu-YCc.normalTitle" = "ALL DATA REQUESTS";
 
-/* Class = "UILabel"; text = "Share data"; ObjectID = "lw6-oz-eBf"; */
-"lw6-oz-eBf.text" = "Share data";
+/* Class = "UILabel"; text = "Confirm share"; ObjectID = "lw6-oz-eBf"; */
+"lw6-oz-eBf.text" = "Confirm share";
 
 /* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "asd-HK-YFI"; */
 "asd-HK-YFI.normalTitle" = "CANCEL";
 
-/* Class = "UIButton"; normalTitle = "SHARE"; ObjectID = "XgK-DN-pW5"; */
-"XgK-DN-pW5.normalTitle" = "SHARE";
+"XgK-DN-pW5.normalTitle" = "GENERATE TAN";
+
+/* Class = "UILabel"; text = "Define timeframe"; ObjectID = "muW-F5-sm3"; */
+"muW-F5-sm3.text" = "Define timeframe";
+
+/* Class = "UILabel"; text = "Your history gathers all of your check-ins from the last 14 days. You can decide how many days you want to share with the health department. Define the number of days: "; ObjectID = "o1a-He-LzM"; */
+"o1a-He-LzM.text" = "Your history gathers all of your check-ins from the last 14 days. You can decide how many days you want to share with the health department. Define the number of days: ";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "k1N-fm-QGD"; */
+"k1N-fm-QGD.normalTitle" = "CANCEL";
+
+/* Class = "UIButton"; normalTitle = "SELECT"; ObjectID = "cdF-1p-Yt9"; */
+"cdF-1p-Yt9.normalTitle" = "SELECT";

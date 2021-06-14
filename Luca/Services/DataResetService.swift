@@ -2,14 +2,15 @@ import Foundation
 
 class DataResetService {
 
+    static let log = GeneralPurposeLog(subsystem: "App", category: "DataResetService", subDomains: [])
+
     static func resetAll() {
-        ServiceContainer.shared.history.clearEntries()
         ServiceContainer.shared.traceIdService.disposeData(clearTraceHistory: true)
-        ServiceContainer.shared.keyValueRepo.removeAll(completion: {}, failure: { _ in })
-        ServiceContainer.shared.traceInfoRepo.removeAll(completion: {}, failure: {_ in})
-        ServiceContainer.shared.locationRepo.removeAll(completion: {}, failure: {_ in})
-        ServiceContainer.shared.healthDepartmentRepo.removeAll(completion: {}, failure: {_ in})
-        ServiceContainer.shared.accessedTraceIdRepo.removeAll(completion: {}, failure: {_ in})
+
+        for db in ServiceContainer.shared.realmDatabaseUtils {
+            db.removeFile(completion: {}, failure: { _ in})
+        }
+
         Self.resetUserData()
         Self.resetOnboarding()
     }
@@ -18,10 +19,18 @@ class DataResetService {
         LucaPreferences.shared.userRegistrationData = nil
         LucaPreferences.shared.uuid = nil
         ServiceContainer.shared.userKeysBundle.removeKeys()
+        ServiceContainer.shared.localDBKeyRepository.purge()
         do {
             try KeyStorage.purge()
         } catch let error {
-            print("Keys couldn't be purged: \(error)")
+            log.log("Keys couldn't be purged: \(error)", entryType: .error)
+        }
+
+        do {
+            // It's needed to generate new local DB keys and to dispose old key references.
+            try ServiceContainer.shared.setupRepos()
+        } catch let error {
+            log.log("Repos couldn't be re initialized: \(error)", entryType: .error)
         }
     }
 
@@ -34,7 +43,7 @@ class DataResetService {
     }
 
     static func resetHistory() {
-        ServiceContainer.shared.history.clearEntries()
+        ServiceContainer.shared.historyRepo.removeFile(completion: {}, failure: {_ in})
     }
 
 }

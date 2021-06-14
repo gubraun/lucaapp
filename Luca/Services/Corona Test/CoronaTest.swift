@@ -18,6 +18,9 @@ protocol CoronaTest {
     /// testing laboratory
     var laboratory: String { get }
 
+    /// testing doctor
+    var doctor: String { get }
+
     /// check if test result is negative
     var isNegative: Bool { get }
 

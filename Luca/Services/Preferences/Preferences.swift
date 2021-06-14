@@ -11,6 +11,7 @@ protocol Preferences {
     func store(_ uuid: UUID, key: String)
     func store(_ data: Data, key: String)
     func store<T: Encodable>(_ data: T, key: String)
+    func store<T: Encodable>(_ data: [T], key: String)
 
     func retrieve(key: String) -> Double?
     func retrieve(key: String) -> Int?
@@ -19,6 +20,7 @@ protocol Preferences {
     func retrieve(key: String) -> Data?
     func retrieve(key: String) -> UUID?
     func retrieve<T: Decodable>(key: String, type: T.Type) -> T?
+    func retrieve<T: Decodable>(key: String, type: [T].Type) -> [T]?
 
     /// Deprecated. It is used only for the bugfix LUCA 582.
     func retrieveArray<T: Decodable>(key: String, type: [T].Type) -> [T]

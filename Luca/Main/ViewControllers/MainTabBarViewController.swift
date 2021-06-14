@@ -115,7 +115,7 @@ class MainTabBarViewController: UITabBarController {
             .filter { $0.1 }
             .flatMap { pendingCheckin in
                 return Completable.from { ServiceContainer.shared.selfCheckin.consumeCurrent() }
-                    .andThen(ServiceContainer.shared.traceIdService.checkInRx(selfCheckin: pendingCheckin.0))
+                    .andThen(ServiceContainer.shared.traceIdService.checkIn(selfCheckin: pendingCheckin.0))
                     .do(onSubscribe: { DispatchQueue.main.async { self.progressHud.show(in: self.view) } })
                     .do(onDispose: { DispatchQueue.main.async { self.progressHud.dismiss() } })
             }

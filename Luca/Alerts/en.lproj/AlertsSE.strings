@@ -47,11 +47,31 @@
 /* Class = "UILabel"; text = "Privates Treffen"; ObjectID = "oHm-oj-9lg"; */
 "3Ow-0b-4Xn.text" = "Private Meeting";
 
-/* Class = "UILabel"; text = "Bitte gib die folgende TAN an, sobald du vom Gesundheitsamt darum gebeten wirst:"; ObjectID = "x86-uK-XAj"; */
-"x86-uK-XAj.text" = "Please provide this TAN as soon as the health department asks you for it:";
+/* Class = "UILabel"; text = "If you give this TAN to a health department, they can decrypt your history and inform luca places."; ObjectID = "x86-uK-XAj"; */
+"x86-uK-XAj.text" = "If you give this TAN to a health department, they can decrypt your history and inform luca places.";
 
 "Ru1-YU-N6h.text" = "One or more health departments have requested your contact data.\n\nWhile contact tracing, one or more health departments decrypted your contact data. They are currently evaluating whether there is a risk and will contact you if necessary.\n\nPlease act responsibly.";
 
 "b6x-di-OUu.normalTitle" = "OKAY";
 
 "oKv-vi-4lN.normalTitle" = "ALL DATA REQUESTS";
+
+/* Class = "UILabel"; text = "Confirm share"; ObjectID = "mKG-lv-mH1"; */
+"mKG-lv-mH1.text" = "Confirm share";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "wTe-oU-Qqp"; */
+"wTe-oU-Qqp.normalTitle" = "CANCEL";
+
+"KIG-IJ-t2n.normalTitle" = "GENERATE TAN";
+
+/* Class = "UILabel"; text = "Define timeframe"; ObjectID = "vd5-gh-ATs"; */
+"vd5-gh-ATs.text" = "Define timeframe";
+
+/* Class = "UILabel"; text = "Your history gathers all of your check-ins from the last 14 days. You can decide how many days you want to share with the health department. Define the number of days: "; ObjectID = "D3W-0v-OT8"; */
+"D3W-0v-OT8.text" = "Your history gathers all of your check-ins from the last 14 days. You can decide how many days you want to share with the health department. Define the number of days: ";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "SI8-Tb-RA7"; */
+"SI8-Tb-RA7.normalTitle" = "CANCEL";
+
+/* Class = "UIButton"; normalTitle = "SELECT"; ObjectID = "rYF-DE-3Bj"; */
+"rYF-DE-3Bj.normalTitle" = "SELECT";

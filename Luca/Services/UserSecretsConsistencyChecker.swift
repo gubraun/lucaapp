@@ -18,15 +18,17 @@ class UserSecretsConsistencyChecker {
         // 4. Dispose all traces
 
         // 1.
-        let checkOutIfNeeded = Completable.deferred {
-            if traceIdService.isCurrentlyCheckedIn {
-                return traceIdService.checkOutRx()
+        let checkOutIfNeeded = traceIdService
+            .isCurrentlyCheckedIn
+            .flatMapCompletable { isCheckedIn in
+                if isCheckedIn {
+                    return traceIdService.checkOut()
+                }
+                return Completable.empty()
             }
-            return Completable.empty()
-        }
-        .debug(logUtil: self, "Check secrets 0")
-        .logError(self, "Checkout")
-        .retry(delay: .milliseconds(500), scheduler: LucaScheduling.backgroundScheduler)
+            .debug(logUtil: self, "Check secrets 0")
+            .logError(self, "Checkout")
+            .retry(delay: .milliseconds(500), scheduler: LucaScheduling.backgroundScheduler)
 
         // 2.
         _ = Completable.from { lucaPreferences.uuid = nil }
@@ -38,7 +40,7 @@ class UserSecretsConsistencyChecker {
             .logError(self, "Register")
             .retry(delay: .milliseconds(500), scheduler: LucaScheduling.backgroundScheduler)
             .asObservable()
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
 
         // 4.
         let disposeTraceData = Completable.from { traceIdService.disposeData(clearTraceHistory: true) }

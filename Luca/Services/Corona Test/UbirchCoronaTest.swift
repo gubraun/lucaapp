@@ -51,6 +51,10 @@ struct UbirchCoronaTest: CoronaTest {
         return laboratoryId
     }
 
+    var doctor: String {
+        return " - "
+    }
+
     var isNegative: Bool {
         return result.isNegative
     }
@@ -116,8 +120,9 @@ extension UbirchCoronaTest {
 
     func isValid() -> Single<Bool> {
         Single.create { observer -> Disposable in
+            let validity = type == "PCR" ? 72 : 48
             let differenceHours = Calendar.current.dateComponents([.hour], from: self.date, to: Date()).hour ?? Int.max
-            let dateIsValid = differenceHours < 48
+            let dateIsValid = differenceHours < validity
             observer(.success(dateIsValid))
 
             return Disposables.create()

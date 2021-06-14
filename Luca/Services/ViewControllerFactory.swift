@@ -88,8 +88,10 @@ class AlertViewControllerFactory {
         return viewController
     }
 
-    static func createTANReleaseViewController() -> TANReleaseViewController {
-        return instantiateViewController(identifier: "TANReleaseViewController")
+    static func createTANReleaseViewController(withNumberOfDaysTransferred numberOfDays: Int) -> TANReleaseViewController {
+        let viewController: TANReleaseViewController = instantiateViewController(identifier: "TANReleaseViewController")
+        viewController.numberOfTransferredDays = numberOfDays
+        return viewController
     }
 
     static func createPrivateMeetingInfoViewController(historyEvent: HistoryEvent) -> PrivateMeetingInfoViewController {
@@ -115,10 +117,16 @@ class AlertViewControllerFactory {
         return alert
     }
 
-    static func createDataAccessConfirmationViewController(confirmAction: @escaping () -> Void) -> AlertWithLinkViewController {
+    static func createDataAccessPickDaysViewController(confirmAction: @escaping (Int) -> Void) -> ShareHistoryPickDaysAlertViewController {
+        let alert: ShareHistoryPickDaysAlertViewController = instantiateViewController(identifier: "ShareHistoryPickDaysAlertViewController")
+        alert.setup(confirmAction: confirmAction)
+        return alert
+    }
+
+    static func createDataAccessConfirmationViewController(numberOfDays: Int, confirmAction: @escaping () -> Void) -> AlertWithLinkViewController {
         let alert: AlertWithLinkViewController = instantiateViewController(identifier: "AlertWithLinkViewController")
         alert.setup(withTitle: L10n.History.Alert.title,
-                    description: L10n.History.Alert.description(L10n.History.Alert.link),
+                    description: L10n.History.Alert.description(numberOfDays, L10n.History.Alert.link),
                     link: L10n.History.Alert.link,
                     url: ServiceContainer.shared.backendAddressV3.privacyPolicyUrl,
                     confirmAction: confirmAction)
@@ -155,6 +163,7 @@ class AlertViewControllerFactory {
                     description: L10n.Tests.Uniqueness.Consent.description(link),
                     link: link,
                     url: ServiceContainer.shared.backendAddressV3.privacyPolicyUrl,
+                    continueButtonTitle: L10n.Navigation.Basic.yes.uppercased(),
                     confirmAction: confirmAction)
         alert.view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         return alert

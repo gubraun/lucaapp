@@ -8,8 +8,10 @@ extension UserService {
     var onUserRegisteredRx: Observable<Void> {
         NotificationCenter.default.rx.notification(NSNotification.Name(self.onUserRegistered), object: self).map { _ in Void() }
     }
-    var onUserDataTransferedRx: Observable<Void> {
-        NotificationCenter.default.rx.notification(NSNotification.Name(self.onUserDataTransfered), object: self).map { _ in Void() }
+    var onUserDataTransferedRx: Observable<Int> {
+        NotificationCenter.default.rx.notification(NSNotification.Name(self.onUserDataTransfered), object: self).map { notif in
+            notif.userInfo?[self.onUserDataTransferedNumberOfDays] as? Int ?? 14
+        }
     }
 
     func registerIfNeededRx() -> Single<Result> {

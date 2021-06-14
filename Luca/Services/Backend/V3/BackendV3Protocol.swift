@@ -5,7 +5,8 @@ protocol BackendUserV3Protocol {
     func create(userData: UserRegistrationData) -> AsyncDataOperation<BackendError<CreateUserError>, UUID>
     func userExists(userId: UUID) -> AsyncOperation<BackendError<UserExistsError>>
     func update(userId: UUID, userData: UserRegistrationData) -> AsyncOperation<BackendError<UpdateUserError>>
-    func userTransfer(userId: UUID) -> AsyncDataOperation<BackendError<UserTransferError>, String>
+    func userTransfer(userId: UUID, numberOfDays: Int) -> AsyncDataOperation<BackendError<UserTransferError>, String>
+    func delete(userId: UUID) -> AsyncOperation<BackendError<DeleteUserError>>
 }
 
 protocol BackendDailyKeyV3 {

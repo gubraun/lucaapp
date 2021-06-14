@@ -5,6 +5,7 @@ class TANReleaseViewController: UIViewController {
 
     @IBOutlet weak var tanLabel: UILabel!
 
+    var numberOfTransferredDays: Int = 14
     var progressHud = JGProgressHUD.lucaLoading()
 
     override func viewDidLoad() {
@@ -24,7 +25,7 @@ class TANReleaseViewController: UIViewController {
             }
         }
 
-        ServiceContainer.shared.userService.transferUserData { (challengeId) in
+        ServiceContainer.shared.userService.transferUserData(forNumberOfDays: numberOfTransferredDays) { (challengeId) in
 
             let formattedString = challengeId
                 .uppercased()

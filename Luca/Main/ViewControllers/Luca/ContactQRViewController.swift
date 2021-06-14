@@ -256,14 +256,20 @@ class ContactQRViewController: UIViewController {
         // Trigger checkout reminder if user checks in and has autocheckout off.
         ServiceContainer.shared.traceIdService
             .onCheckInRx()
-            .flatMap { _ in return NotificationPermissionHandler.shared.notificationSettings }
-            .do(onNext: { permission in
-                NotificationPermissionHandler.shared.setPermissionValue(permission: permission)
-                if let location = ServiceContainer.shared.traceIdService.currentLocationInfo {
+            .flatMap { _ -> Completable in
+
+                let locationObservable = ServiceContainer.shared.traceIdService.fetchCurrentLocationInfo().asObservable()
+                let permissionObservable = NotificationPermissionHandler.shared.notificationSettings.take(1)
+
+                return Observable.zip(locationObservable, permissionObservable) { (location, permission) in
+
+                    NotificationPermissionHandler.shared.setPermissionValue(permission: permission)
+
                     let autoCheckoutOff = (location.geoLocationRequired && !LucaPreferences.shared.autoCheckout) || !location.geoLocationRequired
                     (permission == .authorized && autoCheckoutOff) ? NotificationService.shared.addNotification() : NotificationService.shared.removePendingNotifications()
                 }
-            })
+                .ignoreElementsAsCompletable()
+            }
             .subscribe()
             .disposed(by: disposeBag)
 
@@ -298,8 +304,9 @@ class ContactQRViewController: UIViewController {
     }
 
     private func handleQRCodeGeneration() -> Completable {
-        Single.from { try ServiceContainer.shared.traceIdService.getOrCreateQRCode().qrCodeData }
+        ServiceContainer.shared.traceIdService.getOrCreateQRCode()
             .asObservable()
+            .map { $0.qrCodeData }
             .catch({ (error) -> Observable<Data> in
 
                 defer { self.errorsCount += 1 }
@@ -368,19 +375,34 @@ class ContactQRViewController: UIViewController {
                           message: L10n.Data.ResetData.description,
                           preferredStyle: .alert)
             .actionAndCancelAlert(actionText: L10n.Data.ResetData.title, action: {
-                DataResetService.resetAll()
-                self.dismiss(animated: true, completion: nil)
+                ServiceContainer.shared.userService.deleteUserData(completion: {
+                    DataResetService.resetAll()
+                    self.dismiss(animated: true, completion: nil)
+                }, failure: { error in
+                    // In case account was already deleted, or account doesn't exist, reset app and begin onboarding.
+                    if let deleteError = error.error as? DeleteUserError, deleteError == .alreadyDeleted || deleteError == .userNotFound {
+                        let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: error.localizedDescription, onOk: { DataResetService.resetAll() })
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: error.localizedDescription)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                })
             }, viewController: self)
     }
 
     private func showCheckinOrMeetingViewController(animated: Bool) {
-        if ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn,
-           let traceInfo = ServiceContainer.shared.traceIdService.currentTraceInfo {
-            let viewController = MainViewControllerFactory.createLocationCheckinViewController(traceInfo: traceInfo)
-            navigationController?.pushViewController(viewController, animated: animated)
-        } else if ServiceContainer.shared.privateMeetingService.currentMeeting != nil {
+        if ServiceContainer.shared.privateMeetingService.currentMeeting != nil {
             showPrivateMeetingViewController()
+            return
         }
+        _ = ServiceContainer.shared.traceIdService.currentTraceInfo
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { traceInfo in
+                let viewController = MainViewControllerFactory.createLocationCheckinViewController(traceInfo: traceInfo)
+                self.navigationController?.pushViewController(viewController, animated: animated)
+            })
+            .subscribe()
     }
 
 }

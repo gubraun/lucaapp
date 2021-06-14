@@ -33,22 +33,18 @@ class HistoryViewController: UIViewController {
 
         UIAccessibility.setFocusTo(titleLabel)
 
-        ServiceContainer.shared.history.removeOldEntries()
-        events = ServiceContainer.shared.history.historyEvents
-
-        tableView.reloadData()
-
         let newDisposeBag = DisposeBag()
 
-        ServiceContainer.shared.history
-            .onEventAddedRx
+        ServiceContainer.shared.history.onEventAddedRx
             .observe(on: MainScheduler.instance)
-            .do(onNext: { _ in
-                self.events = ServiceContainer.shared.history.historyEvents
-                self.tableView.reloadData()
-            })
+            .flatMap { _ in self.reloadData() }
             .subscribe()
             .disposed(by: newDisposeBag)
+
+        reloadData()
+            .subscribe()
+            .disposed(by: newDisposeBag)
+
         self.disposeBag = newDisposeBag
     }
 
@@ -65,7 +61,7 @@ class HistoryViewController: UIViewController {
     }
 
     @IBAction func dataReleasePressed(_ sender: UIButton) {
-        let alert = AlertViewControllerFactory.createDataAccessConfirmationViewController(confirmAction: alertYesAction)
+        let alert = AlertViewControllerFactory.createDataAccessPickDaysViewController(confirmAction: presentDataAccessAlertController(withNumberOfDays:))
         alert.modalTransitionStyle = .crossDissolve
         alert.modalPresentationStyle = .overCurrentContext
         present(alert, animated: true, completion: nil)
@@ -76,15 +72,29 @@ class HistoryViewController: UIViewController {
     }
 
     func resetLocallyAlert() {
-        UIAlertController(title: L10n.Data.Clear.title, message: L10n.Data.Clear.description, preferredStyle: .alert).actionAndCancelAlert(actionText: L10n.Data.Clear.title, action: {
+        UIAlertController(
+            title: L10n.Data.Clear.title,
+            message: L10n.Data.Clear.description,
+            preferredStyle: .alert
+        )
+        .actionAndCancelAlert(actionText: L10n.Data.Clear.title, action: {
             DataResetService.resetHistory()
-            self.events = ServiceContainer.shared.history.historyEvents
+            self.events = []
             self.tableView.reloadData()
         }, viewController: self)
     }
 
-    func alertYesAction() {
-        let viewController = AlertViewControllerFactory.createTANReleaseViewController()
+    private func presentDataAccessAlertController(withNumberOfDays numberOfDays: Int) {
+        let alert = AlertViewControllerFactory.createDataAccessConfirmationViewController(numberOfDays: numberOfDays, confirmAction: {
+            self.dataAccessAlertConfirmAction(withNumberOfDays: numberOfDays)
+        })
+        alert.modalTransitionStyle = .crossDissolve
+        alert.modalPresentationStyle = .overCurrentContext
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func dataAccessAlertConfirmAction(withNumberOfDays numberOfDays: Int) {
+        let viewController = AlertViewControllerFactory.createTANReleaseViewController(withNumberOfDaysTransferred: numberOfDays)
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true, completion: nil)
@@ -94,6 +104,19 @@ class HistoryViewController: UIViewController {
         bottomGradientLayer.frame = CGRect(x: leadingMargin.constant, y: tableView.frame.origin.y + tableView.frame.height - 100.0, width: tableView.bounds.width, height: 100.0)
         bottomGradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         self.view.layer.addSublayer(bottomGradientLayer)
+    }
+
+    private func reloadData() -> Completable {
+        ServiceContainer.shared.history
+            .removeOldEntries()
+            .andThen(ServiceContainer.shared.history.historyEvents)
+            .observeOn(MainScheduler.instance)
+            .do(onSuccess: { entries in
+                self.events = entries
+                self.tableView.reloadData()
+            })
+            .asObservable()
+            .ignoreElementsAsCompletable()
     }
 
 }
@@ -114,8 +137,10 @@ extension HistoryViewController: UITableViewDataSource, UITableViewDelegate {
             cell.infoPressedActionHandler = { self.showPrivateMeetingInfoViewController(userEvent: userEvent) }
         }
 
-        if event is UserDataTransfer {
-            cell.infoPressedActionHandler = { self.showUserTransferInfoViewController() }
+        if let userDataTransfer = event as? UserDataTransfer {
+            cell.infoPressedActionHandler = {
+                let numberOfDays = userDataTransfer.entry.numberOfDaysShared ?? 14
+                self.showUserTransferInfoViewController(withNumberOfDays: numberOfDays) }
         }
 
         if events.count == 1 {
@@ -136,8 +161,8 @@ extension HistoryViewController: UITableViewDataSource, UITableViewDelegate {
         self.present(viewController, animated: true, completion: nil)
     }
 
-    func showUserTransferInfoViewController() {
-        let viewController = AlertViewControllerFactory.createInfoViewController(titleText: L10n.Data.Shared.title, descriptionText: L10n.Data.Shared.description)
+    func showUserTransferInfoViewController(withNumberOfDays numberOfDays: Int) {
+        let viewController = AlertViewControllerFactory.createInfoViewController(titleText: L10n.Data.Shared.title, descriptionText: L10n.Data.Shared.description(numberOfDays))
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overFullScreen
         self.present(viewController, animated: true, completion: nil)

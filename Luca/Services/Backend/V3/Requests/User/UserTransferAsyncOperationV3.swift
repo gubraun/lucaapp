@@ -20,10 +20,10 @@ class UserTransferAsyncOperationV3: MappedBackendAsyncDataOperation<UserTransfer
 
     private var buildingError: UserTransferError?
 
-    init(backendAddress: BackendAddressV3, userTransferBuilder: UserTransferBuilderV3, userId: UUID) {
+    init(backendAddress: BackendAddressV3, userTransferBuilder: UserTransferBuilderV3, userId: UUID, numberOfDays: Int) {
         var payload: UserTransferDataV3?
         do {
-            payload = try userTransferBuilder.build(userId: userId)
+            payload = try userTransferBuilder.build(userId: userId, numberOfDays: numberOfDays)
         } catch let error {
             buildingError = .unableToBuildUserTransferData(error: error)
         }

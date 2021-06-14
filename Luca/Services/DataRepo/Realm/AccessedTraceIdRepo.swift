@@ -55,12 +55,13 @@ class AccessedTraceIdRepo: RealmDataRepo<AccessedTraceIdRealmModel, AccessedTrac
         return AccessedTraceIdRealmModel()
     }
 
-    init() {
-        super.init(schemaVersion: 1) { (migration, oldSchema) in
+    init(key: Data) {
+        super.init(filenameSalt: "AccessedTraceIdRepo", schemaVersion: 1, migrationBlock: { (migration, oldSchema) in
             if oldSchema < 1 {
                 migration.renameProperty(onType: AccessedTraceIdRealmModel.className(), from: "date", to: "sightDate")
             }
-        }
+        },
+        encryptionKey: key)
     }
 
 }

@@ -43,8 +43,8 @@ class RealmKeyValueUnderlyingRepo: RealmDataRepo<KeyValueRepoEntryRealmModel, Ke
         return KeyValueRepoEntryRealmModel()
     }
 
-    init() {
-        super.init(schemaVersion: 0)
+    init(key: Data?) {
+        super.init(filenameSalt: "RealmKeyValueUnderlyingRepo", schemaVersion: 0, encryptionKey: key)
     }
 }
 
@@ -55,6 +55,7 @@ enum RealmKeyValueRepoError: LocalizedTitledError {
     case objectNotFound
     case loadingFailed
     case removingFailed
+    case unknown(error: Error)
 }
 
 extension RealmKeyValueRepoError {
@@ -71,8 +72,8 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
 
     private let underlying: RealmKeyValueUnderlyingRepo
 
-    init() {
-        underlying = RealmKeyValueUnderlyingRepo()
+    init(key: Data?) {
+        underlying = RealmKeyValueUnderlyingRepo(key: key)
     }
 
     func store<T>(_ key: String, value: T, completion: @escaping (() -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Encodable {
@@ -142,4 +143,29 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
         })
     }
 
+    func removeFile(completion: @escaping() -> Void, failure: @escaping ((LocalizedTitledError) -> Void)) {
+        underlying.removeFile(completion: completion) { (_) in
+            failure(RealmKeyValueRepoError.removingFailed)
+        }
+    }
+
+    func changeEncryptionSettings(oldKey: Data?, newKey: Data?, completion: @escaping () -> Void, failure: @escaping ((LocalizedTitledError) -> Void)) {
+        underlying.changeEncryptionSettings(oldKey: oldKey, newKey: newKey, completion: completion) { (error) in
+            if let localizedError = error as? LocalizedTitledError {
+                failure(localizedError)
+            } else {
+                failure(RealmKeyValueRepoError.unknown(error: error))
+            }
+        }
+    }
+}
+
+extension RealmKeyValueRepo: RealmDatabaseUtils {
+    func removeFile(completion: @escaping () -> Void, failure: @escaping ((Error) -> Void)) {
+        self.underlying.removeFile(completion: completion, failure: failure)
+    }
+
+    func changeEncryptionSettings(oldKey: Data?, newKey: Data?, completion: @escaping () -> Void, failure: @escaping ((Error) -> Void)) {
+        self.underlying.changeEncryptionSettings(oldKey: oldKey, newKey: newKey, completion: completion, failure: failure)
+    }
 }

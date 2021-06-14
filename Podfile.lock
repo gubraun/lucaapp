@@ -85,6 +85,8 @@ PODS:
   - RxAppState (1.7.0):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
+  - RxBlocking (6.1.0):
+    - RxSwift (= 6.1.0)
   - RxCocoa (6.1.0):
     - RxRelay (= 6.1.0)
     - RxSwift (= 6.1.0)
@@ -94,6 +96,7 @@ PODS:
   - SimpleCheckbox (2.1.0)
   - Sourcery (1.4.1)
   - SwiftBase32 (0.9.0)
+  - SwiftCBOR (0.4.3)
   - SwiftGen (6.4.0)
   - SwiftJWT (3.6.200):
     - BlueCryptor (~> 1.0)
@@ -118,10 +121,12 @@ DEPENDENCIES:
   - PhoneNumberKit (~> 3.3.3)
   - RealmSwift (~> 5.5.1)
   - RxAppState (~> 1.7.0)
+  - RxBlocking (~> 6.1.0)
   - RxSwift (~> 6.1.0)
   - SimpleCheckbox (~> 2.1.0)
   - Sourcery (~> 1.4.1)
   - SwiftBase32 (~> 0.9.0)
+  - SwiftCBOR (~> 0.4.3)
   - SwiftGen (~> 6.4.0)
   - SwiftJWT (~> 3.6.200)
   - SwiftLint (~> 0.43.1)
@@ -151,12 +156,14 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - RxAppState
+    - RxBlocking
     - RxCocoa
     - RxRelay
     - RxSwift
     - SimpleCheckbox
     - Sourcery
     - SwiftBase32
+    - SwiftCBOR
     - SwiftGen
     - SwiftJWT
     - SwiftLint
@@ -185,18 +192,20 @@ SPEC CHECKSUMS:
   Realm: c2ffe0667f9c98c9ba65f608ba85684d39826145
   RealmSwift: 5a35c1c35c3e1925e6fcd092c881d5cc4a826bff
   RxAppState: 20985b89f0b5d19aa67cf9b0ca38d07878e2fcae
+  RxBlocking: 602095fba0bce7b16b56ccec89edf780c248b7d9
   RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SimpleCheckbox: ddcd433ab8c3a8f57300bebda13151a8f302c7f9
   Sourcery: db66600e8b285c427701821598d07cf3c7e6c476
   SwiftBase32: 9399c25a80666dc66b51e10076bf591e3bbb8f17
+  SwiftCBOR: c7d740966575e0fd5d971466de2b6776db3f10c3
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: 0f6f0842101b7ae01a8f0f556958c1a406348b40
+PODFILE CHECKSUM: b68ee2f1402f21b36e62e514505763af6df38f34
 
 COCOAPODS: 1.10.1

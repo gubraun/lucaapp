@@ -47,6 +47,13 @@ public class UserDataPreferences: Preferences {
         }
     }
 
+    public func store<T: Encodable>(_ data: [T], key: String) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(data) {
+            userDefaults.set(encoded, forKey: key)
+        }
+    }
+
     public func retrieve(key: String) -> Double? {
         if !userDefaults.dictionaryRepresentation().contains(where: { $0.key == key }) {
             return nil
@@ -95,6 +102,15 @@ public class UserDataPreferences: Preferences {
     public func retrieve<T: Decodable>(key: String, type: T.Type) -> T? {
         let decoder = JSONDecoder()
         if let data = userDefaults.data(forKey: key), let decodedData = try? decoder.decode(T.self, from: data) {
+            return decodedData
+        } else {
+            return nil
+        }
+    }
+
+    public func retrieve<T: Decodable>(key: String, type: [T].Type) -> [T]? {
+        let decoder = JSONDecoder()
+        if let data = userDefaults.data(forKey: key), let decodedData = try? decoder.decode([T].self, from: data) {
             return decodedData
         } else {
             return nil

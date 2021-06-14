@@ -40,7 +40,7 @@ class UserTransferBuilderV3 {
         dailyPubKeySource = try dailyKeyRepo.keySource(index: newestId)
     }
 
-    func build(userId: UUID, definedIV: Data? = nil) throws -> UserTransferDataV3 {
+    func build(userId: UUID, numberOfDays: Int, definedIV: Data? = nil) throws -> UserTransferDataV3 {
 
         try lockDailyKey()
 
@@ -60,7 +60,7 @@ class UserTransferBuilderV3 {
         let dhKey = try buildDHKey()
         let encKey = buildEncKey(dhKey: dhKey)
         let authKey = buildAuthKey(dhKey: dhKey)
-        let encData = try buildEncryptedUserSecretsData(iv: iv, userId: userId, encKey: encKey)
+        let encData = try buildEncryptedUserSecretsData(iv: iv, userId: userId, numberOfDays: numberOfDays, encKey: encKey)
         let mac = try buildMac(encData: encData, authKey: authKey)
         let publicKey: Data = try keysBundle.publicKey.retrieveKey().toData()
 
@@ -92,8 +92,8 @@ class UserTransferBuilderV3 {
         return data.sha256()
     }
 
-    func buildEncryptedUserSecretsData(iv: Data, userId: UUID, encKey: Data) throws -> Data {
-        let data = try buildUserSecretsData(userId: userId)
+    private func buildEncryptedUserSecretsData(iv: Data, userId: UUID, numberOfDays: Int, encKey: Data) throws -> Data {
+        let data = try buildUserSecretsData(userId: userId, numberOfDays: numberOfDays)
 
         let crypto = try self.crypto(iv: iv, encKey: encKey)
         return try crypto.encrypt(data: data)
@@ -109,9 +109,9 @@ class UserTransferBuilderV3 {
         return try hmac.encrypt(data: encData)
     }
 
-    func buildUserSecretsData(userId: UUID) throws -> Data {
+    private func buildUserSecretsData(userId: UUID, numberOfDays: Int) throws -> Data {
 
-        guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -14, to: Date()) else {
+        guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -numberOfDays, to: Date()) else {
             throw NSError(domain: "Couldn't generate threshold date for user secrets", code: 0, userInfo: nil)
         }
 

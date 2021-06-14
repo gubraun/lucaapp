@@ -86,6 +86,8 @@
 
 "eOQ-Li-y72.text" = "Issued by";
 
+"nfW-h8-Eb7.text" = "Performed by";
+
 "GgQ-nw-fy4.normalTitle" = "DELETE";
 
 "bXZ-sD-Eeo.text" = "My luca";
@@ -98,6 +100,8 @@
 
 "jTb-nz-RLb.text" = "DELETE HISTORY";
 
-"0Fw-Nz-0VB.text" = "Welcome to your \"My luca\" tab, this is your personal space where you can add documents to make your check in easier. If you want to check in at a location, go to the Check in tab at the bottom left.";
+"0Fw-Nz-0VB.text" = "This is your personal space, where you can add documents to make your check in easier.";
 
-"Ys2-Mr-oem.text" = "Welcome";
+"Ys2-Mr-oem.text" = "Welcome to \"My luca\"";
+
+"CH2-ug-qBD.normalTitle" = "ADD DOCUMENT";

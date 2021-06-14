@@ -73,17 +73,23 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
 
     func checkOut() -> Completable {
         let performTimeCheck = Completable.from {
-            if (Date().timeIntervalSince1970 - self.traceInfo.checkInDate.timeIntervalSince1970) < 2 * 60.0 {
-                throw PrintableError(title: L10n.Navigation.Basic.hint,
-                                     message: L10n.LocationCheckinViewController.CheckOutFailed.LowDuration.message)
+            let secondsDiff = Date().timeIntervalSince1970 - self.traceInfo.checkInDate.timeIntervalSince1970
+            if secondsDiff < 2 * 60.0 {
+                throw PrintableError(
+                    title: L10n.Navigation.Basic.hint,
+                    message: L10n.LocationCheckinViewController.CheckOutFailed.LowDuration.message
+                )
             }
         }
 
-        let checkOutBackend = traceIdService.checkOutRx()
+        let checkOutBackend = traceIdService.checkOut()
             .catch({ (error) in
-                return Completable.error(PrintableError(
-                                            title: L10n.Navigation.Basic.error,
-                                            message: L10n.LocationCheckinViewController.CheckOutFailed.General.message(error.localizedDescription)))
+                return Completable.error(
+                    PrintableError(
+                        title: L10n.Navigation.Basic.error,
+                        message: L10n.LocationCheckinViewController.CheckOutFailed.General.message(error.localizedDescription)
+                    )
+                )
             })
 
         return performTimeCheck
@@ -105,7 +111,7 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
 
         let newDisposeBag = DisposeBag()
         isAutoCheckoutEnabledSubject.accept(preferences.autoCheckout && locationPermissionHandler.currentPermission == .authorizedAlways)
-        location.onNext(traceIdService.currentLocationInfo)
+
         startLocationMonitoring()
 
         let handlePermissions = handlePermission()
@@ -144,12 +150,17 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
             .logError(self, "onNotificationPermissionChanges")
             .ignoreElementsAsCompletable()
 
-        Completable.zip(fetchUserStatus, restoreCheckIn, notificationPermissionChanges, permissionChanges, handlePermissions)
+        Completable.zip(
+            fetchUserStatus,
+            restoreCheckIn,
+            notificationPermissionChanges,
+            permissionChanges,
+            handlePermissions,
+            fetchCurrentLocation()
+        )
             .subscribe(on: LucaScheduling.backgroundScheduler)
             .subscribe()
             .disposed(by: newDisposeBag)
-
-        fetchCurrentLocation(with: newDisposeBag)
 
         disposeBag = newDisposeBag
 
@@ -169,7 +180,7 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
         }
     }
 
-    private func fetchCurrentLocation(with disposeBag: DisposeBag) {
+    private func fetchCurrentLocation() -> Completable {
         traceIdService
             .fetchCurrentLocationInfo()
             .do(onSuccess: { location in
@@ -184,10 +195,8 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
                                           message: L10n.LocationCheckinViewController.LocationInfoFetchFailure.message(error.localizedDescription)))
             })
             .asObservable()
-            .ignoreElements()
+            .ignoreElementsAsCompletable()
             .onErrorComplete()
-            .subscribe()
-            .disposed(by: disposeBag)
     }
 
     private func handlePermission() -> Completable {

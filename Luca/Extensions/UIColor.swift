@@ -65,6 +65,10 @@ extension UIColor {
         UIColor(named: "lucaHealthGreen") ?? .magenta
     }
 
+    static var lucaHealthYellow: UIColor {
+        UIColor(named: "lucaHealthYellow") ?? .magenta
+    }
+
     static var lucaHealthRed: UIColor {
         UIColor(named: "lucaHealthRed") ?? .magenta
     }

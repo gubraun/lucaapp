@@ -5,9 +5,10 @@ class HealthViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var emptyStateTitleLabel: UILabel!
-    @IBOutlet weak var emptyStateDescriptionLabel: UILabel!
-    @IBOutlet weak var addButtonView: UIView!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var emptyStateImageView: UIImageView!
 
     private var disposeBag: DisposeBag?
     private var deleteDisposeBag: DisposeBag?
@@ -15,7 +16,6 @@ class HealthViewController: UIViewController {
     private var coronaTests = [CoronaTest]()
 
     private var collapsedCellHeight: CGFloat = 100
-    private var expandedCellHeight: CGFloat = 450
     private var expandedCellIndices = [IndexPath]()
 
     override func viewDidLoad() {
@@ -51,11 +51,11 @@ class HealthViewController: UIViewController {
     }
 
     func setupAccessibilityViewsEmptyState() {
-        self.view.accessibilityElements = [titleLabel, addButtonView, emptyStateTitleLabel, emptyStateDescriptionLabel].map { $0 as Any }
+        self.view.accessibilityElements = [titleLabel, subtitleLabel, descriptionLabel, addButton].map { $0 as Any }
     }
 
     func setupAccessibilityViews() {
-        self.view.accessibilityElements = [titleLabel, addButtonView, tableView].map { $0 as Any }
+        self.view.accessibilityElements = [titleLabel, subtitleLabel, descriptionLabel, tableView, addButton].map { $0 as Any }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,9 +66,6 @@ class HealthViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addButtonView.isAccessibilityElement = true
-        addButtonView.accessibilityLabel = L10n.Test.Add.title
-        addButtonView.accessibilityTraits = [.button]
         titleLabel.isAccessibilityElement = true
         UIAccessibility.setFocusLayout(titleLabel)
     }
@@ -79,7 +76,7 @@ class HealthViewController: UIViewController {
         deleteDisposeBag = nil
     }
 
-    @IBAction private func addTestPressed(_ sender: UITapGestureRecognizer) {
+    @IBAction func addTestPressed(_ sender: UIButton) {
         let testScanner = MainViewControllerFactory.createTestQRScannerViewController()
         present(testScanner, animated: true, completion: nil)
     }
@@ -87,8 +84,7 @@ class HealthViewController: UIViewController {
     private func styleForTestCount(_ count: Int) {
         let isEmptyState = count == 0
         tableView.isHidden = isEmptyState
-        emptyStateTitleLabel.isHidden = !isEmptyState
-        emptyStateDescriptionLabel.isHidden = !isEmptyState
+        emptyStateImageView.isHidden = !isEmptyState
         isEmptyState ? setupAccessibilityViewsEmptyState() : setupAccessibilityViews()
     }
 
@@ -105,6 +101,14 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let test = coronaTests[indexPath.section] as? BaerCoronaTest,
+           test.isVaccine() {
+            return dequeueVaccineCell(tableView, indexPath, vaccine: test)
+        }
+        return dequeueTestCell(tableView, indexPath)
+    }
+
+    private func dequeueTestCell(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaTestTableViewCell", for: indexPath) as! CoronaTestTableViewCell
         cell.coronaTest = coronaTests[indexPath.section]
@@ -115,8 +119,23 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
+    private func dequeueVaccineCell(_ tableView: UITableView, _ indexPath: IndexPath, vaccine: BaerCoronaTest) -> UITableViewCell {
+        // swiftlint:disable:next force_cast
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaVaccineTableViewCell", for: indexPath) as! CoronaVaccineTableViewCell
+        cell.coronaVaccine = vaccine
+        cell.selectionStyle = .none
+        cell.deleteButton.addTarget(self, action: #selector(didPressDelete(sender:)), for: .touchUpInside)
+        cell.deleteButton.tag = indexPath.section
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return expandedCellIndices.contains(indexPath) ? UITableView.automaticDimension : collapsedCellHeight
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return expandedCellIndices.contains(indexPath) ? expandedCellHeight : collapsedCellHeight
+        return expandedCellIndices.contains(indexPath) ? UITableView.automaticDimension : collapsedCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

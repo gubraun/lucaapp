@@ -66,9 +66,14 @@ class BackendUserV3: BackendUserV3Protocol {
         UpdateUserAsyncOperationV3(backendAddress: backendAddress, builder: userDataBuilder, data: userData, userId: userId)
     }
 
-    func userTransfer(userId: UUID) -> AsyncDataOperation<BackendError<UserTransferError>, String> {
-        UserTransferAsyncOperationV3(backendAddress: backendAddress, userTransferBuilder: userTransferBuilder, userId: userId)
+    func userTransfer(userId: UUID, numberOfDays: Int) -> AsyncDataOperation<BackendError<UserTransferError>, String> {
+        UserTransferAsyncOperationV3(backendAddress: backendAddress, userTransferBuilder: userTransferBuilder, userId: userId, numberOfDays: numberOfDays)
     }
+
+    func delete(userId: UUID) -> AsyncOperation<BackendError<DeleteUserError>> {
+        DeleteUserAsyncOperationV3(backendAddress: backendAddress, userId: userId, builder: userDataBuilder)
+    }
+
 }
 
 class BackendTraceIdV3: BackendTraceIdV3Protocol {
