@@ -25,6 +25,8 @@
 		B41ADEE12655669300186808 /* test_now_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B41ADEE02655669300186808 /* test_now_jwtRS256.key.pub */; };
 		B41ADEF52655721500186808 /* dm_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B41ADEF42655721500186808 /* dm_jwtRS256.key.pub */; };
 		B42078E125DBF40C00C3C70C /* ScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42078E025DBF40C00C3C70C /* ScannerService.swift */; };
+		B42A6FFA267B65AD00385265 /* meinlaborergebnis_jwtRS256.key.pub in Resources */ = {isa = PBXBuildFile; fileRef = B42A6FF9267B65AD00385265 /* meinlaborergebnis_jwtRS256.key.pub */; };
+		B42A6FFE267B65DC00385265 /* MeinLaborergebnis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42A6FFD267B65DC00385265 /* MeinLaborergebnis.swift */; };
 		B430C3A525F8FA1D009E0F35 /* DataAccessAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B430C3A425F8FA1D009E0F35 /* DataAccessAlertViewController.swift */; };
 		B430C3AA25F8FCFE009E0F35 /* NewDataAccessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B430C3A925F8FCFE009E0F35 /* NewDataAccessTableViewCell.swift */; };
 		B430C3B025F96923009E0F35 /* DataAccessHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B430C3AF25F96923009E0F35 /* DataAccessHeaderView.swift */; };
@@ -307,6 +309,8 @@
 		B41ADEE02655669300186808 /* test_now_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_now_jwtRS256.key.pub; sourceTree = "<group>"; };
 		B41ADEF42655721500186808 /* dm_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dm_jwtRS256.key.pub; sourceTree = "<group>"; };
 		B42078E025DBF40C00C3C70C /* ScannerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerService.swift; sourceTree = "<group>"; };
+		B42A6FF9267B65AD00385265 /* meinlaborergebnis_jwtRS256.key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = meinlaborergebnis_jwtRS256.key.pub; sourceTree = "<group>"; };
+		B42A6FFD267B65DC00385265 /* MeinLaborergebnis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeinLaborergebnis.swift; sourceTree = "<group>"; };
 		B430C3A425F8FA1D009E0F35 /* DataAccessAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessAlertViewController.swift; sourceTree = "<group>"; };
 		B430C3A925F8FCFE009E0F35 /* NewDataAccessTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDataAccessTableViewCell.swift; sourceTree = "<group>"; };
 		B430C3AF25F96923009E0F35 /* DataAccessHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessHeaderView.swift; sourceTree = "<group>"; };
@@ -683,6 +687,7 @@
 				B41ADEF42655721500186808 /* dm_jwtRS256.key.pub */,
 				E3AE0FD8264C30CD00E597E0 /* test_soda_jwtRS256.key.pub */,
 				B4FFDAAA2668D7ED00C62415 /* platform8_jwtRS256.key.pub */,
+				B42A6FF9267B65AD00385265 /* meinlaborergebnis_jwtRS256.key.pub */,
 				B4FFDAF2266A325100C62415 /* drk_jwtRS256.key.pub */,
 				B47067FB266E1C7F00D3F32E /* noq_jwtRS256.key.pub */,
 				E30A896A2652CC160048A1E5 /* test_meincoronatest_jwtRS256.key.pub */,
@@ -834,6 +839,7 @@
 				E3DAF32726653D5A00D8D872 /* EMCoronaTest.swift */,
 				B4FFDAF6266A329600C62415 /* DRKCoronaTest.swift */,
 				B47067F7266E1B3700D3F32E /* NoQCoronaTest.swift */,
+				B42A6FFD267B65DC00385265 /* MeinLaborergebnis.swift */,
 			);
 			path = "Corona Test";
 			sourceTree = "<group>";
@@ -1510,6 +1516,7 @@
 				B4F1B13424ED2BFD006D6D73 /* Montserrat-Bold.ttf in Resources */,
 				024777BD263036E60096C370 /* test_io_jwtRS256.key.pub in Resources */,
 				B4A0A48B261CCFDB007DE487 /* LICENSE.txt in Resources */,
+				B42A6FFA267B65AD00385265 /* meinlaborergebnis_jwtRS256.key.pub in Resources */,
 				D58F4B7F2577E0B10085A3D1 /* Localizable.strings in Resources */,
 				B4F1B13224ED2BFD006D6D73 /* Montserrat-Medium.ttf in Resources */,
 				D5876D4A25503721009A27EC /* apple-app-site-association in Resources */,
@@ -1724,6 +1731,7 @@
 				D52481F1254C4CC600F2360E /* HistoryEventListener.swift in Sources */,
 				D577A66325FA768100E554EB /* KeyValueRepoProtocol.swift in Sources */,
 				B48C86F924F7CEB5009C353C /* CheckinTimer.swift in Sources */,
+				B42A6FFE267B65DC00385265 /* MeinLaborergebnis.swift in Sources */,
 				D5996E8225B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift in Sources */,
 				D5CCB906257147E600A18640 /* AppStateExtension.swift in Sources */,
 				D50E1D5D2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift in Sources */,
@@ -2176,14 +2184,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_VERSION = 5.0;
@@ -2198,14 +2206,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
