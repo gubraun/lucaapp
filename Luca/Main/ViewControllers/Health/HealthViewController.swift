@@ -21,6 +21,7 @@ class HealthViewController: UIViewController {
 
     private var collapsedCellHeight: CGFloat = 100
     private var expandedCellIndices = [IndexPath]()
+    private var testScanner: TestQRCodeScannerController?
 
     private let calendarURLString = "https://www.luca-app.de/coronatest/search"
 
@@ -55,6 +56,13 @@ class HealthViewController: UIViewController {
                 }
             })
             .disposed(by: newDisposeBag)
+
+        UIApplication.shared.rx.applicationDidEnterBackground
+            .subscribe(onNext: { _ in
+                self.testScanner?.endScanner()
+                self.testScanner?.dismiss(animated: true, completion: nil)
+            }).disposed(by: newDisposeBag)
+
         disposeBag = newDisposeBag
     }
 
@@ -91,8 +99,10 @@ class HealthViewController: UIViewController {
     }
 
     @IBAction func addTestPressed(_ sender: UIButton) {
-        let testScanner = MainViewControllerFactory.createTestQRScannerViewController()
-        present(testScanner, animated: true, completion: nil)
+        testScanner = MainViewControllerFactory.createTestQRScannerViewController()
+        if let scanner = testScanner {
+            present(scanner, animated: true, completion: nil)
+        }
     }
 
     private func updateViewControllerStyle() {

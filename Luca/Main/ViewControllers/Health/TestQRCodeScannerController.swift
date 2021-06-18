@@ -72,7 +72,7 @@ class TestQRCodeScannerController: UIViewController {
         self.disposeBag = newDisposeBag
     }
 
-    private func endScanner() {
+    func endScanner() {
         scannerVC.remove()
         disposeBag = nil
     }

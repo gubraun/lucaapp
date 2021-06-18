@@ -85,8 +85,8 @@ class TableSelfCheckin: SelfCheckin {
 
         if let parsedData = try? JSONDecoder().decode(TraceIdAdditionalData.self, from: payloadData.additionalData) {
             self.additionalData = parsedData
-        } else if let keyValues = try? JSONDecoder().decode([String: String].self, from: payloadData.additionalData) {
-            self.keyValues = keyValues
+        } else if let keyValues = try? JSONSerialization.jsonObject(with: payloadData.additionalData, options: []) as? [String: Any] {
+            self.keyValues = keyValues.mapValues { value in String(describing: value) }
         }
         self.scannerId = payloadData.scannerId
 

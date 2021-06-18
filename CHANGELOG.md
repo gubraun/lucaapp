@@ -1,3 +1,9 @@
+# Release 1.6.7
+
+- Bug fixes
+
+This update contains minor bug fixes.
+
 # Release 1.6.6
 
 - minor bugfix of deeplink handling

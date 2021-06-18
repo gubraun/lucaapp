@@ -59,10 +59,15 @@ class MainTabBarViewController: UITabBarController {
             .subscribe()
             .disposed(by: disposeBag)
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didOpenDeeplink(_:)),
-                                               name: CoronaTestDeeplinkService.deeplinkNotificationName,
-                                               object: nil)
+        ServiceContainer.shared.coronaTestProcessingService
+            .deeplinkStore
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { deepLink in
+                if !deepLink.isEmpty {
+                    self.parseQRCode(testString: deepLink)
+                }
+            })
+            .disposed(by: disposeBag)
 
         // If app was terminated
         if ServiceContainer.shared.privateMeetingService.currentMeeting != nil {
@@ -91,26 +96,18 @@ class MainTabBarViewController: UITabBarController {
             .disposed(by: disposeBag)
     }
 
-    @objc func didOpenDeeplink(_ notification: Notification) {
-        guard let testString = notification.userInfo!["test"] as? String else {
-            return
-        }
-
+    private func parseQRCode(testString: String) {
         let alert = AlertViewControllerFactory.createTestPrivacyConsent(confirmAction: {
-            self.parseQRCode(testString: testString)
+            ServiceContainer.shared.coronaTestProcessingService
+                .parseQRCode(qr: testString)
+                .subscribe(onError: { error in
+                    self.presentErrorAlert(for: error)
+                })
+                .disposed(by: self.disposeBag)
         })
         alert.modalTransitionStyle = .crossDissolve
         alert.modalPresentationStyle = .overCurrentContext
         present(alert, animated: true, completion: nil)
-    }
-
-    private func parseQRCode(testString: String) {
-        ServiceContainer.shared.coronaTestProcessingService
-            .parseQRCode(qr: testString)
-            .subscribe(onError: { error in
-                self.presentErrorAlert(for: error)
-            })
-            .disposed(by: disposeBag)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

@@ -12,6 +12,9 @@ class CoronaTestProcessingService {
     private var preferences: LucaPreferences
     private var uniquenessChecker: CoronaTestUniquenessChecker
 
+    // Stores deeplink for delayed presentation
+    var deeplinkStore = BehaviorSubject(value: String())
+
     // Emits everytime there is a data update (deletion, addition) and the table view needs to be updated.
     private var tests = BehaviorSubject(value: [CoronaTest]())
 
