@@ -122,14 +122,14 @@ class ContactViewController: UIViewController {
     private func save(completion: @escaping (Bool) -> Void) {
         let preferences = LucaPreferences.shared
 
-        preferences.firstName = self.firstNameTextField.textField.text
-        preferences.lastName = self.lastNameTextField.textField.text
-        preferences.street = self.addressStreetTextField.textField.text
-        preferences.houseNumber = self.addressHouseNumberTextField.textField.text
-        preferences.postCode = self.addressPostCodeTextField.textField.text
-        preferences.city = self.addressCityTextField.textField.text
-        preferences.phoneNumber = self.phoneNumberTextField.textField.text
-        preferences.emailAddress = self.emailTextField.textField.text
+        preferences.firstName = self.firstNameTextField.textField.text?.sanitize()
+        preferences.lastName = self.lastNameTextField.textField.text?.sanitize()
+        preferences.street = self.addressStreetTextField.textField.text?.sanitize()
+        preferences.houseNumber = self.addressHouseNumberTextField.textField.text?.sanitize()
+        preferences.postCode = self.addressPostCodeTextField.textField.text?.sanitize()
+        preferences.city = self.addressCityTextField.textField.text?.sanitize()
+        preferences.phoneNumber = self.phoneNumberTextField.textField.text?.sanitize()
+        preferences.emailAddress = self.emailTextField.textField.text?.sanitize()
 
         guard preferences.userRegistrationData != nil else {
             log("Save: User Data couldn't be retrieved", entryType: .error)

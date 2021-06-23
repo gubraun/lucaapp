@@ -70,7 +70,7 @@
 // Checkin
 "checkin.slider.date" = "Check-in: %@ Uhr";
 
-"checkin.slider.dateFormat" = "dd.MM.yyyy HH.mm";
+"checkin.slider.dateFormat" = "dd.MM.yyyy HH:mm";
 
 "checkin.failure.alreadyCheckedIn.message" = "Du bist bereits eingecheckt.";
 
@@ -435,9 +435,11 @@
 
 "vaccine.result.vaxzevria" = "AstraZeneca";
 
-"vaccine.result.complete" = "Vollständig immunisiert";
+"vaccine.result.sputnikV" = "Sputnik V";
 
-"vaccine.result.partially" = "Teilweise immunisiert";
+"vaccine.result.complete" = "Vollständig immunisiert (%i/%i)";
+
+"vaccine.result.partially" = "Teilweise immunisiert (%i/%i)";
 
 "vaccine.result.description" = "%i. Impfung:";
 

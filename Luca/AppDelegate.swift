@@ -111,8 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let selfCheckin = CheckInURLParser.parse(url: incomingURL) {
             ServiceContainer.shared.selfCheckin
                 .add(selfCheckinPayload: selfCheckin)
-        } else if incomingURL.absoluteString.hasPrefix(CoronaTestDeeplinkService.deeplinkTestPrefix) {
-            ServiceContainer.shared.coronaTestProcessingService
+        } else if incomingURL.absoluteString.hasPrefix(ServiceContainer.shared.documentProcessingService.deeplinkTestPrefix) {
+            ServiceContainer.shared.documentProcessingService
                 .deeplinkStore
                 .onNext(incomingURL.absoluteString)
         }

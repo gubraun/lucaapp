@@ -49,8 +49,8 @@ class CommonBackendMisc: BackendMisc {
         FetchAccessedTracesAsyncDataOperation(backendAddress: backendAddress)
     }
 
-    func redeemCoronaTest(hash: Data, tag: Data) -> AsyncOperation<BackendError<RedeemCoronaTestError>> {
-        RedeemCoronaTestAsyncOperation(backendAddress: backendAddress, hash: hash, tag: tag)
+    func redeemDocument(hash: Data, tag: Data) -> AsyncOperation<BackendError<RedeemDocumentError>> {
+        RedeemDocumentAsyncOperation(backendAddress: backendAddress, hash: hash, tag: tag)
     }
 }
 

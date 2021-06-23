@@ -24,6 +24,11 @@ extension String {
         let data = Data(base64Encoded: self)
         return data?.toHexString()
     }
+
+    func sanitize() -> String {
+        return self.replacingOccurrences(of: "[^\\w +.:@£À-ÿāăąćĉċčđēėęěĝğģĥħĩīįİıĵķĸĺļłńņōőœŗřśŝšţŦũūŭůűųŵŷźżžơưếệ-]", with: " ", options: .regularExpression)
+    }
+
 }
 
 extension StringProtocol {

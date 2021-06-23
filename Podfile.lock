@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (5.4.3)
   - base64url (1.1.0)
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
@@ -96,7 +95,6 @@ PODS:
   - SimpleCheckbox (2.1.0)
   - Sourcery (1.4.1)
   - SwiftBase32 (0.9.0)
-  - SwiftCBOR (0.4.3)
   - SwiftGen (6.4.0)
   - SwiftJWT (3.6.200):
     - BlueCryptor (~> 1.0)
@@ -109,7 +107,6 @@ PODS:
   - Validator (3.2.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.4.3)
   - base64url (~> 1.1.0)
   - CryptoSwift (~> 1.4.0)
   - DeviceKit (~> 4.4.0)
@@ -126,7 +123,6 @@ DEPENDENCIES:
   - SimpleCheckbox (~> 2.1.0)
   - Sourcery (~> 1.4.1)
   - SwiftBase32 (~> 0.9.0)
-  - SwiftCBOR (~> 0.4.3)
   - SwiftGen (~> 6.4.0)
   - SwiftJWT (~> 3.6.200)
   - SwiftLint (~> 0.43.1)
@@ -135,7 +131,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - Alamofire
     - base64url
     - BlueCryptor
     - BlueECC
@@ -163,7 +158,6 @@ SPEC REPOS:
     - SimpleCheckbox
     - Sourcery
     - SwiftBase32
-    - SwiftCBOR
     - SwiftGen
     - SwiftJWT
     - SwiftLint
@@ -171,7 +165,6 @@ SPEC REPOS:
     - Validator
 
 SPEC CHECKSUMS:
-  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   base64url: 92e81bb256f2070359a34fc93a7a7d4b9a9d689f
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
@@ -199,13 +192,12 @@ SPEC CHECKSUMS:
   SimpleCheckbox: ddcd433ab8c3a8f57300bebda13151a8f302c7f9
   Sourcery: db66600e8b285c427701821598d07cf3c7e6c476
   SwiftBase32: 9399c25a80666dc66b51e10076bf591e3bbb8f17
-  SwiftCBOR: c7d740966575e0fd5d971466de2b6776db3f10c3
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: b68ee2f1402f21b36e62e514505763af6df38f34
+PODFILE CHECKSUM: 30c401e89f02fa61085988e98a950600560e430a
 
 COCOAPODS: 1.10.1

@@ -77,7 +77,7 @@ internal enum L10n {
       internal static func date(_ p1: Any) -> String {
         return L10n.tr("Localizable", "checkin.slider.date", String(describing: p1))
       }
-      /// dd.MM.yyyy HH.mm
+      /// dd.MM.yyyy HH:mm
       internal static let dateFormat = L10n.tr("Localizable", "checkin.slider.dateFormat")
     }
   }
@@ -760,8 +760,10 @@ internal enum L10n {
 
   internal enum Vaccine {
     internal enum Result {
-      /// Fully Vaccinated
-      internal static let complete = L10n.tr("Localizable", "vaccine.result.complete")
+      /// Fully Vaccinated (%i/%i)
+      internal static func complete(_ p1: Int, _ p2: Int) -> String {
+        return L10n.tr("Localizable", "vaccine.result.complete", p1, p2)
+      }
       /// BioNTech/Pfizer
       internal static let cormirnaty = L10n.tr("Localizable", "vaccine.result.cormirnaty")
       /// Vaccination
@@ -774,8 +776,12 @@ internal enum L10n {
       internal static let janssen = L10n.tr("Localizable", "vaccine.result.janssen")
       /// Moderna
       internal static let moderna = L10n.tr("Localizable", "vaccine.result.moderna")
-      /// Partially Vaccinated
-      internal static let partially = L10n.tr("Localizable", "vaccine.result.partially")
+      /// Partially vaccinated (%i/%i)
+      internal static func partially(_ p1: Int, _ p2: Int) -> String {
+        return L10n.tr("Localizable", "vaccine.result.partially", p1, p2)
+      }
+      /// Sputnik V
+      internal static let sputnikV = L10n.tr("Localizable", "vaccine.result.sputnikV")
       /// AstraZeneca
       internal static let vaxzevria = L10n.tr("Localizable", "vaccine.result.vaxzevria")
     }

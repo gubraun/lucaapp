@@ -59,7 +59,7 @@ class MainTabBarViewController: UITabBarController {
             .subscribe()
             .disposed(by: disposeBag)
 
-        ServiceContainer.shared.coronaTestProcessingService
+        ServiceContainer.shared.documentProcessingService
             .deeplinkStore
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { deepLink in
@@ -98,7 +98,7 @@ class MainTabBarViewController: UITabBarController {
 
     private func parseQRCode(testString: String) {
         let alert = AlertViewControllerFactory.createTestPrivacyConsent(confirmAction: {
-            ServiceContainer.shared.coronaTestProcessingService
+            ServiceContainer.shared.documentProcessingService
                 .parseQRCode(qr: testString)
                 .subscribe(onError: { error in
                     self.presentErrorAlert(for: error)

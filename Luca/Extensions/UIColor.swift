@@ -6,6 +6,10 @@ extension UIColor {
         UIColor(named: "lucaLightGrey") ?? .magenta
     }
 
+    static var lucaBeige: UIColor {
+        UIColor(named: "lucaBeige") ?? .magenta
+    }
+
     static var lucaLightBlue: UIColor {
         UIColor(named: "lucaLightBlue") ?? .magenta
     }
@@ -39,6 +43,10 @@ extension UIColor {
 
     static var lucaGreen: UIColor {
         UIColor(named: "lucaGreen") ?? .magenta
+    }
+
+    static var lucaEMGreen: UIColor {
+        UIColor(named: "lucaEMGreen") ?? .magenta
     }
 
     static var lucaGradientWelcomeBegin: UIColor {

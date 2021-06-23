@@ -1,3 +1,4 @@
+import Foundation
 import Alamofire
 
 extension DataResponse where Success: Any, Failure: Error {

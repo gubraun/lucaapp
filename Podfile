@@ -22,7 +22,6 @@ target 'Luca' do
 
   shared_podfiles
   
-  pod 'Alamofire', '~> 5.4.3'
   pod 'base64url', '~> 1.1.0'
   pod 'DeviceKit', '~> 4.4.0'
   pod 'IQKeyboardManagerSwift', '~> 6.5.6'
@@ -35,7 +34,6 @@ target 'Luca' do
   pod 'SimpleCheckbox', '~> 2.1.0'
   pod 'Sourcery', '~> 1.4.1'
   pod 'SwiftBase32', '~> 0.9.0'
-  pod 'SwiftCBOR', '~> 0.4.3'
   pod 'SwiftGen', '~> 6.4.0'
   pod 'SwiftJWT', '~> 3.6.200'
   pod 'SwiftLint', '~> 0.43.1'

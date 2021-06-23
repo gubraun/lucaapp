@@ -28,7 +28,7 @@ class DataResetService {
 
         do {
             // It's needed to generate new local DB keys and to dispose old key references.
-            try ServiceContainer.shared.setupRepos()
+            try ServiceContainer.shared.setup(forceReinitialize: true)
         } catch let error {
             log.log("Repos couldn't be re initialized: \(error)", entryType: .error)
         }

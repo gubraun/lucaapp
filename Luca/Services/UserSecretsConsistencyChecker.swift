@@ -59,6 +59,10 @@ class UserSecretsConsistencyChecker {
             .disposed(by: disposeBag)
 
     }
+
+    func disable() {
+        disposeBag = DisposeBag()
+    }
 }
 
 extension UserSecretsConsistencyChecker: LogUtil, UnsafeAddress {}

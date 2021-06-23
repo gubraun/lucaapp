@@ -6,22 +6,22 @@ class CoronaTestUniquenessCheckerTests: XCTestCase {
     // swiftlint:disable:next line_length
     private let encodedJWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ2IjoyLCJuIjoiYTZhODVkODUyZTA1OTFkZjM2ODUwZTFmMDc1MTFkZWE0MmFjYjAxMjljNzFkZjk1ZTM2YWVkNzhkYWU5ZTNhOCIsInQiOjE2MjAyNzU3NDAsImMiOiJwIiwiciI6InAiLCJsIjoiQ292aW1lZGljYWwgR21iSCIsImQiOiJQcm9mLiBIYW5zIiwiZWQiOiJpTHhpSFZzck5oZFh6UDNoeEZkd1p3Z1ludDVGTUYzVXo3MmJHOHMxcytxV2hzZEgxeGJ4R1Z0SHZzbVwvZkRLXC9zWUczdVwvR0pKd3BXTldSZ2xHOGs0SnhyKytCeDBwWStudjlqb0diWm5lWEt4Ulp6T3RSWnlxeEY2cExrIn0.WocR6aa8EX1WEOKxES_gFnvfJnrg6xLzm1cwZ453StqubQPlMjG-JdZofVa4NgTRUCrxDvcQd8M-wQxksM79Dpy0_tOP2mHA59V5LTsVSVzk7teS6cTGhy1nGqZIfu3ORvOqTvxJmuBtT-Z8TGnJzkTTMNx_t8mPSBTHCJX9YQE0APXSnusiy5LF4iQTpYrgKEH0IZTT4gIx6-SbNpkuVmJE6RxVvjAdnlnTS6lqtr9jplaNw8L6gDw5s0zZ5z8xytuWvceRap_GOTeCxdmg-8f4EghjMJFea8T5WwfZY4BDJbEawsAcOY-ErS4Ey3M_W8PYaPTZWmClOiJGsCeU8w"
 
-    private var emptyTest = TicketIOCoronaTest(
-        claims: TicketIOCoronaTestClaims(
+    private var emptyTest = JWTTestPayload(
+        claims: JWTTestClaims(
             version: 0,
             name: "",
             time: 0,
-            category: TicketIOCategory.other,
-            result: TicketIOResult.positive,
+            category: Category.other,
+            result: Result.positive,
             lab: "",
             doctor: ""),
         originalCode: ""
     )
 
-    private var uniquenessChecker: CoronaTestUniquenessChecker!
+    private var uniquenessChecker: DocumentUniquenessChecker!
 
     override func setUpWithError() throws {
-        uniquenessChecker = CoronaTestUniquenessChecker(
+        uniquenessChecker = DocumentUniquenessChecker(
             backend: BackendMiscV3(backendAddress: BackendAddressV3()),
             keyValueRepo: EmptyKeyValueRepoMock()
         )

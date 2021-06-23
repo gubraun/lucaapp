@@ -35,8 +35,12 @@ public class NotificationService {
     }
 
     func removePendingNotifications() {
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [Self.repeatingCheckoutNotification, Self.checkoutNotification])
-        notificationCenter.removeDeliveredNotifications(withIdentifiers: [Self.repeatingCheckoutNotification, Self.checkoutNotification ])
+        notificationCenter.removePendingNotificationRequests(
+            withIdentifiers: [Self.repeatingCheckoutNotification, Self.checkoutNotification]
+        )
+        notificationCenter.removeDeliveredNotifications(
+            withIdentifiers: [Self.repeatingCheckoutNotification, Self.checkoutNotification ]
+        )
         LucaPreferences.shared.checkoutNotificationScheduled = false
     }
 

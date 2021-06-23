@@ -61,7 +61,7 @@ class TestQRCodeScannerController: UIViewController {
 
     private func parseQRCode(urlToParse: String) {
         let newDisposeBag = DisposeBag()
-        ServiceContainer.shared.coronaTestProcessingService.parseQRCode(qr: urlToParse)
+        ServiceContainer.shared.documentProcessingService.parseQRCode(qr: urlToParse)
             .observe(on: MainScheduler.instance)
             .do(onError: { error in
                 self.presentScannerErrorAlert(for: error)

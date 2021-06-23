@@ -7,6 +7,7 @@ class CoronaVaccineTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var labLabel: UILabel!
     @IBOutlet weak var vaccinesStackView: UIStackView!
+    @IBOutlet weak var dateOfBirthLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var qrCodeImageView: UIImageView!
 
@@ -14,7 +15,7 @@ class CoronaVaccineTableViewCell: UITableViewCell {
 
     private var disposeBag = DisposeBag()
 
-    var coronaVaccine: BaerCoronaTest? {
+    var vaccination: Vaccination? {
         didSet {
             setup()
         }
@@ -23,28 +24,27 @@ class CoronaVaccineTableViewCell: UITableViewCell {
     var isExpanded = false
 
     private func setup() {
-        guard let vaccine = coronaVaccine else { return }
+        guard let vaccination = vaccination else { return }
 
-        switch vaccine.vaccineState() {
-        case .complete:
-            backgroundColor = UIColor.lucaHealthYellow
-            resultLabel.text = L10n.Vaccine.Result.complete
-        case .secondPending:
-            backgroundColor = UIColor.lucaLightGrey
-            resultLabel.text = L10n.Vaccine.Result.complete
-        default:
-            backgroundColor = UIColor.lucaLightGrey
-            resultLabel.text = L10n.Vaccine.Result.partially
+        let doseNumber = vaccination.doseNumber
+        let dosesTotal = vaccination.dosesTotalNumber
+        if vaccination.isComplete() {
+            backgroundColor = UIColor.lucaEMGreen
+            resultLabel.text = L10n.Vaccine.Result.complete(doseNumber, dosesTotal)
+        } else {
+            backgroundColor = UIColor.lucaBeige
+            resultLabel.text = L10n.Vaccine.Result.partially(doseNumber, dosesTotal)
         }
 
-        dateLabel.text = vaccine.date.formattedDate
-        dateLabel.accessibilityLabel = vaccine.date.accessibilityDate
-        labLabel.text = vaccine.laboratory
+        dateLabel.text = vaccination.date.formattedDate
+        dateLabel.accessibilityLabel = vaccination.date.accessibilityDate
+        labLabel.text = vaccination.laboratory
+        dateOfBirthLabel.text = vaccination.dateOfBirth.formattedDate
 
-        setupVaccinesStackView(for: vaccine)
+        setupVaccinesStackView(for: vaccination)
 
         qrCodeImageView.layer.cornerRadius = 8
-        setupQRCodeImage(for: vaccine)
+        setupQRCodeImage(for: vaccination)
 
         qrCodeImageView.isAccessibilityElement = true
         qrCodeImageView.accessibilityLabel = L10n.Contact.Qr.Accessibility.qrCode
@@ -55,14 +55,14 @@ class CoronaVaccineTableViewCell: UITableViewCell {
         deleteButton.layer.cornerRadius = 16
     }
 
-    private func createProcedureView(for procedure: BaerCoronaProcedure, order: Int) -> UIView {
+    private func createProcedureView(for vaccination: Vaccination) -> UIView {
         let procedureView = UIView()
 
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = .montserratTableViewDescription
         descriptionLabel.textColor = .black
-        descriptionLabel.text = L10n.Vaccine.Result.description(order)
+        descriptionLabel.text = L10n.Vaccine.Result.description(vaccination.doseNumber)
         procedureView.addSubview(descriptionLabel)
 
         let dateLabel = UILabel()
@@ -70,15 +70,14 @@ class CoronaVaccineTableViewCell: UITableViewCell {
         dateLabel.font = .montserratDataAccessAlertDescriptionBold
         dateLabel.textColor = .black
 
-        let date = Date(timeIntervalSince1970: TimeInterval(procedure.date))
-        dateLabel.text = "\(date.formattedDateTime)"
+        dateLabel.text = vaccination.date.formattedDate
         procedureView.addSubview(dateLabel)
 
         let vaccineLabel = UILabel()
         vaccineLabel.translatesAutoresizingMaskIntoConstraints = false
         vaccineLabel.font = .montserratDataAccessAlertDescriptionBold
         vaccineLabel.textColor = .black
-        vaccineLabel.text = procedure.type.category
+        vaccineLabel.text = vaccination.vaccineType
         procedureView.addSubview(vaccineLabel)
 
         NSLayoutConstraint.activate([
@@ -102,19 +101,16 @@ class CoronaVaccineTableViewCell: UITableViewCell {
         return procedureView
     }
 
-    private func setupVaccinesStackView(for vaccine: BaerCoronaTest) {
+    private func setupVaccinesStackView(for vaccine: Vaccination) {
         vaccinesStackView.arrangedSubviews.forEach {
             $0.removeFromSuperview()
         }
 
-        for (index, procedure) in vaccine.procedures.enumerated() {
-            let order = vaccine.procedures.count - index
-            let procedureView = createProcedureView(for: procedure, order: order)
-            vaccinesStackView.addArrangedSubview(procedureView)
-        }
+        let procedureView = createProcedureView(for: vaccine)
+        vaccinesStackView.addArrangedSubview(procedureView)
     }
 
-    private func setupQRCodeImage(for vaccine: CoronaTest) {
+    private func setupQRCodeImage(for vaccine: Document) {
         let transform = CGAffineTransform(scaleX: 10, y: 10)
         let image = QRCodeGenerator.generateQRCode(string: vaccine.originalCode)
         if let scaledQr = image?.transformed(by: transform) {
@@ -124,8 +120,8 @@ class CoronaVaccineTableViewCell: UITableViewCell {
 
     @objc
     private func didPressDelete(sender: UIButton) {
-        if let vaccine = self.coronaVaccine {
-            delegate?.deleteButtonPressed(for: vaccine)
+        if let vaccination = vaccination {
+            delegate?.deleteButtonPressed(for: vaccination)
         }
     }
 }

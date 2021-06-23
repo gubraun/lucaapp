@@ -58,15 +58,15 @@ public class ServiceContainer {
     var keyValueRepo: RealmKeyValueRepo!
     var healthDepartmentRepo: HealthDepartmentRepo!
     var historyRepo: HistoryRepo!
-    var coronaTestRepo: CoronaTestRepo!
+    var documentRepo: DocumentRepo!
 
     /// Aggregated realm databases when some global changes on all DBs are needed.
     var realmDatabaseUtils: [RealmDatabaseUtils] = []
 
-    var coronaTestFactory: CoronaTestFactory!
-    var coronaTestRepoService: CoronaTestRepoService!
-    var coronaTestProcessingService: CoronaTestProcessingService!
-    var coronaTestUniquenessChecker: CoronaTestUniquenessChecker!
+    var documentFactory: DocumentFactory!
+    var documentRepoService: DocumentRepoService!
+    var documentProcessingService: DocumentProcessingService!
+    var documentUniquenessChecker: DocumentUniquenessChecker!
 
     var baerCodeKeyService: BaerCodeKeyService!
     var notificationService: NotificationService!
@@ -74,9 +74,13 @@ public class ServiceContainer {
     private(set) var isSetup = false
 
     // swiftlint:disable:next function_body_length
-    func setup() throws {
+    func setup(forceReinitialize: Bool = false) throws {
         if isSetup {
-            return
+            if forceReinitialize {
+                disableAllServices()
+            } else {
+                return
+            }
         }
         backendAddressV3 = BackendAddressV3()
 
@@ -183,18 +187,25 @@ public class ServiceContainer {
             traceInfoRepo: traceInfoRepo,
             healthDepartmentRepo: healthDepartmentRepo, accessedTraceIdRepo: accessedTraceIdRepo)
 
-        coronaTestFactory = CoronaTestFactory()
-        coronaTestRepoService = CoronaTestRepoService(coronaTestRepo: coronaTestRepo,
-                                                      coronaTestFactory: coronaTestFactory)
-        coronaTestUniquenessChecker = CoronaTestUniquenessChecker(backend: backendMiscV3, keyValueRepo: keyValueRepo)
-        coronaTestProcessingService = CoronaTestProcessingService(coronaTestRepoService: coronaTestRepoService,
-                                                                  coronaTestFactory: coronaTestFactory,
-                                                                  preferences: LucaPreferences.shared,
-                                                                  uniquenessChecker: coronaTestUniquenessChecker)
         baerCodeKeyService = BaerCodeKeyService(preferences: LucaPreferences.shared)
         notificationService = NotificationService(traceIdService: traceIdService)
 
+        setupDocuments()
+
         isSetup = true
+    }
+
+    private func disableAllServices() {
+        if !isSetup {
+            return
+        }
+
+        locationUpdater.stop()
+        regionMonitor.stopRegionMonitoring()
+        historyListener.disable()
+
+        accessedTracesChecker.disposeNotificationOnMatch()
+        notificationService.removePendingNotifications()
     }
 
     func setupRepos() throws {
@@ -219,7 +230,7 @@ public class ServiceContainer {
         historyRepo = HistoryRepo(key: currentKey)
         keyValueRepo = RealmKeyValueRepo(key: currentKey)
         healthDepartmentRepo = HealthDepartmentRepo(key: currentKey)
-        coronaTestRepo = CoronaTestRepo(key: currentKey)
+        documentRepo = DocumentRepo(key: currentKey)
 
         realmDatabaseUtils = [
             traceInfoRepo,
@@ -229,7 +240,7 @@ public class ServiceContainer {
             historyRepo,
             keyValueRepo,
             healthDepartmentRepo,
-            coronaTestRepo
+            documentRepo
         ]
 
         if !keyWasAvailable {
@@ -252,6 +263,38 @@ public class ServiceContainer {
 
             print(array)
         }
+    }
+
+    private func setupDocuments() {
+
+        documentFactory = DocumentFactory()
+
+        documentFactory.register(parser: TicketIOParser())
+        documentFactory.register(parser: SodaParser())
+        documentFactory.register(parser: TestNowAndEMTicketParser())
+        documentFactory.register(parser: DMParser())
+        documentFactory.register(parser: CosiamaParser())
+        documentFactory.register(parser: DRKParser())
+        documentFactory.register(parser: MeinCoronaParser())
+        documentFactory.register(parser: Platform8Parser())
+        documentFactory.register(parser: ProbatixParser())
+        documentFactory.register(parser: NoQParser())
+        documentFactory.register(parser: MeinLaborErgebnisParser())
+//        documentFactory.register(parser: UbirchParser())
+        documentFactory.register(parser: BaerCodeParser())
+        documentFactory.register(parser: DGCParser())
+
+        documentRepoService = DocumentRepoService(documentRepo: documentRepo, documentFactory: documentFactory)
+        documentUniquenessChecker = DocumentUniquenessChecker(backend: backendMiscV3, keyValueRepo: keyValueRepo)
+        documentProcessingService = DocumentProcessingService(
+            documentRepoService: documentRepoService,
+            documentFactory: documentFactory,
+            uniquenessChecker: documentUniquenessChecker)
+
+        documentProcessingService.register(validator: VaccinationOwnershipValidator(preferences: LucaPreferences.shared))
+        documentProcessingService.register(validator: CoronaTestOwnershipValidator(preferences: LucaPreferences.shared))
+        documentProcessingService.register(validator: CoronaTestValidityValidator())
+        documentProcessingService.register(validator: CoronaTestIsNegativeValidator())
 
     }
 }

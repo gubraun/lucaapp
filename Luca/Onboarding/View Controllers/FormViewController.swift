@@ -150,16 +150,16 @@ extension FormViewController: UITextFieldDelegate {
             return
         }
         switch type {
-        case .firstName:    LucaPreferences.shared.firstName = textField.text
-        case .lastName:     LucaPreferences.shared.lastName = textField.text
-        case .street:       LucaPreferences.shared.street = textField.text
-        case .houseNumber:  LucaPreferences.shared.houseNumber = textField.text
-        case .postCode:     LucaPreferences.shared.postCode = textField.text
-        case .city:         LucaPreferences.shared.city = textField.text
+        case .firstName:    LucaPreferences.shared.firstName = textField.text?.sanitize()
+        case .lastName:     LucaPreferences.shared.lastName = textField.text?.sanitize()
+        case .street:       LucaPreferences.shared.street = textField.text?.sanitize()
+        case .houseNumber:  LucaPreferences.shared.houseNumber = textField.text?.sanitize()
+        case .postCode:     LucaPreferences.shared.postCode = textField.text?.sanitize()
+        case .city:         LucaPreferences.shared.city = textField.text?.sanitize()
         case .phoneNumber:
-            LucaPreferences.shared.phoneNumber = textField.text
+            LucaPreferences.shared.phoneNumber = textField.text?.sanitize()
             LucaPreferences.shared.phoneNumberVerified = false
-        case .email:        LucaPreferences.shared.emailAddress = textField.text
+        case .email:        LucaPreferences.shared.emailAddress = textField.text?.sanitize()
         }
     }
 

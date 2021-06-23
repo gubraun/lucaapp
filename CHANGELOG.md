@@ -1,3 +1,10 @@
+# Release 1.7.0
+
+- minor bug fixes
+- display further document and proofs 
+
+This update supports to import further documents that can be shown during check-in, like test and vaccination proofs.
+
 # Release 1.6.8
 
 - Bug fixes

@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 
 protocol DocumentCellDelegate: AnyObject {
-    func deleteButtonPressed(for test: CoronaTest)
+    func deleteButtonPressed(for document: Document)
 }
 
 class HealthViewController: UIViewController {
@@ -17,7 +17,7 @@ class HealthViewController: UIViewController {
     private var disposeBag: DisposeBag?
     private var deleteDisposeBag: DisposeBag?
 
-    private var viewModels = [TestCellViewModel]()
+    private var viewModels = [DocumentCellViewModel]()
 
     private var collapsedCellHeight: CGFloat = 100
     private var expandedCellIndices = [IndexPath]()
@@ -27,9 +27,28 @@ class HealthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.contentInset = UIEdgeInsets(top: 32, left: 0, bottom: 0, right: 0)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        setupTitle()
+        installObservers()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        titleLabel.isAccessibilityElement = true
+        UIAccessibility.setFocusLayout(titleLabel)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        disposeBag = nil
+        deleteDisposeBag = nil
     }
 
     private func setupTitle() {
@@ -43,12 +62,13 @@ class HealthViewController: UIViewController {
     private func installObservers() {
         let newDisposeBag = DisposeBag()
 
-        ServiceContainer.shared.coronaTestProcessingService.initializeTests()
+        _ = ServiceContainer.shared.documentProcessingService.revalidateSavedTests().subscribe()
 
-        ServiceContainer.shared.coronaTestProcessingService.currentAndNewTests
+        ServiceContainer.shared.documentRepoService
+            .currentAndNewTests
             .subscribe(onNext: { tests in
 
-                self.viewModels = tests.compactMap { $0 as? TestCellViewModel }
+                self.viewModels = tests.compactMap { $0 as? DocumentCellViewModel }
 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -72,24 +92,6 @@ class HealthViewController: UIViewController {
 
     func setupAccessibilityViews() {
         self.view.accessibilityElements = [titleLabel, subtitleLabel, descriptionLabel, tableView, addButton].map { $0 as Any }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        setupTitle()
-        installObservers()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        titleLabel.isAccessibilityElement = true
-        UIAccessibility.setFocusLayout(titleLabel)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        disposeBag = nil
-        deleteDisposeBag = nil
     }
 
     @IBAction private func calendarViewPressed(_ sender: UIButton) {
@@ -128,7 +130,7 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let viewModel = viewModels[indexPath.section]
-        return viewModel.dequeueCell(tableView, indexPath, test: viewModel, delegate: self)
+        return viewModel.dequeueCell(tableView, indexPath, delegate: self)
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -160,15 +162,12 @@ extension HealthViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HealthViewController: DocumentCellDelegate {
-    func deleteButtonPressed(for test: CoronaTest) {
+    func deleteButtonPressed(for document: Document) {
         let alert = UIAlertController.yesOrNo(title: L10n.Test.Delete.title, message: L10n.Test.Delete.description, onYes: {
-            guard let identifier = test.identifier else {
-                return
-            }
+            let identifier = document.identifier
             let newDisposeBag = DisposeBag()
 
-            ServiceContainer.shared.coronaTestProcessingService
-                .deleteTest(identifier: identifier)
+            ServiceContainer.shared.documentRepoService.remove(identifier: identifier)
                 .do(onError: { error in
                     DispatchQueue.main.async {
                         let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Test.Result.Delete.error)
