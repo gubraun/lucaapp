@@ -59,10 +59,12 @@ public class ServiceContainer {
     var healthDepartmentRepo: HealthDepartmentRepo!
     var historyRepo: HistoryRepo!
     var documentRepo: DocumentRepo!
+    var testProviderKeyRepo: TestProviderKeyRepo!
 
     /// Aggregated realm databases when some global changes on all DBs are needed.
     var realmDatabaseUtils: [RealmDatabaseUtils] = []
 
+    var documentKeyProvider: DocumentKeyProvider!
     var documentFactory: DocumentFactory!
     var documentRepoService: DocumentRepoService!
     var documentProcessingService: DocumentProcessingService!
@@ -231,6 +233,7 @@ public class ServiceContainer {
         keyValueRepo = RealmKeyValueRepo(key: currentKey)
         healthDepartmentRepo = HealthDepartmentRepo(key: currentKey)
         documentRepo = DocumentRepo(key: currentKey)
+        testProviderKeyRepo = TestProviderKeyRepo(key: currentKey)
 
         realmDatabaseUtils = [
             traceInfoRepo,
@@ -240,7 +243,8 @@ public class ServiceContainer {
             historyRepo,
             keyValueRepo,
             healthDepartmentRepo,
-            documentRepo
+            documentRepo,
+            testProviderKeyRepo
         ]
 
         if !keyWasAvailable {
@@ -267,22 +271,16 @@ public class ServiceContainer {
 
     private func setupDocuments() {
 
+        documentKeyProvider = DocumentKeyProvider(backend: backendMiscV3, testProviderKeyRepo: testProviderKeyRepo)
+
         documentFactory = DocumentFactory()
 
-        documentFactory.register(parser: TicketIOParser())
-        documentFactory.register(parser: SodaParser())
-        documentFactory.register(parser: TestNowAndEMTicketParser())
-        documentFactory.register(parser: DMParser())
-        documentFactory.register(parser: CosiamaParser())
-        documentFactory.register(parser: DRKParser())
-        documentFactory.register(parser: MeinCoronaParser())
-        documentFactory.register(parser: Platform8Parser())
-        documentFactory.register(parser: ProbatixParser())
-        documentFactory.register(parser: NoQParser())
-        documentFactory.register(parser: MeinLaborErgebnisParser())
+        documentFactory.register(parser: JWTParserWithOptionalDoctor(keyProvider: documentKeyProvider))
+        documentFactory.register(parser: DefaultJWTParser(keyProvider: documentKeyProvider))
 //        documentFactory.register(parser: UbirchParser())
         documentFactory.register(parser: BaerCodeParser())
         documentFactory.register(parser: DGCParser())
+        documentFactory.register(parser: AppointmentParser())
 
         documentRepoService = DocumentRepoService(documentRepo: documentRepo, documentFactory: documentFactory)
         documentUniquenessChecker = DocumentUniquenessChecker(backend: backendMiscV3, keyValueRepo: keyValueRepo)
@@ -291,13 +289,17 @@ public class ServiceContainer {
             documentFactory: documentFactory,
             uniquenessChecker: documentUniquenessChecker)
 
-        documentProcessingService.register(validator: CoronaTestValidityValidator())
         documentProcessingService.register(validator: CoronaTestIsNegativeValidator())
         documentProcessingService.register(validator: CoronaTestOwnershipValidator(preferences: LucaPreferences.shared))
         documentProcessingService.register(validator: VaccinationOwnershipValidator(preferences: LucaPreferences.shared))
         documentProcessingService.register(validator: RecoveryOwnershipValidator(preferences: LucaPreferences.shared))
-        documentProcessingService.register(validator: RecoveryValidityValidator())
         documentProcessingService.register(validator: DGCIssuerValidator())
+
+        #if PREPROD || PRODUCTION
+        documentProcessingService.register(validator: CoronaTestValidityValidator())
+        documentProcessingService.register(validator: RecoveryValidityValidator())
+        documentProcessingService.register(validator: AppointmentValidityValidator())
+        #endif
     }
 }
 

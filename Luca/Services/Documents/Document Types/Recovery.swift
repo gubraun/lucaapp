@@ -34,6 +34,6 @@ extension Recovery {
 
     /// recovery validation
     func isValid() -> Bool {
-        return Date() > validUntilDate
+        return Date() < validUntilDate
     }
 }

@@ -9,15 +9,16 @@ class DocumentRepoService {
     private var documentFactory: DocumentFactory
     private var disposeBag = DisposeBag()
 
-    private let cachedDocuments = BehaviorSubject<[Int: Document]>(value: [:])
+    private let updateSignal = BehaviorSubject<Void>(value: Void())
+
+    private var cachedDocuments: [Int: Document] = [:]
     private let cacheScheduler = SerialDispatchQueueScheduler(qos: .userInteractive)
 
     /// Emits all saved tests on subscribe and every change
     var currentAndNewTests: Observable<[Document]> {
-        cachedDocuments
+        updateSignal
             .asObservable()
-            .delay(.milliseconds(1), scheduler: cacheScheduler)
-            .flatMap { _ in self.load() }
+            .flatMapLatest(load)
     }
 
     init(documentRepo: DocumentRepo, documentFactory: DocumentFactory) {
@@ -29,6 +30,7 @@ class DocumentRepoService {
         Single.from { DocumentPayload(originalCode: document.originalCode, identifier: document.identifier) }
             .flatMap(self.documentRepo.store)
             .flatMapCompletable { _ in self.addToCache(document: document, with: document.identifier) }
+            .andThen(emitUpdateSignal())
     }
 
     func load() -> Single<[Document]> {
@@ -37,7 +39,7 @@ class DocumentRepoService {
             .flatMap { payloads in
                 Observable.from(payloads)
             }
-            .flatMap(getOrParseDocument)
+            .flatMap { self.getOrParseDocument(from: $0).asObservable().onErrorComplete() }
             .toArray()
     }
 
@@ -49,14 +51,13 @@ class DocumentRepoService {
         documentRepo.remove(identifiers: identifiers)
             .andThen(
                 Completable.from {
-                    var cache = try self.cachedDocuments.value()
                     for key in identifiers {
-                        cache.removeValue(forKey: key)
+                        self.cachedDocuments.removeValue(forKey: key)
                     }
-                    self.cachedDocuments.onNext(cache)
                 }
                 .subscribe(on: self.cacheScheduler)
             )
+            .andThen(emitUpdateSignal())
     }
 
     private func getOrParseDocument(from payload: DocumentPayload) -> Single<Document> {
@@ -86,24 +87,21 @@ class DocumentRepoService {
     }
 
     private func addToCache(document: Document, with identifier: Int) -> Completable {
-        Completable.from {
-            var cache = try self.cachedDocuments.value()
-            cache[identifier] = document
-            self.cachedDocuments.onNext(cache)
-        }
+        Completable.from { self.cachedDocuments[identifier] = document}
         .subscribe(on: cacheScheduler)
     }
 
     private func loadFromCache(identifier: Int) -> Maybe<Document> {
-        Maybe.from {
-            let cache = try self.cachedDocuments.value()
-            return cache[identifier]
-        }
-        .subscribe(on: cacheScheduler)
+        Maybe.from { self.cachedDocuments[identifier] }
+            .subscribe(on: cacheScheduler)
     }
 
     private func parse(payload: DocumentPayload) -> Single<Document> {
         documentFactory.createDocument(from: payload.originalCode)
+    }
+
+    private func emitUpdateSignal() -> Completable {
+        Completable.from { self.updateSignal.onNext(Void()) }
     }
 }
 

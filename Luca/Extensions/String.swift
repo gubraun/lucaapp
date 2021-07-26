@@ -29,6 +29,23 @@ extension String {
         return self.replacingOccurrences(of: "[^\\w +.:@£À-ÿāăąćĉċčđēėęěĝğģĥħĩīįİıĵķĸĺļłńņōőœŗřśŝšţŦũūŭůűųŵŷźżžơưếệ-]", with: " ", options: .regularExpression)
     }
 
+    /// Return only capital letters A..Z from string
+    /// - Returns: Capital letters from english alphabet only
+    func removeNonUppercase() -> String {
+        return self.replacingOccurrences(of: "[^\\x41-\\x5A]", with: "", options: .regularExpression)
+    }
+
+    func removeOccurences(of strings: [String]) -> String {
+        var result = self
+        for string in strings {
+            result = result.replacingOccurrences(of: string, with: "")
+        }
+        return result
+    }
+
+    func removeWhitespaces() -> String {
+        return self.filter { !$0.isWhitespace }
+    }
 }
 
 extension StringProtocol {

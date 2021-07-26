@@ -182,13 +182,20 @@ class BaerCodeDecoder {
         guard case let CBOR.array(credentialsArray) = decodedCredentials,
               case let CBOR.utf8String(firstName) = credentialsArray[0],
               case let CBOR.utf8String(lastName) = credentialsArray[1],
-              case let CBOR.unsignedInt(dateOfBirth) = credentialsArray[2],
               case let CBOR.unsignedInt(diseaseType) = credentialsArray[3],
               case let CBOR.array(proceduresArray) = credentialsArray[4],
               case let CBOR.utf8String(procedureOperator) = credentialsArray[5],
               case let CBOR.boolean(result) = credentialsArray[6]
         else {
             return nil
+        }
+
+        // date of birth is a negativeInt if born before 01/01/1970 and unsignedInt if born after
+        var dateOfBirthResult = 0
+        if case let CBOR.unsignedInt(dateOfBirth) = credentialsArray[2] {
+            dateOfBirthResult = Int(dateOfBirth)
+        } else if case let CBOR.negativeInt(dateOfBirth) = credentialsArray[2] {
+            dateOfBirthResult = -Int(dateOfBirth)
         }
 
         var procedures = [BaerCoronaProcedure]()
@@ -208,7 +215,7 @@ class BaerCodeDecoder {
         return BaerCodePayload(version: version,
                                firstName: firstName,
                                lastName: lastName,
-                               dateOfBirthInt: Int(dateOfBirth),
+                               dateOfBirthInt: dateOfBirthResult,
                                diseaseType: Int(diseaseType),
                                procedures: procedures,
                                procedureOperator: procedureOperator,

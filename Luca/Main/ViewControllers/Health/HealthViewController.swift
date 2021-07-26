@@ -65,6 +65,10 @@ class HealthViewController: UIViewController {
         // Recovery cell
         let recoveryCellNib = UINib(nibName: "CoronaRecoveryTableViewCell", bundle: nil)
         tableView.register(recoveryCellNib, forCellReuseIdentifier: "CoronaRecoveryTableViewCell")
+
+        // Appointment cell
+        let appointmentCellNib = UINib(nibName: "AppointmentTableViewCell", bundle: nil)
+        tableView.register(appointmentCellNib, forCellReuseIdentifier: "AppointmentTableViewCell")
     }
 
     private func installObservers() {
@@ -74,15 +78,14 @@ class HealthViewController: UIViewController {
 
         ServiceContainer.shared.documentRepoService
             .currentAndNewTests
-            .subscribe(onNext: { tests in
-
+            .observe(on: MainScheduler.instance)
+            .do(onNext: { tests in
                 self.viewModels = tests.compactMap { $0 as? DocumentCellViewModel }
 
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.updateViewControllerStyle()
-                }
+                self.tableView.reloadData()
+                self.updateViewControllerStyle()
             })
+            .subscribe()
             .disposed(by: newDisposeBag)
 
         UIApplication.shared.rx.applicationDidEnterBackground

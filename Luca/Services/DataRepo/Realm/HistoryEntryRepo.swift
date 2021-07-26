@@ -10,6 +10,8 @@ class HistoryEntryRealmModel: RealmSaveModel<HistoryEntry> {
     @objc dynamic var guestlist: Data?
     @objc dynamic var traceInfo: Data?
 
+    var numberOfDaysShared = RealmOptional<Int>()
+
     override func create() -> HistoryEntry {
         return HistoryEntry(date: Date(), type: .checkIn, location: nil, traceInfo: nil)
     }
@@ -21,6 +23,7 @@ class HistoryEntryRealmModel: RealmSaveModel<HistoryEntry> {
         location = nil
         role = nil
         guestlist = nil
+        numberOfDaysShared.value = from.numberOfDaysShared
         traceInfo = nil
 
         let jsonEncoder = JSONEncoder()
@@ -47,6 +50,7 @@ class HistoryEntryRealmModel: RealmSaveModel<HistoryEntry> {
         var m = super.model
         m.date = date
         m.type = HistoryEntryType(rawValue: type) ?? .checkIn
+        m.numberOfDaysShared = numberOfDaysShared.value
 
         let jsonDecoder = JSONDecoder()
 
@@ -79,10 +83,15 @@ class HistoryRepo: RealmDataRepo<HistoryEntryRealmModel, HistoryEntry> {
     }
 
     init(key: Data) {
-        super.init(filenameSalt: "HistoryRepo", schemaVersion: 1, migrationBlock: { (migration, schemaVersion) in
+        super.init(filenameSalt: "HistoryRepo", schemaVersion: 2, migrationBlock: { (migration, schemaVersion) in
             if schemaVersion < 1 {
                 migration.enumerateObjects(ofType: HistoryEntryRealmModel.className()) { _, newObject in
                     newObject?["traceInfo"] = nil
+                }
+            }
+            if schemaVersion < 2 {
+                migration.enumerateObjects(ofType: HistoryEntryRealmModel.className()) { _, newObject in
+                    newObject?["numberOfDaysShared"] = nil
                 }
             }
         }, encryptionKey: key)

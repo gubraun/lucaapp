@@ -9,6 +9,8 @@ class BackendAddressV3: BackendAddress {
     var host: URL { URL(string: "https://app-qs.luca-app.de")! }
     #elseif PENTEST
     var host: URL { URL(string: "https://app-pentest.luca-app.de")! }
+    #elseif PREPROD
+    var host: URL { URL(string: "https://app-preprod.luca-app.de")! }
     #else
     var host: URL { URL(string: "https://app.luca-app.de")! }
     #endif

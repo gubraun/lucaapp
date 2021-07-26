@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "LÖSCHEN"; ObjectID = "D42-OI-fUB"; */
+"D42-OI-fUB.normalTitle" = "LÖSCHEN";
+
+/* Class = "UILabel"; text = "Adresse:"; ObjectID = "gMU-pn-xdf"; */
+"gMU-pn-xdf.text" = "Address:";
+
+/* Class = "UILabel"; text = "Datum:"; ObjectID = "gz5-cr-VaC"; */
+"gz5-cr-VaC.text" = "Date:";

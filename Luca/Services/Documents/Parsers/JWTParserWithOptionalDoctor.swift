@@ -2,7 +2,18 @@ import Foundation
 import SwiftJWT
 import RxSwift
 
-struct MeinCoronaTestClaims: TestClaims {
+class JWTParserWithOptionalDoctor: JWTCoronaTestParser<MeinCoronaTestClaims> {
+    init(keyProvider: DocumentKeyProvider) {
+        super.init(
+            keyProvider: keyProvider) { (jwt, originalCode) -> Document in
+            return MeinCoronaTest(claims: jwt.claims, originalCode: originalCode)
+        }
+    }
+}
+
+struct MeinCoronaTestClaims: TestClaimsWithFingerprint {
+    var f: String?
+
     var version: Int
     var name: String
     var time: Int
@@ -19,6 +30,7 @@ struct MeinCoronaTestClaims: TestClaims {
         case result = "r"
         case lab = "l"
         case doc = "d"
+        case f = "f"
     }
 }
 
@@ -78,18 +90,6 @@ extension MeinCoronaTest {
             observer(.success(dateIsValid))
 
             return Disposables.create()
-        }
-    }
-}
-
-class MeinCoronaParser: JWTCoronaTestParser<MeinCoronaTestClaims> {
-    init() {
-        super.init(
-            jwtParser: JWTParser(
-                publicKeyFileURL: Bundle.main.url(forResource: "test_meincoronatest_jwtRS256", withExtension: "key.pub")!,
-                jwtVerifierCreator: JWTVerifier.rs256(publicKey:)
-            )) { (jwt, originalCode) -> Document in
-            MeinCoronaTest(claims: jwt.claims, originalCode: originalCode)
         }
     }
 }

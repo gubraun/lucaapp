@@ -25,6 +25,7 @@ protocol BackendMisc {
     func fetchScanner(scannerId: String) -> AsyncDataOperation<BackendError<FetchScannerError>, ScannerInfo>
     func fetchSupportedVersions() -> AsyncDataOperation<BackendError<FetchSupportedVersionError>, SupportedVersions>
     func fetchAccessedTraces() -> AsyncDataOperation<BackendError<FetchAccessedTracesError>, [AccessedTrace]>
+    func fetchTestProviderKeys() -> AsyncDataOperation<BackendError<FetchTestProviderKeysError>, [TestProviderKey]>
     func redeemDocument(hash: Data, tag: Data) -> AsyncOperation<BackendError<RedeemDocumentError>>
 }
 

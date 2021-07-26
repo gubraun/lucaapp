@@ -8,14 +8,6 @@ import Mocker
 
 typealias KeyValueParameters = [String: String]
 
-/// Contains current app version. Eg `1.2.3`
-private let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "unknown version"
-
-/// Contains current device. Eg `iPhone8` or `Simulator (iPhone8)`
-private let deviceModel = "\(Device.current)"
-
-/// Contains the version of the system. Eg `14.1`
-private let sysVersion = UIDevice.current.systemVersion
 #if DEVELOPMENT
 private let mode = "Debug"
 #elseif PENTEST
@@ -31,7 +23,11 @@ private let mode = "Release"
 var testedBackendError: Int?
 #endif
 
-let userAgent = "luca/\(appVersion) \(mode) (iOS \(sysVersion);\(deviceModel))"
+/// Contains current app version. Eg `1.2.3`
+private let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "unknown version"
+
+let userAgent = "luca/iOS \(appVersion)"
+
 private let authorizationCredentials = "\(secrets.backendLogin):\(secrets.backendPassword)".data(using: .utf8)!.base64EncodedString()
 let authorizationContent = "Basic \(authorizationCredentials)"
 

@@ -83,27 +83,16 @@ struct BaerCodeVaccination: Vaccination & DocumentCellViewModel {
     }
 
     func belongsToUser(withFirstName firstName: String, lastName: String) -> Bool {
-        let uppercaseAppFullname = (firstName + lastName).uppercased().filter { !$0.isWhitespace }
-        let uppercaseTestFullname = (self.firstName + self.lastName).uppercased().filter { !$0.isWhitespace }
+        let uppercaseAppFullname = formatUser(withFirstName: firstName, lastName: lastName)
+        let uppercaseTestFullname = formatUser(withFirstName: self.firstName, lastName: self.lastName)
         return uppercaseAppFullname == uppercaseTestFullname
     }
 
-    func isValid() -> Single<Bool> {
-        Single.create { observer -> Disposable in
-            var validity = 0.0
-            switch procedures[0].type {
-            case .fast:
-                validity = 48.0
-            case .pcr:
-                validity = 72.0
-            default:
-                validity = Double.greatestFiniteMagnitude
-            }
-            let dateIsValid = TimeInterval(procedures[0].date) + TimeUnit.hour(amount: validity).timeInterval > Date().timeIntervalSince1970
-            observer(.success(dateIsValid))
-
-            return Disposables.create()
-        }
+    private func formatUser(withFirstName firstName: String, lastName: String) -> String {
+        return (firstName + lastName).uppercased()
+            .removeOccurences(of: ["DR.", "PROF."])
+            .removeNonUppercase()
+            .removeWhitespaces()
     }
 
     func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {

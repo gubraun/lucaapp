@@ -37,6 +37,13 @@ public class PhoneNumberVerificationService {
     var disposeBag = DisposeBag()
     func verify(phoneNumber: String, completion: @escaping (Bool) -> Void) {
 
+        // QA Builds have no phone verification. From now on, anything will be accepted as a valid phone number.
+        #if QA
+        self.preferences.phoneNumberVerified = true
+        completion(true)
+        return
+        #endif
+
         let requestNewTan = parseNumber(phoneNumber).ifEmpty(switchTo: Maybe.from { completion(false); return nil })
             .asObservable()
             .flatMap { parsedNumber -> Single<PhoneNumber>  in

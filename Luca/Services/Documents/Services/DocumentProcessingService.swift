@@ -13,7 +13,8 @@ class DocumentProcessingService {
 
     private var documentValidators: [DocumentValidator] = []
 
-    let deeplinkTestPrefix = "https://app.luca-app.de/webapp/testresult/#"
+    let deeplinkPrefixArray = ["https://app.luca-app.de/webapp/testresult/#",
+                               "https://app.luca-app.de/webapp/appointment/?"]
 
     /// Captured deep links
     let deeplinkStore = BehaviorSubject(value: String())
@@ -35,7 +36,13 @@ class DocumentProcessingService {
     func parseQRCode(qr: String) -> Completable {
         documentFactory.createDocument(from: qr)
             .flatMap { self.validate($0).andThen(Single.just($0)) }
-            .flatMap { self.uniquenessChecker.redeem(document: $0).andThen(Single.just($0)) }
+            .flatMap {
+                #if PREPROD || PRODUCTION
+                self.uniquenessChecker.redeem(document: $0).andThen(Single.just($0))
+                #else
+                Single.just($0)
+                #endif
+            }
             .asObservable()
             .asSingle()
             .flatMap { [unowned self] in

@@ -2,7 +2,13 @@ import Foundation
 import RxSwift
 import SwiftJWT
 
-struct JWTTestClaims: TestClaims {
+public protocol ClaimsWithFingerprint: Claims {
+
+    /// Fingerprint
+    var f: String? { get }
+}
+
+struct JWTTestClaims: TestClaimsWithFingerprint {
 
     var version: Int
     var name: String
@@ -11,6 +17,7 @@ struct JWTTestClaims: TestClaims {
     var result: Result
     var lab: String
     var doctor: String
+    var f: String?
 
     enum CodingKeys: String, CodingKey {
         case version = "v"
@@ -20,9 +27,11 @@ struct JWTTestClaims: TestClaims {
         case result = "r"
         case lab = "l"
         case doctor = "d"
+        case f = "f"
     }
 
 }
+
 enum Result: String, Codable {
 
     case positive = "p"

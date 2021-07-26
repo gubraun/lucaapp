@@ -3,6 +3,7 @@ import RxSwift
 import SwiftJWT
 
 public typealias TestClaims = Codable & Claims
+public typealias TestClaimsWithFingerprint = Codable & ClaimsWithFingerprint
 
 protocol CoronaTest: Document {
 

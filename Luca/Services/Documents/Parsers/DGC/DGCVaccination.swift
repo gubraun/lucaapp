@@ -45,9 +45,16 @@ struct DGCVaccination: Vaccination & DocumentCellViewModel {
     }
 
     func belongsToUser(withFirstName firstName: String, lastName: String) -> Bool {
-        let uppercaseAppFullname = (firstName + lastName).uppercased().filter { !$0.isWhitespace }
-        let uppercaseTestFullname = (self.firstName + self.lastName).uppercased().filter { !$0.isWhitespace }
+        let uppercaseAppFullname = formatUser(withFirstName: firstName, lastName: lastName)
+        let uppercaseTestFullname = formatUser(withFirstName: self.firstName, lastName: self.lastName)
         return uppercaseAppFullname == uppercaseTestFullname
+    }
+
+    private func formatUser(withFirstName firstName: String, lastName: String) -> String {
+        return (firstName + lastName).uppercased()
+            .removeOccurences(of: ["DR.", "PROF."])
+            .removeNonUppercase()
+            .removeWhitespaces()
     }
 
     func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {

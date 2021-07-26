@@ -6,7 +6,7 @@ class DGCIssuerValidator: DocumentValidator {
     func validate(document: Document) -> Completable {
         Maybe.from { document as? DocumentWithIssuer }
             .flatMap { document -> Maybe<Never> in
-                if document.issuer.filter({ !$0.isWhitespace }).isEmpty {
+                if document.issuer.removeWhitespaces().isEmpty {
                     return Maybe.error(CoronaTestProcessingError.noIssuer)
                 }
                 return Maybe.empty()

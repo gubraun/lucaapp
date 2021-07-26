@@ -1,3 +1,10 @@
+# Release 1.7.2
+
+- Text and UI adjustments
+- Bugfixes
+
+This update includes some bugfixes. Furthermore, we have made minor adjustments to text and UI.
+
 # Release 1.7.1
 
 - Bug fixes
