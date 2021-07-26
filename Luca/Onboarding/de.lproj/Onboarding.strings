@@ -12,7 +12,7 @@
 "P3D-1z-Fnd.text" = "Gemeinsam\nerleben.";
 
 /* Class = "UILabel"; text = "Hiermit stimme ich den AGBs und den Datenschutzrichtlinien zu."; ObjectID = "PeA-wD-4K1"; */
-"PeA-wD-4K1.text" = "Hiermit stimme ich den AGBs und den Datenschutzrichtlinien zu.";
+"PeA-wD-4K1.text" = "Hiermit stimme ich den Nutzungsbedingungen und den Datenschutzrichtlinien zu.";
 
 /* Class = "UIButton"; normalTitle = "Weiter"; ObjectID = "QUo-a3-Vab"; */
 "QUo-a3-Vab.normalTitle" = "WEITER";

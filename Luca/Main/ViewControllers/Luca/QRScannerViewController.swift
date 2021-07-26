@@ -127,7 +127,9 @@ class QRScannerViewController: UIViewController {
     }
 
     private func wrongScanner() {
-        let alert = UIAlertController.infoAlert(title: L10n.Test.Scanner.WrongScanner.title, message: L10n.Test.Scanner.WrongScanner.description)
+        let alert = UIAlertController.infoAlert(title: L10n.Test.Scanner.WrongScanner.title, message: L10n.Test.Scanner.WrongScanner.description, onOk: {
+            self.startRunning()
+        })
         self.present(alert, animated: true, completion: nil)
     }
 

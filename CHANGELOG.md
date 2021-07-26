@@ -1,3 +1,9 @@
+# Release 1.7.1
+
+- Bug fixes
+
+This update includes some bug fixes. 
+
 # Release 1.7.0
 
 - minor bug fixes

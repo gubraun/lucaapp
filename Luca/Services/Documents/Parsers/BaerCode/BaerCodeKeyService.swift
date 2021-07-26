@@ -36,13 +36,13 @@ class BaerCodeKeyService {
             .flatMap { self.decodeKeys(keyBundle: $0) }
             .flatMap { self.parseCOSESign(with: $0) }
             .flatMap { self.parseKeys($0) }
-            .catchAndReturn(self.preferences.keyCache)
             .do(onSuccess: { keys in
                 if !keys.isEmpty {
                     self.preferences.keyCache = keys
                     self.preferences.lastFetched = Date()
                 }
             })
+            .catchAndReturn(self.preferences.keyCache)
     }
 
     private func readyToFetch() -> Completable {

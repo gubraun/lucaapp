@@ -1,5 +1,4 @@
-import Foundation
-import RxSwift
+import UIKit
 
 enum DGCVaccinationType: String, Codable {
 
@@ -29,8 +28,9 @@ struct DGCVaccination: Vaccination & DocumentCellViewModel {
     var doseNumber: Int
     var dosesTotalNumber: Int
     var date: Date
-    var laboratory: String
     var originalCode: String
+    var issuer: String
+    var laboratory: String { issuer }
 
     init(cert: DGCCert, vaccine: DGCVaccinationEntry, originalCode: String) {
         self.firstName = cert.firstName
@@ -40,13 +40,13 @@ struct DGCVaccination: Vaccination & DocumentCellViewModel {
         self.vaccineType = DGCVaccinationType(rawValue: vaccine.medicalProduct)!.category
         self.doseNumber = vaccine.doseNumber
         self.dosesTotalNumber = vaccine.dosesTotal
-        self.laboratory = vaccine.issuer
+        self.issuer = vaccine.issuer
         self.originalCode = originalCode
     }
 
     func belongsToUser(withFirstName firstName: String, lastName: String) -> Bool {
-        let uppercaseAppFullname = (firstName + lastName).uppercased()
-        let uppercaseTestFullname = (self.firstName + self.lastName).uppercased()
+        let uppercaseAppFullname = (firstName + lastName).uppercased().filter { !$0.isWhitespace }
+        let uppercaseTestFullname = (self.firstName + self.lastName).uppercased().filter { !$0.isWhitespace }
         return uppercaseAppFullname == uppercaseTestFullname
     }
 

@@ -25,8 +25,10 @@ class DGCParser: DocumentParser {
                     if let dgcVaccine = dgcCert.vaccineStatements.first {
                         observer(.success(DGCVaccination(cert: dgcCert, vaccine: dgcVaccine, originalCode: parameters)))
                     }
-                default:
-                    observer(.failure(CoronaTestProcessingError.parsingFailed))
+                case .recovery:
+                    if let dgcRecovery = dgcCert.recoveryStatements.first {
+                        observer(.success(DGCRecovery(cert: dgcCert, recovery: dgcRecovery, originalCode: parameters)))
+                    }
                 }
                 observer(.failure(CoronaTestProcessingError.parsingFailed))
             } else {

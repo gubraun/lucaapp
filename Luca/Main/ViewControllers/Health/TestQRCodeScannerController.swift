@@ -13,14 +13,13 @@ class TestQRCodeScannerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cameraView.layer.cornerRadius = 4
+        setupViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         startScanner()
-        setupViews()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -33,8 +32,11 @@ class TestQRCodeScannerController: UIViewController {
         closeButtonView.isAccessibilityElement = true
         closeButtonView.accessibilityLabel = L10n.Test.Scanner.close
         closeButtonView.accessibilityTraits = .button
+
         cameraView.isAccessibilityElement = true
         cameraView.accessibilityLabel = L10n.Test.Scanner.camera
+        cameraView.layer.cornerRadius = 4
+
         self.view.accessibilityElements = [titleLabel, closeButtonView, cameraView].map { $0 as Any }
         UIAccessibility.setFocusLayoutWithDelay(titleLabel)
     }

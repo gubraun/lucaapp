@@ -1,6 +1,4 @@
 import Foundation
-import RxSwift
-import SwiftJWT
 
 protocol Vaccination: Document {
 

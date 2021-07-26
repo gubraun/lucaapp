@@ -1,16 +1,57 @@
 import RxSwift
 import SwiftCBOR
 
+enum BaerCodeType: Int, Codable {
+
+    case fast = 1
+    case pcr = 2
+    case cormirnaty = 3
+    case janssen = 4
+    case moderna = 5
+    case vaxzevria = 6
+
+    var category: String {
+        switch self {
+        case .fast: return L10n.Test.Result.fast
+        case .pcr: return L10n.Test.Result.pcr
+        case .cormirnaty: return L10n.Vaccine.Result.cormirnaty
+        case .janssen: return L10n.Vaccine.Result.janssen
+        case .moderna: return L10n.Vaccine.Result.moderna
+        case .vaxzevria: return L10n.Vaccine.Result.vaxzevria
+        }
+    }
+}
+
+struct BaerCoronaProcedure: Codable {
+    var type: BaerCodeType
+    var date: Int
+}
+
+struct BaerCodePayload {
+    var version: Int
+    var firstName: String
+    var lastName: String
+    var dateOfBirthInt: Int
+    var diseaseType: Int
+    var procedures: [BaerCoronaProcedure]
+    var procedureOperator: String
+    var result: Bool
+
+    func isVaccine() -> Bool {
+        return procedures[0].type.rawValue >= BaerCodeType.cormirnaty.rawValue
+    }
+}
+
 class BaerCodeDecoder {
 
-    func decodeCode(_ code: String) -> Single<CoronaTest> {
+    func decodeCode(_ code: String) -> Single<BaerCodePayload> {
         ServiceContainer.shared.baerCodeKeyService.getKeys()
             .flatMap { keys in
                 self.parseCode(code, with: keys)
             }
     }
 
-    func parseCode(_ code: String, with keys: [BaerCodeKey]) -> Single<CoronaTest> {
+    func parseCode(_ code: String, with keys: [BaerCodeKey]) -> Single<BaerCodePayload> {
         Single.create { [self] observer -> Disposable in
 
             let originalRawData = Data(base64Encoded: code, options: .ignoreUnknownCharacters)
@@ -46,8 +87,8 @@ class BaerCodeDecoder {
                         }
 
                         if try BaerCodeSignatureValidator().verify(decodedCOSESign, key: key),
-                           let baerCodeTest = parseCredentials(decodedCredentials: decodedCredentials, version: version, originalCode: code) {
-                            observer(.success(baerCodeTest))
+                           let baerCodePayload = parseCredentials(decodedCredentials: decodedCredentials, version: version) {
+                            observer(.success(baerCodePayload))
                         }
                     }
                 } catch {
@@ -136,7 +177,7 @@ class BaerCodeDecoder {
 
     }
 
-    private func parseCredentials(decodedCredentials: CBOR, version: Int, originalCode: String) -> BaerCoronaTest? {
+    private func parseCredentials(decodedCredentials: CBOR, version: Int) -> BaerCodePayload? {
 
         guard case let CBOR.array(credentialsArray) = decodedCredentials,
               case let CBOR.utf8String(firstName) = credentialsArray[0],
@@ -164,14 +205,13 @@ class BaerCodeDecoder {
             procedures.append(BaerCoronaProcedure(type: baerCodeType, date: Int(date)))
         }
 
-        return BaerCoronaTest(version: version,
-                              firstName: firstName,
-                              lastName: lastName,
-                              dateOfBirthInt: Int(dateOfBirth),
-                              diseaseType: Int(diseaseType),
-                              procedures: procedures,
-                              procedureOperator: procedureOperator,
-                              result: result,
-                              originalCode: originalCode)
+        return BaerCodePayload(version: version,
+                               firstName: firstName,
+                               lastName: lastName,
+                               dateOfBirthInt: Int(dateOfBirth),
+                               diseaseType: Int(diseaseType),
+                               procedures: procedures,
+                               procedureOperator: procedureOperator,
+                               result: result)
     }
 }

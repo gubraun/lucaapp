@@ -232,7 +232,7 @@
 
 "general.dataPrivacy" = "Datenschutzrichtlinien";
 
-"general.termsAndConditions" = "AGB";
+"general.termsAndConditions" = "Nutzungsbedingungen";
 
 "general.imprint" = "Impressum";
 
@@ -240,7 +240,7 @@
 
 "general.support.email" = "hello@luca-app.de";
 
-"general.support.email.body" = "Lieber luca-Support,<br><br>bei der Nutzung der App tritt folgendes Problem auf:<br><ul><li>WAS ist das Problem?</li><li>WELCHE Schritte wurden im Vorfelt getätigt?</li></ul>[HIER PROBLEM BESCHREIBEN]<br><br>Gerät: %@<br>Betriebssystem: iOS %@<br>App Version: %@";
+"general.support.email.body" = "Lieber luca-Support,<br><br>bei der Nutzung der App tritt folgendes Problem auf:<br><ul><li>WAS ist das Problem?</li><li>WELCHE Schritte wurden im Vorfeld getätigt?</li></ul>[HIER PROBLEM BESCHREIBEN]<br><br>Gerät: %@<br>Betriebssystem: iOS %@<br>App Version: %@";
 
 "general.support.error" = "Es können keine E-mails von diesem Gerät gesendet werden, da aktuell kein Mail-Account verknüpft ist.";
 
@@ -264,9 +264,9 @@
 "formViewController.userDataFailure.failed.message" = "User konnte nicht registriert werden: %@";
 
 // WelcomeViewController
-"welcomeViewController.termsAndConditions.checkboxMessage" = "Ich akzeptiere die AGB.";
+"welcomeViewController.termsAndConditions.checkboxMessage" = "Ich akzeptiere die Nutzungsbedingungen.";
 
-"welcomeViewController.termsAndConditions.checkboxAccessibility" = "AGB Checkbox";
+"welcomeViewController.termsAndConditions.checkboxAccessibility" = "Nutzungsbedingungen Checkbox";
 
 "welcomeViewController.termsAndConditions.checkboxAccessibilityOn" = "Bestätigt";
 "welcomeViewController.termsAndConditions.checkboxAccessibilityOff" = "Nicht bestätigt";
@@ -275,7 +275,7 @@
 
 "welcomeViewController.privacyPolicy.checkboxAccessibility" = "Datenschutzerklärung Checkbox";
 
-"welcomeViewController.termT_C" = "AGB";
+"welcomeViewController.termT_C" = "Nutzungsbedingungen";
 
 "welcomeViewController.linkT_C" = "https://luca-app.de/app-terms-and-conditions";
 
@@ -397,7 +397,9 @@
 
 "test.result.duration.hours" = "%i Stunden";
 
-"test.result.parsing.error" = "Der QR-Code konnte nicht gelesen werden. Das kann daran liegen, dass wir aktuell nur bestimmte Testzentren unterstützen. Erkundige dich bei deinem Testzentrum, ob dieses dazugehört.";
+"test.result.error.title" = "Das Dokument konnte nicht importiert werden";
+
+"test.result.parsing.error" = "Die Daten konnten nicht verarbeitet werden.";
 
 "test.result.validation.error" = "Es konnte nicht validiert werden, dass dieser Test von dir gemacht wurde. Bitte prüfe, ob dein Name richtig in der App hinterlegt ist.";
 
@@ -467,13 +469,13 @@
 // Corona Test Uniqueness
 "tests.uniqueness.consent.title" = "DSGVO";
 
-"tests.uniqueness.consent.description" = "Hiermit erkläre ich mein Einverständnis gemäß Art. 9 (2) a) DSGVO (mehr: %@) zum Übermitteln einer pseudonymisierten Kennung im Zuge der Hinterlegung meines COVID-19-Tests in der luca App. Dies dient ausschließlich der Vorbeugung von Missbrauch, sodass derselbe Test nicht mehrfach ggf. von unterschiedlichen Personen in der luca App hinterlegt werden kann. Die individuelle Kennung wird nach 72 Stunden ab Hinterlegung automatisch aus dem luca System gelöscht. Es ist nicht möglich die Kennung zuvor zu entfernen.";
+"tests.uniqueness.consent.description" = "Hiermit erkläre ich mein Einverständnis gemäß Art. 9 (2) a) in Verbindung mit Art. 6 (1) 1 a) DSGVO (mehr: %@) zum Übermitteln einer pseudonymisierten Kennung im Zuge der lokalen Hinterlegung meines COVID-Tests, meines Genesen- oder Impfausweises in der luca App. Dies dient ausschließlich der Vorbeugung von Missbrauch, indem ein Dokument durch unterschiedliche Personen genutzt wird. Daher ist ein mehrfaches Hochladen nicht möglich.  Die individuelle Kennung eines Test-Ergebnisses wird nach 72 Stunden ab Hinterlegung automatisch aus dem luca System gelöscht. ";
 
 "test.uniqueness.create.randomTag.error" = "Es konnte kein zufälliger Tag generiert werden.";
 
 "test.uniqueness.encoding.error" = "Die Testdaten konnten nicht verschlüsselt werden.";
 
-"test.uniqueness.redeemed.error" = "Jemand hat diesen Test schon importiert.";
+"test.uniqueness.redeemed.error" = "Dieses Dokument wurde bereits importiert.";
 
 "test.uniqueness.rate.limit.error" = "Die Ratenbegrenzung wurde erreicht.";
 

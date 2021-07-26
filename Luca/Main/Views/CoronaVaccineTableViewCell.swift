@@ -40,6 +40,7 @@ class CoronaVaccineTableViewCell: UITableViewCell {
         dateLabel.accessibilityLabel = vaccination.date.accessibilityDate
         labLabel.text = vaccination.laboratory
         dateOfBirthLabel.text = vaccination.dateOfBirth.formattedDate
+        dateOfBirthLabel.accessibilityLabel = vaccination.dateOfBirth.accessibilityDate
 
         setupVaccinesStackView(for: vaccination)
 

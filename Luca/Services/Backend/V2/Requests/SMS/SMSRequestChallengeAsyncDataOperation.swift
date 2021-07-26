@@ -43,11 +43,11 @@ class SMSRequestChallengeAsyncDataOperation: AsyncDataOperation<BackendError<Req
 
     init(backendAddress: BackendAddress, phoneNumber: String) {
 
-        session = LucaAlamofireSessionBuilder.build(disableCache: true)
-
-        self.url = backendAddress.apiUrl
+        url = backendAddress.apiUrl
             .appendingPathComponent("sms")
             .appendingPathComponent("request")
+
+        session = LucaAlamofireSessionBuilder.build(pinnedCertificateHost: url.host ?? "", disableCache: true)
 
         self.parameters = ["phone": phoneNumber]
     }

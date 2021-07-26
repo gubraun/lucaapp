@@ -266,7 +266,7 @@ internal enum L10n {
     internal static let linkImprint = L10n.tr("Localizable", "general.linkImprint")
     /// Support
     internal static let support = L10n.tr("Localizable", "general.support")
-    /// Terms and conditions
+    /// Terms of use
     internal static let termsAndConditions = L10n.tr("Localizable", "general.termsAndConditions")
     internal enum Failure {
       internal enum InvalidCertificate {
@@ -605,6 +605,10 @@ internal enum L10n {
           return L10n.tr("Localizable", "test.result.duration.minutes", p1)
         }
       }
+      internal enum Error {
+        /// Document could not be imported
+        internal static let title = L10n.tr("Localizable", "test.result.error.title")
+      }
       internal enum Expiration {
         /// Unfortunately, the test cannot be imported because it already expired.
         internal static let error = L10n.tr("Localizable", "test.result.expiration.error")
@@ -616,7 +620,7 @@ internal enum L10n {
         }
       }
       internal enum Parsing {
-        /// The QR code could not be scanned. This could have happened because we only support certain test providers at the moment. Check with your test provider to see if it is included.
+        /// Data couldn't be processed.
         internal static let error = L10n.tr("Localizable", "test.result.parsing.error")
         /// Your test was added successfully.
         internal static let success = L10n.tr("Localizable", "test.result.parsing.success")
@@ -664,7 +668,7 @@ internal enum L10n {
         }
       }
       internal enum Redeemed {
-        /// Someone already imported this test.
+        /// This document was already imported.
         internal static let error = L10n.tr("Localizable", "test.uniqueness.redeemed.error")
       }
     }
@@ -673,7 +677,7 @@ internal enum L10n {
   internal enum Tests {
     internal enum Uniqueness {
       internal enum Consent {
-        /// I hereby give my consent in accordance with Art. 9 (2) a) DSGVO (more: %@) to the transmission of a pseudonymized identifier in the course of storing my COVID-19 test in the luca app. This serves exclusively to prevent misuse, so that the same test cannot be stored multiple times in the luca app, possibly by different people. The individual identifier is automatically deleted from the luca system after 72 hours. It is not possible to remove the identifier beforehand.
+        /// I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The individual identifier of the test document is automatically deleted from the luca system after 72 hours of storage.
         internal static func description(_ p1: Any) -> String {
           return L10n.tr("Localizable", "tests.uniqueness.consent.description", String(describing: p1))
         }

@@ -27,9 +27,11 @@ struct DGCCoronaTest: CoronaTest & DocumentCellViewModel {
     var date: Date
     var testType: String
     var laboratory: String
-    var doctor: String
     var isNegative: Bool
     var originalCode: String
+
+    var issuer: String
+    var doctor: String { issuer }
 
     init(cert: DGCCert, test: DGCTestEntry, originalCode: String) {
         self.firstName = cert.firstName
@@ -39,7 +41,7 @@ struct DGCCoronaTest: CoronaTest & DocumentCellViewModel {
         self.testType = DGCCoronaTestType(rawValue: test.type)!.category
         self.isNegative = test.resultNegative
         self.laboratory = test.testCenter
-        self.doctor = test.issuer
+        self.issuer = test.issuer
         self.originalCode = originalCode
     }
 

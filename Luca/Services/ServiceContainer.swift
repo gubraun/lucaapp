@@ -291,11 +291,13 @@ public class ServiceContainer {
             documentFactory: documentFactory,
             uniquenessChecker: documentUniquenessChecker)
 
-        documentProcessingService.register(validator: VaccinationOwnershipValidator(preferences: LucaPreferences.shared))
-        documentProcessingService.register(validator: CoronaTestOwnershipValidator(preferences: LucaPreferences.shared))
         documentProcessingService.register(validator: CoronaTestValidityValidator())
         documentProcessingService.register(validator: CoronaTestIsNegativeValidator())
-
+        documentProcessingService.register(validator: CoronaTestOwnershipValidator(preferences: LucaPreferences.shared))
+        documentProcessingService.register(validator: VaccinationOwnershipValidator(preferences: LucaPreferences.shared))
+        documentProcessingService.register(validator: RecoveryOwnershipValidator(preferences: LucaPreferences.shared))
+        documentProcessingService.register(validator: RecoveryValidityValidator())
+        documentProcessingService.register(validator: DGCIssuerValidator())
     }
 }
 

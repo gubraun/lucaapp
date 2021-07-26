@@ -66,6 +66,7 @@ enum CoronaTestProcessingError: LocalizedTitledError {
     case nameValidationFailed
     case expired
     case positiveTest
+    case noIssuer
 }
 
 extension CoronaTestProcessingError {
@@ -74,6 +75,7 @@ extension CoronaTestProcessingError {
         case .parsingFailed: return L10n.Test.Result.Parsing.error
         case .validationFailed: return L10n.Test.Result.Validation.error
         case .verificationFailed: return L10n.Test.Result.Verification.error
+        case .noIssuer: return L10n.Test.Result.Verification.error
         case .nameValidationFailed: return L10n.Test.Result.Name.Validation.error
         case .expired: return L10n.Test.Result.Expiration.error
         case .positiveTest: return L10n.Test.Result.Positive.error
@@ -84,7 +86,7 @@ extension CoronaTestProcessingError {
         switch self {
         case .verificationFailed: return L10n.Test.Result.Verification.error
         default:
-            return L10n.Navigation.Basic.error
+            return L10n.Test.Result.Error.title
         }
     }
 }

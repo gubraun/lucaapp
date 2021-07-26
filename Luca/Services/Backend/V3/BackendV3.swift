@@ -3,17 +3,17 @@ import Alamofire
 
 class BackendAddressV3: BackendAddress {
 
-    #if DEBUG
+    #if DEVELOPMENT
     var host: URL { URL(string: "https://app-dev.luca-app.de")! }
+    #elseif QA
+    var host: URL { URL(string: "https://app-qs.luca-app.de")! }
+    #elseif PENTEST
+    var host: URL { URL(string: "https://app-pentest.luca-app.de")! }
     #else
     var host: URL { URL(string: "https://app.luca-app.de")! }
     #endif
 
-    #if DEBUG
-    var apiUrl: URL { URL(string: "https://app-dev.luca-app.de/api/v3")! }
-    #else
-    var apiUrl: URL { URL(string: "https://app.luca-app.de/api/v3")! }
-    #endif
+    var apiUrl: URL { host.appendingPathComponent("api").appendingPathComponent("v3") }
 
     var privacyPolicyUrl: URL? = URL(string: "https://www.luca-app.de/app-privacy-policy/")
 }

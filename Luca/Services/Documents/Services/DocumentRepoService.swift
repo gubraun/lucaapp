@@ -27,8 +27,8 @@ class DocumentRepoService {
 
     func store(document: Document) -> Completable {
         Single.from { DocumentPayload(originalCode: document.originalCode, identifier: document.identifier) }
-        .flatMap(self.documentRepo.store)
-        .flatMapCompletable { self.addToCache(document: document, with: $0.identifier ?? 0) }
+            .flatMap(self.documentRepo.store)
+            .flatMapCompletable { _ in self.addToCache(document: document, with: document.identifier) }
     }
 
     func load() -> Single<[Document]> {
@@ -64,8 +64,25 @@ class DocumentRepoService {
             .ifEmpty(
                 switchTo: parse(payload: payload)
                     .logError(self, "Unparseable document")
-                    .flatMap { self.addToCache(document: $0, with: payload.identifier ?? 0).andThen(Single.just($0)) }
+                    .flatMap { self.syncIdentifiers(document: $0, with: payload) }
+                    .flatMap { self.addToCache(document: $0, with: $0.identifier).andThen(Single.just($0)) }
             )
+    }
+
+    /// In case identifier has changed we delete old payload and save the new document with new identifier
+    /// - Parameters:
+    ///   - document: current document with new identifier
+    ///   - payload: existing payload from db
+    /// - Returns: document is just passed on return
+    private func syncIdentifiers(document: Document, with payload: DocumentPayload) -> Single<Document> {
+        if let payloadId = payload.identifier,
+           document.identifier != payloadId {
+            return self.remove(identifier: payloadId)
+                .andThen(self.store(document: document))
+                .andThen(Single.just(document))
+        } else {
+            return Single.just(document)
+        }
     }
 
     private func addToCache(document: Document, with identifier: Int) -> Completable {

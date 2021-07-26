@@ -59,13 +59,13 @@ struct DGCCert {
                 DGCVaccinationEntry(body: $0)
             } ?? []
     }
-//    var recoveryStatements: [RecoveryEntry] {
-//        return get(.recoveryStatements)
-//            .array?
-//            .compactMap {
-//                RecoveryEntry(body: $0)
-//            } ?? []
-//    }
+    var recoveryStatements: [DGCRecoveryEntry] {
+        return get(.recoveryStatements)
+            .array?
+            .compactMap {
+                DGCRecoveryEntry(body: $0)
+            } ?? []
+    }
 
     init(hCert: HCert) {
         self.hCert = hCert

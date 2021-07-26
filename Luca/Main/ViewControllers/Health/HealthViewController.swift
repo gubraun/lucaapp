@@ -27,10 +27,7 @@ class HealthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 32, left: 0, bottom: 0, right: 0)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = .clear
+        setupTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +54,17 @@ class HealthViewController: UIViewController {
             return
         }
         titleLabel.text = "\(firstName) \(lastName)"
+    }
+
+    private func setupTableView() {
+        tableView.contentInset = UIEdgeInsets(top: 32, left: 0, bottom: 0, right: 0)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .clear
+
+        // Recovery cell
+        let recoveryCellNib = UINib(nibName: "CoronaRecoveryTableViewCell", bundle: nil)
+        tableView.register(recoveryCellNib, forCellReuseIdentifier: "CoronaRecoveryTableViewCell")
     }
 
     private func installObservers() {
@@ -103,6 +111,8 @@ class HealthViewController: UIViewController {
     @IBAction func addTestPressed(_ sender: UIButton) {
         testScanner = MainViewControllerFactory.createTestQRScannerViewController()
         if let scanner = testScanner {
+            scanner.modalPresentationStyle = .overFullScreen
+            scanner.definesPresentationContext = true
             present(scanner, animated: true, completion: nil)
         }
     }

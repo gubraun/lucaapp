@@ -16,8 +16,12 @@ private let deviceModel = "\(Device.current)"
 
 /// Contains the version of the system. Eg `14.1`
 private let sysVersion = UIDevice.current.systemVersion
-#if DEBUG
+#if DEVELOPMENT
 private let mode = "Debug"
+#elseif PENTEST
+private let mode = "Pentest"
+#elseif QA
+private let mode = "QA"
 #else
 private let mode = "Release"
 #endif
@@ -33,7 +37,7 @@ let authorizationContent = "Basic \(authorizationCredentials)"
 
 class LucaAlamofireSessionBuilder {
 
-    static func build(cachePolicy: NSURLRequest.CachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy, disableCache: Bool = true) -> Session {
+    static func build(pinnedCertificateHost: String, cachePolicy: NSURLRequest.CachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy, disableCache: Bool = true) -> Session {
 
         let configuration = URLSessionConfiguration.af.default
 
@@ -49,10 +53,8 @@ class LucaAlamofireSessionBuilder {
             configuration.urlCache = nil
         }
         let trustManager = ServerTrustManager(
-            evaluators:
-                ["app.luca-app.de": PinnedCertificatesTrustEvaluator(),     // Alamofire does not support wildcards
-                 "app-dev.luca-app.de": PinnedCertificatesTrustEvaluator()
-                ])
+            evaluators: [ pinnedCertificateHost: PinnedCertificatesTrustEvaluator() ]
+        )
 
         return Session(configuration: configuration, serverTrustManager: trustManager)
     }
@@ -74,7 +76,11 @@ class BackendAsyncDataOperation<ParametersType, Result, RequestErrorType>: Async
          disableCache: Bool = true,
          errorMappings: [Int: RequestErrorType]) {
 
-        session = LucaAlamofireSessionBuilder.build(cachePolicy: cachePolicy, disableCache: disableCache)
+        session = LucaAlamofireSessionBuilder.build(
+            pinnedCertificateHost: url.host ?? "",
+            cachePolicy: cachePolicy,
+            disableCache: disableCache
+        )
 
         self.url = url
         self.parameters = parameters
@@ -136,7 +142,11 @@ class BackendAsyncOperation<ParametersType, RequestErrorType>: AsyncOperation<Ba
          disableCache: Bool = true,
          errorMappings: [Int: RequestErrorType]) {
 
-        session = LucaAlamofireSessionBuilder.build(cachePolicy: cachePolicy, disableCache: disableCache)
+        session = LucaAlamofireSessionBuilder.build(
+            pinnedCertificateHost: url.host ?? "",
+            cachePolicy: cachePolicy,
+            disableCache: disableCache
+        )
 
         self.url = url
         self.parameters = parameters
@@ -199,7 +209,11 @@ class MappedBackendAsyncDataOperation<ParametersType, Result, RequestErrorType>:
          disableCache: Bool = true,
          errorMappings: [Int: RequestErrorType]) {
 
-        session = LucaAlamofireSessionBuilder.build(cachePolicy: cachePolicy, disableCache: disableCache)
+        session = LucaAlamofireSessionBuilder.build(
+            pinnedCertificateHost: url.host ?? "",
+            cachePolicy: cachePolicy,
+            disableCache: disableCache
+        )
 
         self.url = url
         self.parameters = parameters

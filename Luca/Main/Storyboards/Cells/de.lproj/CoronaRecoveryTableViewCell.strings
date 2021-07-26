@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Ausgestellt:"; ObjectID = "834-uS-16u"; */
+"834-uS-16u.text" = "Ausgestellt:";
+
+/* Class = "UIButton"; normalTitle = "LÖSCHEN"; ObjectID = "BCz-OE-2PW"; */
+"BCz-OE-2PW.normalTitle" = "LÖSCHEN";
+
+/* Class = "UILabel"; text = "Geburtstag:"; ObjectID = "NF1-co-3HN"; */
+"NF1-co-3HN.text" = "Geburtsdatum:";
+
+/* Class = "UILabel"; text = "Gültig bis:"; ObjectID = "oe5-ym-yDx"; */
+"oe5-ym-yDx.text" = "Gültig bis:";
+
+/* Class = "UILabel"; text = "Genesenennachweis"; ObjectID = "xbz-fM-lOt"; */
+"xbz-fM-lOt.text" = "GENESENENNACHWEIS";

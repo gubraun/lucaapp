@@ -17,7 +17,7 @@ extension RedeemDocumentError {
     }
 
     var localizedTitle: String {
-        return L10n.Navigation.Basic.error
+        return L10n.Test.Result.Error.title
     }
 
 }
