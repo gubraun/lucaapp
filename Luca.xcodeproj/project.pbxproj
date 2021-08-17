@@ -30,7 +30,8 @@
 		02D47500268DC17000BDE221 /* CoronaTestView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D47502268DC17000BDE221 /* CoronaTestView.xib */; };
 		02F19DB4269F17B700E65DF3 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54751B3251221D500EC1758 /* ServiceContainer.swift */; };
 		02F3CF6F260B5952002950A0 /* TestQRCodeScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */; };
-		B1BC1F7D1154B8BBA66EF678 /* Pods_Luca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34576F21D64AAC2D302DC5BD /* Pods_Luca.framework */; };
+		5AFC1F3E85CEAB7D439DED6E /* Pods_Luca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E0B1B65FB0722D63A39572 /* Pods_Luca.framework */; };
+		5DB3849BBF0B508FFBD328F7 /* Pods_LucaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BBC9F3F25AFA532DE15695 /* Pods_LucaTests.framework */; };
 		B41228F4250A490100F5F82B /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41228F3250A490100F5F82B /* UINavigationController.swift */; };
 		B42078E125DBF40C00C3C70C /* ScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42078E025DBF40C00C3C70C /* ScannerService.swift */; };
 		B430C3A525F8FA1D009E0F35 /* DataAccessAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B430C3A425F8FA1D009E0F35 /* DataAccessAlertViewController.swift */; };
@@ -281,7 +282,7 @@
 		E32BC00D268B0D940012C883 /* AppointmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32BC00F268B0D940012C883 /* AppointmentView.xib */; };
 		E32BC015268B564B0012C883 /* AppointmentValidityValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32BC014268B564B0012C883 /* AppointmentValidityValidator.swift */; };
 		E3359DE52682006C00056315 /* Recovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3359DE42682006C00056315 /* Recovery.swift */; };
-		E33F3AE726AB0182004BD1C8 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E33F3AE626AB0182004BD1C8 /* SwiftPackageProductDependency */; };
+		E33F3AE726AB0182004BD1C8 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = E33F3AE626AB0182004BD1C8 /* Nantes */; };
 		E342542626A5EBD000D3B0A7 /* Ogg-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E342542226A5EBD000D3B0A7 /* Ogg-Regular.otf */; };
 		E34CC95C265CE43A00362512 /* BaerCodeSignatureValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34CC95B265CE43A00362512 /* BaerCodeSignatureValidator.swift */; };
 		E354DF022689BF6900338784 /* AppointmentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E354DF012689BF6900338784 /* AppointmentParser.swift */; };
@@ -303,7 +304,7 @@
 		E37F45442697263C00B23652 /* LicensesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37F45432697263C00B23652 /* LicensesCoordinator.swift */; };
 		E37F454626972A1200B23652 /* DeleteAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37F454526972A1200B23652 /* DeleteAccountCoordinator.swift */; };
 		E37F454826972B3300B23652 /* EditAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37F454726972B3200B23652 /* EditAccountCoordinator.swift */; };
-		E3802042266E4D400016DB99 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E3802041266E4D400016DB99 /* SwiftPackageProductDependency */; };
+		E3802042266E4D400016DB99 /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = E3802041266E4D400016DB99 /* SwiftDGC */; };
 		E3851BD8269EEA5300B3CDEC /* ReleaseDocumentAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3851BD7269EEA5300B3CDEC /* ReleaseDocumentAsyncOperation.swift */; };
 		E39BA947265408F70003ECB6 /* BaerCodeCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BA946265408F70003ECB6 /* BaerCodeCoronaTest.swift */; };
 		E39BA9752654F86D0003ECB6 /* BaerCodeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BA9742654F86D0003ECB6 /* BaerCodeDecoder.swift */; };
@@ -327,7 +328,6 @@
 		E3DE988626A5CAAB00A13ED2 /* TermsAcceptanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DE988526A5CAAB00A13ED2 /* TermsAcceptanceViewController.swift */; };
 		E3DE988826A5DD0800A13ED2 /* TermsViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DE988726A5DD0800A13ED2 /* TermsViewControllerFactory.swift */; };
 		E3EC6985267CE0330068DD6E /* VaccinationOwnershipValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC6984267CE0330068DD6E /* VaccinationOwnershipValidator.swift */; };
-		F8423119B1E7EA2EB10DBA65 /* Pods_LucaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C66B7BB30F347E2840446F /* Pods_LucaTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -373,20 +373,21 @@
 		02F19DB6269F2ABF00E65DF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TestQRCodeScannerController.strings; sourceTree = "<group>"; };
 		02F19DB8269F2AC400E65DF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/TestQRCodeScannerController.strings; sourceTree = "<group>"; };
 		02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQRCodeScannerController.swift; sourceTree = "<group>"; };
-		0B399F72D50526F723361CAC /* Pods-LucaTests.preprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.preprod.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.preprod.xcconfig"; sourceTree = "<group>"; };
-		10A7784B8C3D5F8C795C2F4A /* Pods-LucaTests.pentest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.pentest.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.pentest.xcconfig"; sourceTree = "<group>"; };
-		11CF64552F4DA7E70B7AE0E7 /* Pods-LucaTests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.production.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.production.xcconfig"; sourceTree = "<group>"; };
-		19C622C067632BC24532224E /* Pods-Luca.preprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.preprod.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.preprod.xcconfig"; sourceTree = "<group>"; };
-		2D8A789DBA42AAD4693A6960 /* Pods-Luca.pentest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.pentest.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.pentest.xcconfig"; sourceTree = "<group>"; };
-		34576F21D64AAC2D302DC5BD /* Pods_Luca.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luca.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E8A527888DF8B7755B1D42D /* Pods-Luca.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.development.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.development.xcconfig"; sourceTree = "<group>"; };
-		42A2E3A47263D2A5EA773616 /* Pods-LucaTests.hotfix.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.hotfix.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.hotfix.xcconfig"; sourceTree = "<group>"; };
-		6C25718501F7AC9ADBBEB409 /* Pods-LucaTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.qa.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.qa.xcconfig"; sourceTree = "<group>"; };
-		A2C66B7BB30F347E2840446F /* Pods_LucaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LucaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4EB68AE9A7FAFBE6D44858E /* Pods-LucaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.release.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.release.xcconfig"; sourceTree = "<group>"; };
-		AD81BDDB7F5719BEFC5A3FEB /* Pods-Luca.hotfix.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.hotfix.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.hotfix.xcconfig"; sourceTree = "<group>"; };
+		1A1CBD9F1FFF897AACCE7B54 /* Pods-LucaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.release.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.release.xcconfig"; sourceTree = "<group>"; };
+		24AB6337664DF5B3610D386F /* Pods-LucaTests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.development.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.development.xcconfig"; sourceTree = "<group>"; };
+		2E52EF8C9A029B46F866E664 /* Pods-LucaTests.preprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.preprod.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.preprod.xcconfig"; sourceTree = "<group>"; };
+		34458540521D82F9DFE5A6A3 /* Pods-Luca.hotfix.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.hotfix.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.hotfix.xcconfig"; sourceTree = "<group>"; };
+		55BBC9F3F25AFA532DE15695 /* Pods_LucaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LucaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65E7C663C02F0EFB0C805AF3 /* Pods-LucaTests.hotfix.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.hotfix.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.hotfix.xcconfig"; sourceTree = "<group>"; };
+		69E008D6BAAAA538F44CC92C /* Pods-Luca.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.production.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.production.xcconfig"; sourceTree = "<group>"; };
+		72E0B1B65FB0722D63A39572 /* Pods_Luca.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luca.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DC98271FEE27F782F577059 /* Pods-Luca.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.release.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.release.xcconfig"; sourceTree = "<group>"; };
+		7E604D3FD0EA47CFD594CA4F /* Pods-Luca.pentest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.pentest.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.pentest.xcconfig"; sourceTree = "<group>"; };
+		998BDE06A74136B4250F577F /* Pods-LucaTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.qa.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.qa.xcconfig"; sourceTree = "<group>"; };
+		A3E9392A867E5196CC9B3533 /* Pods-Luca.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.development.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.development.xcconfig"; sourceTree = "<group>"; };
 		B41228F3250A490100F5F82B /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		B42078E025DBF40C00C3C70C /* ScannerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerService.swift; sourceTree = "<group>"; };
+		B4239D193D773D030B7CC35C /* Pods-Luca.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.qa.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.qa.xcconfig"; sourceTree = "<group>"; };
 		B430C3A425F8FA1D009E0F35 /* DataAccessAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessAlertViewController.swift; sourceTree = "<group>"; };
 		B430C3A925F8FCFE009E0F35 /* NewDataAccessTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDataAccessTableViewCell.swift; sourceTree = "<group>"; };
 		B430C3AF25F96923009E0F35 /* DataAccessHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessHeaderView.swift; sourceTree = "<group>"; };
@@ -478,8 +479,8 @@
 		B4F1B15B24ED8009006D6D73 /* UserDataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataPreferences.swift; sourceTree = "<group>"; };
 		B4F1B15D24ED80C5006D6D73 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		B4FF115B24F7A5F800A5821C /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
-		B5B221484F270E53E9AEA102 /* Pods-LucaTests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.development.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.development.xcconfig"; sourceTree = "<group>"; };
-		C4388ACA0AC37071E1C2B0EB /* Pods-Luca.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.production.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.production.xcconfig"; sourceTree = "<group>"; };
+		B7506228829350C3D94EF1A2 /* Pods-LucaTests.pentest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.pentest.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.pentest.xcconfig"; sourceTree = "<group>"; };
+		D0E00C05EB84EFC40EC19E35 /* Pods-Luca.preprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.preprod.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.preprod.xcconfig"; sourceTree = "<group>"; };
 		D5009BFF26738D79009C9B81 /* UbirchParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbirchParser.swift; sourceTree = "<group>"; };
 		D501438D25138BCB00A8E8B1 /* KeySource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySource.swift; sourceTree = "<group>"; };
 		D501439225138C2E00A8E8B1 /* ECDHSharedSecretKeySource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECDHSharedSecretKeySource.swift; sourceTree = "<group>"; };
@@ -644,6 +645,7 @@
 		D5FBA723267373140080CDB7 /* CoronaTestOwnershipValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestOwnershipValidator.swift; sourceTree = "<group>"; };
 		D5FBA725267373960080CDB7 /* CoronaTestValidityValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestValidityValidator.swift; sourceTree = "<group>"; };
 		D5FBA727267374D50080CDB7 /* CoronaTestIsNegativeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestIsNegativeValidator.swift; sourceTree = "<group>"; };
+		D68E6EBC9067F21EB918E62F /* Pods-LucaTests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.production.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.production.xcconfig"; sourceTree = "<group>"; };
 		E315F57C2679FE2500B40EFC /* DGCGatewayConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCGatewayConnection.swift; sourceTree = "<group>"; };
 		E315F57D2679FE2500B40EFC /* DGCLocalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCLocalData.swift; sourceTree = "<group>"; };
 		E315F5802679FE3E00B40EFC /* context.jsonc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = context.jsonc; sourceTree = "<group>"; };
@@ -721,8 +723,6 @@
 		E3DE988526A5CAAB00A13ED2 /* TermsAcceptanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAcceptanceViewController.swift; sourceTree = "<group>"; };
 		E3DE988726A5DD0800A13ED2 /* TermsViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewControllerFactory.swift; sourceTree = "<group>"; };
 		E3EC6984267CE0330068DD6E /* VaccinationOwnershipValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationOwnershipValidator.swift; sourceTree = "<group>"; };
-		E7527B2AAF2BD15CE6F15986 /* Pods-Luca.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.qa.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.qa.xcconfig"; sourceTree = "<group>"; };
-		FA854AF50938087ABDD23247 /* Pods-Luca.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.release.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -730,7 +730,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8423119B1E7EA2EB10DBA65 /* Pods_LucaTests.framework in Frameworks */,
+				5DB3849BBF0B508FFBD328F7 /* Pods_LucaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,10 +738,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3802042266E4D400016DB99 /* BuildFile in Frameworks */,
+				E3802042266E4D400016DB99 /* SwiftDGC in Frameworks */,
 				D5A4EF1C251A4983000A731F /* WebKit.framework in Frameworks */,
-				E33F3AE726AB0182004BD1C8 /* BuildFile in Frameworks */,
-				B1BC1F7D1154B8BBA66EF678 /* Pods_Luca.framework in Frameworks */,
+				5AFC1F3E85CEAB7D439DED6E /* Pods_Luca.framework in Frameworks */,
+				E33F3AE726AB0182004BD1C8 /* Nantes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,20 +775,20 @@
 		779D5F36A4CD225872AEE7E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3E8A527888DF8B7755B1D42D /* Pods-Luca.development.xcconfig */,
-				E7527B2AAF2BD15CE6F15986 /* Pods-Luca.qa.xcconfig */,
-				2D8A789DBA42AAD4693A6960 /* Pods-Luca.pentest.xcconfig */,
-				FA854AF50938087ABDD23247 /* Pods-Luca.release.xcconfig */,
-				AD81BDDB7F5719BEFC5A3FEB /* Pods-Luca.hotfix.xcconfig */,
-				19C622C067632BC24532224E /* Pods-Luca.preprod.xcconfig */,
-				C4388ACA0AC37071E1C2B0EB /* Pods-Luca.production.xcconfig */,
-				B5B221484F270E53E9AEA102 /* Pods-LucaTests.development.xcconfig */,
-				6C25718501F7AC9ADBBEB409 /* Pods-LucaTests.qa.xcconfig */,
-				10A7784B8C3D5F8C795C2F4A /* Pods-LucaTests.pentest.xcconfig */,
-				A4EB68AE9A7FAFBE6D44858E /* Pods-LucaTests.release.xcconfig */,
-				42A2E3A47263D2A5EA773616 /* Pods-LucaTests.hotfix.xcconfig */,
-				0B399F72D50526F723361CAC /* Pods-LucaTests.preprod.xcconfig */,
-				11CF64552F4DA7E70B7AE0E7 /* Pods-LucaTests.production.xcconfig */,
+				A3E9392A867E5196CC9B3533 /* Pods-Luca.development.xcconfig */,
+				B4239D193D773D030B7CC35C /* Pods-Luca.qa.xcconfig */,
+				7E604D3FD0EA47CFD594CA4F /* Pods-Luca.pentest.xcconfig */,
+				7DC98271FEE27F782F577059 /* Pods-Luca.release.xcconfig */,
+				34458540521D82F9DFE5A6A3 /* Pods-Luca.hotfix.xcconfig */,
+				D0E00C05EB84EFC40EC19E35 /* Pods-Luca.preprod.xcconfig */,
+				69E008D6BAAAA538F44CC92C /* Pods-Luca.production.xcconfig */,
+				24AB6337664DF5B3610D386F /* Pods-LucaTests.development.xcconfig */,
+				998BDE06A74136B4250F577F /* Pods-LucaTests.qa.xcconfig */,
+				B7506228829350C3D94EF1A2 /* Pods-LucaTests.pentest.xcconfig */,
+				1A1CBD9F1FFF897AACCE7B54 /* Pods-LucaTests.release.xcconfig */,
+				65E7C663C02F0EFB0C805AF3 /* Pods-LucaTests.hotfix.xcconfig */,
+				2E52EF8C9A029B46F866E664 /* Pods-LucaTests.preprod.xcconfig */,
+				D68E6EBC9067F21EB918E62F /* Pods-LucaTests.production.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1162,8 +1162,8 @@
 			isa = PBXGroup;
 			children = (
 				D5A4EF1B251A4983000A731F /* WebKit.framework */,
-				34576F21D64AAC2D302DC5BD /* Pods_Luca.framework */,
-				A2C66B7BB30F347E2840446F /* Pods_LucaTests.framework */,
+				72E0B1B65FB0722D63A39572 /* Pods_Luca.framework */,
+				55BBC9F3F25AFA532DE15695 /* Pods_LucaTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1754,11 +1754,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0287FA82263A9C6E00F961A8 /* Build configuration list for PBXNativeTarget "LucaTests" */;
 			buildPhases = (
-				B6AFDA0E505BC9FC5D434E06 /* [CP] Check Pods Manifest.lock */,
+				9E1F5E368FDD8D361592D49F /* [CP] Check Pods Manifest.lock */,
 				0287FA75263A9C6E00F961A8 /* Sources */,
 				0287FA76263A9C6E00F961A8 /* Frameworks */,
 				0287FA77263A9C6E00F961A8 /* Resources */,
-				DF1BE2CC4B9A2BE441CB0314 /* [CP] Embed Pods Frameworks */,
+				5355DD9ED85A9F189CE5618E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1774,7 +1774,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B434E3DB24EBC04E009305CA /* Build configuration list for PBXNativeTarget "Luca" */;
 			buildPhases = (
-				BFB5DC078F41DAD76B48E5DE /* [CP] Check Pods Manifest.lock */,
+				2E2A494003406EBF5A3DF398 /* [CP] Check Pods Manifest.lock */,
 				D50D89922625F0EE0020A02C /* Generate credentials */,
 				B4AF3BBB24EED71E00F72C80 /* SwiftGen */,
 				B4A0A3802614A6EA007DE487 /* Copy Acknowledgements */,
@@ -1782,7 +1782,7 @@
 				B434E3C324EBC04B009305CA /* Sources */,
 				B434E3C424EBC04B009305CA /* Frameworks */,
 				B434E3C524EBC04B009305CA /* Resources */,
-				13D911CA1F9CBC5720F776D9 /* [CP] Embed Pods Frameworks */,
+				342DC2E5F18E37CAE5C65A0E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1790,8 +1790,8 @@
 			);
 			name = Luca;
 			packageProductDependencies = (
-				E3802041266E4D400016DB99 /* SwiftPackageProductDependency */,
-				E33F3AE626AB0182004BD1C8 /* SwiftPackageProductDependency */,
+				E3802041266E4D400016DB99 /* SwiftDGC */,
+				E33F3AE626AB0182004BD1C8 /* Nantes */,
 			);
 			productName = Luca;
 			productReference = B434E3C724EBC04B009305CA /* Luca Debug.app */;
@@ -1827,8 +1827,8 @@
 			);
 			mainGroup = B434E3BE24EBC04B009305CA;
 			packageReferences = (
-				E3802040266E4D400016DB99 /* RemoteSwiftPackageReference */,
-				E33F3AE526AB0182004BD1C8 /* RemoteSwiftPackageReference */,
+				E3802040266E4D400016DB99 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
+				E33F3AE526AB0182004BD1C8 /* XCRemoteSwiftPackageReference "Nantes" */,
 			);
 			productRefGroup = B434E3C824EBC04B009305CA /* Products */;
 			projectDirPath = "";
@@ -1912,7 +1912,29 @@
 			shellPath = /bin/sh;
 			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n    ${PODS_ROOT}/SwiftLint/swiftlint autocorrect && ${PODS_ROOT}/SwiftLint/swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		13D911CA1F9CBC5720F776D9 /* [CP] Embed Pods Frameworks */ = {
+		2E2A494003406EBF5A3DF398 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Luca-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		342DC2E5F18E37CAE5C65A0E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1927,6 +1949,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Luca/Pods-Luca-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5355DD9ED85A9F189CE5618E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E1F5E368FDD8D361592D49F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LucaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B4A0A3802614A6EA007DE487 /* Copy Acknowledgements */ = {
@@ -1969,50 +2030,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/SwiftGen/bin/swiftgen\" ]]; then\n    \"$PODS_ROOT/SwiftGen/bin/swiftgen\"\nelse\n    echo \"error: SwiftGen is not installed. Run pod update to install it.\"\nfi\n";
 		};
-		B6AFDA0E505BC9FC5D434E06 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LucaTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BFB5DC078F41DAD76B48E5DE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Luca-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D50D89922625F0EE0020A02C /* Generate credentials */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -2032,23 +2049,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars_${CONFIGURATION}.sh ]\nthen\nsource ./env-vars_${CONFIGURATION}.sh\nfi\n\n#no `else` case needed if the CI works as expected\n./Pods/Sourcery/bin/sourcery --templates ./Luca --sources . --output ./Luca --args password=\"$BACKEND_PASSWORD\",login=\"$BACKEND_LOGIN\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DF1BE2CC4B9A2BE441CB0314 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2571,7 +2571,7 @@
 /* Begin XCBuildConfiguration section */
 		0287FA80263A9C6E00F961A8 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5B221484F270E53E9AEA102 /* Pods-LucaTests.development.xcconfig */;
+			baseConfigurationReference = 24AB6337664DF5B3610D386F /* Pods-LucaTests.development.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -2593,7 +2593,7 @@
 		};
 		0287FA81263A9C6E00F961A8 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11CF64552F4DA7E70B7AE0E7 /* Pods-LucaTests.production.xcconfig */;
+			baseConfigurationReference = D68E6EBC9067F21EB918E62F /* Pods-LucaTests.production.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -2729,19 +2729,19 @@
 		};
 		B434E3DC24EBC04E009305CA /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E8A527888DF8B7755B1D42D /* Pods-Luca.development.xcconfig */;
+			baseConfigurationReference = A3E9392A867E5196CC9B3533 /* Pods-Luca.development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEVELOPMENT";
@@ -2752,20 +2752,20 @@
 		};
 		B434E3DD24EBC04E009305CA /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4388ACA0AC37071E1C2B0EB /* Pods-Luca.production.xcconfig */;
+			baseConfigurationReference = 69E008D6BAAAA538F44CC92C /* Pods-Luca.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION;
@@ -2830,19 +2830,19 @@
 		};
 		D53175F2268F772800637E42 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA854AF50938087ABDD23247 /* Pods-Luca.release.xcconfig */;
+			baseConfigurationReference = 7DC98271FEE27F782F577059 /* Pods-Luca.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.release;
 				PRODUCT_NAME = "$(TARGET_NAME) Release";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
@@ -2853,7 +2853,7 @@
 		};
 		D53175F3268F772800637E42 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A4EB68AE9A7FAFBE6D44858E /* Pods-LucaTests.release.xcconfig */;
+			baseConfigurationReference = 1A1CBD9F1FFF897AACCE7B54 /* Pods-LucaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -2928,19 +2928,19 @@
 		};
 		D5317618268F7CA300637E42 /* Hotfix */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD81BDDB7F5719BEFC5A3FEB /* Pods-Luca.hotfix.xcconfig */;
+			baseConfigurationReference = 34458540521D82F9DFE5A6A3 /* Pods-Luca.hotfix.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.hotfix;
 				PRODUCT_NAME = "Luca Hotfix";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = HOTFIX;
@@ -2951,7 +2951,7 @@
 		};
 		D5317619268F7CA300637E42 /* Hotfix */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42A2E3A47263D2A5EA773616 /* Pods-LucaTests.hotfix.xcconfig */;
+			baseConfigurationReference = 65E7C663C02F0EFB0C805AF3 /* Pods-LucaTests.hotfix.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -3027,19 +3027,19 @@
 		};
 		D531761B268F7CBE00637E42 /* Preprod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19C622C067632BC24532224E /* Pods-Luca.preprod.xcconfig */;
+			baseConfigurationReference = D0E00C05EB84EFC40EC19E35 /* Pods-Luca.preprod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.preprod;
 				PRODUCT_NAME = "Luca Preprod";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PREPROD;
@@ -3050,7 +3050,7 @@
 		};
 		D531761C268F7CBE00637E42 /* Preprod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B399F72D50526F723361CAC /* Pods-LucaTests.preprod.xcconfig */;
+			baseConfigurationReference = 2E52EF8C9A029B46F866E664 /* Pods-LucaTests.preprod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -3127,19 +3127,19 @@
 		};
 		D58D6E95268361020001EC01 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E7527B2AAF2BD15CE6F15986 /* Pods-Luca.qa.xcconfig */;
+			baseConfigurationReference = B4239D193D773D030B7CC35C /* Pods-Luca.qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.qa;
 				PRODUCT_NAME = "Luca QA";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = QA;
@@ -3150,7 +3150,7 @@
 		};
 		D58D6E96268361020001EC01 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C25718501F7AC9ADBBEB409 /* Pods-LucaTests.qa.xcconfig */;
+			baseConfigurationReference = 998BDE06A74136B4250F577F /* Pods-LucaTests.qa.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -3227,19 +3227,19 @@
 		};
 		D5BE9F4526836EA60055E911 /* Pentest */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D8A789DBA42AAD4693A6960 /* Pods-Luca.pentest.xcconfig */;
+			baseConfigurationReference = 7E604D3FD0EA47CFD594CA4F /* Pods-Luca.pentest.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.pentest;
 				PRODUCT_NAME = "Luca Pentest";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PENTEST;
@@ -3250,7 +3250,7 @@
 		};
 		D5BE9F4626836EA60055E911 /* Pentest */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 10A7784B8C3D5F8C795C2F4A /* Pods-LucaTests.pentest.xcconfig */;
+			baseConfigurationReference = B7506228829350C3D94EF1A2 /* Pods-LucaTests.pentest.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -3318,7 +3318,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E33F3AE526AB0182004BD1C8 /* RemoteSwiftPackageReference */ = {
+		E33F3AE526AB0182004BD1C8 /* XCRemoteSwiftPackageReference "Nantes" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/instacart/Nantes";
 			requirement = {
@@ -3326,7 +3326,7 @@
 				minimumVersion = 0.1.2;
 			};
 		};
-		E3802040266E4D400016DB99 /* RemoteSwiftPackageReference */ = {
+		E3802040266E4D400016DB99 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios";
 			requirement = {
@@ -3337,14 +3337,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E33F3AE626AB0182004BD1C8 /* SwiftPackageProductDependency */ = {
+		E33F3AE626AB0182004BD1C8 /* Nantes */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E33F3AE526AB0182004BD1C8 /* RemoteSwiftPackageReference */;
+			package = E33F3AE526AB0182004BD1C8 /* XCRemoteSwiftPackageReference "Nantes" */;
 			productName = Nantes;
 		};
-		E3802041266E4D400016DB99 /* SwiftPackageProductDependency */ = {
+		E3802041266E4D400016DB99 /* SwiftDGC */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E3802040266E4D400016DB99 /* RemoteSwiftPackageReference */;
+			package = E3802040266E4D400016DB99 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */;
 			productName = SwiftDGC;
 		};
 /* End XCSwiftPackageProductDependency section */

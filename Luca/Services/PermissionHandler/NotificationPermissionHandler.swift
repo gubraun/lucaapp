@@ -31,7 +31,7 @@ class NotificationPermissionHandler: PermissionHandler<UNAuthorizationStatus> {
 
     override var permissionChanges: Observable<UNAuthorizationStatus> {
         let backgroundChanges = UIApplication.shared.rx.applicationWillEnterForeground
-            .flatMap { _ in return self.notificationSettings }
+            .flatMapLatest { _ in return self.notificationSettings }
 
         let foregroundChanges = NotificationCenter.default.rx.notification(NSNotification.Name(Self.onNotificationPermissionChanged), object: self)
             .flatMap { _ in return self.notificationSettings }

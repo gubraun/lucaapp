@@ -742,7 +742,7 @@ internal enum L10n {
   internal enum Tests {
     internal enum Uniqueness {
       internal enum Consent {
-        /// I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The document’s individual identifier is automatically deleted from the luca system after 72 hours of storage.
+        /// I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The identifier of the recovery or vaccination document can be deleted by deleting the document in the app.
         internal static func description(_ p1: Any) -> String {
           return L10n.tr("Localizable", "tests.uniqueness.consent.description", String(describing: p1))
         }
@@ -843,7 +843,7 @@ internal enum L10n {
 
   internal enum Vaccine {
     internal enum Result {
-      /// Fully Vaccinated (%i/%i)
+      /// Complete vaccination (%i/%i)
       internal static func complete(_ p1: Int, _ p2: Int) -> String {
         return L10n.tr("Localizable", "vaccine.result.complete", p1, p2)
       }
@@ -859,7 +859,7 @@ internal enum L10n {
       internal static let janssen = L10n.tr("Localizable", "vaccine.result.janssen")
       /// Moderna
       internal static let moderna = L10n.tr("Localizable", "vaccine.result.moderna")
-      /// Partially vaccinated (%i/%i)
+      /// Partial vaccination (%i/%i)
       internal static func partially(_ p1: Int, _ p2: Int) -> String {
         return L10n.tr("Localizable", "vaccine.result.partially", p1, p2)
       }

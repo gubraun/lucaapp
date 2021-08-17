@@ -1,3 +1,9 @@
+# Release 1.8.1
+
+- Bugfixes
+
+This update includes some bugfixes.
+
 # Release 1.8.0
 
 - Account Tab 

@@ -486,9 +486,9 @@
 
 "vaccine.result.sputnikV" = "Sputnik V";
 
-"vaccine.result.complete" = "Vollständig immunisiert (%i/%i)";
+"vaccine.result.complete" = "Vollständiger Impfschutz (%i/%i)";
 
-"vaccine.result.partially" = "Teilweise immunisiert (%i/%i)";
+"vaccine.result.partially" = "Partieller Impfschutz (%i/%i)";
 
 "vaccine.result.description" = "%i. Impfung:";
 
@@ -527,7 +527,7 @@
 
 "tests.uniqueness.consent.title.accessibility" = "D.S.G.V.O";
 
-"tests.uniqueness.consent.description" = "Hiermit erkläre ich mein Einverständnis gemäß Art. 9 (2) a) in Verbindung mit Art. 6 (1) 1 a) DSGVO (mehr: %@) zum Übermitteln einer pseudonymisierten Kennung im Zuge der lokalen Hinterlegung meines COVID-Tests, meines Genesen- oder Impfausweises in der luca App. Dies dient ausschließlich der Vorbeugung von Missbrauch, indem ein Dokument durch unterschiedliche Personen genutzt wird. Daher ist ein mehrfaches Importieren nicht möglich. Die individuelle Kennung des Dokuments wird nach 72 Stunden ab Hinterlegung automatisch aus dem luca System gelöscht.";
+"tests.uniqueness.consent.description" = "Hiermit erkläre ich mein Einverständnis gemäß Art. 9 (2) a) in Verbindung mit Art. 6 (1) 1 a) DSGVO (mehr: %@) zum Übermitteln einer pseudonymisierten Kennung im Zuge der lokalen Hinterlegung meines COVID-Tests, meines Genesen- oder Impfausweises in der luca App. Dies dient ausschließlich der Vorbeugung von Missbrauch, indem ein Dokument durch unterschiedliche Personen genutzt wird. Daher ist ein mehrfaches Importieren nicht möglich. Die Kennung eines Genesen- / Impfausweises wird durch die lokale Löschung des Dokuments in der App entfernt.";
 
 "test.uniqueness.create.randomTag.error" = "Es konnte kein zufälliger Tag generiert werden.";
 

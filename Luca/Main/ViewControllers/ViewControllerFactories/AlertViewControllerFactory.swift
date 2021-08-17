@@ -105,6 +105,9 @@ class AlertViewControllerFactory {
                             observer.onCompleted()
                         }
 
+            if #available(iOS 13.0, *) { } else {
+                alert.modalPresentationStyle = .overCurrentContext
+            }
             viewController.present(alert, animated: true, completion: nil)
 
             observer.onNext(alert)

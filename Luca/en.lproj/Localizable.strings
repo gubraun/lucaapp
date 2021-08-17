@@ -486,9 +486,9 @@
 
 "vaccine.result.sputnikV" = "Sputnik V";
 
-"vaccine.result.complete" = "Fully Vaccinated (%i/%i)";
+"vaccine.result.complete" = "Complete vaccination (%i/%i)";
 
-"vaccine.result.partially" = "Partially vaccinated (%i/%i)";
+"vaccine.result.partially" = "Partial vaccination (%i/%i)";
 
 "vaccine.result.description" = "%i. vaccination:";
 
@@ -527,7 +527,7 @@
 
 "tests.uniqueness.consent.title.accessibility" = "D.S.G.V.O";
 
-"tests.uniqueness.consent.description" = "I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The document’s individual identifier is automatically deleted from the luca system after 72 hours of storage.";
+"tests.uniqueness.consent.description" = "I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The identifier of the recovery or vaccination document can be deleted by deleting the document in the app.";
 
 "test.uniqueness.create.randomTag.error" = "Failed to create a random tag.";
 

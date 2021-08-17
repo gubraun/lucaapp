@@ -107,9 +107,11 @@ class AlertWithLinkViewController: UIViewController {
 }
 
 extension AlertWithLinkViewController: NantesLabelDelegate {
-    private func attributedLabel(_ label: NantesLabel, didSelectLinkWith link: URL) {
+
+    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
         UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
+
 }
 
 // MARK: - Accessibility

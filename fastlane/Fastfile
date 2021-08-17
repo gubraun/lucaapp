@@ -45,7 +45,7 @@ platform :ios do
         owner_name: "culture4life",
         owner_type: "organization",
         app_name: "luca-iOS",
-        timeout: 180,
+        timeout: 300,
         file: "build_#{options[:path_suffix]}/luca_#{ENV["VERSION_NUMBER"]}_#{ENV["BUILD_NUMBER"]}_#{options[:path_suffix]}.ipa"
     )
   end
