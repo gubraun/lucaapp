@@ -11,6 +11,10 @@ class BackendAddressV3: BackendAddress {
     var host: URL { URL(string: "https://app-pentest.luca-app.de")! }
     #elseif PREPROD
     var host: URL { URL(string: "https://app-preprod.luca-app.de")! }
+    #elseif RELEASE
+    var host: URL { URL(string: "https://app-release.luca-app.de")! }
+    #elseif HOTFIX
+    var host: URL { URL(string: "https://app-hotfix.luca-app.de")! }
     #else
     var host: URL { URL(string: "https://app.luca-app.de")! }
     #endif
@@ -30,6 +34,10 @@ class DefaultBackendDailyKeyV3: BackendDailyKeyV3 {
 
     func retrieveDailyPubKey() -> AsyncDataOperation<BackendError<RetrieveDailyKeyError>, PublicKeyFetchResultV3> {
         RetrieveDailyKeyAsyncOperationV3(backendAddress: backendAddress)
+    }
+
+    func retrievePubKey(keyId: Int) -> AsyncDataOperation<BackendError<RetrieveDailyKeyError>, PublicKeyFetchResultV3> {
+        RetrieveKeyAsyncOperationV3(backendAddress: backendAddress, keyId: keyId)
     }
 
     func retrieveIssuerKeys(issuerId: String) -> AsyncDataOperation<BackendError<RetrieveDailyKeyError>, IssuerKeysFetchResultV3> {

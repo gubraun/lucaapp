@@ -1,0 +1,128 @@
+def parametersArray = []
+
+parametersArray += booleanParam(defaultValue: false, description: 'Builds .ipa files with all environments except Development and Production.', name: 'buildAppcenter')
+parametersArray += booleanParam(defaultValue: false, description: 'Uploads .ipa files to AppCenter. Works only if the buildAppcenter is true', name: 'uploadAppcenter')
+
+parametersArray += booleanParam(defaultValue: false, description: 'Builds an archive in Production environment and uploads to Testflight', name: 'buildAndUploadTestflight')
+
+properties([
+  buildDiscarder(logRotator(artifactNumToKeepStr: '10')),
+  parameters(parametersArray)
+])
+
+node (label: 'jenkins-agent-06.seamlessme.local') {
+    env.LC_ALL = 'en_US.UTF-8'
+    env.LANG   = 'en_US.UTF-8'
+    
+    stage('Prepare') {
+        checkout scm
+        
+        cleanup()
+    
+        sh label: 'Prepare Environment', script: '''#!/bin/bash
+        gem install bundler
+        
+        bundle config path vendor/bundle
+        bundle update
+        bundle install
+        bundle exec fastlane install_plugins
+        '''
+        
+        sh label: 'Clear default derived data', script: 'bundle exec fastlane run clear_derived_data'
+        
+        sh label: 'Pods', script: 'bundle exec pod install'
+    }
+
+    // Test every branch
+    stage('Test') {
+        sh 'bundle exec fastlane test --verbose'
+        junit 'fastlane/test_output/report.junit'
+    }
+
+    stage('Build') {
+        withCredentials([
+            string(credentialsId: 'luca-ios-apple-id', variable: 'APPLE_ID'),
+            string(credentialsId: 'luca-ios-app-store-connect-team-id', variable: 'APP_STORE_CONNECT_TEAM_ID'),
+            string(credentialsId: 'luca-ios-app-dev-portal-team-id', variable: 'DEV_PORTAL_TEAM_ID'),
+            string(credentialsId: 'luca-ios-login-keychain-password', variable: 'LOGIN_KEYCHAIN_PASSWORD'),
+            file(credentialsId: 'luca-ios-app-store-api-key-json', variable: 'API_KEY_JSON'),
+            usernamePassword(credentialsId: 'luca-staging-api-username-password', usernameVariable: 'BACKEND_LOGIN', passwordVariable: 'BACKEND_PASSWORD')
+        ]) {
+            if (params.buildAppcenter) {
+                // Release
+                sh 'bundle exec fastlane build apple_identifier:"de.culture4life.luca.release" adhoc:true scheme:"Luca Release" path_suffix:"release" export_method:"ad-hoc" --verbose'
+                
+                // QA
+                sh 'bundle exec fastlane build apple_identifier:"de.culture4life.luca.qa" adhoc:true scheme:"Luca QA" path_suffix:"qa" export_method:"ad-hoc" --verbose'
+                
+                // Pentest
+                sh 'bundle exec fastlane build apple_identifier:"de.culture4life.luca.pentest" adhoc:true scheme:"Luca Pentest" path_suffix:"pentest" export_method:"ad-hoc" --verbose'
+
+                // Preprod
+                sh 'bundle exec fastlane build apple_identifier:"de.culture4life.luca.preprod" adhoc:true scheme:"Luca Preprod" path_suffix:"preprod" export_method:"ad-hoc" --verbose'
+            }
+            if (params.buildAndUploadTestflight) {
+                // Production
+                sh 'bundle exec fastlane build apple_identifier:"de.culture4life.luca" adhoc:false scheme:"Luca Production" path_suffix:"production" export_method:"app-store" --verbose'
+            }
+        }
+    }
+    
+    stage('Archive') {
+        if (params.buildAppcenter) {
+            archiveArtifacts artifacts: 'build_release/*.ipa, build_release/*.zip', fingerprint: true
+            archiveArtifacts artifacts: 'build_qa/*.ipa, build_qa/*.zip', fingerprint: true
+            archiveArtifacts artifacts: 'build_pentest/*.ipa, build_pentest/*.zip', fingerprint: true
+            archiveArtifacts artifacts: 'build_preprod/*.ipa, build_preprod/*.zip', fingerprint: true
+        }
+    }
+    
+    stage('Upload to Appcenter') {
+        if (params.uploadAppcenter && params.buildAppcenter) {
+            withCredentials([string(credentialsId: 'luca-ios-appcenter-token', variable: 'LUCA_IOS_APPCENTER_TOKEN')]) {
+                sh 'bundle exec fastlane appcenter path_suffix:"release" --verbose'
+                sh 'bundle exec fastlane appcenter path_suffix:"qa" --verbose'
+                sh 'bundle exec fastlane appcenter path_suffix:"pentest" --verbose'
+                sh 'bundle exec fastlane appcenter path_suffix:"preprod" --verbose'
+            }
+        }
+    }
+    
+    stage('Upload to Appstore Connect') {
+        if (params.buildAndUploadTestflight) {
+            withCredentials([file(credentialsId: 'luca-ios-app-store-api-key-json', variable: 'API_KEY_JSON')]) {
+                sh 'bundle exec fastlane submit --verbose'
+            }
+        }
+    }
+    
+    stage('Cleanup') {
+        cleanup()
+    }
+}
+
+def cleanup() {
+    sh label: 'Remove archives', script: 'rm -r archives/  || true'
+    sh label: 'Remove derived data', script: 'rm -r derived_data/  || true'
+    sh label: 'Remove derived data for testing', script: 'rm -r derived_data_tests/  || true'
+    sh label: 'Remove pods', script: 'rm -r Pods/  || true'
+    sh label: 'Remove gems', script: 'rm -r vendor/  || true'
+    
+    sh label: 'Remove artifacts', script: '''#!/bin/bash
+            
+    rm -r archives.xcarchive || true
+    rm -r build_qa/*.ipa || true
+    rm -r build_production/*.ipa || true
+    rm -r build_master/*.ipa || true
+    rm -r build_pentest/*.ipa || true
+    rm -r build_release/*.ipa || true
+    rm -r build_preprod/*.ipa || true
+    
+    rm -r build_qa/*.zip || true
+    rm -r build_production/*.zip || true
+    rm -r build_master/*.zip || true
+    rm -r build_pentest/*.zip || true
+    rm -r build_release/*.zip || true
+    rm -r build_preprod/*.zip || true
+    '''
+}

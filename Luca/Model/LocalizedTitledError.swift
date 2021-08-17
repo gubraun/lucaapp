@@ -8,3 +8,13 @@ protocol LocalizedTitledError: LocalizedError {
     /// Localized title of an alert
     var localizedTitle: String { get }
 }
+
+struct LocalizedTitledErrorValue: LocalizedTitledError {
+    var localizedTitle: String
+    var errorDescription: String?
+
+    init(localizedTitle: String, errorDescription: String) {
+        self.localizedTitle = localizedTitle
+        self.errorDescription = errorDescription
+    }
+}

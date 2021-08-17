@@ -19,7 +19,7 @@ enum DGCVaccinationType: String, Codable {
     }
 }
 
-struct DGCVaccination: Vaccination & DocumentCellViewModel {
+struct DGCVaccination: Vaccination {
 
     var firstName: String
     var lastName: String
@@ -29,6 +29,7 @@ struct DGCVaccination: Vaccination & DocumentCellViewModel {
     var dosesTotalNumber: Int
     var date: Date
     var originalCode: String
+    var hashSeed: String { originalCode }
     var issuer: String
     var laboratory: String { issuer }
 
@@ -55,14 +56,5 @@ struct DGCVaccination: Vaccination & DocumentCellViewModel {
             .removeOccurences(of: ["DR.", "PROF."])
             .removeNonUppercase()
             .removeWhitespaces()
-    }
-
-    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaVaccineTableViewCell", for: indexPath) as! CoronaVaccineTableViewCell
-        cell.vaccination = self
-        cell.delegate = delegate
-
-        return cell
     }
 }

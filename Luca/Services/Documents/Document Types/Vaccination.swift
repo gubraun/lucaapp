@@ -43,4 +43,8 @@ extension Vaccination {
 
         return allDosesReceived && dateIsValid
     }
+
+    var expiresAt: Date {
+        Calendar.current.date(byAdding: .year, value: 1, to: date) ?? date
+    }
 }

@@ -39,13 +39,36 @@ class DocumentUniquenessChecker {
             try self.generateHash(for: document)
         }
         return Single.zip(generateHash, getOrCreateTag(for: document)) { (hash, tag) in
-            self.backend.redeemDocument(hash: hash, tag: tag).asCompletable()
+            self.backend.redeemDocument(hash: hash, tag: tag, expireAt: document.expiresAt).asCompletable()
         }
         .flatMapCompletable { $0 }
     }
 
+    func release(document: Document) -> Completable {
+        let generateHash = Single.from {
+            try self.generateHash(for: document)
+        }
+        return Single.zip(generateHash, getOrCreateTag(for: document)) { (hash, tag) in
+            self.backend.releaseDocument(hash: hash, tag: tag).asCompletable()
+        }
+        .flatMapCompletable { $0 }
+        .catch { error in
+
+            // If the document is unknown to the backend it is safe to assume it is released.
+            if let backendError = error as? BackendError<ReleaseDocumentError>,
+               backendError.backendError == .hashNotFound {
+                return Completable.empty()
+            }
+            throw error
+        }
+    }
+
+    func release(documents: [Document]) -> Completable {
+        Completable.zip(documents.compactMap(release))
+    }
+
     func generateHash(for document: Document) throws -> Data {
-        let identifier = document.originalCode
+        let identifier = document.hashSeed
 
         guard let data = identifier.data(using: .utf8) else {
             throw DocumentUniquenessCheckerError.encodingFailed

@@ -46,6 +46,12 @@ class HistoryTableViewCell: UITableViewCell {
 
         checkinDateLabel.text = userEvent.formattingCheckinCheckoutDate()
 
+        if let checkout = userEvent.checkout {
+            checkinDateLabel.accessibilityLabel = L10n.History.Checkin.Checkout.time(userEvent.checkin.date.accessibilityDate, checkout.date.accessibilityDate)
+        } else {
+            checkinDateLabel.accessibilityLabel = userEvent.checkin.date.accessibilityDate
+        }
+
         if userEvent.checkin.role == .host, let firstName = LucaPreferences.shared.firstName, let lastName = LucaPreferences.shared.lastName {
             checkinLocationNameLabel.text = "\(L10n.Private.Meeting.Info.title): \(firstName) \(lastName)"
             infoButton.isHidden = false

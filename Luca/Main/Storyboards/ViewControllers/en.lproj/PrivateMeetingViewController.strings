@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "TREFFEN BEENDEN"; ObjectID = "1xF-Pj-EQP"; */
+"1xF-Pj-EQP.text" = "END MEETING";
+
+/* Class = "UILabel"; text = "Dauer:"; ObjectID = "5xP-dA-LaB"; */
+"5xP-dA-LaB.text" = "Length:";
+
+/* Class = "UILabel"; text = "Privates Treffen"; ObjectID = "A3A-nL-Gxa"; */
+"A3A-nL-Gxa.text" = "Private Meeting";
+
+/* Class = "UILabel"; text = "Teilnehmer:"; ObjectID = "wt0-Zq-Rja"; */
+"wt0-Zq-Rja.text" = "Participants:";

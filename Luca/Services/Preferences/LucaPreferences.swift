@@ -188,6 +188,14 @@ class LucaPreferences {
         }
     }
 
+    var termsAcceptedVersion: Int {
+        get {
+            preferences.retrieve(key: "termsAcceptedVersion") ?? 0
+        } set {
+            preferences.store(newValue, key: "termsAcceptedVersion")
+        }
+    }
+
     var dataPrivacyPresented: Bool {
         get {
             preferences.retrieve(key: "dataPrivacyPresented") ?? false
@@ -229,6 +237,15 @@ class LucaPreferences {
         }
         set {
             preferences.store(newValue, key: "checkoutNotificationScheduled")
+        }
+    }
+
+    var appStoreReviewCheckoutCounter: Int {
+        get {
+            preferences.retrieve(key: "appStoreReviewCheckoutCounter") ?? 0
+        }
+        set {
+            preferences.store(newValue, key: "appStoreReviewCheckoutCounter")
         }
     }
 

@@ -3,6 +3,7 @@ import JGProgressHUD
 
 class TANReleaseViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tanLabel: UILabel!
 
     var numberOfTransferredDays: Int = 14
@@ -15,6 +16,7 @@ class TANReleaseViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged)
         self.navigationController?.setTranslucent()
         self.navigationController?.navigationBar.tintColor = .white
         DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(1000)) {
@@ -38,7 +40,9 @@ class TANReleaseViewController: UIViewController {
             DispatchQueue.main.async {
                 self.progressHud.dismiss()
 
-                self.tanLabel.text = String(formattedString.uppercased())
+                let tan = String(formattedString.uppercased())
+                self.tanLabel.text = tan
+                self.tanLabel.accessibilityLabel = tan.map { String($0) + " " }.joined()
                 UIView.animate(withDuration: 0.3) {
                     self.tanLabel.alpha = 1.0
                 }

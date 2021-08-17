@@ -33,10 +33,13 @@ extension Appointment {
         return Date(timeIntervalSince1970: TimeInterval(timestamp/1000))
     }
 
+    var expiresAt: Date {
+        /// Appointment is valid until 2h after initial timestamp
+        date.addingTimeInterval(TimeInterval((timestamp/1000) + (2 * 60 * 60)))
+    }
+
     /// recovery validation
     func isValid() -> Bool {
-        /// Appointment is valid until 2h after initial timestamp
-        let upperBoundaryTimestamp = (timestamp/1000) + (2 * 60 * 60)
-        return Date() < Date(timeIntervalSince1970: TimeInterval(upperBoundaryTimestamp))
+        return Date() < expiresAt
     }
 }

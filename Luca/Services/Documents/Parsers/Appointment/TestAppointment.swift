@@ -8,8 +8,10 @@ struct TestAppointmentPayload: Codable {
     var qrCode: String
 }
 
-class TestAppointment: Appointment & DocumentCellViewModel {
+class TestAppointment: Appointment {
     var originalCode: String
+
+    var hashSeed: String { originalCode }
 
     var timestamp: Int
 
@@ -21,6 +23,10 @@ class TestAppointment: Appointment & DocumentCellViewModel {
 
     var qrCode: String
 
+    var expiresAt: Date {
+        Calendar.current.date(byAdding: .hour, value: 2, to: Date(timeIntervalSince1970: Double(timestamp))) ?? Date()
+    }
+
     init(payload: TestAppointmentPayload, originalCode: String) {
         self.originalCode = originalCode
         self.timestamp = Int(payload.timestamp) ?? 0
@@ -28,14 +34,5 @@ class TestAppointment: Appointment & DocumentCellViewModel {
         self.lab = payload.lab
         self.address = payload.address
         self.qrCode = payload.qrCode
-    }
-
-    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AppointmentTableViewCell", for: indexPath) as! AppointmentTableViewCell
-        cell.appointment = self
-        cell.delegate = delegate
-
-        return cell
     }
 }

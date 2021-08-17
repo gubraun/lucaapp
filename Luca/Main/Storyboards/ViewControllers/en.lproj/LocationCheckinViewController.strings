@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "Check-in"; ObjectID = "EfF-wq-bZ8"; */
+"EfF-wq-bZ8.text" = "Check-in";
+
+/* Class = "UILabel"; text = "Automatischer Checkout"; ObjectID = "XsG-ab-ic2"; */
+"XsG-ab-ic2.text" = "Automatic checkout";
+
+/* Class = "UILabel"; text = "AUSCHECKEN"; ObjectID = "c9a-mq-faO"; */
+"c9a-mq-faO.text" = "CHECKOUT";

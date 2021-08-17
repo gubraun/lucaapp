@@ -22,20 +22,34 @@ extension RedeemDocumentError {
 
 }
 
-class RedeemDocumentAsyncOperation: BackendAsyncOperation<KeyValueParameters, RedeemDocumentError> {
-    init(backendAddress: BackendAddress, hash: Data, tag: Data) {
+struct RedeemDocumentParams: Codable {
+    var hash: String
+    var tag: String
+
+    /// In seconds
+    var expireAt: Int
+}
+
+class RedeemDocumentAsyncOperation: BackendAsyncOperation<RedeemDocumentParams, RedeemDocumentError> {
+    init(backendAddress: BackendAddress, hash: Data, tag: Data, expireAt: Date) {
         let fullUrl = backendAddress.apiUrl
             .appendingPathComponent("tests")
             .appendingPathComponent("redeem")
 
-        let parameters: [String: String] = [
-            "hash": hash.base64EncodedString(),
-            "tag": tag.base64EncodedString()
-        ]
+        #if PRODUCTION
+        let enableLog = false
+        #else
+        let enableLog = true
+        #endif
 
         super.init(url: fullUrl,
                    method: .post,
-                   parameters: parameters,
+                   parameters: RedeemDocumentParams(
+                    hash: hash.base64EncodedString(),
+                    tag: tag.base64EncodedString(),
+                    expireAt: Int(expireAt.timeIntervalSince1970)
+                   ),
+                   enableLog: enableLog,
                    errorMappings: [
                     409: .alreadyRedeemed,
                     429: .rateLimitReached

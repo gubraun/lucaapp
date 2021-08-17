@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Dein anonymer QR-Code:"; ObjectID = "Ir9-ee-rgw"; */
+"Ir9-ee-rgw.text" = "This is your QR code. For check-in, have it scanned at a place that uses luca.";
+
+/* Class = "UIButton"; normalTitle = "SELBST EINCHECKEN"; ObjectID = "Q5M-Jp-Bot"; */
+"Q5M-Jp-Bot.normalTitle" = "SELF CHECK-IN";
+
+/* Class = "UILabel"; text = "Einchecken"; ObjectID = "bGb-gJ-qPD"; */
+"bGb-gJ-qPD.text" = "Check-in";
+
+/* Class = "UIButton"; normalTitle = "PRIVATES TREFFEN ERSTELLEN"; ObjectID = "lwZ-sY-SBY"; */
+"lwZ-sY-SBY.normalTitle" = "CREATE A PRIVATE MEETING";

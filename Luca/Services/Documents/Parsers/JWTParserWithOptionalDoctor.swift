@@ -5,8 +5,8 @@ import RxSwift
 class JWTParserWithOptionalDoctor: JWTCoronaTestParser<MeinCoronaTestClaims> {
     init(keyProvider: DocumentKeyProvider) {
         super.init(
-            keyProvider: keyProvider) { (jwt, originalCode) -> Document in
-            return MeinCoronaTest(claims: jwt.claims, originalCode: originalCode)
+            keyProvider: keyProvider) { (jwt, originalCode, provider) -> Document in
+            return MeinCoronaTest(claims: jwt.claims, originalCode: originalCode, provider: provider)
         }
     }
 }
@@ -34,7 +34,7 @@ struct MeinCoronaTestClaims: TestClaimsWithFingerprint {
     }
 }
 
-struct MeinCoronaTest: CoronaTest & DocumentCellViewModel {
+struct MeinCoronaTest: JWTTest & CoronaTest {
     var version: Int
     var name: String
     var time: Int
@@ -43,6 +43,7 @@ struct MeinCoronaTest: CoronaTest & DocumentCellViewModel {
     var lab: String
     var doc: String?
     var originalCode: String
+    var provider: String
 
     var date: Date {
         return Date(timeIntervalSince1970: TimeInterval(time))
@@ -64,7 +65,7 @@ struct MeinCoronaTest: CoronaTest & DocumentCellViewModel {
         return result.isNegative
     }
 
-    init(claims: MeinCoronaTestClaims, originalCode: String) {
+    init(claims: MeinCoronaTestClaims, originalCode: String, provider: String) {
         self.version = claims.version
         self.name = claims.name
         self.time = claims.time
@@ -73,6 +74,7 @@ struct MeinCoronaTest: CoronaTest & DocumentCellViewModel {
         self.lab = claims.lab
         self.doc = claims.doc
         self.originalCode = originalCode
+        self.provider = provider
     }
 }
 
@@ -82,14 +84,5 @@ extension MeinCoronaTest {
         let onlyAsciiName = uppercaseFullname.components(separatedBy: CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ").inverted).joined()
         let nameHash = onlyAsciiName.sha256()
         return nameHash == name
-    }
-
-    func isValid() -> Single<Bool> {
-        Single.create { observer -> Disposable in
-            let dateIsValid = TimeInterval(time) + TimeUnit.hour(amount: 48).timeInterval > Date().timeIntervalSince1970
-            observer(.success(dateIsValid))
-
-            return Disposables.create()
-        }
     }
 }

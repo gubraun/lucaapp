@@ -1,0 +1,6 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6H2-M1-kcu"; */
+"6H2-M1-kcu.text" = "The time you set in your phone doesn't match the current time.";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "fqT-pw-T9j"; */
+"fqT-pw-T9j.normalTitle" = "GO TO SETTINGS";

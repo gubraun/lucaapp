@@ -1,9 +1,9 @@
 import UIKit
-import TTTAttributedLabel
+import Nantes
 
 class AlertWithLinkViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: TTTAttributedLabel!
+    @IBOutlet weak var descriptionLabel: NantesLabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
 
@@ -15,6 +15,8 @@ class AlertWithLinkViewController: UIViewController {
     private var url: URL?
     private var hasCancelButton = true
     private var continueButtonTitle: String?
+    private var accessibilityText: String?
+    private var accessibilityTitle: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +26,18 @@ class AlertWithLinkViewController: UIViewController {
             isModalInPresentation = true
         }
         configureSubviews()
-
-        view.accessibilityElements = [titleLabel, descriptionLabel, cancelButton, continueButton].map { $0 as Any }
     }
 
-    func setup(withTitle title: String, description: String, link: String, url: URL?, hasCancelButton: Bool = true, continueButtonTitle: String? = nil, confirmAction: (() -> Void)?, cancelAction: (() -> Void)? = nil) {
+    func setup(withTitle title: String,
+               description: String,
+               accessibilityTitle: String? = nil,
+               accessibility: String? = nil,
+               link: String,
+               url: URL?,
+               hasCancelButton: Bool = true,
+               continueButtonTitle: String? = nil,
+               confirmAction: (() -> Void)?,
+               cancelAction: (() -> Void)? = nil) {
         self.titleText = title
         self.descriptionText = description
         self.linkText = link
@@ -37,6 +46,8 @@ class AlertWithLinkViewController: UIViewController {
         self.hasCancelButton = hasCancelButton
         self.cancelAction = cancelAction
         self.continueButtonTitle = continueButtonTitle
+        self.accessibilityText = accessibility
+        self.accessibilityTitle = accessibilityTitle
     }
 
     private func configureSubviews() {
@@ -51,6 +62,7 @@ class AlertWithLinkViewController: UIViewController {
         }
 
         setupDescriptionLabel(with: description, linkText: link, url: url)
+        setupAccessibility()
     }
 
     private func setupDescriptionLabel(with description: String, linkText: String, url: URL?) {
@@ -59,11 +71,13 @@ class AlertWithLinkViewController: UIViewController {
             .foregroundColor: UIColor.black
         ]
         let attrText = NSMutableAttributedString(string: description, attributes: attributes)
-        descriptionLabel.text = attrText
+        descriptionLabel.attributedText = attrText
+        descriptionLabel.numberOfLines = 0
 
-        if let linkRange = description.range(of: linkText) {
+        if let linkRange = description.range(of: linkText),
+           let url = url {
             let linkAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.lucaPurple,
+                .foregroundColor: UIColor.black,
                 .font: UIFont.montserratDataAccessAlertDescription.bold()
             ]
             let clickedAttributes: [NSAttributedString.Key: Any] = [
@@ -73,7 +87,7 @@ class AlertWithLinkViewController: UIViewController {
 
             descriptionLabel.linkAttributes = linkAttributes
             descriptionLabel.activeLinkAttributes = clickedAttributes
-            descriptionLabel.addLink(to: url, with: NSRange(linkRange, in: description))
+            descriptionLabel.addLink(to: url, withRange: NSRange(linkRange, in: description))
         }
 
         descriptionLabel.accessibilityTraits = .link
@@ -92,8 +106,24 @@ class AlertWithLinkViewController: UIViewController {
     }
 }
 
-extension AlertWithLinkViewController: TTTAttributedLabelDelegate {
-    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+extension AlertWithLinkViewController: NantesLabelDelegate {
+    private func attributedLabel(_ label: NantesLabel, didSelectLinkWith link: URL) {
+        UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
+}
+
+// MARK: - Accessibility
+extension AlertWithLinkViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        if let accessibility = accessibilityText {
+            descriptionLabel.accessibilityLabel = accessibility
+        }
+
+        if let title = accessibilityTitle {
+            titleLabel.accessibilityLabel = title
+        }
+    }
+
 }

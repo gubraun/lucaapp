@@ -61,13 +61,22 @@ struct UbirchCoronaTest: CoronaTest {
     var result: UbirchResult
     var secret: String
     var originalCode: String
+    var hashSeed: String { originalCode }
+    var provider = "Ubirch"
 
     var date: Date {
         return Date.formatUbirchDateTimeString(dateString: testDateTime) ?? Date(timeIntervalSince1970: TimeInterval(0))
     }
 
-    var testType: String {
-        return type
+    var testType: CoronaTestType {
+        switch type.lowercased() {
+        case "pcr":
+            return .pcr
+        case "fast", "schnell":
+            return .fast
+        default:
+            return .other
+        }
     }
 
     var laboratory: String {
@@ -101,17 +110,6 @@ extension UbirchCoronaTest {
         let uppercaseAppFullname = (firstName + lastName).uppercased()
         let uppercaseTestFullname = (givenName + familyName).uppercased()
         return uppercaseAppFullname == uppercaseTestFullname
-    }
-
-    func isValid() -> Single<Bool> {
-        Single.create { observer -> Disposable in
-            let validity = type == "PCR" ? 72 : 48
-            let differenceHours = Calendar.current.dateComponents([.hour], from: self.date, to: Date()).hour ?? Int.max
-            let dateIsValid = differenceHours < validity
-            observer(.success(dateIsValid))
-
-            return Disposables.create()
-        }
     }
 }
 

@@ -49,12 +49,20 @@ class CommonBackendMisc: BackendMisc {
         FetchAccessedTracesAsyncDataOperation(backendAddress: backendAddress)
     }
 
+    func fetchTimesync() -> AsyncDataOperation<BackendError<TimesyncError>, Timesync> {
+        FetchTimesyncAsyncOperation(backendAddress: backendAddress)
+    }
+
     func fetchTestProviderKeys() -> AsyncDataOperation<BackendError<FetchTestProviderKeysError>, [TestProviderKey]> {
         FetchTestProviderKeysDataAsyncOperation(backendAddress: backendAddress)
     }
 
-    func redeemDocument(hash: Data, tag: Data) -> AsyncOperation<BackendError<RedeemDocumentError>> {
-        RedeemDocumentAsyncOperation(backendAddress: backendAddress, hash: hash, tag: tag)
+    func redeemDocument(hash: Data, tag: Data, expireAt: Date) -> AsyncOperation<BackendError<RedeemDocumentError>> {
+        RedeemDocumentAsyncOperation(backendAddress: backendAddress, hash: hash, tag: tag, expireAt: expireAt)
+    }
+
+    func releaseDocument(hash: Data, tag: Data) -> AsyncOperation<BackendError<ReleaseDocumentError>> {
+        ReleaseDocumentAsyncOperation(backendAddress: backendAddress, hash: hash, tag: tag)
     }
 }
 

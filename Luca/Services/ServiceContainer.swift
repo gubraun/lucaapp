@@ -27,7 +27,7 @@ public class ServiceContainer {
 
     var locationUpdater: LocationUpdater!
 
-    var regionMonitor: RegionMonitor!
+    var autoCheckoutService: AutoCheckoutService!
 
     var userKeysBundle: UserKeysBundle!
 
@@ -94,8 +94,6 @@ public class ServiceContainer {
 
         locationUpdater = LocationUpdater()
 
-        regionMonitor = RegionMonitor()
-
         userKeysBundle = UserKeysBundle()
         try userKeysBundle.generateKeys()
         userKeysBundle.removeUnusedKeys()
@@ -160,6 +158,14 @@ public class ServiceContainer {
                                         locationRepo: locationRepo,
                                         traceIdCoreRepo: traceIdCoreRepo)
 
+        autoCheckoutService = AutoCheckoutService(
+            keyValueRepo: keyValueRepo,
+            traceIdService: traceIdService,
+            locationUpdater: locationUpdater,
+            oldLucaPreferences: LucaPreferences.shared
+        )
+        autoCheckoutService.enable()
+
         history = HistoryService(
             preferences: UserDataPreferences(suiteName: "history"),
             historyRepo: historyRepo
@@ -190,7 +196,8 @@ public class ServiceContainer {
             healthDepartmentRepo: healthDepartmentRepo, accessedTraceIdRepo: accessedTraceIdRepo)
 
         baerCodeKeyService = BaerCodeKeyService(preferences: LucaPreferences.shared)
-        notificationService = NotificationService(traceIdService: traceIdService)
+        notificationService = NotificationService(traceIdService: traceIdService, autoCheckoutService: autoCheckoutService)
+        notificationService.enable()
 
         setupDocuments()
 
@@ -203,8 +210,9 @@ public class ServiceContainer {
         }
 
         locationUpdater.stop()
-        regionMonitor.stopRegionMonitoring()
+        autoCheckoutService.disable()
         historyListener.disable()
+        notificationService.disable()
 
         accessedTracesChecker.disposeNotificationOnMatch()
         notificationService.removePendingNotifications()
@@ -275,12 +283,12 @@ public class ServiceContainer {
 
         documentFactory = DocumentFactory()
 
-        documentFactory.register(parser: JWTParserWithOptionalDoctor(keyProvider: documentKeyProvider))
-        documentFactory.register(parser: DefaultJWTParser(keyProvider: documentKeyProvider))
 //        documentFactory.register(parser: UbirchParser())
-        documentFactory.register(parser: BaerCodeParser())
         documentFactory.register(parser: DGCParser())
         documentFactory.register(parser: AppointmentParser())
+        documentFactory.register(parser: BaerCodeParser())
+        documentFactory.register(parser: DefaultJWTParser(keyProvider: documentKeyProvider))
+        documentFactory.register(parser: JWTParserWithOptionalDoctor(keyProvider: documentKeyProvider))
 
         documentRepoService = DocumentRepoService(documentRepo: documentRepo, documentFactory: documentFactory)
         documentUniquenessChecker = DocumentUniquenessChecker(backend: backendMiscV3, keyValueRepo: keyValueRepo)
@@ -290,10 +298,13 @@ public class ServiceContainer {
             uniquenessChecker: documentUniquenessChecker)
 
         documentProcessingService.register(validator: CoronaTestIsNegativeValidator())
+        documentProcessingService.register(validator: DGCIssuerValidator())
+
+        #if !DEVELOPMENT
         documentProcessingService.register(validator: CoronaTestOwnershipValidator(preferences: LucaPreferences.shared))
         documentProcessingService.register(validator: VaccinationOwnershipValidator(preferences: LucaPreferences.shared))
         documentProcessingService.register(validator: RecoveryOwnershipValidator(preferences: LucaPreferences.shared))
-        documentProcessingService.register(validator: DGCIssuerValidator())
+        #endif
 
         #if PREPROD || PRODUCTION
         documentProcessingService.register(validator: CoronaTestValidityValidator())

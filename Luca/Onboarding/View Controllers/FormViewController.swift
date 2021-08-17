@@ -34,6 +34,7 @@ class FormViewController: UIViewController {
         nextButton.setTitle(step.buttonTitle, for: .normal)
         titleLabel.text = step.formTitle
         progressBar.progress = step.progress
+        setupAccessibility()
     }
 
     @IBAction func nextButtonPressed(_ sender: UIButton) {
@@ -56,7 +57,7 @@ class FormViewController: UIViewController {
             return
         }
         if formView.textFieldsFilledOut {
-            UIAccessibility.setFocusTo(titleLabel)
+            UIAccessibility.setFocusTo(titleLabel, notification: .screenChanged, delay: 0.8)
             print("Current page: \(pageEnum) \(String(describing: LucaPreferences.shared.emailAddress))")
             if pageEnum == .phoneNumber {
                 if LucaPreferences.shared.phoneNumberVerified {
@@ -176,6 +177,16 @@ extension FormViewController: UITextFieldDelegate {
             nextField.textField.becomeFirstResponder()
         }
         return false
+    }
+
+}
+
+// MARK: - Accessibility
+extension FormViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged)
     }
 
 }

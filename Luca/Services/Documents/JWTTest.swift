@@ -36,6 +36,11 @@ enum Result: String, Codable {
 
     case positive = "p"
     case negative = "n"
+    case unknown
+
+    public init(from decoder: Decoder) throws {
+        self = try Result(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+    }
 
     var isNegative: Bool {
         switch self {
@@ -65,7 +70,7 @@ enum Category: String, Codable {
     }
 }
 
-protocol JWTTest: CoronaTest & DocumentCellViewModel {
+protocol JWTTest: CoronaTest {
 
     var version: Int { get }
     var name: String { get }
@@ -77,25 +82,20 @@ protocol JWTTest: CoronaTest & DocumentCellViewModel {
 }
 
 extension JWTTest {
-    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {
-
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaTestTableViewCell", for: indexPath) as! CoronaTestTableViewCell
-        cell.coronaTest = self
-        cell.delegate = delegate
-
-        return cell
-    }
-}
-
-extension JWTTest {
 
     var date: Date {
         return Date(timeIntervalSince1970: TimeInterval(time))
     }
 
-    var testType: String {
-        return category.category
+    var testType: CoronaTestType {
+        switch category {
+        case .fast:
+            return .fast
+        case .pcr:
+            return .pcr
+        case .other, .unknown:
+            return .other
+        }
     }
 
     var laboratory: String {
@@ -113,14 +113,15 @@ extension JWTTest {
         return nameHash == name
     }
 
-    func isValid() -> Single<Bool> {
-        Single.create { observer -> Disposable in
-            let validity = category == .pcr ? 72.0 : 48.0
-            let dateIsValid = TimeInterval(time) + TimeUnit.hour(amount: validity).timeInterval > Date().timeIntervalSince1970
-            observer(.success(dateIsValid))
+    var hashSeed: String {
 
-            return Disposables.create()
-        }
+        // use only the first two parts of the original code
+        // and remove all whitespaces
+        originalCode
+            .filter { !$0.isWhitespace }
+            .split(separator: ".")
+            .prefix(2)
+            .joined(separator: ".")
     }
 }
 
@@ -134,8 +135,9 @@ struct JWTTestPayload: JWTTest {
     var lab: String
     var doctor: String
     var originalCode: String
+    var provider: String
 
-    init(claims: JWTTestClaims, originalCode: String) {
+    init(claims: JWTTestClaims, originalCode: String, provider: String) {
         self.version = claims.version
         self.name = claims.name
         self.time = claims.time
@@ -144,5 +146,6 @@ struct JWTTestPayload: JWTTest {
         self.lab = claims.lab
         self.doctor = claims.doctor
         self.originalCode = originalCode
+        self.provider = provider
     }
 }

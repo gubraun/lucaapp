@@ -25,4 +25,26 @@ extension UserService {
             return Disposables.create()
         }
     }
+
+    func update(data: UserRegistrationData) -> Completable {
+        Completable.create { observer in
+
+            self.update(data: data, completion: {
+                observer(.completed)
+            }) { observer(.error($0)) }
+
+            return Disposables.create()
+        }
+    }
+
+    func deleteUserData() -> Completable {
+        Completable.create { observer in
+
+            self.deleteUserData {
+                observer(.completed)
+            } failure: { observer(.error($0)) }
+
+            return Disposables.create()
+        }
+    }
 }

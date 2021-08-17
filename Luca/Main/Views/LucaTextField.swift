@@ -18,12 +18,12 @@ class LucaTextField: FormTextField {
     func setupGreyField() {
         textField.keyboardType = .numberPad
 
-        textFieldController.activeColor = .lucaLightGrey
-        textFieldController.normalColor = .lucaLightGrey
-        textFieldController.inlinePlaceholderColor = .lucaLightGrey
-        textFieldController.floatingPlaceholderActiveColor = .lucaLightGrey
-        textFieldController.floatingPlaceholderNormalColor = .lucaLightGrey
-        textFieldController.borderStrokeColor = .lucaLightGrey
+        textFieldController.activeColor = .black
+        textFieldController.normalColor = .black
+        textFieldController.inlinePlaceholderColor = .black
+        textFieldController.floatingPlaceholderActiveColor = .black
+        textFieldController.floatingPlaceholderNormalColor = .black
+        textFieldController.borderStrokeColor = .black
         textField.textColor = .black
     }
 

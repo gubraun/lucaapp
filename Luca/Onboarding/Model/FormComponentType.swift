@@ -65,14 +65,8 @@ public enum FormComponentType {
 
     var accessibilityError: String? {
         switch self {
-        case .firstName:    return L10n.UserData.Form.FirstName.accessibilityError
-        case .lastName:     return L10n.UserData.Form.LastName.accessibilityError
-        case .street:       return L10n.UserData.Form.Street.accessibilityError
-        case .houseNumber:  return L10n.UserData.Form.HouseNumber.accessibilityError
-        case .postCode:     return L10n.UserData.Form.PostCode.accessibilityError
-        case .city:         return L10n.UserData.Form.City.accessibilityError
-        case .phoneNumber:  return L10n.UserData.Form.PhoneNumber.accessibilityError
         case .email:        return nil
+        default:            return L10n.UserData.Form.Field.error
         }
     }
 

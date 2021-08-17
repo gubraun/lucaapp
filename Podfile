@@ -1,7 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 # Uncomment the next line to define a global platform for your project
- platform :ios, '12.0'
+platform :ios, '12.0'
+
+inhibit_all_warnings!
 
 def shared_podfiles
   pod 'RealmSwift', '~> 5.5.1'
@@ -37,7 +39,6 @@ target 'Luca' do
   pod 'SwiftGen', '~> 6.4.0'
   pod 'SwiftJWT', '~> 3.6.200'
   pod 'SwiftLint', '~> 0.43.1'
-  pod 'TTTAttributedLabel', '~> 2.0.0'
   pod 'Validator', '~> 3.2.1'
   
   post_install do |pi|

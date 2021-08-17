@@ -4,13 +4,12 @@ import CoreLocation
 import RxSwift
 import RxCocoa
 import RxAppState
-import MessageUI
-import DeviceKit
+import StoreKit
 
 class LocationCheckinViewController: UIViewController {
 
     @IBOutlet weak var checkinSlider: CheckinSlider!
-    @IBOutlet weak var sliderDescriptionLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var checkinDateLabel: UILabel!
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var locationNameLabel: UILabel!
@@ -19,7 +18,7 @@ class LocationCheckinViewController: UIViewController {
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var tableNumberLabel: UILabel!
     @IBOutlet weak var automaticCheckoutLabel: UILabel!
-    @IBOutlet weak var moreButtonView: UIView!
+    @IBOutlet weak var autoCheckoutView: UIView!
 
     var viewModel: LocationCheckInViewModel!
 
@@ -29,7 +28,6 @@ class LocationCheckinViewController: UIViewController {
 
     var widthSEConstraint: CGFloat = 320
 
-    private var autoCheckoutDisposeBag = DisposeBag()
     private var userStatusFetcherDisposeBag: DisposeBag?
     private var checkOutDisposeBag: DisposeBag?
 
@@ -46,14 +44,13 @@ class LocationCheckinViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
 
-        UIAccessibility.setFocusTo(locationNameLabel)
-
         initialStatusBarStyle = UIApplication.shared.statusBarStyle
         if #available(iOS 13.0, *) {
             UIApplication.shared.setStatusBarStyle(.darkContent, animated: animated)
         } else {
             UIApplication.shared.setStatusBarStyle(.default, animated: animated)
         }
+        setupAccessibility()
 
         installObservers()
         print("TEST: Will appear")
@@ -78,6 +75,15 @@ class LocationCheckinViewController: UIViewController {
         setupCheckinSlider()
     }
 
+    @IBAction func autoCheckoutViewPressed(_ sender: UITapGestureRecognizer) {
+        guard autoCheckoutView.accessibilityElementIsFocused() && UIAccessibility.isVoiceOverRunning else { return }
+        let isOn = automaticCheckoutSwitch.isOn
+        automaticCheckoutSwitch.setOn(!isOn, animated: true)
+        viewModel.isAutoCheckoutEnabled.accept(automaticCheckoutSwitch.isOn)
+        let switchState = automaticCheckoutSwitch.isOn ? L10n.LocationCheckinViewController.AutoCheckout.on : L10n.LocationCheckinViewController.AutoCheckout.off
+        autoCheckoutView.accessibilityLabel = "\(L10n.LocationCheckinViewController.autoCheckout) \(switchState)"
+    }
+
     @objc private func checkoutForAccessibility() -> Bool {
         checkout()
         return true
@@ -87,6 +93,8 @@ class LocationCheckinViewController: UIViewController {
         if checkOutDisposeBag != nil {
             return
         }
+
+        showAppStoreReview()
 
         let disposeBag = DisposeBag()
 
@@ -98,6 +106,16 @@ class LocationCheckinViewController: UIViewController {
                     let alert = UIAlertController.infoAlert(
                         title: printableError.title,
                         message: printableError.message)
+                    self.present(alert, animated: true, completion: nil)
+                } else if let localizedError = error as? LocalizedTitledError {
+                    let alert = UIAlertController.infoAlert(
+                        title: localizedError.localizedTitle,
+                        message: localizedError.localizedDescription)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    let alert = UIAlertController.infoAlert(
+                        title: L10n.Navigation.Basic.error,
+                        message: L10n.General.Failure.Unknown.message(error.localizedDescription))
                     self.present(alert, animated: true, completion: nil)
                 }
             }, onDispose: {
@@ -123,29 +141,10 @@ class LocationCheckinViewController: UIViewController {
         sliderWasSetup = true
     }
 
-    @IBAction func viewMorePressed(_ sender: UITapGestureRecognizer) {
-        let supportAction = UIAlertAction(title: L10n.General.support, style: .default) { (_) in
-            self.sendSupportEmail(viewController: self)
-        }
-
-        let additionalActions = [supportAction]
-
-        UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).dataPrivacyActionSheet(viewController: self, additionalActions: additionalActions)
-    }
-
-    func sendSupportEmail(viewController: UIViewController) {
-        if MFMailComposeViewController.canSendMail() {
-            let version = UIApplication.shared.applicationVersion ?? ""
-            let messageBody = L10n.General.Support.Email.body(Device.current.description, UIDevice.current.systemVersion, version)
-
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients([L10n.General.Support.email])
-            mail.setMessageBody(messageBody, isHTML: true)
-            present(mail, animated: true)
-        } else {
-            let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Support.error)
-            self.present(alert, animated: true, completion: nil)
+    func showAppStoreReview() {
+        LucaPreferences.shared.appStoreReviewCheckoutCounter += 1
+        if LucaPreferences.shared.appStoreReviewCheckoutCounter % 5 == 0 {
+            SKStoreReviewController.requestReview()
         }
     }
 
@@ -153,22 +152,11 @@ class LocationCheckinViewController: UIViewController {
 
     func setupViews() {
         if view.frame.size.width <= widthSEConstraint {
-            sliderDescriptionLabel.font = UIFont.montserratRegularTimer
+            timerLabel.font = UIFont.montserratRegularTimer
         }
 
         welcomeLabel.text = L10n.LocationCheckinViewController.welcomeMessage
         navigationItem.hidesBackButton = true
-
-        sliderDescriptionLabel.isAccessibilityElement = false
-        moreButtonView.accessibilityLabel = L10n.Contact.Qr.Button.more
-        moreButtonView.isAccessibilityElement = true
-
-        let accessibilityCompleteAction = UIAccessibilityCustomAction(
-            name: L10n.LocationCheckinViewController.Accessibility.directCheckout,
-            target: self,
-            selector: #selector(checkoutForAccessibility))
-
-        accessibilityCustomActions = [accessibilityCompleteAction]
     }
 
     // swiftlint:disable:next function_body_length
@@ -213,7 +201,7 @@ class LocationCheckinViewController: UIViewController {
             .disposed(by: newDisposeBag)
 
         viewModel.time
-            .drive(self.sliderDescriptionLabel.rx.text)
+            .drive(self.timerLabel.rx.text)
             .disposed(by: newDisposeBag)
 
         viewModel.isAutoCheckoutAvailable
@@ -224,6 +212,13 @@ class LocationCheckinViewController: UIViewController {
         viewModel.isAutoCheckoutAvailable
             .map { !$0 }
             .drive(self.automaticCheckoutLabel.rx.isHidden)
+            .disposed(by: newDisposeBag)
+
+        viewModel.isAutoCheckoutAvailable
+            .asObservable()
+            .subscribe(onNext: { isAvailable in
+                self.autoCheckoutView.isAccessibilityElement = isAvailable
+            })
             .disposed(by: newDisposeBag)
 
         viewModel.checkInTime
@@ -247,6 +242,12 @@ class LocationCheckinViewController: UIViewController {
             }
         }).disposed(by: newDisposeBag)
 
+        viewModel.checkInTimeDate
+            .subscribe(onSuccess: { time in
+                self.checkinDateLabel.accessibilityLabel = L10n.Checkin.Slider.date(time.accessibilityDate)
+            })
+             .disposed(by: newDisposeBag)
+
         viewModel.connect(viewController: self)
 
         userStatusFetcherDisposeBag = newDisposeBag
@@ -266,10 +267,12 @@ class LocationCheckinViewController: UIViewController {
             groupNameLabel.text = groupName
             locationNameLabel.text = locationName
             locationNameLabel.textColor = .black
+            UIAccessibility.setFocusTo(groupNameLabel, notification: .layoutChanged)
         case (.some(let groupName), nil):
             groupNameLabel.text = nil
             locationNameLabel.text = groupName
             locationNameLabel.textColor = .black
+            UIAccessibility.setFocusTo(locationNameLabel, notification: .layoutChanged)
         default:
             break
         }
@@ -278,10 +281,40 @@ class LocationCheckinViewController: UIViewController {
 
 extension LocationCheckinViewController: UnsafeAddress, LogUtil {}
 
-extension LocationCheckinViewController: MFMailComposeViewControllerDelegate {
+// MARK: - Accessibility
+extension LocationCheckinViewController {
 
-    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true)
+    private func setupAccessibility() {
+        checkinSlider.sliderType = .location
+
+        autoCheckoutView.accessibilityTraits = automaticCheckoutSwitch.accessibilityTraits
+        groupNameLabel.accessibilityTraits = .header
+        locationNameLabel.accessibilityTraits = .header
+
+        autoCheckoutView.isAccessibilityElement = true
+        timerLabel.isAccessibilityElement = false
+
+        if groupNameLabel.text != nil {
+            UIAccessibility.setFocusTo(groupNameLabel, notification: .layoutChanged, delay: 0.8)
+        } else if locationNameLabel.text != nil {
+            UIAccessibility.setFocusTo(locationNameLabel, notification: .layoutChanged, delay: 0.8)
+        }
+
+        let switchState = automaticCheckoutSwitch.isOn ? L10n.LocationCheckinViewController.AutoCheckout.on : L10n.LocationCheckinViewController.AutoCheckout.off
+        autoCheckoutView.accessibilityLabel = "\(L10n.LocationCheckinViewController.autoCheckout) \(switchState)"
+
+        setupAccessibilityAutocheckoutAction()
+
+        self.view.accessibilityElements = [groupNameLabel, locationNameLabel, welcomeLabel, checkinDateLabel, tableNumberLabel, autoCheckoutView, checkinSlider.sliderImage].map { $0 as Any }
+    }
+
+    private func setupAccessibilityAutocheckoutAction() {
+        let accessibilityCompleteAction = UIAccessibilityCustomAction(
+            name: L10n.LocationCheckinViewController.Accessibility.directCheckout,
+            target: self,
+            selector: #selector(checkoutForAccessibility))
+
+        accessibilityCustomActions = [accessibilityCompleteAction]
     }
 
 }

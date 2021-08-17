@@ -49,7 +49,7 @@ class FormView: UIView {
             textFields.append(textField)
 
             stackView.addArrangedSubview(textField)
-            textField.heightAnchor.constraint(equalToConstant: 75).isActive = true
+            textField.heightAnchor.constraint(equalToConstant: 85).isActive = true
             textField.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
             textField.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
         }
@@ -78,28 +78,27 @@ class FormView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = 5
         return stackView
     }
 
     func showErrorStatesForEmptyFields() {
-        var errorAccessibilityValue: String?
         if requirements.count == textFields.count {
             for (index, field) in textFields.enumerated() {
                 if field.textField.text == "" && requirements[index] {
-                    errorAccessibilityValue = types[index].accessibilityError
-                    field.textFieldController.setErrorText("", errorAccessibilityValue: "")
+                    let errorAccessibilityValue = types[index].accessibilityError
+                    field.textFieldController.setErrorText(errorAccessibilityValue, errorAccessibilityValue: "")
                 }
             }
         } else {
             for (index, field) in textFields.enumerated() where field.textField.text == "" {
-                errorAccessibilityValue = types[index].accessibilityError
-                field.textFieldController.setErrorText("", errorAccessibilityValue: "")
+                let errorAccessibilityValue = types[index].accessibilityError
+                field.textFieldController.setErrorText(errorAccessibilityValue, errorAccessibilityValue: "")
             }
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIAccessibility.post(notification: .announcement, argument: errorAccessibilityValue)
+            UIAccessibility.post(notification: .announcement, argument: L10n.UserData.Form.accessibilityError)
         }
     }
 

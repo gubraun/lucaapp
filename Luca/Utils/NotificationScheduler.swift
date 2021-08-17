@@ -6,15 +6,16 @@ import UserNotifications
 public class NotificationScheduler {
 
     public static let shared = NotificationScheduler()
+    public static let runtimeId = Int.random(in: 0...100)
 
-    public func scheduleNotification(title: String, message: String, date: Date? = nil, requestIdentifier: String? = nil) {
+    public func scheduleNotification(title: String, message: String, date: Date? = nil, requestIdentifier: String? = nil, threadIdentifier: String? = nil) {
 
         #if DEBUG
         let content = UNMutableNotificationContent()
 
         content.title = title
-        content.body = message
-        content.threadIdentifier = "Debug Notifications"
+        content.body = "\(message)\nRuntimeId: \(NotificationScheduler.runtimeId)"
+        content.threadIdentifier = "Debug Notifications.\(threadIdentifier)"
 
         var trigger: UNNotificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         if let dateTrigger = date {

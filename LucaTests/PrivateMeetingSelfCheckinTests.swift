@@ -30,4 +30,5 @@ class PrivateMeetingSelfCheckinTests: XCTestCase {
         let selfCheckin = PrivateMeetingSelfCheckin(urlToParse: PrivateMeetingSelfCheckinTests.CHECK_IN_URL)
         XCTAssertNotNil(selfCheckin!.additionalData.ln, "Parsed ln from additionalData should not be nil")
     }
+
 }

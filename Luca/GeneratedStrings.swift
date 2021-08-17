@@ -73,7 +73,7 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "checkin.scanner.title")
     }
     internal enum Slider {
-      /// Check-in: %@ Uhr
+      /// Check-in: %@
       internal static func date(_ p1: Any) -> String {
         return L10n.tr("Localizable", "checkin.slider.date", String(describing: p1))
       }
@@ -98,8 +98,6 @@ internal enum L10n {
       internal enum Button {
         /// CLOSE QR CODE SCANNER
         internal static let closeScanner = L10n.tr("Localizable", "contact.qr.button.closeScanner")
-        /// More Menu
-        internal static let more = L10n.tr("Localizable", "contact.qr.button.more")
         /// SELF CHECK-IN
         internal static let selfCheckin = L10n.tr("Localizable", "contact.qr.button.selfCheckin")
       }
@@ -153,6 +151,10 @@ internal enum L10n {
       internal enum Notification {
         /// A health department has requested your contact data.
         internal static let description = L10n.tr("Localizable", "data.access.notification.description")
+      }
+      internal enum Title {
+        /// Show new data request
+        internal static let accessibility = L10n.tr("Localizable", "data.access.title.accessibility")
       }
     }
     internal enum Clear {
@@ -260,6 +262,8 @@ internal enum L10n {
     internal static let dataPrivacy = L10n.tr("Localizable", "general.dataPrivacy")
     /// FAQ
     internal static let faq = L10n.tr("Localizable", "general.faq")
+    /// Key for health departments
+    internal static let healthDepartmentKey = L10n.tr("Localizable", "general.healthDepartmentKey")
     /// Imprint
     internal static let imprint = L10n.tr("Localizable", "general.imprint")
     /// https://www.luca-app.de/impressum/
@@ -268,6 +272,8 @@ internal enum L10n {
     internal static let support = L10n.tr("Localizable", "general.support")
     /// Terms of use
     internal static let termsAndConditions = L10n.tr("Localizable", "general.termsAndConditions")
+    /// luca
+    internal static let title = L10n.tr("Localizable", "general.title")
     internal enum Failure {
       internal enum InvalidCertificate {
         /// When attempting to establish a secure connection to the luca servers, we found untrusted certificates.\n\nPlease try switching your network and make sure that you're using the latest app version.
@@ -286,13 +292,17 @@ internal enum L10n {
         }
       }
     }
+    internal enum Greeting {
+      /// Hello!
+      internal static let title = L10n.tr("Localizable", "general.greeting.title")
+    }
     internal enum Support {
       /// hello@luca-app.de
       internal static let email = L10n.tr("Localizable", "general.support.email")
       /// It is not possible to send an email from this device because no email account is connected.
       internal static let error = L10n.tr("Localizable", "general.support.error")
       internal enum Email {
-        /// Dear luca support,<br><br>The following problem occurred while using the app:<br><ul><li>WHAT is the problem?</li><li>WHAT steps were taken in advance?</li></ul>[DESCRIBE PROBLEM HERE]<br><br>Device: %@<br>Operating system: iOS %@<br>App version: %@
+        /// Dear luca support,<br><br>The following problem occurred while using the app:<br><br><i>Please describe your problem and where it occurs, as precisely as possible. It would also be very helpful if you could attach a screenshot or screen capture of your problem or error message.</i><br><br><br>Device: %@<br>Operating system: iOS %@<br>App version: %@
         internal static func body(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
           return L10n.tr("Localizable", "general.support.email.body", String(describing: p1), String(describing: p2), String(describing: p3))
         }
@@ -314,6 +324,20 @@ internal enum L10n {
       internal static let link = L10n.tr("Localizable", "history.alert.link")
       /// Confirm share
       internal static let title = L10n.tr("Localizable", "history.alert.title")
+      internal enum Description {
+        /// Would you like to share your contact data and the last 14 days of your history with the health department? This is only done with your voluntary consent under article 9 (2) a) GDPR (more: %@).
+        internal static func accessibility(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "history.alert.description.accessibility", String(describing: p1))
+        }
+      }
+    }
+    internal enum Checkin {
+      internal enum Checkout {
+        /// %@ to %@
+        internal static func time(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "history.checkin.checkout.time", String(describing: p1), String(describing: p2))
+        }
+      }
     }
     internal enum Data {
       /// Shared data
@@ -330,6 +354,8 @@ internal enum L10n {
   }
 
   internal enum LocationCheckinViewController {
+    /// Automatic checkout
+    internal static let autoCheckout = L10n.tr("Localizable", "locationCheckinViewController.autoCheckout")
     /// You're checked in!
     internal static let welcomeMessage = L10n.tr("Localizable", "locationCheckinViewController.welcomeMessage")
     internal enum Accessibility {
@@ -339,6 +365,10 @@ internal enum L10n {
       internal static let directCheckout = L10n.tr("Localizable", "locationCheckinViewController.accessibility.directCheckout")
     }
     internal enum AutoCheckout {
+      /// Off
+      internal static let off = L10n.tr("Localizable", "locationCheckinViewController.autoCheckout.off")
+      /// On
+      internal static let on = L10n.tr("Localizable", "locationCheckinViewController.autoCheckout.on")
       internal enum Permission {
         internal enum BeforePrompt {
           /// data privacy - app
@@ -435,6 +465,8 @@ internal enum L10n {
 
   internal enum My {
     internal enum Luca {
+      /// Calendar
+      internal static let calendar = L10n.tr("Localizable", "my.luca.calendar")
       /// My luca
       internal static let title = L10n.tr("Localizable", "my.luca.title")
     }
@@ -442,6 +474,8 @@ internal enum L10n {
 
   internal enum Navigation {
     internal enum Basic {
+      /// AGREE
+      internal static let agree = L10n.tr("Localizable", "navigation.basic.agree")
       /// Attention!
       internal static let attention = L10n.tr("Localizable", "navigation.basic.attention")
       /// Cancel
@@ -464,6 +498,8 @@ internal enum L10n {
       internal static let yes = L10n.tr("Localizable", "navigation.basic.yes")
     }
     internal enum Tab {
+      /// Account
+      internal static let account = L10n.tr("Localizable", "navigation.tab.account")
       /// Check in
       internal static let checkin = L10n.tr("Localizable", "navigation.tab.checkin")
       /// My luca
@@ -503,6 +539,18 @@ internal enum L10n {
     internal enum Meeting {
       /// Let your guests scan the QR code to check into your meeting.
       internal static let description = L10n.tr("Localizable", "private.meeting.description")
+      internal enum Accessibility {
+        /// End meeting
+        internal static let endMeeting = L10n.tr("Localizable", "private.meeting.accessibility.endMeeting")
+        /// Guests: %d out of %d
+        internal static func guests(_ p1: Int, _ p2: Int) -> String {
+          return L10n.tr("Localizable", "private.meeting.accessibility.guests", p1, p2)
+        }
+        /// Length: %@
+        internal static func length(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "private.meeting.accessibility.length", String(describing: p1))
+        }
+      }
       internal enum Alert {
         /// When you check yourself in at a private meeting, your host can see your first and last name.\n\nPrivate meetings are used as reminders and won't be shared with health authorities.
         internal static let description = L10n.tr("Localizable", "private.meeting.alert.description")
@@ -553,15 +601,28 @@ internal enum L10n {
     }
   }
 
+  internal enum Terms {
+    internal enum Acceptance {
+      /// We are updating our terms of use and privacy policy.
+      internal static let description = L10n.tr("Localizable", "terms.acceptance.description")
+      /// https://www.luca-app.de/changes-terms-of-use-app/
+      internal static let linkChanges = L10n.tr("Localizable", "terms.acceptance.linkChanges")
+      /// Tap "AGREE" to accept the updated terms of use and privacy policy.
+      internal static let linkDescription = L10n.tr("Localizable", "terms.acceptance.linkDescription")
+      /// Changes
+      internal static let termsAndConditionsChanges = L10n.tr("Localizable", "terms.acceptance.termsAndConditionsChanges")
+    }
+  }
+
   internal enum Test {
     internal enum Add {
-      /// Add test
+      /// Add document
       internal static let title = L10n.tr("Localizable", "test.add.title")
     }
     internal enum Delete {
-      /// Do you really want to delete this test?
+      /// Do you really want to delete this document?
       internal static let description = L10n.tr("Localizable", "test.delete.description")
-      /// Delete Test
+      /// Delete document
       internal static let title = L10n.tr("Localizable", "test.delete.title")
     }
     internal enum Expiry {
@@ -579,13 +640,13 @@ internal enum L10n {
       }
       /// Rapid test
       internal static let fast = L10n.tr("Localizable", "test.result.fast")
-      /// Negative
+      /// Testresult: Negative
       internal static let negative = L10n.tr("Localizable", "test.result.negative")
       /// Other
       internal static let other = L10n.tr("Localizable", "test.result.other")
       /// PCR test
       internal static let pcr = L10n.tr("Localizable", "test.result.pcr")
-      /// Positive
+      /// Testresult: Positive
       internal static let positive = L10n.tr("Localizable", "test.result.positive")
       /// Successful
       internal static let success = L10n.tr("Localizable", "test.result.success")
@@ -606,11 +667,11 @@ internal enum L10n {
         }
       }
       internal enum Error {
-        /// Document could not be imported
+        /// The Document could not be imported
         internal static let title = L10n.tr("Localizable", "test.result.error.title")
       }
       internal enum Expiration {
-        /// Unfortunately, the test cannot be imported because it already expired.
+        /// Unfortunately, the document cannot be imported because it already expired.
         internal static let error = L10n.tr("Localizable", "test.result.expiration.error")
       }
       internal enum Name {
@@ -622,19 +683,19 @@ internal enum L10n {
       internal enum Parsing {
         /// Data couldn't be processed.
         internal static let error = L10n.tr("Localizable", "test.result.parsing.error")
-        /// Your test was added successfully.
+        /// Your document was added successfully.
         internal static let success = L10n.tr("Localizable", "test.result.parsing.success")
       }
       internal enum Positive {
-        /// Not possible to add test\n\nluca helps you to check in easily. Since positive test results are not relevant for checkin, you can only add negative results right now.
+        /// Not possible to add test\n\nluca helps you to check in easily. Since only negative test results are relevant for checking in, you can only add negative results at the moment.
         internal static let error = L10n.tr("Localizable", "test.result.positive.error")
       }
       internal enum Validation {
-        /// It was not possible to validate that this test belongs to you. Please check if your name is entered correctly in the app.
+        /// It was not possible to validate that this document belongs to you. Please check if your name is entered correctly in the app.
         internal static let error = L10n.tr("Localizable", "test.result.validation.error")
       }
       internal enum Verification {
-        /// Unfortunately, the test cannot be imported because the signature is not valid.
+        /// Unfortunately, the document cannot be imported because the signature is not valid.
         internal static let error = L10n.tr("Localizable", "test.result.verification.error")
       }
     }
@@ -671,18 +732,26 @@ internal enum L10n {
         /// This document was already imported.
         internal static let error = L10n.tr("Localizable", "test.uniqueness.redeemed.error")
       }
+      internal enum Release {
+        /// Document could not be deleted.
+        internal static let error = L10n.tr("Localizable", "test.uniqueness.release.error")
+      }
     }
   }
 
   internal enum Tests {
     internal enum Uniqueness {
       internal enum Consent {
-        /// I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The individual identifier of the test document is automatically deleted from the luca system after 72 hours of storage.
+        /// I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The document’s individual identifier is automatically deleted from the luca system after 72 hours of storage.
         internal static func description(_ p1: Any) -> String {
           return L10n.tr("Localizable", "tests.uniqueness.consent.description", String(describing: p1))
         }
         /// DSGVO
         internal static let title = L10n.tr("Localizable", "tests.uniqueness.consent.title")
+        internal enum Title {
+          /// D.S.G.V.O
+          internal static let accessibility = L10n.tr("Localizable", "tests.uniqueness.consent.title.accessibility")
+        }
       }
     }
   }
@@ -691,25 +760,27 @@ internal enum L10n {
     /// You have given no address in your data yet. Please fill it before further usage.
     internal static let addressNotFilledMessage = L10n.tr("Localizable", "userData.addressNotFilledMessage")
     internal enum Address {
-      /// Hosts usually have to collect the addresses of their guests. Therefore, in order to use luca, it's mandatory to provide your address.
+      /// Hosts usually have to collect the addresses of their guests. Therefore, in order to use luca, it's mandatory to provide your address.\n\nFields marked with * are mandatory.
       internal static let mandatory = L10n.tr("Localizable", "userData.address.mandatory")
     }
     internal enum Form {
-      /// City
+      /// Please fill out all mandatory fields to continue
+      internal static let accessibilityError = L10n.tr("Localizable", "userData.form.accessibilityError")
+      /// * City
       internal static let city = L10n.tr("Localizable", "userData.form.city")
       /// Email
       internal static let email = L10n.tr("Localizable", "userData.form.email")
-      /// First name
+      /// * First name
       internal static let firstName = L10n.tr("Localizable", "userData.form.firstName")
-      /// Number
+      /// * Number
       internal static let houseNumber = L10n.tr("Localizable", "userData.form.houseNumber")
-      /// Last name
+      /// * Last name
       internal static let lastName = L10n.tr("Localizable", "userData.form.lastName")
-      /// Phone number
+      /// * Phone number
       internal static let phoneNumber = L10n.tr("Localizable", "userData.form.phoneNumber")
-      /// Post code
+      /// * Post code
       internal static let postCode = L10n.tr("Localizable", "userData.form.postCode")
-      /// Street
+      /// * Street
       internal static let street = L10n.tr("Localizable", "userData.form.street")
       internal enum Address {
         /// Where do you live?
@@ -718,6 +789,10 @@ internal enum L10n {
       internal enum City {
         /// Please enter your city to continue.
         internal static let accessibilityError = L10n.tr("Localizable", "userData.form.city.accessibilityError")
+      }
+      internal enum Field {
+        /// This field is mandatory.
+        internal static let error = L10n.tr("Localizable", "userData.form.field.error")
       }
       internal enum FirstName {
         /// Please enter your first name to continue.
@@ -752,12 +827,16 @@ internal enum L10n {
         internal static let accessibilityError = L10n.tr("Localizable", "userData.form.street.accessibilityError")
       }
     }
+    internal enum Name {
+      /// Fields marked with * are mandatory.
+      internal static let mandatory = L10n.tr("Localizable", "userData.name.mandatory")
+    }
     internal enum Navigation {
       /// Edit contact data
       internal static let edit = L10n.tr("Localizable", "userData.navigation.edit")
     }
     internal enum Phone {
-      /// Please provide a correct mobile or landline number. This number will be used for verification. You can choose if you want to provide an email address.
+      /// Please provide a correct mobile or landline number. This number will be used for verification. You can choose if you want to provide an email address.\n\nFields marked with * are mandatory.
       internal static let mandatory = L10n.tr("Localizable", "userData.phone.mandatory")
     }
   }
@@ -828,6 +907,12 @@ internal enum L10n {
         }
         /// TAN already requested
         internal static let title = L10n.tr("Localizable", "verification.phoneNumber.timerDelay.title")
+        internal enum Message {
+          /// You have recently requested a TAN. Please wait a moment. If nothing happens, you can try again in:\n\n%@ minutes, %@ seconds
+          internal static func accessibility(_ p1: Any, _ p2: Any) -> String {
+            return L10n.tr("Localizable", "verification.phoneNumber.timerDelay.message.accessibility", String(describing: p1), String(describing: p2))
+          }
+        }
       }
     }
   }
@@ -838,15 +923,35 @@ internal enum L10n {
   }
 
   internal enum Welcome {
+    internal enum Checkboxes {
+      /// Please accept the terms of use and agree to the privacy policy to continue.
+      internal static let accessibilityError = L10n.tr("Localizable", "welcome.checkboxes.accessibilityError")
+    }
     internal enum Info {
       /// luca helps you encrypt and securely submit your contact data. With luca, you don't have to worry about your data when visiting events, restaurants, cafés or bars anymore.
       internal static let description = L10n.tr("Localizable", "welcome.info.description")
     }
+    internal enum PrivacyPolicy {
+      internal enum Link {
+        /// Privacy policy
+        internal static let accessibility = L10n.tr("Localizable", "welcome.privacyPolicy.link.accessibility")
+      }
+    }
+    internal enum TermsAndConditions {
+      internal enum Link {
+        /// Terms and Conditions
+        internal static let accessibility = L10n.tr("Localizable", "welcome.termsAndConditions.link.accessibility")
+      }
+    }
   }
 
   internal enum WelcomeViewController {
+    /// GitLab
+    internal static let gitLab = L10n.tr("Localizable", "welcomeViewController.gitLab")
     /// https://www.luca-app.de/faq/
     internal static let linkFAQ = L10n.tr("Localizable", "welcomeViewController.linkFAQ")
+    /// https://gitlab.com/lucaapp/ios
+    internal static let linkGitLab = L10n.tr("Localizable", "welcomeViewController.linkGitLab")
     /// https://luca-app.de/app-privacy-policy/
     internal static let linkPrivacyPolicy = L10n.tr("Localizable", "welcomeViewController.linkPrivacyPolicy")
     /// https://luca-app.de/app-terms-and-conditions
@@ -860,6 +965,12 @@ internal enum L10n {
       internal static let checkboxAccessibility = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkboxAccessibility")
       /// I have read and agree to the privacy policy.
       internal static let checkboxMessage = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkboxMessage")
+      internal enum Checkbox {
+        /// Confirmed: I have read and agree to the privacy policy. Double tap to unconfirm.
+        internal static let confirmed = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkbox.confirmed")
+        /// Not confirmed: I have read and agree to the privacy policy. Double tap to confirm.
+        internal static let notConfirmed = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkbox.notConfirmed")
+      }
     }
     internal enum TermsAndConditions {
       /// Terms of Use Checkbox
@@ -870,6 +981,12 @@ internal enum L10n {
       internal static let checkboxAccessibilityOn = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkboxAccessibilityOn")
       /// I accept the terms of use.
       internal static let checkboxMessage = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkboxMessage")
+      internal enum Checkbox {
+        /// Confirmed: I accept the terms of use. Double tap to unconfirm.
+        internal static let confirmed = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkbox.confirmed")
+        /// Not confirmed: I accept the terms of use. Double tap to confirm.
+        internal static let notConfirmed = L10n.tr("Localizable", "welcomeViewController.termsAndConditions.checkbox.notConfirmed")
+      }
     }
   }
 }

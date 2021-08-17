@@ -23,11 +23,14 @@
     export BACKEND_PASSWORD="[URL_ENCODED_PASSWORD]"
 ```
   
-We use three different schemes:
-- `Luca Production`
-- `Luca Development`
-- `Luca Pentest`
-- `Luca QA`
+We use following schemes:
+- `Luca Development`: development
+- `Luca QA`: manual testing
+- `Luca Pentest`: pentesting
+- `Luca Release`: release testing
+- `Luca Hotfix`: hotfix testing
+- `Luca Preprod`: final smoke testing
+- `Luca Production`: production
 
 They may behave differently as they point to different API endpoints.
  

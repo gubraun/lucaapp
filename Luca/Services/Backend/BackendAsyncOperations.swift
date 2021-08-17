@@ -8,16 +8,6 @@ import Mocker
 
 typealias KeyValueParameters = [String: String]
 
-#if DEVELOPMENT
-private let mode = "Debug"
-#elseif PENTEST
-private let mode = "Pentest"
-#elseif QA
-private let mode = "QA"
-#else
-private let mode = "Release"
-#endif
-
 #if DEBUG
 // Set this value to non nil to override ALL request status codes. When nil no mocking will be enabled
 var testedBackendError: Int?
@@ -33,7 +23,11 @@ let authorizationContent = "Basic \(authorizationCredentials)"
 
 class LucaAlamofireSessionBuilder {
 
-    static func build(pinnedCertificateHost: String, cachePolicy: NSURLRequest.CachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy, disableCache: Bool = true) -> Session {
+    static func build(
+        pinnedCertificateHost: String,
+        cachePolicy: NSURLRequest.CachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy,
+        disableCache: Bool = true,
+        enableLog: Bool = false) -> Session {
 
         let configuration = URLSessionConfiguration.af.default
 
@@ -51,8 +45,13 @@ class LucaAlamofireSessionBuilder {
         let trustManager = ServerTrustManager(
             evaluators: [ pinnedCertificateHost: PinnedCertificatesTrustEvaluator() ]
         )
+        var eventMonitors: [EventMonitor] = []
+        if enableLog {
+            eventMonitors.append(AlamofireLogger())
+        }
+        configuration.timeoutIntervalForRequest = 20
 
-        return Session(configuration: configuration, serverTrustManager: trustManager)
+        return Session(configuration: configuration, serverTrustManager: trustManager, eventMonitors: eventMonitors)
     }
 }
 
@@ -64,24 +63,29 @@ class BackendAsyncDataOperation<ParametersType, Result, RequestErrorType>: Async
     private let method: HTTPMethod
     private let errorMappings: [Int: RequestErrorType]
     private var session: Session!
+    private var requestModifier: Session.RequestModifier?
 
     init(url: URL,
          method: HTTPMethod,
          parameters: ParametersType? = nil,
          cachePolicy: NSURLRequest.CachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy,
          disableCache: Bool = true,
+         enableLog: Bool = false,
+         requestModifier: Session.RequestModifier? = nil,
          errorMappings: [Int: RequestErrorType]) {
 
         session = LucaAlamofireSessionBuilder.build(
             pinnedCertificateHost: url.host ?? "",
             cachePolicy: cachePolicy,
-            disableCache: disableCache
+            disableCache: disableCache,
+            enableLog: enableLog
         )
 
         self.url = url
         self.parameters = parameters
         self.method = method
         self.errorMappings = errorMappings
+        self.requestModifier = requestModifier
     }
 
     override func execute(completion: @escaping (Result) -> Void, failure: @escaping (BackendError<RequestErrorType>) -> Void) -> (() -> Void) {
@@ -91,7 +95,8 @@ class BackendAsyncDataOperation<ParametersType, Result, RequestErrorType>: Async
             parameters: parameters,
             encoder: JSONParameterEncoder(encoder: JSONEncoderUnescaped()),
             headers: ["User-Agent": userAgent,
-                      "Authorization": authorizationContent])
+                      "Authorization": authorizationContent],
+            requestModifier: requestModifier)
 
         for errorMapping in errorMappings {
             request = request.map(code: errorMapping.key, to: errorMapping.value)
@@ -130,24 +135,29 @@ class BackendAsyncOperation<ParametersType, RequestErrorType>: AsyncOperation<Ba
     private let method: HTTPMethod
     private let errorMappings: [Int: RequestErrorType]
     private var session: Session!
+    private var requestModifier: Session.RequestModifier?
 
     init(url: URL,
          method: HTTPMethod,
          parameters: ParametersType? = nil,
          cachePolicy: NSURLRequest.CachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy,
          disableCache: Bool = true,
+         enableLog: Bool = false,
+         requestModifier: Session.RequestModifier? = nil,
          errorMappings: [Int: RequestErrorType]) {
 
         session = LucaAlamofireSessionBuilder.build(
             pinnedCertificateHost: url.host ?? "",
             cachePolicy: cachePolicy,
-            disableCache: disableCache
+            disableCache: disableCache,
+            enableLog: enableLog
         )
 
         self.url = url
         self.parameters = parameters
         self.method = method
         self.errorMappings = errorMappings
+        self.requestModifier = requestModifier
     }
 
     override func execute(completion: @escaping () -> Void, failure: @escaping (BackendError<RequestErrorType>) -> Void) -> (() -> Void) {
@@ -157,7 +167,8 @@ class BackendAsyncOperation<ParametersType, RequestErrorType>: AsyncOperation<Ba
             parameters: parameters,
             encoder: JSONParameterEncoder(encoder: JSONEncoderUnescaped()),
             headers: ["User-Agent": userAgent,
-                      "Authorization": authorizationContent])
+                      "Authorization": authorizationContent],
+            requestModifier: requestModifier)
 
         for errorMapping in errorMappings {
             request = request.map(code: errorMapping.key, to: errorMapping.value)
@@ -197,24 +208,29 @@ class MappedBackendAsyncDataOperation<ParametersType, Result, RequestErrorType>:
     private let method: HTTPMethod
     private let errorMappings: [Int: RequestErrorType]
     private var session: Session!
+    private var requestModifier: Session.RequestModifier?
 
     init(url: URL,
          method: HTTPMethod,
          parameters: ParametersType? = nil,
          cachePolicy: NSURLRequest.CachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy,
          disableCache: Bool = true,
+         enableLog: Bool = false,
+         requestModifier: Session.RequestModifier? = nil,
          errorMappings: [Int: RequestErrorType]) {
 
         session = LucaAlamofireSessionBuilder.build(
             pinnedCertificateHost: url.host ?? "",
             cachePolicy: cachePolicy,
-            disableCache: disableCache
+            disableCache: disableCache,
+            enableLog: enableLog
         )
 
         self.url = url
         self.parameters = parameters
         self.method = method
         self.errorMappings = errorMappings
+        self.requestModifier = requestModifier
     }
 
     override func execute(completion: @escaping (Result) -> Void, failure: @escaping (BackendError<RequestErrorType>) -> Void) -> (() -> Void) {
@@ -224,7 +240,8 @@ class MappedBackendAsyncDataOperation<ParametersType, Result, RequestErrorType>:
             parameters: parameters,
             encoder: JSONParameterEncoder(encoder: JSONEncoderUnescaped()),
             headers: ["User-Agent": userAgent,
-                      "Authorization": authorizationContent])
+                      "Authorization": authorizationContent],
+            requestModifier: requestModifier)
 
         for errorMapping in errorMappings {
             request = request.map(code: errorMapping.key, to: errorMapping.value)

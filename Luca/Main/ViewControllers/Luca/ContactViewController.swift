@@ -1,8 +1,10 @@
 import UIKit
 import JGProgressHUD
+import RxSwift
 
 class ContactViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var firstNameTextField: LucaTextField!
     @IBOutlet weak var lastNameTextField: LucaTextField!
     @IBOutlet weak var emailTextField: LucaTextField!
@@ -16,6 +18,8 @@ class ContactViewController: UIViewController {
 
     private var saveButton: UIBarButtonItem!
     var phoneNumberVerificationService: PhoneNumberVerificationService?
+
+    var currentData: UserRegistrationData! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,21 +56,32 @@ class ContactViewController: UIViewController {
     }
 
     func setupViews() {
-        firstNameTextField.set(placeholder: L10n.UserData.Form.firstName, text: LucaPreferences.shared.firstName)
-        lastNameTextField.set(placeholder: L10n.UserData.Form.lastName, text: LucaPreferences.shared.lastName)
-        emailTextField.set(placeholder: L10n.UserData.Form.email, text: LucaPreferences.shared.emailAddress)
-        addressStreetTextField.set(placeholder: L10n.UserData.Form.street, text: LucaPreferences.shared.street)
-        addressHouseNumberTextField.set(placeholder: L10n.UserData.Form.houseNumber, text: LucaPreferences.shared.houseNumber)
-        addressPostCodeTextField.set(placeholder: L10n.UserData.Form.postCode, text: LucaPreferences.shared.postCode)
-        addressCityTextField.set(placeholder: L10n.UserData.Form.city, text: LucaPreferences.shared.city)
-        phoneNumberTextField.set(placeholder: L10n.UserData.Form.phoneNumber, text: LucaPreferences.shared.phoneNumber)
+        firstNameTextField.set(placeholder: L10n.UserData.Form.firstName, text: currentData.firstName)
+        lastNameTextField.set(placeholder: L10n.UserData.Form.lastName, text: currentData.lastName)
+        emailTextField.set(placeholder: L10n.UserData.Form.email, text: currentData.email)
+        addressStreetTextField.set(placeholder: L10n.UserData.Form.street, text: currentData.street)
+        addressHouseNumberTextField.set(placeholder: L10n.UserData.Form.houseNumber, text: currentData.houseNumber)
+        addressPostCodeTextField.set(placeholder: L10n.UserData.Form.postCode, text: currentData.postCode)
+        addressCityTextField.set(placeholder: L10n.UserData.Form.city, text: currentData.city)
+        phoneNumberTextField.set(placeholder: L10n.UserData.Form.phoneNumber, text: currentData.phoneNumber)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setTranslucent()
-        self.navigationController?.navigationBar.tintColor = .white
+        guard let copiedData = LucaPreferences.shared.userRegistrationData?.copy() as? UserRegistrationData else {
+
+            // It doesn't have to be localized. This error should never happen.
+            // This check is there only to get rid of the optionals and data is always there after user has been registered.
+            let alert = UIAlertController.infoAlert(title: "Error", message: "Local data is corrupted")
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        currentData = copiedData
+        setupAccessibility()
         setupViews()
+
+        // Hide save button as the data are resetted to the last saved values
+        self.navigationItem.rightBarButtonItem = nil
     }
 
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
@@ -82,79 +97,77 @@ class ContactViewController: UIViewController {
         }
 
         let alert = UIAlertController.yesOrNo(title: L10n.ContactViewController.ShouldSave.title, message: L10n.ContactViewController.ShouldSave.message, onYes: {
-            self.verifyPhoneNumber(completion: { success in
-                if success {
-                    self.save { success in
-                        if success {
-                            self.navigationItem.rightBarButtonItem = nil
+
+            _ = self.verifyPhoneNumber()
+                .andThen(self.save()).do(onSubscribe: { DispatchQueue.main.async { self.progressHud.show(in: self.view) } })
+                .andThen(Completable.from { self.navigationItem.rightBarButtonItem = nil }.subscribe(on: MainScheduler.instance))
+                .andThen(ServiceContainer.shared.documentProcessingService.revalidateSavedTests())
+                .do(onError: { [weak self] error in
+                    DispatchQueue.main.async {
+                        let errorAlert: UIViewController
+                        if let localizedError = error as? LocalizedTitledError {
+                            errorAlert = UIAlertController.infoAlert(
+                                title: localizedError.localizedTitle,
+                                message: localizedError.localizedDescription)
+                        } else {
+                            errorAlert = UIAlertController.infoAlert(
+                                title: L10n.Navigation.Basic.error,
+                                message: error.localizedDescription)
                         }
+                        self?.present(errorAlert, animated: true, completion: nil)
                     }
-                }
-            })
+                })
+                .do(onDispose: {
+                    DispatchQueue.main.async { self.progressHud.dismiss() }
+                })
+                .subscribe()
         })
         self.present(alert, animated: true, completion: nil)
     }
 
-    func verifyPhoneNumber(completion: @escaping(Bool) -> Void) {
-        if self.phoneNumberTextField.textField.text != LucaPreferences.shared.phoneNumber || !LucaPreferences.shared.phoneNumberVerified,
+    func verifyPhoneNumber() -> Completable {
+        if self.phoneNumberTextField.textField.text != currentData.phoneNumber || !LucaPreferences.shared.phoneNumberVerified,
            let phoneNumber = self.phoneNumberTextField.textField.text {
 
-            phoneNumberVerificationService = PhoneNumberVerificationService(
-                presenting: self.tabBarController ?? self,
-                backend: ServiceContainer.shared.backendSMSV3,
-                preferences: LucaPreferences.shared)
+            return Completable.create { observer in
 
-            phoneNumberVerificationService!.verify(phoneNumber: phoneNumber) { success in
-                if success {
-                    completion(true)
-                    return
+                self.phoneNumberVerificationService = PhoneNumberVerificationService(
+                    presenting: self.tabBarController ?? self,
+                    backend: ServiceContainer.shared.backendSMSV3,
+                    preferences: LucaPreferences.shared)
+
+                self.phoneNumberVerificationService!.verify(phoneNumber: phoneNumber) { success in
+                    self.phoneNumberVerificationService = nil
+                    if success {
+                        observer(.completed)
+                    } else {
+                        observer(.error(LocalizedTitledErrorValue(
+                                            localizedTitle: L10n.Navigation.Basic.error,
+                                            errorDescription: L10n.Verification.PhoneNumber.updateFailure)))
+                    }
                 }
-                let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Verification.PhoneNumber.updateFailure) {
-                    completion(false)
-                }
-                self.present(alert, animated: true, completion: nil)
+
+                return Disposables.create()
             }
+            .subscribe(on: MainScheduler.instance)
+
         } else {
-            completion(true)
+            return Completable.empty()
         }
     }
 
-    private func save(completion: @escaping (Bool) -> Void) {
-        let preferences = LucaPreferences.shared
-
-        preferences.firstName = self.firstNameTextField.textField.text?.sanitize()
-        preferences.lastName = self.lastNameTextField.textField.text?.sanitize()
-        preferences.street = self.addressStreetTextField.textField.text?.sanitize()
-        preferences.houseNumber = self.addressHouseNumberTextField.textField.text?.sanitize()
-        preferences.postCode = self.addressPostCodeTextField.textField.text?.sanitize()
-        preferences.city = self.addressCityTextField.textField.text?.sanitize()
-        preferences.phoneNumber = self.phoneNumberTextField.textField.text?.sanitize()
-        preferences.emailAddress = self.emailTextField.textField.text?.sanitize()
-
-        guard preferences.userRegistrationData != nil else {
-            log("Save: User Data couldn't be retrieved", entryType: .error)
-            return
+    private func save() -> Completable {
+        Completable.from {
+            self.currentData.firstName = self.firstNameTextField.textField.text?.sanitize()
+            self.currentData.lastName = self.lastNameTextField.textField.text?.sanitize()
+            self.currentData.street = self.addressStreetTextField.textField.text?.sanitize()
+            self.currentData.houseNumber = self.addressHouseNumberTextField.textField.text?.sanitize()
+            self.currentData.postCode = self.addressPostCodeTextField.textField.text?.sanitize()
+            self.currentData.city = self.addressCityTextField.textField.text?.sanitize()
+            self.currentData.phoneNumber = self.phoneNumberTextField.textField.text?.sanitize()
+            self.currentData.email = self.emailTextField.textField.text?.sanitize()
         }
-
-        guard preferences.uuid != nil else {
-            log("Save: User Id couldn't be retrieved!", entryType: .error)
-            return
-        }
-
-        progressHud.show(in: self.view)
-        ServiceContainer.shared.userService.uploadCurrentData {
-            DispatchQueue.main.async {
-                self.progressHud.dismiss()
-                completion(true)
-            }
-        } failure: { (error) in
-            DispatchQueue.main.async {
-                self.progressHud.dismiss()
-                let errorAlert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.ContactViewController.SaveFailed.message(error.localizedDescription))
-                self.present(errorAlert, animated: true, completion: nil)
-                completion(false)
-            }
-        }
+        .andThen(ServiceContainer.shared.userService.update(data: currentData))
     }
 
     private func dataValidation() -> Bool {
@@ -201,3 +214,13 @@ extension ContactViewController: UITextFieldDelegate {
 }
 
 extension ContactViewController: UnsafeAddress, LogUtil {}
+
+// MARK: - Accessibility
+extension ContactViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged)
+    }
+
+}

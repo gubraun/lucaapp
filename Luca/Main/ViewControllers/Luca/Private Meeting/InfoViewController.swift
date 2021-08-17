@@ -14,7 +14,16 @@ class InfoViewController: UIViewController {
         descriptionLabel.text = descriptionText
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged)
+    }
+
     @IBAction func viewPressed(_ sender: UITapGestureRecognizer) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func okButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 

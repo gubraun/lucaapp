@@ -62,6 +62,7 @@ class PrivateMeetingSelfCheckin: SelfCheckin {
 
         super.init(url: urlToParse)
     }
+
 }
 
 class TableSelfCheckin: SelfCheckin {

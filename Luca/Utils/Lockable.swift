@@ -18,6 +18,7 @@ public func synchronized<T>(_ lock: LockSynchronizer, closure: () -> T) -> T {
 
 public class Lockable<U> {
     var target: U
+    private lazy var logger: LogUtil = { StandardLog(subsystem: "Lockable", category: String(describing: self), subDomains: []) }()
     private var lock = LockSynchronizer()
     private var locked = false
     public init(target: U) {
@@ -31,11 +32,11 @@ public class Lockable<U> {
         }
         let lockedAlready = locked
         if self.locked {
-            self.log("Locking Lockable that has been locked already! Waiting for unlock...", entryType: .error)
+            logger.log("Locking Lockable that has been locked already! Waiting for unlock...", entryType: .error)
         }
         objc_sync_enter(lock)
         if lockedAlready {
-            self.log("Unlock!")
+            logger.log("Unlock!", entryType: .info)
         }
         locked = true
         return try closure()
@@ -48,11 +49,11 @@ public class Lockable<U> {
         }
         let lockedAlready = locked
         if self.locked {
-            self.log("Locking Lockable that has been locked already! Waiting for unlock...", entryType: .error)
+            logger.log("Locking Lockable that has been locked already! Waiting for unlock...", entryType: .error)
         }
         objc_sync_enter(lock)
         if lockedAlready {
-            self.log("Unlock!")
+            logger.log("Unlock!", entryType: .info)
         }
         locked = true
         return closure()
@@ -68,5 +69,3 @@ extension Lockable {
         try self.synchronized { try closure(self.target) }
     }
 }
-
-extension Lockable: LogUtil, UnsafeAddress {}

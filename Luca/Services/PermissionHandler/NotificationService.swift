@@ -6,11 +6,50 @@ public class NotificationService {
 
     private static let repeatingCheckoutNotification = "repeatingCheckoutNotification"
     private static let checkoutNotification = "checkoutNotification"
-    private var notificationCenter = UNUserNotificationCenter.current()
-    private var traceIdService: TraceIdService!
+    private let notificationCenter = UNUserNotificationCenter.current()
+    private let traceIdService: TraceIdService
+    private let autoCheckoutService: AutoCheckoutService
 
-    init(traceIdService: TraceIdService) {
+    private var disposeBag: DisposeBag?
+
+    init(traceIdService: TraceIdService, autoCheckoutService: AutoCheckoutService) {
         self.traceIdService = traceIdService
+        self.autoCheckoutService = autoCheckoutService
+
+        // Trigger delegate setting
+        print(NotificationPermissionHandler.shared.currentPermission)
+    }
+
+    /// Enables automatic check out and check in events listening
+    func enable() {
+        guard disposeBag == nil else {
+            return
+        }
+
+        let newDisposeBag = DisposeBag()
+        Observable.merge(
+                traceIdService.isCurrentlyCheckedIn.asObservable(),
+                traceIdService.isCurrentlyCheckedInChanges
+            )
+            .distinctUntilChanged()
+            .flatMapLatest { isCheckedIn in
+                self.autoCheckoutService.isFeatureFullyWorking
+                    .do(onNext: { autoCheckoutRunning in
+                        if isCheckedIn && !autoCheckoutRunning {
+                            self.addNotification()
+                        } else {
+                            self.removePendingNotifications()
+                        }
+                    })
+            }
+            .subscribe()
+            .disposed(by: newDisposeBag)
+        self.disposeBag = newDisposeBag
+    }
+
+    /// Disables automatic events listening
+    func disable() {
+        disposeBag = nil
     }
 
     func addNotification() {

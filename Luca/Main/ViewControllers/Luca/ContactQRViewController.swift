@@ -13,11 +13,8 @@ class ContactQRViewController: UIViewController {
 
     @IBOutlet weak var selfCheckinButton: UIButton!
     @IBOutlet weak var qrCodeImageView: UIImageView!
-    @IBOutlet weak var privateMeetingButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var moreButtonView: UIView!
-    @IBOutlet weak var dataAccessView: UIView!
     @IBOutlet weak var qrCodeLabelTopConstraint: NSLayoutConstraint!
 
     var scannerService: ScannerService!
@@ -25,13 +22,9 @@ class ContactQRViewController: UIViewController {
     var actionSheet: UIAlertController?
     var onCheckInDisposeBag: DisposeBag?
 
-    private var accessedTraces: [AccessedTraceId] = []
-
     /// It will be incremented on every error and resetted on viewWillAppear. If the amount of errors surpasses the threshold, an alert will be shown.
     var errorsCount = 0
     var errorsThreshold = 5
-    private var dataAccessMargin: CGFloat = 116
-    private var noDataAccessMargin: CGFloat = 20
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +37,7 @@ class ContactQRViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         // Setting it to white here instead of LicensesViewController pod
         self.navigationController?.navigationBar.tintColor = .lucaBlack
+        setupAccessibility()
 
         // In the case When checking out and returning back to this view controller, stop the scanner if it is still running
         DispatchQueue.main.async(execute: endScanner)
@@ -70,52 +64,10 @@ class ContactQRViewController: UIViewController {
         onCheckInDisposeBag = nil
     }
 
-    @IBAction func dataAccessPressed(_ sender: UITapGestureRecognizer) {
-
-        self.progressHud.show(in: self.view)
-
-        Observable.from(self.accessedTraces)
-        .flatMap { AccessedTraceIdPairer.pairAccessedTraceProperties(accessedTraceId: $0) }
-        .toArray()
-        .map { dictsArray -> [HealthDepartment: [(TraceInfo, Location)]] in
-            var retVal: [HealthDepartment: [(TraceInfo, Location)]] = [:]
-            dictsArray.forEach { dict in
-                dict.forEach { entry in
-                    retVal[entry.key] = entry.value
-                }
-            }
-            return retVal
-        }
-        .flatMap { dict in
-            return ServiceContainer.shared.accessedTracesChecker
-                .consume(accessedTraces: self.accessedTraces)
-                .andThen(Single.just(dict))
-            }
-            .observe(on: MainScheduler.instance)
-            .do(onSuccess: { dict in
-                self.showDataAccessAlert(accesses: dict)
-            })
-            .do(onDispose: { self.progressHud.dismiss() })
-            .subscribe()
-    }
-
-    func dataAccess() {
-        dataAccessView.isHidden = false
-        qrCodeLabelTopConstraint.constant = dataAccessMargin
-    }
-
-    func hideDataAccess() {
-        dataAccessView.isHidden = true
-        qrCodeLabelTopConstraint.constant = noDataAccessMargin
-    }
-
     func setupViews() {
-        privateMeetingButton.layer.borderColor = UIColor.white.cgColor
         selfCheckinButton.setTitle(L10n.Contact.Qr.Button.selfCheckin, for: .normal)
         descriptionLabel.text = L10n.Checkin.Qr.description
         titleLabel.text = L10n.Checkin.Qr.title
-        moreButtonView.accessibilityLabel = L10n.Contact.Qr.Button.more
-        moreButtonView.isAccessibilityElement = true
         qrCodeImageView.isAccessibilityElement = true
         qrCodeImageView.accessibilityLabel = L10n.Contact.Qr.Accessibility.qrCode
     }
@@ -139,19 +91,9 @@ class ContactQRViewController: UIViewController {
         }
     }
 
-    func showDataAccessAlert(onOk: (() -> Void)? = nil, accesses: [HealthDepartment: [(TraceInfo, Location)]]) {
-        let alert = AlertViewControllerFactory.createDataAccessAlertViewController(accesses: accesses, allAccessesPressed: allAccessesPressed)
-        alert.modalTransitionStyle = .crossDissolve
-        alert.modalPresentationStyle = .overCurrentContext
-        (self.tabBarController ?? self).present(alert, animated: true, completion: nil)
-    }
-
-    func allAccessesPressed() {
-        let vc = MainViewControllerFactory.createDataAccessViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-
     @IBAction func selfCheckinPressed(_ sender: UIButton) {
+        UIAccessibility.setFocusTo(titleLabel, notification: .screenChanged)
+
         if !scannerService.scannerOn {
             DispatchQueue.main.async {
                 AVCaptureDevice.authorizationStatus(for: .video) == .authorized
@@ -205,7 +147,7 @@ class ContactQRViewController: UIViewController {
                 .do(onSubscribe: { self.progressHud.show(in: self.view) })
                 .do(onDispose: { self.progressHud.dismiss() })
                 .do(onSuccess: { meeting in
-                    let vc = MainViewControllerFactory.createPrivateMeetingViewController(meeting: meeting)
+                    let vc = ViewControllerFactory.Checkin.createPrivateMeetingViewController(meeting: meeting)
                     self.navigationController?.pushViewController(vc, animated: true)
                 })
                 .do(onError: { error in
@@ -218,7 +160,7 @@ class ContactQRViewController: UIViewController {
 
     func showPrivateMeetingViewController() {
         if let meeting = ServiceContainer.shared.privateMeetingService.currentMeeting {
-            let viewController = MainViewControllerFactory.createPrivateMeetingViewController(meeting: meeting)
+            let viewController = ViewControllerFactory.Checkin.createPrivateMeetingViewController(meeting: meeting)
             navigationController?.pushViewController(viewController, animated: false)
         }
     }
@@ -228,22 +170,6 @@ class ContactQRViewController: UIViewController {
 
         let disposeBag = DisposeBag()
 
-        // Observer for the data badge
-        ServiceContainer.shared.accessedTracesChecker.accessedTraceIds
-            .map { array in array.filter({ !$0.hasBeenSeenByUser }) }
-            .logError(self, "Accessed trace IDs")
-            .asDriver(onErrorJustReturn: [])
-            .do(onNext: { accessedTraces in
-                self.accessedTraces = accessedTraces
-                if accessedTraces.isEmpty {
-                    self.hideDataAccess()
-                } else {
-                    self.dataAccess()
-                }
-            })
-            .drive()
-            .disposed(by: disposeBag)
-
         ServiceContainer.shared.traceIdService
             .onCheckInRx()
             .asDriver(onErrorDriveWith: .empty())
@@ -252,26 +178,6 @@ class ContactQRViewController: UIViewController {
                 self.showCheckinOrMeetingViewController(animated: true)
             })
             .drive()
-            .disposed(by: disposeBag)
-
-        // Trigger checkout reminder if user checks in and has autocheckout off.
-        ServiceContainer.shared.traceIdService
-            .onCheckInRx()
-            .flatMap { _ -> Completable in
-
-                let locationObservable = ServiceContainer.shared.traceIdService.fetchCurrentLocationInfo().asObservable()
-                let permissionObservable = NotificationPermissionHandler.shared.notificationSettings.take(1)
-
-                return Observable.zip(locationObservable, permissionObservable) { (location, permission) in
-
-                    NotificationPermissionHandler.shared.setPermissionValue(permission: permission)
-
-                    let autoCheckoutOff = (location.geoLocationRequired && !LucaPreferences.shared.autoCheckout) || !location.geoLocationRequired
-                    (permission == .authorized && autoCheckoutOff) ? ServiceContainer.shared.notificationService.addNotification() : ServiceContainer.shared.notificationService.removePendingNotifications()
-                }
-                .ignoreElementsAsCompletable()
-            }
-            .subscribe()
             .disposed(by: disposeBag)
 
         Observable<Int>.interval(.seconds(1), scheduler: LucaScheduling.backgroundScheduler)
@@ -332,7 +238,7 @@ class ContactQRViewController: UIViewController {
     private func remindIfPhoneNumberNotVerified() -> Bool {
         if !LucaPreferences.shared.phoneNumberVerified {
             let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.attention, message: L10n.Verification.PhoneNumber.notYetVerified) {
-                let viewController = MainViewControllerFactory.createContactViewController()
+                let viewController = ViewControllerFactory.Main.createContactViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
             present(alert, animated: true, completion: nil)
@@ -345,71 +251,11 @@ class ContactQRViewController: UIViewController {
     private func remindIfAddressNotFilled() {
         if !ServiceContainer.shared.userService.isDataComplete {
             let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.attention, message: L10n.UserData.addressNotFilledMessage) {
-                let viewController = MainViewControllerFactory.createContactViewController()
+                let viewController = ViewControllerFactory.Main.createContactViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
             present(alert, animated: true, completion: nil)
         }
-    }
-
-    @IBAction func viewMorePressed(_ sender: UITapGestureRecognizer) {
-        let resetAction = UIAlertAction(title: L10n.Data.ResetData.title, style: .default) { (_) in
-            self.deleteAccountAlert()
-        }
-
-        let editContactDataAction = UIAlertAction(title: L10n.UserData.Navigation.edit, style: .default) { (_) in
-            let vc = MainViewControllerFactory.createContactViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-
-        let supportAction = UIAlertAction(title: L10n.General.support, style: .default) { (_) in
-            self.sendSupportEmail(viewController: self)
-        }
-
-        let additionalActions = [resetAction, editContactDataAction, supportAction]
-
-        UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet)
-            .dataPrivacyActionSheet(viewController: self, additionalActions: additionalActions)
-    }
-
-    func sendSupportEmail(viewController: UIViewController) {
-        if MFMailComposeViewController.canSendMail() {
-            let version = UIApplication.shared.applicationVersion ?? ""
-            let messageBody = L10n.General.Support.Email.body(Device.current.description, UIDevice.current.systemVersion, version)
-
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients([L10n.General.Support.email])
-            mail.setMessageBody(messageBody, isHTML: true)
-            present(mail, animated: true)
-        } else {
-            let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Support.error)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-
-    func deleteAccountAlert() {
-        UIAlertController(title: L10n.Data.ResetData.title,
-                          message: L10n.Data.ResetData.description,
-                          preferredStyle: .alert)
-            .actionAndCancelAlert(actionText: L10n.Data.ResetData.title, action: {
-                ServiceContainer.shared.userService.deleteUserData(completion: {
-                    DataResetService.resetAll()
-                    self.dismiss(animated: true, completion: nil)
-                }, failure: { error in
-                    // In case account was already deleted, or account doesn't exist, reset app and begin onboarding.
-                    if let deleteError = error.error as? DeleteUserError, deleteError == .alreadyDeleted || deleteError == .userNotFound {
-                        let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: error.localizedDescription, onOk: { DataResetService.resetAll() })
-                        self.present(alert, animated: true, completion: nil)
-                    } else {
-                        let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: error.localizedDescription)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                })
-            }, viewController: self)
     }
 
     private func showCheckinOrMeetingViewController(animated: Bool) {
@@ -420,7 +266,7 @@ class ContactQRViewController: UIViewController {
         _ = ServiceContainer.shared.traceIdService.currentTraceInfo
             .observeOn(MainScheduler.instance)
             .do(onNext: { traceInfo in
-                let viewController = MainViewControllerFactory.createLocationCheckinViewController(traceInfo: traceInfo)
+                let viewController = ViewControllerFactory.Checkin.createLocationCheckinViewController(traceInfo: traceInfo)
                 self.navigationController?.pushViewController(viewController, animated: animated)
             })
             .subscribe()
@@ -434,6 +280,16 @@ extension ContactQRViewController: MFMailComposeViewControllerDelegate {
 
     public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
+    }
+
+}
+
+// MARK: - Accessibility
+extension ContactQRViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
     }
 
 }

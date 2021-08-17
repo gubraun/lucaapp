@@ -4,7 +4,7 @@ import SwiftJWT
 
 class JWTCoronaTestParser<ClaimsType>: DocumentParser where ClaimsType: ClaimsWithFingerprint & Codable {
 
-    typealias JWTToCertificate = ((JWT<ClaimsType>, String) throws -> Document)
+    typealias JWTToCertificate = ((JWT<ClaimsType>, String, String) throws -> Document)
 
     private let jwtToCertificate: JWTToCertificate
     private let keyProvider: DocumentKeyProvider
@@ -30,23 +30,28 @@ class JWTCoronaTestParser<ClaimsType>: DocumentParser where ClaimsType: ClaimsWi
         }
     }
 
-    private func verify(jwt: JWT<ClaimsType>, code: String) -> Completable {
+    // Returns the name of the successfully verified test provider
+    private func verify(jwt: JWT<ClaimsType>, code: String) -> Single<String> {
         if let fingerprint = jwt.claims.f {
             return keyProvider.get(with: fingerprint)
-                .map { $0.publicKey.data(using: .utf8) ?? Data() }
-                .flatMapCompletable { self.verifySingleKey(code: code, with: $0) }
+                .map { (key: "-----BEGIN PUBLIC KEY-----\n\($0.publicKey)\n-----END PUBLIC KEY-----", name: $0.name) }
+                .map { (data: $0.key.data(using: .utf8) ?? Data(), name: $0.name) }
+                .flatMap { (data, name) in
+                    self.verifySingleKey(code: code, with: data).andThen(Single.just(name))
+                }
         }
         return keyProvider.getAll()
-            .flatMapCompletable { keys in
+            .flatMap { keys in
                 let extractedKeys = keys
-                    .map { $0.publicKey }
-                    .map { "-----BEGIN PUBLIC KEY-----\n\($0)\n-----END PUBLIC KEY-----" }
-                    .compactMap { $0.data(using: .utf8) }
+                    .map { (key: "-----BEGIN PUBLIC KEY-----\n\($0.publicKey)\n-----END PUBLIC KEY-----", name: $0.name) }
+                    .map { (data: $0.key.data(using: .utf8), name: $0.name) }
+                    .filter { $0.data != nil }
+                    .map { ($0.data!, $0.name) }
 
                 // Observables, which emit a 1 when verification is successful. Verification errors are omitted
-                let observables = extractedKeys.map {
-                    self.verifySingleKey(code: code, with: $0)
-                        .andThen(Observable.just(1))
+                let observables = extractedKeys.map { (data, name) in
+                    self.verifySingleKey(code: code, with: data)
+                        .andThen(Observable.just(name))
                         .onErrorComplete()
                 }
 
@@ -54,14 +59,12 @@ class JWTCoronaTestParser<ClaimsType>: DocumentParser where ClaimsType: ClaimsWi
                 return Observable.merge(observables)
                     .take(1)
                     .toArray()
-                    .do(onSuccess: { array in
-
-                        // If no values, there were no matching keys. Cannot be verified.
-                        if array.isEmpty {
+                    .map { array in
+                        guard let name = array.first else {
                             throw CoronaTestProcessingError.verificationFailed
                         }
-                    })
-                    .asCompletable()
+                        return name
+                    }
             }
     }
 
@@ -87,7 +90,7 @@ class JWTCoronaTestParser<ClaimsType>: DocumentParser where ClaimsType: ClaimsWi
         return createJWT(code: parameters)
             .flatMap { jwt in
                 self.verify(jwt: jwt, code: parameters)
-                    .andThen(Single.from { try self.jwtToCertificate(jwt, parameters) })
+                    .map { name in try self.jwtToCertificate(jwt, parameters, name) }
             }
     }
 }

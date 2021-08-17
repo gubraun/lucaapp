@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Ausgestellt:"; ObjectID = "3YL-Ae-n6e"; */
+"3YL-Ae-n6e.text" = "Issued:";
+
+/* Class = "UILabel"; text = "Impfnachweis"; ObjectID = "AE4-dv-GMW"; */
+"AE4-dv-GMW.text" = "VACCINATION CERTIFICATE";
+
+/* Class = "UILabel"; text = "Impfdatum:"; ObjectID = "AXJ-rA-9EI"; */
+"AXJ-rA-9EI.text" = "Date:";
+
+/* Class = "UIButton"; normalTitle = "LÖSCHEN"; ObjectID = "iFT-Uc-U49"; */
+"iFT-Uc-U49.normalTitle" = "Delete";
+
+/* Class = "UILabel"; text = "Immunisiert"; ObjectID = "mMc-Em-Dnj"; */
+"mMc-Em-Dnj.text" = "Immunisiert";
+
+/* Class = "UILabel"; text = "Geburtstag:"; ObjectID = "uz5-zW-EgN"; */
+"uz5-zW-EgN.text" = "Date:";

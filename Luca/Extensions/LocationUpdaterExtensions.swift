@@ -13,4 +13,20 @@ extension LocationUpdater {
 
         return Observable.merge(bufferred, newLocations)
     }
+
+    var onDidEnterRegion: Observable<CLRegion> {
+        return NotificationCenter.default.rx.notification(NSNotification.Name(LocationUpdater.onDidEnterRegion), object: self)
+            .map { $0.userInfo }
+            .unwrapOptional(errorOnNil: true)
+            .map { $0["region"] as? CLRegion }
+            .unwrapOptional(errorOnNil: true)
+    }
+
+    var onDidExitRegion: Observable<CLRegion> {
+        return NotificationCenter.default.rx.notification(NSNotification.Name(LocationUpdater.onDidExitRegion), object: self)
+            .map { $0.userInfo }
+            .unwrapOptional(errorOnNil: true)
+            .map { $0["region"] as? CLRegion }
+            .unwrapOptional(errorOnNil: true)
+    }
 }

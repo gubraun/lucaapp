@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TimeDifferenceView" customModule="Luca" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="466" height="209"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9ca-uA-FEm">
+                    <rect key="frame" x="32" y="60" width="402" height="99"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="638-LZ-etz">
+                            <rect key="frame" x="0.0" y="0.0" width="20" height="99"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rih-vb-dZA">
+                                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                    <color key="tintColor" name="lucaBlack"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="RXq-uQ-z0b"/>
+                                        <constraint firstAttribute="height" constant="20" id="ZYj-tx-zDO"/>
+                                    </constraints>
+                                    <imageReference key="image" image="infoIcon"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="Rih-vb-dZA" firstAttribute="leading" secondItem="638-LZ-etz" secondAttribute="leading" id="1Ha-v3-Nrs"/>
+                                <constraint firstAttribute="trailing" secondItem="Rih-vb-dZA" secondAttribute="trailing" id="Hjx-hr-cZQ"/>
+                                <constraint firstItem="Rih-vb-dZA" firstAttribute="top" secondItem="638-LZ-etz" secondAttribute="top" id="S8h-Qs-20n"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fIw-wC-NeO">
+                            <rect key="frame" x="30" y="0.0" width="372" height="99"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Die von dir eingestellte Zeit entspricht nicht der aktuellen Zeitzone" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6H2-M1-kcu">
+                                    <rect key="frame" x="0.0" y="0.0" width="372" height="39"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                    <color key="textColor" name="lucaBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqT-pw-T9j">
+                                    <rect key="frame" x="0.0" y="59" width="372" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="VrZ-gf-oBx"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Zu den Einstellungen">
+                                        <color key="titleColor" name="lucaBlack"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="638-LZ-etz" firstAttribute="top" secondItem="9ca-uA-FEm" secondAttribute="top" id="9er-Y3-Fut"/>
+                        <constraint firstItem="638-LZ-etz" firstAttribute="leading" secondItem="9ca-uA-FEm" secondAttribute="leading" id="FHB-Ud-wGe"/>
+                        <constraint firstAttribute="bottom" secondItem="638-LZ-etz" secondAttribute="bottom" id="yss-dT-77Z"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9ca-uA-FEm" secondAttribute="trailing" constant="32" id="eDE-Z5-5tc"/>
+                <constraint firstItem="9ca-uA-FEm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="jfV-4J-XK5"/>
+                <constraint firstItem="9ca-uA-FEm" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="viE-uj-59l"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9ca-uA-FEm" secondAttribute="bottom" constant="16" id="xdU-ry-czk"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="iconImageView" destination="Rih-vb-dZA" id="0YH-mP-Ljm"/>
+                <outlet property="settingsButton" destination="fqT-pw-T9j" id="KOX-wI-DQM"/>
+                <outlet property="titleLabel" destination="6H2-M1-kcu" id="eLI-J9-aAL"/>
+            </connections>
+            <point key="canvasLocation" x="-268.1159420289855" y="-0.33482142857142855"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="infoIcon" width="16" height="16"/>
+        <namedColor name="lucaBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -13,7 +13,7 @@ protocol BackendDailyKeyV3 {
     associatedtype ErrorType: Error
 
     func retrieveDailyPubKey() -> AsyncDataOperation<ErrorType, PublicKeyFetchResultV3>
-
+    func retrievePubKey(keyId: Int) -> AsyncDataOperation<ErrorType, PublicKeyFetchResultV3>
     func retrieveIssuerKeys(issuerId: String) -> AsyncDataOperation<ErrorType, IssuerKeysFetchResultV3>
 }
 

@@ -1,20 +1,23 @@
 // Welcome View Controller
 "welcome.info.description" = "luca helps you encrypt and securely submit your contact data. With luca, you don't have to worry about your data when visiting events, restaurants, cafés or bars anymore.";
+"welcome.checkboxes.accessibilityError" = "Please accept the terms of use and agree to the privacy policy to continue.";
+"welcome.termsAndConditions.link.accessibility" = "Terms and Conditions";
+"welcome.privacyPolicy.link.accessibility" = "Privacy policy";
 
 // User Data
-"userData.form.firstName" = "First name";
+"userData.form.firstName" = "* First name";
 
-"userData.form.lastName" = "Last name";
+"userData.form.lastName" = "* Last name";
 
-"userData.form.street" = "Street";
+"userData.form.street" = "* Street";
 
-"userData.form.houseNumber" = "Number";
+"userData.form.houseNumber" = "* Number";
 
-"userData.form.postCode" = "Post code";
+"userData.form.postCode" = "* Post code";
 
-"userData.form.city" = "City";
+"userData.form.city" = "* City";
 
-"userData.form.phoneNumber" = "Phone number";
+"userData.form.phoneNumber" = "* Phone number";
 
 "userData.form.email" = "Email";
 
@@ -26,9 +29,11 @@
 
 "userData.addressNotFilledMessage" = "You have given no address in your data yet. Please fill it before further usage.";
 
-"userData.phone.mandatory" = "Please provide a correct mobile or landline number. This number will be used for verification. You can choose if you want to provide an email address.";
+"userData.name.mandatory" = "Fields marked with * are mandatory.";
 
-"userData.address.mandatory" = "Hosts usually have to collect the addresses of their guests. Therefore, in order to use luca, it's mandatory to provide your address.";
+"userData.phone.mandatory" = "Please provide a correct mobile or landline number. This number will be used for verification. You can choose if you want to provide an email address.\n\nFields marked with * are mandatory.";
+
+"userData.address.mandatory" = "Hosts usually have to collect the addresses of their guests. Therefore, in order to use luca, it's mandatory to provide your address.\n\nFields marked with * are mandatory.";
 
 "userData.navigation.edit" = "Edit contact data";
 
@@ -39,6 +44,8 @@
 "userData.form.houseNumber.accessibilityError" = "Please enter your house number to continue.";
 "userData.form.postCode.accessibilityError" = "Please enter your zip code to continue.";
 "userData.form.city.accessibilityError" = "Please enter your city to continue.";
+"userData.form.field.error" = "This field is mandatory.";
+"userData.form.accessibilityError" = "Please fill out all mandatory fields to continue";
 
 // Basic Navigation
 "navigation.basic.next" = "NEXT";
@@ -52,6 +59,8 @@
 "navigation.basic.yes" = "Yes";
 
 "navigation.basic.no" = "No";
+
+"navigation.basic.agree" = "AGREE";
 
 "navigation.basic.error" = "Error";
 
@@ -67,8 +76,10 @@
 
 "navigation.tab.health" = "My luca";
 
+"navigation.tab.account" = "Account";
+
 // Checkin
-"checkin.slider.date" = "Check-in: %@ Uhr";
+"checkin.slider.date" = "Check-in: %@";
 
 "checkin.slider.dateFormat" = "dd.MM.yyyy HH:mm";
 
@@ -86,6 +97,8 @@
 
 "history.alert.description" = "Would you like to share your contact data and the last %@ days of your history with the health department? This is only done with your voluntary consent in accordance with art. 9 (2) a) GDPR (more: %@).";
 
+"history.alert.description.accessibility" = "Would you like to share your contact data and the last 14 days of your history with the health department? This is only done with your voluntary consent under article 9 (2) a) GDPR (more: %@).";
+
 "history.alert.link" = "data privacy - app";
 
 "history.dataAccess.count" = "%@ data requests";
@@ -95,6 +108,8 @@
 "history.data.shared" = "Shared data";
 
 "history.accessibility.dataAccessButton" = "View data accesses";
+
+"history.checkin.checkout.time" = "%@ to %@";
 
 // Data release
 "dataRelease.tan.title" = "TAN";
@@ -129,6 +144,8 @@
 "verification.phoneNumber.timerDelay.title" = "TAN already requested";
 
 "verification.phoneNumber.timerDelay.message" = "You have recently requested a TAN. Please wait a moment. If nothing happens, you can try again in:\n\n%@";
+
+"verification.phoneNumber.timerDelay.message.accessibility" = "You have recently requested a TAN. Please wait a moment. If nothing happens, you can try again in:\n\n%@ minutes, %@ seconds";
 
 "verification.phoneNumber.requestFailure" = "No SMS could be sent out.";
 
@@ -217,6 +234,12 @@
 
 "locationCheckinViewController.accessibility.checkoutSlider" = "Checkout";
 
+"locationCheckinViewController.autoCheckout" = "Automatic checkout";
+
+"locationCheckinViewController.autoCheckout.on" = "On";
+
+"locationCheckinViewController.autoCheckout.off" = "Off";
+
 // MainTabBarViewController
 
 "mainTabBarViewController.userRegistrationFailure.noInternet.message" = "User could not be registered! No internet connection could be made.";
@@ -228,9 +251,15 @@
 "mainTabBarViewController.scannerFailure.message" = "Error: %@";
 
 // General
+"general.title" = "luca";
+
+"general.greeting.title" = "Hello!";
+
 "general.failure.noInternet.message" = "No internet connection could be made.";
 
 "general.dataPrivacy" = "Privacy policy";
+
+"general.healthDepartmentKey" = "Key for health departments";
 
 "general.termsAndConditions" = "Terms of use";
 
@@ -240,7 +269,7 @@
 
 "general.support.email" = "hello@luca-app.de";
 
-"general.support.email.body" = "Dear luca support,<br><br>The following problem occurred while using the app:<br><ul><li>WHAT is the problem?</li><li>WHAT steps were taken in advance?</li></ul>[DESCRIBE PROBLEM HERE]<br><br>Device: %@<br>Operating system: iOS %@<br>App version: %@";
+"general.support.email.body" = "Dear luca support,<br><br>The following problem occurred while using the app:<br><br><i>Please describe your problem and where it occurs, as precisely as possible. It would also be very helpful if you could attach a screenshot or screen capture of your problem or error message.</i><br><br><br>Device: %@<br>Operating system: iOS %@<br>App version: %@";
 
 "general.support.error" = "It is not possible to send an email from this device because no email account is connected.";
 
@@ -275,6 +304,14 @@
 
 "welcomeViewController.privacyPolicy.checkboxAccessibility" = "Privacy Policy Checkbox";
 
+"welcomeViewController.privacyPolicy.checkbox.confirmed" = "Confirmed: I have read and agree to the privacy policy. Double tap to unconfirm.";
+
+"welcomeViewController.privacyPolicy.checkbox.notConfirmed" = "Not confirmed: I have read and agree to the privacy policy. Double tap to confirm.";
+
+"welcomeViewController.termsAndConditions.checkbox.confirmed" = "Confirmed: I accept the terms of use. Double tap to unconfirm.";
+
+"welcomeViewController.termsAndConditions.checkbox.notConfirmed" = "Not confirmed: I accept the terms of use. Double tap to confirm.";
+
 "welcomeViewController.termT_C" = "terms of use";
 
 "welcomeViewController.linkT_C" = "https://luca-app.de/app-terms-and-conditions";
@@ -284,6 +321,10 @@
 "welcomeViewController.linkPrivacyPolicy" = "https://luca-app.de/app-privacy-policy/";
 
 "welcomeViewController.linkFAQ" = "https://www.luca-app.de/faq/";
+
+"welcomeViewController.gitLab" = "GitLab";
+
+"welcomeViewController.linkGitLab" = "https://gitlab.com/lucaapp/ios";
 
 // Checkin/Checkout
 "checkin.noun" = "Check-in";
@@ -318,6 +359,12 @@
 
 "private.meeting.participants.none" = "No participants.";
 
+"private.meeting.accessibility.guests" = "Guests: %d out of %d";
+
+"private.meeting.accessibility.length" = "Length: %@";
+
+"private.meeting.accessibility.endMeeting" = "End meeting";
+
 // SE Buttons
 "button.scanner.checkin" = "Self check-in";
 
@@ -351,14 +398,14 @@
 
 "contact.qr.button.closeScanner" = "CLOSE QR CODE SCANNER";
 
-"contact.qr.button.more" = "More Menu";
-
 "contact.qr.accessibility.qrCode" = "QR Code";
 
 "contact.qr.accessibility.qrCodeScanner" = "QR Code Scanner";
 
 // Data access
 "data.access.title" = "New data request";
+
+"data.access.title.accessibility" = "Show new data request";
 
 "data.access.notification.description" = "A health department has requested your contact data.";
 
@@ -375,9 +422,9 @@
 "error.network.badGateway" = "The luca Service is currently unavailable, please try again later.";
 
 // Corona Test
-"test.result.negative" = "Negative";
+"test.result.negative" = "Testresult: Negative";
 
-"test.result.positive" = "Positive";
+"test.result.positive" = "Testresult: Positive";
 
 "test.result.expiry" = "Expiry: %@";
 
@@ -397,21 +444,21 @@
 
 "test.result.duration.hours" = "%i hours";
 
-"test.result.error.title" = "Document could not be imported";
+"test.result.error.title" = "The Document could not be imported";
 
 "test.result.parsing.error" = "Data couldn't be processed.";
 
-"test.result.validation.error" = "It was not possible to validate that this test belongs to you. Please check if your name is entered correctly in the app.";
+"test.result.validation.error" = "It was not possible to validate that this document belongs to you. Please check if your name is entered correctly in the app.";
 
-"test.result.verification.error" = "Unfortunately, the test cannot be imported because the signature is not valid.";
+"test.result.verification.error" = "Unfortunately, the document cannot be imported because the signature is not valid.";
 
-"test.result.expiration.error" = "Unfortunately, the test cannot be imported because it already expired.";
+"test.result.expiration.error" = "Unfortunately, the document cannot be imported because it already expired.";
 
 "test.result.name.validation.error" = "It was not possible to validate your name. Please check if your name is entered correctly in the app.";
 
-"test.result.positive.error" = "Not possible to add test\n\nluca helps you to check in easily. Since positive test results are not relevant for checkin, you can only add negative results right now.";
+"test.result.positive.error" = "Not possible to add test\n\nluca helps you to check in easily. Since only negative test results are relevant for checking in, you can only add negative results at the moment.";
 
-"test.result.parsing.success" = "Your test was added successfully.";
+"test.result.parsing.success" = "Your document was added successfully.";
 
 "test.result.success" = "Successful";
 
@@ -419,11 +466,11 @@
 
 "test.expiry.minutes" = "m";
 
-"test.delete.title" = "Delete Test";
+"test.delete.title" = "Delete document";
 
-"test.delete.description" = "Do you really want to delete this test?";
+"test.delete.description" = "Do you really want to delete this document?";
 
-"test.add.title" = "Add test";
+"test.add.title" = "Add document";
 
 // Corona vaccine
 
@@ -444,6 +491,15 @@
 "vaccine.result.partially" = "Partially vaccinated (%i/%i)";
 
 "vaccine.result.description" = "%i. vaccination:";
+
+// Terms and conditions
+"terms.acceptance.description" = "We are updating our terms of use and privacy policy.";
+
+"terms.acceptance.termsAndConditionsChanges" = "Changes";
+
+"terms.acceptance.linkDescription" = "Tap \"AGREE\" to accept the updated terms of use and privacy policy.";
+
+"terms.acceptance.linkChanges" = "https://www.luca-app.de/changes-terms-of-use-app/";
 
 // Share data
 "data.shared.title" = "Data shared";
@@ -469,13 +525,17 @@
 // Corona Test Uniqueness
 "tests.uniqueness.consent.title" = "DSGVO";
 
-"tests.uniqueness.consent.description" = "I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The individual identifier of the test document is automatically deleted from the luca system after 72 hours of storage.";
+"tests.uniqueness.consent.title.accessibility" = "D.S.G.V.O";
+
+"tests.uniqueness.consent.description" = "I hereby declare my consent in accordance with Art. 9 (2) a) in conjunction with Art. 6 (1) 1 a) DSGVO (more: %@) to the transmission of a pseudonymized identifier during the local storage of my COVID test, recovery or vaccination certificate in the luca app. This is solely to prevent document misuse so that multiple people cannot import and use the same document. The document’s individual identifier is automatically deleted from the luca system after 72 hours of storage.";
 
 "test.uniqueness.create.randomTag.error" = "Failed to create a random tag.";
 
 "test.uniqueness.encoding.error" = "Failed to encode test data.";
 
 "test.uniqueness.redeemed.error" = "This document was already imported.";
+
+"test.uniqueness.release.error" = "Document could not be deleted.";
 
 "test.uniqueness.rate.limit.error" = "The rate limit has been reached.";
 
@@ -491,3 +551,7 @@
 "error.deleteUser.unableToBuildPayload" = "Your account could not be deleted.\n\nPlease contact our support.";
 
 "error.deleteUser.alreadyDeleted" = "Your account has already been deleted.\n\nYou can now register again.";
+
+// My luca
+"my.luca.calendar" = "Calendar";
+

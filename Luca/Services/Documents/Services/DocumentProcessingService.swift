@@ -37,7 +37,7 @@ class DocumentProcessingService {
         documentFactory.createDocument(from: qr)
             .flatMap { self.validate($0).andThen(Single.just($0)) }
             .flatMap {
-                #if PREPROD || PRODUCTION
+                #if PREPROD || PRODUCTION || QA
                 self.uniquenessChecker.redeem(document: $0).andThen(Single.just($0))
                 #else
                 Single.just($0)
@@ -60,9 +60,14 @@ class DocumentProcessingService {
             .asObservable()
             .flatMap { Observable.from($0) }
             .flatMap { document in
-                self.validate(document).catch { _ in self.documentRepoService.remove(identifier: document.identifier) }
+                self.validate(document).catch { _ in self.remove(document: document) }
             }
             .ignoreElementsAsCompletable()
+    }
+
+    func remove(document: Document) -> Completable {
+        uniquenessChecker.release(document: document)
+            .andThen(documentRepoService.remove(identifier: document.identifier))
     }
 }
 

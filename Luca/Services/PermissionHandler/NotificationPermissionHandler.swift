@@ -11,6 +11,11 @@ class NotificationPermissionHandler: PermissionHandler<UNAuthorizationStatus> {
 
     var _bufferedPermission: UNAuthorizationStatus = .notDetermined
 
+    override init() {
+        super.init()
+        UNUserNotificationCenter.current().delegate = self
+    }
+
     override var currentPermission: UNAuthorizationStatus {
         return _bufferedPermission
     }
@@ -39,16 +44,15 @@ class NotificationPermissionHandler: PermissionHandler<UNAuthorizationStatus> {
         }
     }
 
-    func setPermissionValue(permission: UNAuthorizationStatus) {
+    private func setPermissionValue(permission: UNAuthorizationStatus) {
         _bufferedPermission = permission
     }
 
-    func onNotificationPermissionChanged() {
+    private func onNotificationPermissionChanged() {
         NotificationCenter.default.post(Notification(name: Notification.Name(Self.onNotificationPermissionChanged), object: self, userInfo: nil))
     }
 
     func requestAuthorization(viewController: UIViewController) {
-        UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { didAllow, _ in
             self.onNotificationPermissionChanged()
 

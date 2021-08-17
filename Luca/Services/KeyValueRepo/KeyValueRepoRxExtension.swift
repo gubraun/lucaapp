@@ -3,7 +3,7 @@ import RxSwift
 
 extension KeyValueRepoProtocol {
 
-    func store<T>(_ key: String, value: T) -> Completable where T: Encodable {
+    func store<T>(_ key: String, value: T) -> Completable where T: Codable {
         Completable.create { (observer) -> Disposable in
 
             self.store(key, value: value) {
@@ -15,7 +15,7 @@ extension KeyValueRepoProtocol {
             return Disposables.create()
         }
     }
-    func load<T>(_ key: String, type: T.Type) -> Single<T> where T: Decodable {
+    func load<T>(_ key: String, type: T.Type) -> Single<T> where T: Codable {
         Single.create { (observer) -> Disposable in
 
             self.load(key, type: type) { (value) in

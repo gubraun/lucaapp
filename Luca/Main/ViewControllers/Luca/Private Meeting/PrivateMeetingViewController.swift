@@ -8,9 +8,12 @@ class PrivateMeetingViewController: UIViewController {
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var guestsLabel: UILabel!
-    @IBOutlet weak var moreButtonView: UIView!
     @IBOutlet weak var slider: CheckinSlider!
     @IBOutlet weak var sliderLabel: UILabel!
+    @IBOutlet weak var lengthStackView: UIStackView!
+    @IBOutlet weak var guestsStackView: UIStackView!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var endMeetingLabel: UILabel!
 
     var initialStatusBarStyle: UIStatusBarStyle?
 
@@ -22,6 +25,14 @@ class PrivateMeetingViewController: UIViewController {
                 .map { $0! }
                 .map { "\($0.fn) \($0.ln)" }
             uniqueGuests = Array(Set(guests))
+
+            if meeting != nil && infoButton != nil {
+                infoButton.isHidden = uniqueGuests.isEmpty
+            }
+            if guestsStackView != nil && meeting != nil {
+                guestsStackView.isAccessibilityElement = true
+                guestsStackView.accessibilityLabel = L10n.Private.Meeting.Accessibility.guests(meeting.guests.filter { $0.isCheckedIn }.count, uniqueGuests.count)
+            }
         }
     }
 
@@ -32,6 +43,7 @@ class PrivateMeetingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        infoButton.isHidden = true
         if let url = try? ServiceContainer.shared.privateMeetingQRCodeBuilderV3.build(scannerId: meeting.ids.scannerId).generatedUrl,
            let data = url.data(using: .utf8) {
             setupQrImage(qrCodeData: data)
@@ -41,6 +53,7 @@ class PrivateMeetingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
 
         initialStatusBarStyle = UIApplication.shared.statusBarStyle
         if #available(iOS 13.0, *) {
@@ -48,8 +61,6 @@ class PrivateMeetingViewController: UIViewController {
         } else {
             UIApplication.shared.setStatusBarStyle(.default, animated: animated)
         }
-
-        UIAccessibility.setFocusTo(titleLabel)
 
         CheckinTimer.shared.delegate = self
         startTimer()
@@ -122,10 +133,6 @@ class PrivateMeetingViewController: UIViewController {
         sliderWasSetup = true
     }
 
-    @IBAction func viewMorePressed(_ sender: UITapGestureRecognizer) {
-        UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).dataPrivacyActionSheet(viewController: self)
-    }
-
     func endMeeting() {
         ServiceContainer.shared.privateMeetingService.close(meeting: meeting) {
             DispatchQueue.main.async {
@@ -152,7 +159,7 @@ class PrivateMeetingViewController: UIViewController {
     }
 
     func presentInfoViewController(titleText: String, descriptionText: String) {
-        let viewController = AlertViewControllerFactory.createInfoViewController(titleText: titleText, descriptionText: descriptionText)
+        let viewController = ViewControllerFactory.Alert.createInfoViewController(titleText: titleText, descriptionText: descriptionText)
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overFullScreen
         present(viewController, animated: true, completion: nil)
@@ -163,10 +170,8 @@ class PrivateMeetingViewController: UIViewController {
         navigationItem.hidesBackButton = true
         descriptionLabel.text = L10n.Private.Meeting.description
         guestsLabel.text = "\(self.meeting.guests.filter { $0.isCheckedIn }.count)\\\(uniqueGuests.count)"
-        moreButtonView.accessibilityLabel = L10n.Contact.Qr.Button.more
-        moreButtonView.isAccessibilityElement = true
-        qrImageView.isAccessibilityElement = true
-        qrImageView.accessibilityLabel = L10n.Contact.Qr.Accessibility.qrCode
+        slider.sliderType = .privateMeeting
+        setupAccessibility()
     }
 
     func setupQrImage(qrCodeData: Data) {
@@ -194,8 +199,33 @@ extension PrivateMeetingViewController: TimerDelegate {
 
     func timerDidTick() {
         timerLabel.text = CheckinTimer.shared.counter.formattedTimeString
+        lengthStackView.isAccessibilityElement = true
+        lengthStackView.accessibilityLabel = L10n.Private.Meeting.Accessibility.length(CheckinTimer.shared.counter.formattedTimeString)
     }
 
 }
 
 extension PrivateMeetingViewController: LogUtil, UnsafeAddress {}
+
+// MARK: - Accessibility
+extension PrivateMeetingViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        qrImageView.isAccessibilityElement = true
+        lengthStackView.isAccessibilityElement = true
+        guestsStackView.isAccessibilityElement = true
+
+        qrImageView.accessibilityLabel = L10n.Contact.Qr.Accessibility.qrCode
+        if let text = timerLabel.text {
+            lengthStackView.accessibilityLabel = L10n.Private.Meeting.Accessibility.length(text)
+        }
+
+        let guests = self.meeting.guests.filter { $0.isCheckedIn }.count
+        let totalGuests = uniqueGuests.count
+        guestsStackView.accessibilityLabel = L10n.Private.Meeting.Accessibility.guests(guests, totalGuests)
+
+        self.view.accessibilityElements = [titleLabel, descriptionLabel, qrImageView, lengthStackView, guestsStackView, infoButton, slider.sliderImage].map { $0 as Any}
+    }
+
+}

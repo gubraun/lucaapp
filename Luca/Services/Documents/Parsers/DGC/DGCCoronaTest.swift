@@ -20,15 +20,17 @@ enum DGCCoronaTestType: String, Codable {
     }
 }
 
-struct DGCCoronaTest: CoronaTest & DocumentCellViewModel {
+struct DGCCoronaTest: CoronaTest {
     var firstName: String
     var lastName: String
     var dateRaw: String
     var date: Date
-    var testType: String
+    var testType: CoronaTestType
     var laboratory: String
     var isNegative: Bool
     var originalCode: String
+    var hashSeed: String { originalCode }
+    var provider = "DGC"
 
     var issuer: String
     var doctor: String { issuer }
@@ -38,27 +40,24 @@ struct DGCCoronaTest: CoronaTest & DocumentCellViewModel {
         self.lastName = cert.lastName
         self.dateRaw = test.sampleTimeRaw
         self.date = test.sampleTime
-        self.testType = DGCCoronaTestType(rawValue: test.type)!.category
         self.isNegative = test.resultNegative
         self.laboratory = test.testCenter
         self.issuer = test.issuer
         self.originalCode = originalCode
+
+        switch DGCCoronaTestType(rawValue: test.type) ?? .unknown {
+        case .fast:
+            self.testType = .fast
+        case .pcr:
+            self.testType = .pcr
+        case .unknown:
+            self.testType = .other
+        }
     }
 
     func belongsToUser(withFirstName firstName: String, lastName: String) -> Bool {
         let uppercaseAppFullname = (firstName + lastName).uppercased()
         let uppercaseTestFullname = (self.firstName + self.lastName).uppercased()
         return uppercaseAppFullname == uppercaseTestFullname
-    }
-
-    func isValid() -> Single<Bool> {
-        Single.create { observer -> Disposable in
-            let validity = DGCCoronaTestType(rawValue: self.testType) == .pcr ? 72 : 48
-            let differenceHours = Calendar.current.dateComponents([.hour], from: self.date, to: Date()).hour ?? Int.max
-            let dateIsValid = differenceHours < validity
-            observer(.success(dateIsValid))
-
-            return Disposables.create()
-        }
     }
 }

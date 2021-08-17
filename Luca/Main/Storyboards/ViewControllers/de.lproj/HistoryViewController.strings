@@ -1,0 +1,11 @@
+
+/* Class = "UIButton"; normalTitle = "HISTORIE FREIGEBEN"; ObjectID = "K8H-9H-hgX"; */
+"K8H-9H-hgX.normalTitle" = "HISTORIE FREIGEBEN";
+
+/* Class = "UILabel"; text = "Historie"; ObjectID = "goB-bZ-B8W"; */
+"goB-bZ-B8W.text" = "Historie";
+
+/* Class = "UIButton"; normalTitle = "HISTORIE LÖSCHEN"; ObjectID = "pOR-kw-F9a"; */
+"pOR-kw-F9a.normalTitle" = "HISTORIE LÖSCHEN";
+
+"PVH-HK-MgZ.text" = "Deine Historie sammelt alle Aktivitäten der letzten 14 Tage. Im Moment hast du keine Einträge aus diesem Zeitraum.";

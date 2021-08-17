@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-struct BaerCodeCoronaTest: CoronaTest & DocumentCellViewModel {
+struct BaerCodeCoronaTest: CoronaTest {
     var version: Int
     var firstName: String
     var lastName: String
@@ -10,6 +10,8 @@ struct BaerCodeCoronaTest: CoronaTest & DocumentCellViewModel {
     var procedureOperator: String
     var result: Bool
     var originalCode: String
+    var hashSeed: String { originalCode }
+    var provider = "BärCode"
 
     init(payload: BaerCodePayload, originalCode: String) {
         self.version = payload.version
@@ -27,9 +29,15 @@ struct BaerCodeCoronaTest: CoronaTest & DocumentCellViewModel {
         return Date(timeIntervalSince1970: TimeInterval(date))
     }
 
-    var testType: String {
-        let type = procedures[0].type
-        return type.category
+    var testType: CoronaTestType {
+        switch procedures[0].type {
+        case .fast:
+            return .fast
+        case .pcr:
+            return .pcr
+        default:
+            return .other
+        }
     }
 
     var laboratory: String {
@@ -60,32 +68,5 @@ struct BaerCodeCoronaTest: CoronaTest & DocumentCellViewModel {
         let uppercaseAppFullname = (firstName + lastName).uppercased()
         let uppercaseTestFullname = (self.firstName + self.lastName).uppercased()
         return uppercaseAppFullname == uppercaseTestFullname
-    }
-
-    func isValid() -> Single<Bool> {
-        Single.create { observer -> Disposable in
-            var validity = 0.0
-            switch procedures[0].type {
-            case .fast:
-                validity = 48.0
-            case .pcr:
-                validity = 72.0
-            default:
-                validity = Double.greatestFiniteMagnitude
-            }
-            let dateIsValid = TimeInterval(procedures[0].date) + TimeUnit.hour(amount: validity).timeInterval > Date().timeIntervalSince1970
-            observer(.success(dateIsValid))
-
-            return Disposables.create()
-        }
-    }
-
-    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaTestTableViewCell", for: indexPath) as! CoronaTestTableViewCell
-        cell.coronaTest = self
-        cell.delegate = delegate
-
-        return cell
     }
 }

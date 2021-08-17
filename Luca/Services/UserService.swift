@@ -117,9 +117,13 @@ class UserService {
         return user.personalDataComplete
     }
 
-    func uploadCurrentData(completion: @escaping () -> Void, failure: @escaping (UserServiceError) -> Void) {
-        guard let userData = preferences.userRegistrationData,
-              userData.dataComplete else {
+    /// Updates data in the backend and saves the new object to the local preferences when succeeded.
+    /// - Parameters:
+    ///   - data: Data to upload
+    ///   - completion: Will be called after data is updated and locally saved
+    ///   - failure: Will be called when something went wrong
+    func update(data: UserRegistrationData, completion: @escaping () -> Void, failure: @escaping (UserServiceError) -> Void) {
+        guard data.dataComplete else {
             log("Upload current data: local data incomplete", entryType: .error)
             failure(.localDataIncomplete)
             return
@@ -130,8 +134,9 @@ class UserService {
             failure(.localDataIncomplete)
             return
         }
-        backend.update(userId: userId, userData: userData)
+        backend.update(userId: userId, userData: data)
             .execute {
+                self.preferences.userRegistrationData = data
                 NotificationCenter.default.post(Notification(name: Notification.Name(self.onUserUpdated), object: self, userInfo: nil))
                 completion()
             } failure: { error in

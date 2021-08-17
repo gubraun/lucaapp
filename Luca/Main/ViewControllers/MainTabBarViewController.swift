@@ -13,15 +13,16 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         delegate = self
 
+        tabBar.barTintColor = .black
+        tabBar.backgroundColor = .black
+        tabBar.tintColor = .white
+        tabBar.isTranslucent = false
+
         let borderView = UIView(frame: CGRect(x: 0, y: 0, width: tabBar.frame.size.width, height: 1))
         borderView.backgroundColor = .lucaGrey
         tabBar.addSubview(borderView)
 
-        if let tabBarItems = tabBar.items {
-            tabBarItems[0].title = L10n.Navigation.Tab.checkin
-            tabBarItems[1].title = L10n.Navigation.Tab.health
-            tabBarItems[2].title = L10n.Navigation.Tab.history
-        }
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
     }
 
     override func viewDidLayoutSubviews() {
@@ -97,7 +98,7 @@ class MainTabBarViewController: UITabBarController {
     }
 
     private func parseQRCode(testString: String) {
-        let alert = AlertViewControllerFactory.createTestPrivacyConsent(confirmAction: {
+        let alert = ViewControllerFactory.Alert.createTestPrivacyConsent(confirmAction: {
             ServiceContainer.shared.documentProcessingService
                 .parseQRCode(qr: testString)
                 .subscribe(onError: { error in

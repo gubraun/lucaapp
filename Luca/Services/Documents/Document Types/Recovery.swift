@@ -36,4 +36,6 @@ extension Recovery {
     func isValid() -> Bool {
         return Date() < validUntilDate
     }
+
+    var expiresAt: Date { validUntilDate }
 }

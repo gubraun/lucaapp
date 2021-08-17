@@ -68,6 +68,12 @@ extension RealmKeyValueRepoError {
     }
 }
 
+private struct ValueWrapper<T>: Codable where T: Codable {
+
+    // This name is on purpose cryptic to reduce the probability of collisions with other custom data types
+    var __temporaryValueWrapper: T
+}
+
 class RealmKeyValueRepo: KeyValueRepoProtocol {
 
     private let underlying: RealmKeyValueUnderlyingRepo
@@ -76,8 +82,8 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
         underlying = RealmKeyValueUnderlyingRepo(key: key)
     }
 
-    func store<T>(_ key: String, value: T, completion: @escaping (() -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Encodable {
-        guard let data = try? JSONEncoder().encode(value) else {
+    func store<T>(_ key: String, value: T, completion: @escaping (() -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Codable {
+        guard let data = try? JSONEncoder().encode(ValueWrapper(__temporaryValueWrapper: value)) else {
             failure(RealmKeyValueRepoError.encodingFailed)
             return
         }
@@ -88,15 +94,25 @@ class RealmKeyValueRepo: KeyValueRepoProtocol {
         )
     }
 
-    func load<T>(_ key: String, type: T.Type, completion: @escaping ((T) -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Decodable {
+    func load<T>(_ key: String, type: T.Type, completion: @escaping ((T) -> Void), failure: @escaping ((LocalizedTitledError) -> Void)) where T: Codable {
         underlying.restore { (entries) in
             guard let entry = entries.first(where: { $0.key == key }) else {
                 failure(RealmKeyValueRepoError.objectNotFound)
                 return
             }
-            guard let decoded = try? JSONDecoder().decode(T.self, from: entry.data) else {
-                failure(RealmKeyValueRepoError.decodingFailed)
-                return
+            let decoded: T
+
+            // There may be some old values written without wrapper so try to do it first
+            if let firstAttempt = try? JSONDecoder().decode(T.self, from: entry.data) {
+                decoded = firstAttempt
+            } else {
+
+                // if that didn't work, try to decode it with the wrapper
+                guard let secondAttempt = try? JSONDecoder().decode(ValueWrapper<T>.self, from: entry.data) else {
+                    failure(RealmKeyValueRepoError.decodingFailed)
+                    return
+                }
+                decoded = secondAttempt.__temporaryValueWrapper
             }
             completion(decoded)
         } failure: { (error) in

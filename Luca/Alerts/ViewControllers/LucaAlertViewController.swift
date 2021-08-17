@@ -28,6 +28,11 @@ class LucaAlertViewController: UIViewController {
     var onFirstButtonAction: (() -> Void)?
     var __onDidDisappear: (() -> Void)?
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupAccessibility()
+    }
+
     @IBAction func onFirstButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
         onFirstButtonAction?()
@@ -37,4 +42,14 @@ class LucaAlertViewController: UIViewController {
         super.viewDidDisappear(animated)
         __onDidDisappear?()
     }
+}
+
+// MARK: - Accessibility
+extension LucaAlertViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .screenChanged, delay: 0.8)
+    }
+
 }

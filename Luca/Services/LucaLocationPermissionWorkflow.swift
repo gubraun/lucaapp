@@ -4,9 +4,11 @@ import CoreLocation
 
 class LucaLocationPermissionWorkflow {
 
-    /// It tries to retrieve the location permission whenInUse. It does not fail, it will just emit the best permission it could get from the user
+    /// It tries to retrieve the location permission `whenInUse`. It does not fail, it will just emit the best permission it could get from the user
     /// - parameter alertToShowBefore: A completable with an explanation why this feature is needed. Leave it empty to do nothing and to rely only on system prompts
-    static func tryToAcquireLocationPermissionWhenInUse(alertToShowBefore infoAlert: Completable = Completable.empty()) -> Single<CLAuthorizationStatus> {
+    static func tryToAcquireLocationPermissionWhenInUse(
+        alertToShowBefore infoAlert: Completable = Completable.empty()
+    ) -> Single<CLAuthorizationStatus> {
         return LocationPermissionHandler.shared
             .permissionChanges
             .take(1)
@@ -21,14 +23,15 @@ class LucaLocationPermissionWorkflow {
                     return infoAlert                                                                    // Show our info alert
                         .andThen(LocationPermissionHandler.shared.request(.authorizedWhenInUse))        // Prompt user
                         .andThen(LocationPermissionHandler.shared.permissionChanges.skip(1).take(1))    // Skip the first value (it's the current permission) and await the first value after that
-                        .ignoreElementsAsCompletable()                                                               // Ignore elements and wait for complete
+                        .ignoreElementsAsCompletable()                                                  // Ignore elements and wait for complete
                 }
 
                 // If it's denied or unknown, inform user that he should change the settings
                 return infoAlert                                                                        // Show our info alert
+                    .subscribe(on: MainScheduler.instance)
                     .andThen(Completable.from { UIApplication.shared.openApplicationSettings() })
                     .andThen(UIApplication.shared.rx.didOpenApp.take(1))                                // Wait for user to come back
-                    .ignoreElementsAsCompletable()                                                                   // Complete
+                    .ignoreElementsAsCompletable()                                                      // Complete
             }
             .ignoreElementsAsCompletable()// Up until this moment user should have granted the permissions, if not, force him to do it or leave it be.
             .andThen(LocationPermissionHandler.shared.permissionChanges.take(1))
@@ -36,31 +39,52 @@ class LucaLocationPermissionWorkflow {
             .debug("AUTH CHAIN TEST")
     }
 
-    static func tryToAcquireLocationPermissionAlways(alertToShowBefore infoAlert: Completable = Completable.empty(),
-                                                     alertToShowIfDenied locationDeniedAlert: Completable = Completable.empty()) -> Single<CLAuthorizationStatus> {
-        return LocationPermissionHandler.shared
+    /// Tries to acquire location permission `always`
+    /// - Parameters:
+    ///   - alertToShowBefore: Alert to be shown before the user will be asked for the permission. Leave it empty to rely only on system prompts
+    ///   - alertToShowIfDenied: Alert to be shown if user denies the permission. Leave it empty if no alert should be shown
+    /// - Returns: A `Single` that emits the acquired permission
+    static func tryToAcquireLocationPermissionAlways(
+        alertToShowBefore infoAlert: Completable = Completable.empty(),
+        alertToShowIfDenied locationDeniedAlert: Completable = Completable.empty(),
+        alertsToShowForSelectedScenarios: ((CLAuthorizationStatus) -> Completable)? = nil
+    ) -> Single<CLAuthorizationStatus> {
+
+        LocationPermissionHandler.shared
             .permissionChanges
             .take(1)
-            .flatMap { (currentStatus: CLAuthorizationStatus) -> Observable<CLAuthorizationStatus> in
+            .flatMap { (currentStatus: CLAuthorizationStatus) -> Completable in
                 if currentStatus == .notDetermined {
                     return infoAlert
                         .andThen(LocationPermissionHandler.shared.request(.authorizedWhenInUse))
-                        .andThen(LocationPermissionHandler.shared.permissionChanges.skip(1).take(1))
+                        .andThen(LocationPermissionHandler.shared.permissionChanges.skip(1).take(1)
+                            .flatMap { permission -> Completable in
+                                if permission == .denied {
+                                    return locationDeniedAlert
+                                } else {
+                                    return handleOtherPermissions(permission: permission, alerts: alertsToShowForSelectedScenarios)
+                                }
+                            }
+                        )
+                        .ignoreElementsAsCompletable()
                 }
-                return Observable.just(currentStatus)
-            }.flatMap { permission -> Observable<Void> in
-                if permission != .authorizedAlways {
-                    return locationDeniedAlert
-                        .andThen(Completable.from { UIApplication.shared.openApplicationSettings()})
-                        .andThen(UIApplication.shared.rx.didOpenApp.take(1))
-                }
-                return Observable.empty()
-            }.ignoreElementsAsCompletable()
+                return handleOtherPermissions(permission: currentStatus, alerts: alertsToShowForSelectedScenarios)
+            }
+            .ignoreElementsAsCompletable()
             .andThen(LocationPermissionHandler.shared.permissionChanges.take(1))
             .asSingle()
     }
 
-    /// It retrieves single location. If not permitted, an error is thrown. It does not handle the permissions, it should be handled explicitly.
+    private static func handleOtherPermissions(
+        permission: CLAuthorizationStatus,
+        alerts: ((CLAuthorizationStatus) -> Completable)? = nil) -> Completable {
+        Single.just(permission)
+            .flatMapCompletable { alerts?($0) ?? Completable.empty() }
+            .andThen(Completable.from { UIApplication.shared.openApplicationSettings()}.subscribe(on: MainScheduler.instance))
+            .andThen(UIApplication.shared.rx.didOpenApp.take(1).ignoreElementsAsCompletable())
+    }
+
+    /// It retrieves a single location. If not permitted, an error is thrown. It does not handle the permissions, it should be handled explicitly.
     static func retrieveSingleLocation() -> Single<CLLocation> {
         Single.from { LocationPermissionHandler.shared.currentPermission }
             .map { (authStatus: CLAuthorizationStatus) -> CLAuthorizationStatus in

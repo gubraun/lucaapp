@@ -18,6 +18,10 @@ extension UIColor {
         UIColor(named: "lucaWhiteLowAlpha") ?? .magenta
     }
 
+    static var lucaDarkBlue: UIColor {
+        UIColor(named: "lucaDarkBlue") ?? .magenta
+    }
+
     static var lucaBlue: UIColor {
         UIColor(named: "lucaBlue") ?? .magenta
     }
@@ -69,6 +73,10 @@ extension UIColor {
         UIColor(named: "lucaGrey") ?? .magenta
     }
 
+    static var lucaDarkGrey: UIColor {
+        UIColor(named: "lucaDarkGrey") ?? .magenta
+    }
+
     static var lucaHealthGreen: UIColor {
         UIColor(named: "lucaHealthGreen") ?? .magenta
     }
@@ -88,4 +96,5 @@ extension UIColor {
     static var lucaError: UIColor {
         UIColor(named: "lucaError") ?? .magenta
     }
+
 }

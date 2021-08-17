@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Gesundheit"; ObjectID = "9ED-LL-DRg"; */
+"9ED-LL-DRg.text" = "Mein luca";
+
+/* Class = "UILabel"; text = "Neue Datenanfrage"; ObjectID = "BRr-Bt-1Nv"; */
+"BRr-Bt-1Nv.text" = "Neue Datenanfrage";
+
+/* Class = "UIButton"; normalTitle = "DOKUMENT HINZUFÜGEN"; ObjectID = "EKX-ak-AWy"; */
+"EKX-ak-AWy.normalTitle" = "DOKUMENT HINZUFÜGEN";
+
+/* Class = "UILabel"; text = "Willkommen"; ObjectID = "V1v-ql-I2t"; */
+"V1v-ql-I2t.text" = "Willkommen bei \"Mein luca\"";
+
+/* Class = "UILabel"; text = "ANZEIGEN"; ObjectID = "qbC-Y9-uve"; */
+"qbC-Y9-uve.text" = "ANZEIGEN";
+
+/* Class = "UILabel"; text = "Aktuell sind keine Gesundheitsdaten von dir in der App hinterlegt."; ObjectID = "ubY-dS-0Oy"; */
+"ubY-dS-0Oy.text" = "Das ist dein persönlicher Bereich. Hier kannst du Dokumente hinzufügen, die dir den Check-in erleichtern.\n\nÜber das Kalender-Icon oben rechts kannst du Termine für Tests buchen.";

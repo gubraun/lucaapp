@@ -4,10 +4,11 @@ import RxSwift
 class TestQRCodeScannerController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var closeButtonView: UIView!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet private weak var cameraView: UIView!
 
-    private let scannerVC = MainViewControllerFactory.createQRScannerViewController()
+    private let scannerVC = ViewControllerFactory.Checkin.createQRScannerViewController()
     private var disposeBag: DisposeBag?
 
     override func viewDidLoad() {
@@ -18,7 +19,7 @@ class TestQRCodeScannerController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        setupAccessibility()
         startScanner()
     }
 
@@ -29,19 +30,10 @@ class TestQRCodeScannerController: UIViewController {
     }
 
     func setupViews() {
-        closeButtonView.isAccessibilityElement = true
-        closeButtonView.accessibilityLabel = L10n.Test.Scanner.close
-        closeButtonView.accessibilityTraits = .button
-
-        cameraView.isAccessibilityElement = true
-        cameraView.accessibilityLabel = L10n.Test.Scanner.camera
         cameraView.layer.cornerRadius = 4
-
-        self.view.accessibilityElements = [titleLabel, closeButtonView, cameraView].map { $0 as Any }
-        UIAccessibility.setFocusLayoutWithDelay(titleLabel)
     }
 
-    @IBAction private func closePressed(_ sender: UITapGestureRecognizer) {
+    @IBAction func closeButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 
@@ -50,7 +42,7 @@ class TestQRCodeScannerController: UIViewController {
         scannerVC.present(onParent: self, in: cameraView)
 
         scannerVC.onTestResult = { [weak self] urlToParse in
-            let alert = AlertViewControllerFactory.createTestPrivacyConsent(confirmAction: {
+            let alert = ViewControllerFactory.Alert.createTestPrivacyConsent(confirmAction: {
                 self?.parseQRCode(urlToParse: urlToParse)
             }, cancelAction: {
                 self?.scannerVC.startRunning()
@@ -92,4 +84,17 @@ class TestQRCodeScannerController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
+}
+
+// MARK: - Accessibility
+extension TestQRCodeScannerController {
+
+    private func setupAccessibility() {
+        closeButton.accessibilityLabel = L10n.Test.Scanner.close
+        cameraView.accessibilityLabel = L10n.Test.Scanner.camera
+        cameraView.isAccessibilityElement = true
+        self.view.accessibilityElements = [titleLabel, closeButton, descriptionLabel, cameraView].map { $0 as Any }
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+    }
+
 }

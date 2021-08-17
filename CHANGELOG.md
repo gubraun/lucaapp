@@ -1,3 +1,10 @@
+# Release 1.8.0
+
+- Account Tab 
+- Improved Voice-Over Mode
+
+With this update we introduce a new tab: The "Account" tab. In the "Account" tab you can find all general functions about the App. Additionally, we improved the Voice-Over mode within this update. 
+
 # Release 1.7.2
 
 - Text and UI adjustments

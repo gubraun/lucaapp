@@ -51,6 +51,45 @@ public extension Completable {
         })
     }
 
+    func debugNotification(_ identifier: String, groupNotificationByIdentifier: Bool = false) -> Completable {
+        return self.do(onError: {error in
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Error: \(error)",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onCompleted: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Completed",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onSubscribe: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Subscribe",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onSubscribed: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "After Subscribe",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onDispose: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Dispose",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        })
+    }
+
     func logError(_ logUtil: LogUtil, _ identifier: String = "") -> Completable {
         self.do(onError: { error in
             if identifier != "" {
@@ -331,6 +370,45 @@ public extension PrimitiveSequenceType where Trait == SingleTrait {
             logUtil.log("[\(identifier)] disposed", entryType: .info)
         })
     }
+
+    func debugNotification(_ identifier: String, groupNotificationByIdentifier: Bool = false) -> Single<Element> {
+        return self.do(onSuccess: { element in
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Success: \(element)",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onError: {error in
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Error: \(error)",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onSubscribe: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Subscribe",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onSubscribed: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "After Subscribe",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onDispose: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Dispose",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        })
+    }
 }
 
 public extension PrimitiveSequenceType where Trait == MaybeTrait {
@@ -411,6 +489,52 @@ public extension ObservableType {
             logUtil.log("[\(identifier)] after subscribe", entryType: .info)
         }, onDispose: {
             logUtil.log("[\(identifier)] disposed", entryType: .info)
+        })
+    }
+
+    func debugNotification(_ identifier: String, groupNotificationByIdentifier: Bool = false) -> Observable<Self.Element> {
+        return self.do(onNext: { element in
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Next: \(element)",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onError: {error in
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Error: \(error)",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onCompleted: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Completed",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onSubscribe: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Subscribe",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onSubscribed: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "After Subscribe",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
+        }, onDispose: {
+            NotificationScheduler.shared
+                .scheduleNotification(
+                    title: "\(identifier)",
+                    message: "Dispose",
+                    threadIdentifier: groupNotificationByIdentifier ? identifier : nil
+                )
         })
     }
 

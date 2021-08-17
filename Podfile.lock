@@ -103,7 +103,6 @@ PODS:
     - KituraContracts (~> 1.2)
     - LoggerAPI (~> 1.7)
   - SwiftLint (0.43.1)
-  - TTTAttributedLabel (2.0.0)
   - Validator (3.2.1)
 
 DEPENDENCIES:
@@ -126,11 +125,10 @@ DEPENDENCIES:
   - SwiftGen (~> 6.4.0)
   - SwiftJWT (~> 3.6.200)
   - SwiftLint (~> 0.43.1)
-  - TTTAttributedLabel (~> 2.0.0)
   - Validator (~> 3.2.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/CocoaPods/Specs:
     - base64url
     - BlueCryptor
     - BlueECC
@@ -161,7 +159,6 @@ SPEC REPOS:
     - SwiftGen
     - SwiftJWT
     - SwiftLint
-    - TTTAttributedLabel
     - Validator
 
 SPEC CHECKSUMS:
@@ -195,9 +192,8 @@ SPEC CHECKSUMS:
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
-  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: 30c401e89f02fa61085988e98a950600560e430a
+PODFILE CHECKSUM: fedd6d8202998bb6e53c7efbafc964838774e347
 
 COCOAPODS: 1.10.1

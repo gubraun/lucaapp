@@ -56,8 +56,10 @@ extension DataAccessAlertViewController: UITableViewDataSource, UITableViewDeleg
         let checkin = newDataAccess.traceInfo.checkInDate
         if let checkout = newDataAccess.traceInfo.checkOutDate {
             cell.dateLabel.text = "\(checkin.formattedDateTime) - \(checkout.formattedDateTime)"
+            cell.dateLabel.accessibilityLabel = L10n.History.Checkin.Checkout.time(checkin.accessibilityDate, checkout.accessibilityDate)
         } else {
             cell.dateLabel.text = "\(checkin.formattedDateTime)"
+            cell.dateLabel.accessibilityLabel = checkin.accessibilityDate
         }
 
         return cell

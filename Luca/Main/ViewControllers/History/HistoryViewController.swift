@@ -6,7 +6,10 @@ class HistoryViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var leadingMargin: NSLayoutConstraint!
-    @IBOutlet weak var dataAccessButtonView: UIView!
+    @IBOutlet weak var dataAccessButton: UIButton!
+    @IBOutlet weak var shareHistoryButton: UIButton!
+    @IBOutlet weak var emptyStateView: UIView!
+    @IBOutlet weak var deleteHistoryButton: UIButton!
 
     var events: [HistoryEvent] = []
 
@@ -21,17 +24,14 @@ class HistoryViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 75, right: 0)
 
-        addBottomGradient()
-        dataAccessButtonView.accessibilityLabel = L10n.History.Accessibility.dataAccessButton
-        dataAccessButtonView.isAccessibilityElement = true
+        deleteHistoryButton.layer.borderColor = UIColor.white.cgColor
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-
-        UIAccessibility.setFocusTo(titleLabel)
+        setupAccessibility()
 
         let newDisposeBag = DisposeBag()
 
@@ -60,11 +60,25 @@ class HistoryViewController: UIViewController {
         bottomGradientLayer.frame = CGRect(x: leadingMargin.constant, y: tableView.frame.origin.y + tableView.frame.height - 100.0, width: tableView.bounds.width, height: 100.0)
     }
 
+    @IBAction func dataAccessPressed(_ sender: UIButton) {
+        let vc = ViewControllerFactory.Main.createDataAccessViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
     @IBAction func dataReleasePressed(_ sender: UIButton) {
-        let alert = AlertViewControllerFactory.createDataAccessPickDaysViewController(confirmAction: presentDataAccessAlertController(withNumberOfDays:))
+        let alert = ViewControllerFactory.Alert.createDataAccessPickDaysViewController(confirmAction: presentDataAccessAlertController(withNumberOfDays:))
         alert.modalTransitionStyle = .crossDissolve
-        alert.modalPresentationStyle = .overCurrentContext
+        alert.modalPresentationStyle = .overFullScreen
         present(alert, animated: true, completion: nil)
+    }
+
+    func setupViews() {
+        tableView.isHidden = events.isEmpty
+        shareHistoryButton.isHidden = events.isEmpty
+        deleteHistoryButton.isHidden = events.isEmpty
+        emptyStateView.isHidden = !events.isEmpty
+        events.isEmpty ? removeBottomGradient() : addBottomGradient()
+        setupAccessibilityElements(isEmpty: events.isEmpty)
     }
 
     @IBAction func deleteHistoryPressed(_ sender: UIButton) {
@@ -81,22 +95,23 @@ class HistoryViewController: UIViewController {
             DataResetService.resetHistory()
             self.events = []
             self.tableView.reloadData()
+            self.setupViews()
         }, viewController: self)
     }
 
     private func presentDataAccessAlertController(withNumberOfDays numberOfDays: Int) {
-        let alert = AlertViewControllerFactory.createDataAccessConfirmationViewController(numberOfDays: numberOfDays, confirmAction: {
+        let alert = ViewControllerFactory.Alert.createDataAccessConfirmationViewController(numberOfDays: numberOfDays, confirmAction: {
             self.dataAccessAlertConfirmAction(withNumberOfDays: numberOfDays)
         })
         alert.modalTransitionStyle = .crossDissolve
-        alert.modalPresentationStyle = .overCurrentContext
+        alert.modalPresentationStyle = .overFullScreen
         present(alert, animated: true, completion: nil)
     }
 
     private func dataAccessAlertConfirmAction(withNumberOfDays numberOfDays: Int) {
-        let viewController = AlertViewControllerFactory.createTANReleaseViewController(withNumberOfDaysTransferred: numberOfDays)
+        let viewController = ViewControllerFactory.Alert.createTANReleaseViewController(withNumberOfDaysTransferred: numberOfDays)
         viewController.modalTransitionStyle = .crossDissolve
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .overFullScreen
         self.present(viewController, animated: true, completion: nil)
     }
 
@@ -104,6 +119,10 @@ class HistoryViewController: UIViewController {
         bottomGradientLayer.frame = CGRect(x: leadingMargin.constant, y: tableView.frame.origin.y + tableView.frame.height - 100.0, width: tableView.bounds.width, height: 100.0)
         bottomGradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         self.view.layer.addSublayer(bottomGradientLayer)
+    }
+
+    func removeBottomGradient() {
+        bottomGradientLayer.removeFromSuperlayer()
     }
 
     private func reloadData() -> Completable {
@@ -114,6 +133,7 @@ class HistoryViewController: UIViewController {
             .do(onSuccess: { entries in
                 self.events = entries
                 self.tableView.reloadData()
+                self.setupViews()
             })
             .asObservable()
             .ignoreElementsAsCompletable()
@@ -155,17 +175,34 @@ extension HistoryViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func showPrivateMeetingInfoViewController(userEvent: UserEvent) {
-        let viewController = AlertViewControllerFactory.createPrivateMeetingInfoViewController(historyEvent: userEvent)
+        let viewController = ViewControllerFactory.Alert.createPrivateMeetingInfoViewController(historyEvent: userEvent)
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overFullScreen
         self.present(viewController, animated: true, completion: nil)
     }
 
     func showUserTransferInfoViewController(withNumberOfDays numberOfDays: Int) {
-        let viewController = AlertViewControllerFactory.createInfoViewController(titleText: L10n.Data.Shared.title, descriptionText: L10n.Data.Shared.description(numberOfDays))
+        let viewController = ViewControllerFactory.Alert.createInfoViewController(titleText: L10n.Data.Shared.title, descriptionText: L10n.Data.Shared.description(numberOfDays))
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overFullScreen
         self.present(viewController, animated: true, completion: nil)
+    }
+
+}
+
+// MARK: - Accessibility
+extension HistoryViewController {
+
+    private func setupAccessibility() {
+        dataAccessButton.accessibilityLabel = L10n.History.Accessibility.dataAccessButton
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+    }
+
+    private func setupAccessibilityElements(isEmpty: Bool) {
+        let emptyStateElements = [titleLabel, dataAccessButton, emptyStateView].map { $0 as Any }
+        let elements = [titleLabel, dataAccessButton, tableView, shareHistoryButton, deleteHistoryButton].map { $0 as Any }
+        self.view.accessibilityElements = isEmpty ? emptyStateElements : elements
     }
 
 }

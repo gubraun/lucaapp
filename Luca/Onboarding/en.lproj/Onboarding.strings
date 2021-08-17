@@ -11,9 +11,6 @@
 /* Class = "UILabel"; text = "Gesund erleben.\nSicher sein."; ObjectID = "P3D-1z-Fnd"; */
 "P3D-1z-Fnd.text" = "Experience life\ntogether.";
 
-/* Class = "UILabel"; text = "Hiermit stimme ich den AGBs und den Datenschutzrichtlinien zu."; ObjectID = "PeA-wD-4K1"; */
-"PeA-wD-4K1.text" = "I have read and agree with the terms of use and privacy policy.";
-
 /* Class = "UIButton"; normalTitle = "Weiter"; ObjectID = "QUo-a3-Vab"; */
 "QUo-a3-Vab.normalTitle" = "NEXT";
 

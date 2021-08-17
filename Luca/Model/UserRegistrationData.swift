@@ -34,3 +34,20 @@ extension UserRegistrationData {
         return addressComplete && personalDataComplete
     }
 }
+
+extension UserRegistrationData: NSCopying {
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = UserRegistrationData()
+
+        copy.firstName = firstName
+        copy.lastName = lastName
+        copy.street = street
+        copy.houseNumber = houseNumber
+        copy.postCode = postCode
+        copy.city = city
+        copy.phoneNumber = phoneNumber
+        copy.email = email
+
+        return copy
+    }
+}

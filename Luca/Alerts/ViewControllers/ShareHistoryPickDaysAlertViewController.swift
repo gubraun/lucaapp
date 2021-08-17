@@ -3,6 +3,7 @@ import UIKit
 class ShareHistoryPickDaysAlertViewController: UIViewController {
     @IBOutlet weak var dayPicker: UIPickerView!
 
+    @IBOutlet weak var titleLabel: UILabel!
     private let availableDays = Array(1...14)
     private var selectedNumberOfDays: Int = 14
     private var confirmAction: ((Int) -> Void)?
@@ -13,6 +14,7 @@ class ShareHistoryPickDaysAlertViewController: UIViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
 
         configureSubviews()
+        setupAccessibility()
     }
 
     func setup(confirmAction: ((Int) -> Void)?) {
@@ -22,7 +24,6 @@ class ShareHistoryPickDaysAlertViewController: UIViewController {
     private func configureSubviews() {
         dayPicker.dataSource = self
         dayPicker.delegate = self
-
         preselectAvailableNumberOfDays()
     }
 
@@ -64,4 +65,14 @@ extension ShareHistoryPickDaysAlertViewController: UIPickerViewDataSource, UIPic
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedNumberOfDays = availableDays[row]
     }
+}
+
+// MARK: - Accessibility
+extension ShareHistoryPickDaysAlertViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+    }
+
 }

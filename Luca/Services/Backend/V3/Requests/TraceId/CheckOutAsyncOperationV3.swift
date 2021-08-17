@@ -1,4 +1,5 @@
 import Foundation
+import Alamofire
 
 enum CheckOutError: RequestError {
     case invalidInput
@@ -36,6 +37,7 @@ class CheckOutAsyncOperationV3: BackendAsyncOperation<CheckOutPayloadV3, CheckOu
         super.init(url: fullUrl,
                    method: .post,
                    parameters: checkoutPayload,
+                   requestModifier: { $0.timeoutInterval = 10 },
                    errorMappings: [400: .invalidInput,
                                    403: .invalidSignature,
                                    404: .notFound,

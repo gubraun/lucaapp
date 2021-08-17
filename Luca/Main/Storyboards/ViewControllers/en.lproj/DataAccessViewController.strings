@@ -1,0 +1,6 @@
+
+/* Class = "UILabel"; text = "Keine Datenanfragen durch Gesundheitsämter innerhalb der letzten 14 Tage."; ObjectID = "3Rq-qD-EiG"; */
+"3Rq-qD-EiG.text" = "No data requests from health departments in the last 14 days.";
+
+/* Class = "UILabel"; text = "Datenanfragen"; ObjectID = "vqE-Mh-cT1"; */
+"vqE-Mh-cT1.text" = "Data requests";

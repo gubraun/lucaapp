@@ -50,6 +50,10 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
         Single.from { L10n.Checkin.Slider.date(self.traceInfo.checkInDate.formattedDateTime) }.asDriver(onErrorJustReturn: "")
     }
 
+    var checkInTimeDate: Single<Date> {
+        Single.from { self.traceInfo.checkInDate }
+    }
+
     /// Emits true when the label with additional data should be hidden
     var additionalDataLabelHidden: Driver<Bool> {
         Single.from { self.traceIdService.additionalData == nil }.asDriver(onErrorJustReturn: true)
@@ -94,7 +98,6 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
 
         return performTimeCheck
             .andThen(checkOutBackend)
-            .andThen(regionMonitor.stopRegionMonitoringRx())
             .andThen(notificationService.removePendingNotificationsRx())
             .subscribe(on: LucaScheduling.backgroundScheduler)
     }
@@ -110,44 +113,53 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
         self.viewController = viewController
 
         let newDisposeBag = DisposeBag()
-        isAutoCheckoutEnabledSubject.accept(preferences.autoCheckout && locationPermissionHandler.currentPermission == .authorizedAlways)
 
-        startLocationMonitoring()
+        autoCheckoutService.isToggledOn
+            .observe(on: MainScheduler.instance)
+            .catch { error in
+            let vc: UIViewController
+            if let localizedError = error as? LocalizedTitledError {
+                vc = UIAlertController.infoAlert(
+                    title: localizedError.localizedTitle,
+                    message: localizedError.localizedDescription
+                )
+            } else {
+                vc = UIAlertController.infoAlert(
+                    title: L10n.Navigation.Basic.error,
+                    message: L10n.General.Failure.Unknown.message(error.localizedDescription)
+                )
+            }
+            self.viewController.present(vc, animated: true, completion: nil)
+            return Observable.error(error)
+        }
+        .retry(delay: .milliseconds(100), scheduler: MainScheduler.instance)
+        .bind(to: isAutoCheckoutEnabledSubject)
+        .disposed(by: newDisposeBag)
 
-        let handlePermissions = handlePermission()
+        isAutoCheckoutEnabledSubject
+            .asObservable()
+            .distinctUntilChanged()
+            .flatMap { isEnabled -> Completable in
+                if isEnabled {
+                    return self.autoCheckoutService.toggleOn(
+                        alertToShowWhenNotAskedYet: self.alertBeforeAskingLocationPermissionForCheckout(viewController: self.viewController),
+                        alertForOthers: { _ in self.alertAskingToChangePermissionInSettings(viewController: self.viewController)}
+                    ).catch { _ in Completable.empty() }
+                } else {
+                    return self.autoCheckoutService.toggleOff().catch { _ in Completable.empty() }
+                }
+            }
+            .subscribe()
+            .disposed(by: newDisposeBag)
 
         let fetchUserStatus = getUserStatus()
 
         let restoreCheckIn = UIApplication.shared.rx.applicationWillEnterForeground
             .do(onNext: { _ in
                 self.checkInTimer.start(from: self.traceInfo.checkInDate)
-                self.startLocationMonitoring()
             })
             .logError(self, "applicationWillEnterForeground")
             .retry(delay: .seconds(1), scheduler: LucaScheduling.backgroundScheduler)
-            .ignoreElementsAsCompletable()
-
-        let permissionChanges = locationPermissionChanges()
-
-        let autoCheckoutNotification = isAutoCheckoutEnabledSubject.flatMap {_ in
-            NotificationPermissionHandler.shared.notificationSettings
-        }
-
-        let notificationPermissionChanges = Observable.merge(NotificationPermissionHandler.shared.permissionChanges, autoCheckoutNotification)
-            .flatMap { permission in
-                self.location
-                    .map { $0?.geoLocationRequired ?? false }
-                    .map {
-                        (permission, $0)
-                    }
-            }
-            .observe(on: MainScheduler.instance)
-            .do(onNext: { permission, autocheckoutAvailable in
-                let autoCheckoutOff = (autocheckoutAvailable && !self.preferences.autoCheckout) || !autocheckoutAvailable
-                // Don't send checkout reminder if autocheckout is turned on.
-                (permission == .authorized && autoCheckoutOff) ? self.notificationService.addNotification() : self.notificationService.removePendingNotifications()
-            })
-            .logError(self, "onNotificationPermissionChanges")
             .ignoreElementsAsCompletable()
 
         let loadCurrentlySavedLocation = self.traceIdService.loadCurrentLocationInfo()
@@ -159,9 +171,6 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
         Completable.zip(
             fetchUserStatus,
             restoreCheckIn,
-            notificationPermissionChanges,
-            permissionChanges,
-            handlePermissions,
             fetchCurrentLocation(),
             loadCurrentlySavedLocation
         )
@@ -192,10 +201,6 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
             .fetchCurrentLocationInfo()
             .do(onSuccess: { location in
                 self.location.onNext(location)
-                let authStatus = self.locationUpdater.currentAuthorizationStatus
-                if (authStatus == .authorizedAlways || authStatus == .authorizedWhenInUse) && LucaPreferences.shared.autoCheckout {
-                    self.regionMonitor.startRegionMonitoring()
-                }
             })
             .do(onError: { error in
                 self.alertSubject.onNext((title: L10n.Navigation.Basic.error,
@@ -204,50 +209,6 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
             .asObservable()
             .ignoreElementsAsCompletable()
             .onErrorComplete()
-    }
-
-    private func handlePermission() -> Completable {
-        isAutoCheckoutEnabledSubject
-            .asObservable()
-            .deferredFilter { _ in self.isAutoCheckoutAvailable.asObservable().take(1).asSingle() }
-            .do(onNext: { (enabled) in
-                if enabled {
-                    self.preferences.autoCheckout = true
-                    self.regionMonitor.startRegionMonitoring()
-                    self.locationUpdater.start()
-                } else {
-                    self.regionMonitor.stopRegionMonitoring()
-                    self.preferences.autoCheckout = false
-                }
-            })
-            .filter { $0 }
-            .flatMap { _ in
-                self.askForLocationPermission(viewController: self.viewController)
-                    .do(onSuccess: { status in
-                        if status != .authorizedAlways {
-                            self.isAutoCheckoutEnabledSubject.accept(false)
-                        }
-                    })
-            }
-            .logError(self, "handlePermissions")
-            .retry(delay: .seconds(1), scheduler: LucaScheduling.backgroundScheduler)
-            .ignoreElementsAsCompletable()
-    }
-
-    private func locationPermissionChanges() -> Completable {
-        locationPermissionHandler.permissionChanges
-            .observe(on: MainScheduler.instance)
-            .do(onNext: { permission in
-                if permission != .authorizedAlways && self.preferences.autoCheckout {
-                    self.alertSubject.onNext((title: L10n.LocationCheckinViewController.AutoCheckoutPermissionDisabled.title,
-                                              message: L10n.LocationCheckinViewController.AutoCheckoutPermissionDisabled.message))
-
-                    self.isAutoCheckoutEnabledSubject.accept(false)
-                }
-            })
-            .logError(self, "onPermissionChanges")
-            .retry(delay: .seconds(1), scheduler: LucaScheduling.backgroundScheduler)
-            .ignoreElementsAsCompletable()
     }
 
     private func getUserStatus() -> Completable {
@@ -267,7 +228,7 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
     private let checkInTimer: CheckinTimer
     private let preferences: LucaPreferences
     private let locationUpdater: LocationUpdater
-    private let regionMonitor: RegionMonitor
+    private let autoCheckoutService: AutoCheckoutService
     private let notificationService: NotificationService
     private let locationPermissionHandler: LocationPermissionHandler
     private let location = BehaviorSubject<Location?>(value: nil)
@@ -282,7 +243,7 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
          preferences: LucaPreferences,
          locationUpdater: LocationUpdater,
          locationPermissionHandler: LocationPermissionHandler,
-         regionMonitor: RegionMonitor,
+         autoCheckoutService: AutoCheckoutService,
          notificationService: NotificationService) {
         self.traceInfo = traceInfo
         self.traceIdService = traceIdService
@@ -290,7 +251,7 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
         self.preferences = preferences
         self.locationUpdater = locationUpdater
         self.locationPermissionHandler = locationPermissionHandler
-        self.regionMonitor = regionMonitor
+        self.autoCheckoutService = autoCheckoutService
         self.notificationService = notificationService
     }
 
@@ -310,21 +271,17 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
     }
 
     private func alertBeforeAskingLocationPermissionForCheckout(viewController: UIViewController) -> Completable {
-        return AlertViewControllerFactory.createLocationAccessInformationViewController(presentedOn: viewController)
+        return ViewControllerFactory.Alert.createLocationAccessInformationViewController(presentedOn: viewController)
             .ignoreElementsAsCompletable()
             .subscribe(on: MainScheduler.instance)
     }
 
     private func alertAskingToChangePermissionInSettings(viewController: UIViewController) -> Completable {
-        Single.from { self.locationPermissionHandler.currentPermission }
-            .flatMapCompletable { _ -> Completable in
-                return UIAlertController.infoAlertRx(
+        UIAlertController.infoAlertRx(
                     viewController: viewController,
                     title: L10n.LocationCheckinViewController.Permission.Change.title,
                     message: L10n.LocationCheckinViewController.Permission.Change.message)
                     .ignoreElementsAsCompletable()
-            }
-            .subscribe(on: MainScheduler.instance)
     }
 
     private func alertAfterLocationPermissionDeniedForCheckout(viewController: UIViewController) -> Completable {
@@ -346,14 +303,6 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
             .asObservable()
             .ignoreElementsAsCompletable()
 
-    }
-
-    /// It starts location monitoring only when its allowed
-    private func startLocationMonitoring() {
-        let authStatus = locationUpdater.currentAuthorizationStatus
-        if authStatus == .authorizedAlways || authStatus == .authorizedWhenInUse {
-            locationUpdater.start()
-        }
     }
 
     private func stopLocationMonitoring() {

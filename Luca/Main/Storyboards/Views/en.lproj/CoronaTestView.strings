@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Ausgestellt:"; ObjectID = "3w9-Rr-Ype"; */
+"3w9-Rr-Ype.text" = "Issued:";
+
+/* Class = "UIButton"; normalTitle = "LÖSCHEN"; ObjectID = "41n-PR-nUR"; */
+"41n-PR-nUR.normalTitle" = "DELETE";
+
+/* Class = "UILabel"; text = "Erstellt vor:"; ObjectID = "6PX-Jc-Hd3"; */
+"6PX-Jc-Hd3.text" = "Tested:";
+
+/* Class = "UILabel"; text = "Negativ"; ObjectID = "Kzi-EL-WvB"; */
+"Kzi-EL-WvB.text" = "Negative";
+
+/* Class = "UILabel"; text = "Testart"; ObjectID = "NsH-KI-Pg6"; */
+"NsH-KI-Pg6.text" = "Testart";
+
+/* Class = "UILabel"; text = "Tester:"; ObjectID = "iRC-cK-Iti"; */
+"iRC-cK-Iti.text" = "Tester:";

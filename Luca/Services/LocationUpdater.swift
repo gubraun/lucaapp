@@ -6,12 +6,17 @@ public class LocationUpdater: NSObject {
     public typealias CurrentLocationCompletion = (CLLocation) -> Void
     // MARK: - Events
     public static let onDidUpdateLocations: String = "LocationUpdater.onDidUpdateLocations"
+    public static let onDidEnterRegion: String = "LocationUpdater.onDidEnterRegion"
+    public static let onDidExitRegion: String = "LocationUpdater.onDidExitRegion"
     // MARK: -
     private var locationManager: CLLocationManager
 
     private var lastPrompt = Date()
 
     private var currentLocationRequestCompletions: [CurrentLocationCompletion] = []
+
+    /// Delays the delivery of events. A nasty workaround for the "Late observer" problem.
+    var delayRegionEvents: TimeInterval = 1.0
 
     var monitoredRegions: Set<CLRegion> {
         return locationManager.monitoredRegions
@@ -78,14 +83,33 @@ public class LocationUpdater: NSObject {
     }
 
     public func startMonitoring(region: CLRegion) {
+        #if DEBUG
         print("MONITOR START: is main thread \(Thread.current.isMainThread)")
+        #endif
+
         locationManager.startMonitoring(for: region)
+
+        #if DEBUG
         print("Monitored regions: \(locationManager.monitoredRegions)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(500)) {
+            print("Monitored regions DELAYED: \(self.locationManager.monitoredRegions)")
+        }
+        #endif
     }
 
     public func stopMonitoring(region: CLRegion) {
-        print("MONITOR STOP: is main thread \(Thread.current.isMainThread)")
+        #if DEBUG
+        print("REGION MONITOR STOP \(region.identifier): is main thread \(Thread.current.isMainThread)")
+        #endif
+
         locationManager.stopMonitoring(for: region)
+
+        #if DEBUG
+        print("Monitored regions: \(locationManager.monitoredRegions)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(500)) {
+            print("Monitored regions DELAYED: \(self.locationManager.monitoredRegions)")
+        }
+        #endif
     }
 
 }
@@ -122,34 +146,23 @@ extension LocationUpdater: CLLocationManagerDelegate {
     }
 
     public func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        #if DEBUG
-        NotificationScheduler.shared.scheduleNotification(title: "Did enter region", message: "")
-        #endif
-        log("Entered region: \(region)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(Int(delayRegionEvents * 1000.0))) {
+            #if DEBUG
+            NotificationScheduler.shared.scheduleNotification(title: "Did enter region", message: region.identifier)
+            #endif
+            self.log("Entered region: \(region)")
+            NotificationCenter.default.post(name: Notification.Name(Self.onDidEnterRegion), object: self, userInfo: ["region": region])
+        }
     }
 
     public func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        #if DEBUG
-        NotificationScheduler.shared.scheduleNotification(title: "Did exit region", message: "")
-        #endif
-        log("Exitted region: \(region)")
-
-        self.log("Geofence: trying to check out...")
-        ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn
-            .flatMapCompletable { _ in
-
-                if LucaPreferences.shared.autoCheckout {
-                    self.log("Geofence: sending check out request")
-                    return ServiceContainer.shared.traceIdService
-                        .checkOut()
-                        .do(onError: { error in
-                            self.log("Geofence: on check out error: \(error)", entryType: .error)
-                        })
-                }
-                return Completable.empty()
-            }
-            .logError(self, "Check out routine")
-            .subscribe()
+        DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(Int(delayRegionEvents * 1000.0))) {
+            #if DEBUG
+            NotificationScheduler.shared.scheduleNotification(title: "Did exit region", message: region.identifier)
+            #endif
+            self.log("Exitted region: \(region)")
+            NotificationCenter.default.post(name: Notification.Name(Self.onDidExitRegion), object: self, userInfo: ["region": region])
+        }
     }
 
 }

@@ -30,6 +30,14 @@ extension UIFont {
     static var montserratDataAccessAlertDayPicker: UIFont {
         UIFont(name: "Montserrat-Medium", size: 20) ?? UIFont.italicSystemFont(ofSize: 20)
     }
+
+    static var montserratViewControllerTitle: UIFont {
+        UIFont(name: "Montserrat-Bold", size: 20.0) ?? UIFont.italicSystemFont(ofSize: 20.0)
+    }
+
+    static var oggViewControllerTitle: UIFont {
+        UIFont(name: "Ogg-Regular", size: 48.0) ?? UIFont.italicSystemFont(ofSize: 48.0)
+    }
 }
 
 extension UIFont {

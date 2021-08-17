@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="tSJ-zR-0Oh" customClass="CoronaTestView" customModule="Luca" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KiW-dH-GIK">
+                    <rect key="frame" x="32" y="56" width="350" height="794"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aKx-vD-scZ">
+                            <rect key="frame" x="16" y="16" width="318" height="762"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Negativ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kzi-EL-WvB">
+                                    <rect key="frame" x="0.0" y="0.0" width="318" height="68.5"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Testart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsH-KI-Pg6">
+                                    <rect key="frame" x="0.0" y="78.5" width="318" height="17.5"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUs-BK-GZX">
+                                    <rect key="frame" x="0.0" y="106" width="318" height="18"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Erstellt vor:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6PX-Jc-Hd3">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="GTQ-cy-yYH"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Minuten" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCg-TR-rkA">
+                                            <rect key="frame" x="100" y="0.0" width="200" height="18"/>
+                                            <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="checkmarkBlack" translatesAutoresizingMaskIntoConstraints="NO" id="uSN-bK-aav">
+                                            <rect key="frame" x="300" y="0.0" width="18" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="18" id="ifl-5B-EYH"/>
+                                                <constraint firstAttribute="width" secondItem="uSN-bK-aav" secondAttribute="height" id="s7k-5f-Npb"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                </stackView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OdY-Jb-8FL">
+                                    <rect key="frame" x="0.0" y="134" width="318" height="628"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-aD-irN">
+                                            <rect key="frame" x="0.0" y="0.0" width="318" height="628"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="86Y-90-8qS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="318" height="222.5"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qmj-J2-eq1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="318" height="172.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ausgestellt:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-Rr-Ype">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="172.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="100" id="x0t-Hq-MFb"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="06.02.2021 - 12.23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owh-0a-OBx">
+                                                                    <rect key="frame" x="100" y="0.0" width="218" height="172.5"/>
+                                                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6b-cW-Myg">
+                                                            <rect key="frame" x="0.0" y="172.5" width="318" height="50"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOp-Zn-gXZ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="100" id="VRC-hD-YQQ"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Testzentrum Rostock" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MN1-aJ-gUP">
+                                                                    <rect key="frame" x="100" y="0.0" width="218" height="50"/>
+                                                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oyu-S2-UfN">
+                                                    <rect key="frame" x="0.0" y="232.5" width="318" height="17.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tester:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRC-cK-Iti">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="17.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="62w-hd-tmo"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prof. Doc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMr-qN-jo5">
+                                                            <rect key="frame" x="100" y="0.0" width="218" height="17.5"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cy1-XE-2Ri">
+                                                    <rect key="frame" x="0.0" y="260" width="318" height="318"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="cy1-XE-2Ri" secondAttribute="height" id="vdy-ml-Vmr"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5f-vG-71H">
+                                                    <rect key="frame" x="0.0" y="588" width="318" height="40"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-5a-gz2">
+                                                            <rect key="frame" x="0.0" y="0.0" width="218" height="40"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test provider" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9b-lK-d7E">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="17.5"/>
+                                                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="d9b-lK-d7E" secondAttribute="trailing" id="FPg-89-R0i"/>
+                                                                <constraint firstItem="d9b-lK-d7E" firstAttribute="leading" secondItem="dyh-5a-gz2" secondAttribute="leading" id="a5I-zf-ycv"/>
+                                                                <constraint firstItem="d9b-lK-d7E" firstAttribute="top" secondItem="dyh-5a-gz2" secondAttribute="top" id="nXt-kJ-6dM"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41n-PR-nUR">
+                                                            <rect key="frame" x="218" y="0.0" width="100" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="LjJ-WF-FxU"/>
+                                                                <constraint firstAttribute="height" constant="40" id="M9f-QG-91t"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                                            <state key="normal" title="LÖSCHEN">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="eLb-aD-irN" firstAttribute="top" secondItem="OdY-Jb-8FL" secondAttribute="top" id="6v8-Kg-fJK"/>
+                                        <constraint firstItem="eLb-aD-irN" firstAttribute="leading" secondItem="OdY-Jb-8FL" secondAttribute="leading" id="Q5W-Ak-GwT"/>
+                                        <constraint firstAttribute="trailing" secondItem="eLb-aD-irN" secondAttribute="trailing" id="Tga-QS-pJP"/>
+                                        <constraint firstAttribute="bottom" secondItem="eLb-aD-irN" secondAttribute="bottom" priority="999" id="eZ8-Ys-Hzb"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="aKx-vD-scZ" firstAttribute="top" secondItem="KiW-dH-GIK" secondAttribute="top" constant="16" id="6bK-za-uHF"/>
+                        <constraint firstAttribute="trailing" secondItem="aKx-vD-scZ" secondAttribute="trailing" constant="16" id="aFt-XF-g8c"/>
+                        <constraint firstItem="aKx-vD-scZ" firstAttribute="leading" secondItem="KiW-dH-GIK" secondAttribute="leading" constant="16" id="oiI-Gy-7yS"/>
+                        <constraint firstAttribute="bottom" secondItem="aKx-vD-scZ" secondAttribute="bottom" constant="16" id="wJ3-VV-9iY"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Kq0-yK-bet"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="KiW-dH-GIK" secondAttribute="trailing" constant="32" id="BLH-3D-4aG"/>
+                <constraint firstItem="Kq0-yK-bet" firstAttribute="bottom" secondItem="KiW-dH-GIK" secondAttribute="bottom" constant="12" id="P8w-J1-zs3"/>
+                <constraint firstItem="KiW-dH-GIK" firstAttribute="top" secondItem="Kq0-yK-bet" secondAttribute="top" constant="12" id="Ydo-o0-x8k"/>
+                <constraint firstItem="KiW-dH-GIK" firstAttribute="leading" secondItem="tSJ-zR-0Oh" secondAttribute="leading" constant="32" id="dnJ-Kr-C1q"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="categoryLabel" destination="NsH-KI-Pg6" id="cZL-Ry-5Cy"/>
+                <outlet property="dateLabel" destination="Owh-0a-OBx" id="gO4-2h-OIc"/>
+                <outlet property="deleteButton" destination="41n-PR-nUR" id="pyQ-xc-NzH"/>
+                <outlet property="doctorLabel" destination="hMr-qN-jo5" id="pXc-jc-kDU"/>
+                <outlet property="durationSinceLabel" destination="hCg-TR-rkA" id="CY9-zI-1Vu"/>
+                <outlet property="expandView" destination="OdY-Jb-8FL" id="o5y-XI-5Xq"/>
+                <outlet property="labLabel" destination="MN1-aJ-gUP" id="vqp-bp-Rl6"/>
+                <outlet property="providerLabel" destination="d9b-lK-d7E" id="SWX-Zs-yIH"/>
+                <outlet property="qrCodeImageView" destination="cy1-XE-2Ri" id="BYd-UV-6OW"/>
+                <outlet property="resultLabel" destination="Kzi-EL-WvB" id="IMF-Ke-pqO"/>
+                <outlet property="wrapperView" destination="KiW-dH-GIK" id="U0V-28-Ltp"/>
+            </connections>
+            <point key="canvasLocation" x="-448" y="-18"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmarkBlack" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

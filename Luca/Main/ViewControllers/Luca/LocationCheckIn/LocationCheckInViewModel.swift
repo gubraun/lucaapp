@@ -44,6 +44,9 @@ protocol LocationCheckInViewModel {
     /// It emits constant check in time
     var checkInTime: Driver<String> { get }
 
+    /// Emits the original checkin time
+    var checkInTimeDate: Single<Date> { get }
+
     /// Triggers the checkout sequence. All errors are `PrintableError` and are localized ready to be printed in form of an alert controller
     /// - parameter viewController: auxilary view controller needed for some additional alert controllers
     func checkOut() -> Completable

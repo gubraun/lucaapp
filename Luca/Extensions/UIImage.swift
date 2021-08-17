@@ -6,7 +6,7 @@ extension UIImage {
     // Licensed under Creative Commons Attribution-ShareAlike; details see https://stackoverflow.com/help/licensing
     func createTabBarSelectionIndicator(tabSize: CGSize) -> UIImage? {
         let indicatorWidth: CGFloat = 80.0
-        let indicatorHeight: CGFloat = 2.0
+        let indicatorHeight: CGFloat = 3.0
         UIGraphicsBeginImageContextWithOptions(tabSize, false, 0)
         UIColor.white.setFill()
         UIRectFill(CGRect(x: (tabSize.width - indicatorWidth) / 2.0, y: 0, width: indicatorWidth, height: indicatorHeight))

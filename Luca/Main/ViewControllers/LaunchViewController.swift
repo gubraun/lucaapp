@@ -5,6 +5,9 @@ class LaunchViewController: UIViewController {
 
     var keyAlreadyFetched = false
 
+    // Holds last app version where TermsAcceptanceViewController needs to be presented
+    let lastTermsUpdatedVersion = 53
+
     var versionCheckerDisposeBag = DisposeBag()
 
     // It's a safety check if data has been corrupted between updates. Or the initial state
@@ -61,22 +64,24 @@ class LaunchViewController: UIViewController {
 
         var viewController: UIViewController!
         if !LucaPreferences.shared.welcomePresented {
-            viewController = OnboardingViewControllerFactory.createWelcomeViewController()
+            viewController = ViewControllerFactory.Onboarding.createWelcomeViewController()
         } else if !dataComplete {
             if !LucaPreferences.shared.dataPrivacyPresented {
-                viewController = OnboardingViewControllerFactory.createDataPrivacyViewController()
+                viewController = ViewControllerFactory.Onboarding.createDataPrivacyViewController()
             } else {
                 LucaPreferences.shared.userRegistrationData = UserRegistrationData()
                 LucaPreferences.shared.currentOnboardingPage = 0
                 LucaPreferences.shared.phoneNumberVerified = false
                 ServiceContainer.shared.traceIdService.disposeData(clearTraceHistory: true)
 
-                viewController = OnboardingViewControllerFactory.createFormViewController()
+                viewController = ViewControllerFactory.Onboarding.createFormViewController()
             }
         } else if dataComplete && !LucaPreferences.shared.donePresented {
-            viewController = OnboardingViewControllerFactory.createDoneViewController()
+            viewController = ViewControllerFactory.Onboarding.createDoneViewController()
+        } else if LucaPreferences.shared.termsAcceptedVersion < lastTermsUpdatedVersion {
+            viewController = ViewControllerFactory.Terms.createTermsAcceptanceViewController()
         } else {
-            viewController = MainViewControllerFactory.createTabBarController()
+            viewController = ViewControllerFactory.Main.createTabBarController()
         }
         viewController.modalPresentationStyle = .fullScreen
         viewController.modalTransitionStyle = .crossDissolve

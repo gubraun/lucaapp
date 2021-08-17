@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Contact View Controller-->
+        <scene sceneID="CFc-Tp-Xtu">
+            <objects>
+                <viewController storyboardIdentifier="ContactViewController" id="k6g-DJ-QxI" customClass="ContactViewController" customModule="Luca" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2bK-rW-Mxh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jd8-Ns-ECD">
+                                <rect key="frame" x="0.0" y="100.5" width="414" height="795.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-cR-mlw">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="bQU-9M-ZlT">
+                                                <rect key="frame" x="32" y="32" width="350" height="614"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEe-tu-CYE" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="iEe-AY-mHX"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZy-RT-MdD" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="80" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="q9h-EW-NhS"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0R5-3M-5hf" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="160" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="V6C-P4-rTZ"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="otc-8z-xjd" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="240" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="k00-73-6TD"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBR-1c-snE" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="320" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="iUU-HK-Cew"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPn-Hs-TB7" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="400" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="mk5-gK-Hja"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZe-XG-Pjk" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="480" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="oEm-pP-6lA"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnK-ED-gQF" customClass="LucaTextField" customModule="Luca" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="560" width="350" height="54"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="54" id="hhH-NL-VBb"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="bQU-9M-ZlT" secondAttribute="trailing" constant="32" id="25O-gH-RES"/>
+                                            <constraint firstAttribute="bottom" secondItem="bQU-9M-ZlT" secondAttribute="bottom" constant="39" id="6vO-Ku-CNx"/>
+                                            <constraint firstItem="bQU-9M-ZlT" firstAttribute="leading" secondItem="Xp4-cR-mlw" secondAttribute="leading" constant="32" id="VBy-Id-czm"/>
+                                            <constraint firstItem="bQU-9M-ZlT" firstAttribute="top" secondItem="Xp4-cR-mlw" secondAttribute="top" constant="32" id="wgO-8U-RKm"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Xp4-cR-mlw" firstAttribute="width" secondItem="Jd8-Ns-ECD" secondAttribute="width" id="RIc-IC-Tbi"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xp4-cR-mlw" secondAttribute="bottom" id="SoJ-YT-uDy"/>
+                                    <constraint firstItem="Xp4-cR-mlw" firstAttribute="height" secondItem="Jd8-Ns-ECD" secondAttribute="height" priority="250" id="Vjd-Cx-ee1"/>
+                                    <constraint firstItem="Xp4-cR-mlw" firstAttribute="trailing" secondItem="Jd8-Ns-ECD" secondAttribute="trailing" id="e74-cZ-73u"/>
+                                    <constraint firstItem="Xp4-cR-mlw" firstAttribute="top" secondItem="Jd8-Ns-ECD" secondAttribute="top" id="nrB-ke-tDa"/>
+                                    <constraint firstItem="Xp4-cR-mlw" firstAttribute="leading" secondItem="Jd8-Ns-ECD" secondAttribute="leading" id="vug-ej-P5T"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="TBt-Cg-So2"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="ozI-a4-TLf"/>
+                            </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kxj-z7-mQK">
+                                <rect key="frame" x="0.0" y="99.5" width="414" height="1"/>
+                                <color key="backgroundColor" name="lucaGrey"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Csy-kc-oHI"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kontaktdaten" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLe-v9-vcn">
+                                <rect key="frame" x="32" y="60" width="120.5" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yZb-LU-atr"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Jd8-Ns-ECD" firstAttribute="top" secondItem="kxj-z7-mQK" secondAttribute="bottom" id="1Hf-Kn-WSQ"/>
+                            <constraint firstItem="Jd8-Ns-ECD" firstAttribute="leading" secondItem="2bK-rW-Mxh" secondAttribute="leading" id="5ZR-yJ-ECj"/>
+                            <constraint firstItem="kxj-z7-mQK" firstAttribute="top" secondItem="mLe-v9-vcn" secondAttribute="bottom" constant="16" id="LOM-7n-GsK"/>
+                            <constraint firstAttribute="trailing" secondItem="Jd8-Ns-ECD" secondAttribute="trailing" id="S4k-Ct-HYw"/>
+                            <constraint firstItem="mLe-v9-vcn" firstAttribute="top" secondItem="yZb-LU-atr" secondAttribute="top" constant="16" id="hKP-0U-ONy"/>
+                            <constraint firstItem="mLe-v9-vcn" firstAttribute="leading" secondItem="yZb-LU-atr" secondAttribute="leading" constant="32" id="pfO-Zs-uvF"/>
+                            <constraint firstAttribute="trailing" secondItem="kxj-z7-mQK" secondAttribute="trailing" id="q8B-AI-jZb"/>
+                            <constraint firstItem="kxj-z7-mQK" firstAttribute="leading" secondItem="2bK-rW-Mxh" secondAttribute="leading" id="ukM-b1-OB7"/>
+                            <constraint firstAttribute="bottom" secondItem="Jd8-Ns-ECD" secondAttribute="bottom" id="vUr-v6-3hH"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="lbe-qC-14s" appends="YES" id="e6V-K4-1ez"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="0CG-9W-iHn"/>
+                    <connections>
+                        <outlet property="addressCityTextField" destination="hnK-ED-gQF" id="vNf-CV-d04"/>
+                        <outlet property="addressHouseNumberTextField" destination="tPn-Hs-TB7" id="syw-6k-qWU"/>
+                        <outlet property="addressPostCodeTextField" destination="DZe-XG-Pjk" id="YLT-5J-i0o"/>
+                        <outlet property="addressStreetTextField" destination="bBR-1c-snE" id="otV-CS-Rgf"/>
+                        <outlet property="emailTextField" destination="otc-8z-xjd" id="hEM-xD-LkX"/>
+                        <outlet property="firstNameTextField" destination="UEe-tu-CYE" id="pFl-07-4Bb"/>
+                        <outlet property="lastNameTextField" destination="aZy-RT-MdD" id="rbm-VP-i2V"/>
+                        <outlet property="phoneNumberTextField" destination="0R5-3M-5hf" id="vlf-bo-UXx"/>
+                        <outlet property="titleLabel" destination="mLe-v9-vcn" id="xv9-xu-KSH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WIH-gD-8pz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="lbe-qC-14s">
+                    <connections>
+                        <action selector="viewTapped:" destination="k6g-DJ-QxI" id="S0M-Do-JTh"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-492" y="1684"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="lucaGrey">
+            <color red="0.59200000762939453" green="0.59200000762939453" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

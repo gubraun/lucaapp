@@ -12,6 +12,7 @@ class DataPrivacyViewController: UIViewController {
     }
 
     func setupViews() {
+        setupAccessibility()
         descriptionLabel.text = L10n.DataPrivacy.Info.description
         descriptionTitle.text = L10n.DataPrivacy.Info.title
     }
@@ -24,6 +25,16 @@ class DataPrivacyViewController: UIViewController {
     @IBAction func gotItButtonPressed(_ sender: UIButton) {
         LucaPreferences.shared.dataPrivacyPresented = true
         self.dismiss(animated: true, completion: nil)
+    }
+
+}
+
+// MARK: - Accessibility
+extension DataPrivacyViewController {
+
+    private func setupAccessibility() {
+        descriptionTitle.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(descriptionTitle, notification: .layoutChanged, delay: 0.8)
     }
 
 }

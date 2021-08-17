@@ -21,12 +21,19 @@ class PrivateMeetingInfoViewController: UIViewController {
 
         if let event = historyEvent as? UserEvent, let checkout = event.checkout {
             dateLabel.text = "\(event.checkin.date.formattedDateTime) - \(checkout.date.formattedDateTime)"
+            dateLabel.accessibilityLabel = "\(event.checkin.date.accessibilityDate) - \(checkout.date.accessibilityDate)"
             setup(entry: checkout)
         } else if let event = historyEvent as? UserEvent {
             dateLabel.text = event.checkin.date.formattedDateTime
+            dateLabel.accessibilityLabel = "\(event.checkin.date.accessibilityDate)"
             setup(entry: event.checkin)
         }
 
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged)
     }
 
     func setup(entry: HistoryEntry) {
@@ -38,6 +45,10 @@ class PrivateMeetingInfoViewController: UIViewController {
 
         guestListTextView.text = uniqueGuestList.isEmpty ? L10n.Private.Meeting.Participants.none : guestListText
         adjustSizeAndScroll()
+    }
+
+    @IBAction func okButtonPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 
     func adjustSizeAndScroll() {

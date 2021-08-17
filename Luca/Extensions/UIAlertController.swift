@@ -1,7 +1,5 @@
 import UIKit
 import RxSwift
-import DeviceKit
-import LicensesViewController
 
 extension UIAlertController {
 
@@ -148,66 +146,23 @@ extension UIAlertController {
         viewController.present(self, animated: true, completion: nil)
     }
 
-    func dataPrivacyActionSheet(viewController: UIViewController, additionalActions: [UIAlertAction] = []) {
-        self.addAction(UIAlertAction(title: L10n.General.dataPrivacy, style: .default) { _ in
-            self.openDataPrivacyLink(viewController: viewController)
-        })
-        self.addAction(UIAlertAction(title: L10n.General.termsAndConditions, style: .default) { _ in
-            self.openTermsAndConditionsLink(viewController: viewController)
-        })
-        self.addAction(UIAlertAction(title: L10n.General.imprint, style: .default) { _ in
-            self.openImprintLink(viewController: viewController)
-        })
-        self.addAction(UIAlertAction(title: L10n.acknowledgements, style: .default) { _ in
-            self.openLicenses(viewController: viewController)
-        })
-        self.addAction(UIAlertAction(title: L10n.General.faq, style: .default) { _ in
-            self.openFAQLink(viewController: viewController)
-        })
-
-        self.addAction(UIAlertAction(title: L10n.Navigation.Basic.cancel, style: .cancel, handler: nil))
-        for action in additionalActions { self.addAction(action) }
-        viewController.present(self, animated: true)
-    }
-
-    func openLicenses(viewController: UIViewController) {
-        let vc = LicensesViewController()
-        vc.loadPlist(Bundle.main, resourceName: "Credits")
-        viewController.navigationController?.pushViewController(vc, animated: true)
-    }
-
     func menuActionSheet(viewController: UIViewController, additionalActions: [UIAlertAction] = []) {
         self.addAction(UIAlertAction(title: L10n.Navigation.Basic.cancel, style: .cancel, handler: nil))
         for action in additionalActions { self.addAction(action) }
         viewController.present(self, animated: true)
     }
 
-    func openDataPrivacyLink(viewController: UIViewController) {
-        guard let url = URL(string: L10n.WelcomeViewController.linkPrivacyPolicy) else {
-            return
-        }
-        UIApplication.shared.open(url, options: [:])
-    }
+    func termsAndConditionsActionSheet(viewController: UIViewController, additionalActions: [UIAlertAction] = []) {
+        self.addAction(UIAlertAction(title: L10n.Terms.Acceptance.termsAndConditionsChanges, style: .default) { _ in
+            guard let url = URL(string: L10n.Terms.Acceptance.linkChanges) else {
+                return
+            }
+            UIApplication.shared.open(url, options: [:])
+        })
 
-    func openTermsAndConditionsLink(viewController: UIViewController) {
-        guard let url = URL(string: L10n.WelcomeViewController.linkTC) else {
-            return
-        }
-        UIApplication.shared.open(url, options: [:])
-    }
-
-    func openFAQLink(viewController: UIViewController) {
-        guard let url = URL(string: L10n.WelcomeViewController.linkFAQ) else {
-            return
-        }
-        UIApplication.shared.open(url, options: [:])
-    }
-
-    func openImprintLink(viewController: UIViewController) {
-        guard let url = URL(string: L10n.General.linkImprint) else {
-            return
-        }
-        UIApplication.shared.open(url, options: [:])
+        self.addAction(UIAlertAction(title: L10n.Navigation.Basic.cancel, style: .cancel, handler: nil))
+        for action in additionalActions { self.addAction(action) }
+        viewController.present(self, animated: true)
     }
 }
 

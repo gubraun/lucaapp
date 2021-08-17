@@ -20,7 +20,8 @@ class PhoneNumberConfirmationViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIAccessibility.setFocusTo(titleLabel)
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .screenChanged, delay: 0.8)
     }
 
     func setupViews() {

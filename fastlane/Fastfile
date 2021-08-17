@@ -1,0 +1,70 @@
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+ENV["VERSION_NUMBER"] = get_version_number()
+ENV["BUILD_NUMBER"] = get_build_number()
+
+platform :ios do
+  desc "Build app"
+  lane :build do |options|
+    # Build QA scheme
+    
+    ENV["APPLE_IDENTIFIER"] = options[:apple_identifier]
+    
+    unlock_keychain(
+      path: "login.keychain-db",
+      password: ENV['LOGIN_KEYCHAIN_PASSWORD']
+    )
+    
+    cert(api_key_path: ENV["API_KEY_JSON"])
+    sigh(adhoc: options[:adhoc], api_key_path: ENV["API_KEY_JSON"])
+
+    gym(
+        workspace: "Luca.xcworkspace",
+        scheme: options[:scheme],
+        build_path: "./archives",
+        derived_data_path: "./derived_data",
+        output_directory: "./build_#{options[:path_suffix]}",
+        output_name: "luca_#{ENV["VERSION_NUMBER"]}_#{ENV["BUILD_NUMBER"]}_#{options[:path_suffix]}",
+        clean: true,
+        export_method: options[:export_method]
+    )
+  end
+  
+  desc "Submit to Testflight"
+  lane :submit do
+    upload_to_testflight(api_key_path: ENV["API_KEY_JSON"], ipa: "build_production/luca_#{ENV["VERSION_NUMBER"]}_#{ENV["BUILD_NUMBER"]}_production.ipa", skip_waiting_for_build_processing: true)
+  end
+  
+  desc "Submit to Appcenter"
+  lane :appcenter do |options|
+    appcenter_upload(
+        api_token: ENV["LUCA_IOS_APPCENTER_TOKEN"],
+        owner_name: "culture4life",
+        owner_type: "organization",
+        app_name: "luca-iOS",
+        timeout: 180,
+        file: "build_#{options[:path_suffix]}/luca_#{ENV["VERSION_NUMBER"]}_#{ENV["BUILD_NUMBER"]}_#{options[:path_suffix]}.ipa"
+    )
+  end
+  
+  desc "Runs tests"
+  lane :test do
+    run_tests(
+      skip_build: true,
+      output_types: "junit",
+      derived_data_path: "./derived_data_tests",
+      device: 'iPhone 8',
+      code_coverage: true,
+      scheme: "LucaTests"
+    )
+  end
+  
+  desc "Install pods"
+  lane :pods do
+    cocoapods
+  end
+  
+end

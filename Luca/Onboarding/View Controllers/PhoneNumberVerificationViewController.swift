@@ -6,6 +6,10 @@ class PhoneNumberVerificationViewController: UIViewController {
 
     @IBOutlet weak var verificationTextField: LucaTextField!
     @IBOutlet weak var verifyButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var noTANButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
 
     var challengeIds: [String] = []
 
@@ -22,6 +26,11 @@ class PhoneNumberVerificationViewController: UIViewController {
         enableVerifyButton(false)
 
         setupTANTextField()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupAccessibility()
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
@@ -42,7 +51,7 @@ class PhoneNumberVerificationViewController: UIViewController {
     func showAlert(title: String, message: String, onOk: (() -> Void)? = nil) {
         DispatchQueue.main.async {
 
-            let alert = AlertViewControllerFactory.createAlertViewController(
+            let alert = ViewControllerFactory.Alert.createAlertViewController(
                 title: title,
                 message: message,
                 firstButtonTitle: L10n.Navigation.Basic.ok.uppercased()) {
@@ -54,7 +63,7 @@ class PhoneNumberVerificationViewController: UIViewController {
 
     @IBAction func showInfo(_ sender: UIButton) {
 
-        let alert = AlertViewControllerFactory.createAlertViewController(
+        let alert = ViewControllerFactory.Alert.createAlertViewController(
             title: L10n.Verification.PhoneNumber.Info.title,
             message: L10n.Verification.PhoneNumber.Info.message,
             firstButtonTitle: L10n.Navigation.Basic.ok.uppercased())
@@ -88,6 +97,17 @@ extension PhoneNumberVerificationViewController: UITextFieldDelegate {
         } else {
             enableVerifyButton(false)
         }
+    }
+
+}
+
+// MARK: - Accessibility
+extension PhoneNumberVerificationViewController {
+
+    private func setupAccessibility() {
+        self.view.accessibilityElements = [titleLabel, descriptionLabel, verificationTextField, noTANButton, verifyButton, cancelButton].map { $0 as Any }
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .screenChanged, delay: 0.8)
     }
 
 }

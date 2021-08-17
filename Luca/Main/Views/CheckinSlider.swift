@@ -5,6 +5,17 @@ class CheckinSlider: UIControl {
     let valueObservable: BehaviorSubject<CGFloat> = BehaviorSubject(value: 0)
     let completed: PublishSubject<Bool> = PublishSubject()
 
+    var sliderType: SliderType? {
+        didSet {
+            guard let type = sliderType else { return }
+            switch type {
+            case .privateMeeting: sliderImage.accessibilityLabel = L10n.Private.Meeting.Accessibility.endMeeting
+            case .location: sliderImage.accessibilityLabel = L10n.LocationCheckinViewController.Accessibility.checkoutSlider
+            }
+        }
+
+    }
+
     override var frame: CGRect {
         didSet {
             layer.cornerRadius = frame.size.height / 2
@@ -51,9 +62,8 @@ class CheckinSlider: UIControl {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedView(_:)))
         sliderImage.addGestureRecognizer(tapGesture)
 
-        sliderImage.accessibilityLabel = L10n.LocationCheckinViewController.Accessibility.checkoutSlider
         sliderImage.isAccessibilityElement = true
-        sliderImage.accessibilityTraits = [.allowsDirectInteraction]
+        sliderImage.accessibilityTraits = .button
     }
 
     @objc func tappedView(_ gesture: UITapGestureRecognizer) {
@@ -96,4 +106,11 @@ class CheckinSlider: UIControl {
     private func boundValue(_ value: CGFloat, lowerValue: CGFloat, upperValue: CGFloat) -> CGFloat {
         return min(max(value, lowerValue), upperValue)
     }
+}
+
+enum SliderType {
+
+    case privateMeeting
+    case location
+
 }

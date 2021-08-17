@@ -26,7 +26,9 @@ protocol BackendMisc {
     func fetchSupportedVersions() -> AsyncDataOperation<BackendError<FetchSupportedVersionError>, SupportedVersions>
     func fetchAccessedTraces() -> AsyncDataOperation<BackendError<FetchAccessedTracesError>, [AccessedTrace]>
     func fetchTestProviderKeys() -> AsyncDataOperation<BackendError<FetchTestProviderKeysError>, [TestProviderKey]>
-    func redeemDocument(hash: Data, tag: Data) -> AsyncOperation<BackendError<RedeemDocumentError>>
+    func redeemDocument(hash: Data, tag: Data, expireAt: Date) -> AsyncOperation<BackendError<RedeemDocumentError>>
+    func releaseDocument(hash: Data, tag: Data) -> AsyncOperation<BackendError<ReleaseDocumentError>>
+    func fetchTimesync() -> AsyncDataOperation<BackendError<TimesyncError>, Timesync>
 }
 
 struct PrivateMeetingIds: Codable {

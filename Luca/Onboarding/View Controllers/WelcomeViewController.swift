@@ -1,15 +1,16 @@
 import UIKit
 import SimpleCheckbox
-import TTTAttributedLabel
+import Nantes
 
 class WelcomeViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var termsAndConditionsCheckbox: Checkbox!
     @IBOutlet weak var termsAndConditionsCheckboxError: UIImageView!
-    @IBOutlet weak var termsAndConditionsTextView: TTTAttributedLabel!
+    @IBOutlet weak var termsAndConditionsTextView: NantesLabel!
     @IBOutlet weak var privacyPolicyCheckbox: Checkbox!
     @IBOutlet weak var privacyPolicyCheckboxError: UIImageView!
-    @IBOutlet weak var privacyPolicyTextView: TTTAttributedLabel!
+    @IBOutlet weak var privacyPolicyTextView: NantesLabel!
 
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var okButton: UIButton!
@@ -39,17 +40,16 @@ class WelcomeViewController: UIViewController {
         okButton.layer.cornerRadius = okButton.frame.size.height / 2
 
         buildTappableLabel(
-            wholeTerm: L10n.WelcomeViewController.PrivacyPolicy.checkboxMessage,
-            linkTerms: [L10n.WelcomeViewController.termPrivacyPolicy],
-            linkURLs: [URL(string: L10n.WelcomeViewController.linkPrivacyPolicy)!],
+            linkDescription: L10n.WelcomeViewController.PrivacyPolicy.checkboxMessage,
+            linkTerm: L10n.WelcomeViewController.termPrivacyPolicy,
+            linkURL: L10n.WelcomeViewController.linkPrivacyPolicy,
             tappableLabel: privacyPolicyTextView)
 
         buildTappableLabel(
-            wholeTerm: L10n.WelcomeViewController.TermsAndConditions.checkboxMessage,
-            linkTerms: [L10n.WelcomeViewController.termTC],
-            linkURLs: [URL(string: L10n.WelcomeViewController.linkTC)!],
+            linkDescription: L10n.WelcomeViewController.TermsAndConditions.checkboxMessage,
+            linkTerm: L10n.WelcomeViewController.termTC,
+            linkURL: L10n.WelcomeViewController.linkTC,
             tappableLabel: termsAndConditionsTextView)
-
     }
 
     private func setupCheckbox(_ checkbox: Checkbox, accessibilityLabel: String) {
@@ -81,6 +81,17 @@ class WelcomeViewController: UIViewController {
         } else {
             UIApplication.shared.setStatusBarStyle(.default, animated: animated)
         }
+        setupAccessibility()
+    }
+
+    @IBAction func termsAndConditionsPressed(_ sender: Checkbox) {
+        guard termsAndConditionsCheckbox.accessibilityElementIsFocused() && UIAccessibility.isVoiceOverRunning else { return }
+        checkboxValueChanged(termsAndConditionsCheckbox)
+    }
+
+    @IBAction func privacyPolicyPressed(_ sender: Checkbox) {
+        guard privacyPolicyCheckbox.accessibilityElementIsFocused() && UIAccessibility.isVoiceOverRunning else { return }
+        checkboxValueChanged(privacyPolicyCheckbox)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -93,6 +104,9 @@ class WelcomeViewController: UIViewController {
     @IBAction func onOkButton(_ sender: UIButton) {
         guard validateCheckboxes() else {
             highlightUncheckedCheckboxes()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                UIAccessibility.post(notification: .announcement, argument: L10n.Welcome.Checkboxes.accessibilityError)
+            }
             return
         }
         LucaPreferences.shared.welcomePresented = true
@@ -101,11 +115,13 @@ class WelcomeViewController: UIViewController {
 
     @IBAction func checkboxValueChanged(_ sender: Checkbox) {
         sender.removeErrorStyling()
-        sender.accessibilityValue = sender.isChecked ? L10n.WelcomeViewController.TermsAndConditions.checkboxAccessibilityOn : L10n.WelcomeViewController.TermsAndConditions.checkboxAccessibilityOff
+
         if sender == termsAndConditionsCheckbox {
             termsAndConditionsCheckboxError.isHidden = true
+            termsAndConditionsCheckbox.accessibilityValue = sender.isChecked ? L10n.WelcomeViewController.TermsAndConditions.Checkbox.confirmed : L10n.WelcomeViewController.TermsAndConditions.Checkbox.notConfirmed
         } else if sender == privacyPolicyCheckbox {
             privacyPolicyCheckboxError.isHidden = true
+            privacyPolicyCheckbox.accessibilityValue = sender.isChecked ? L10n.WelcomeViewController.PrivacyPolicy.Checkbox.confirmed : L10n.WelcomeViewController.PrivacyPolicy.Checkbox.notConfirmed
         }
     }
 
@@ -125,37 +141,38 @@ class WelcomeViewController: UIViewController {
         }
     }
 
-    private func buildTappableLabel(wholeTerm: String, linkTerms: [String], linkURLs: [URL], tappableLabel: TTTAttributedLabel) {
-        if linkTerms.count != linkURLs.count {
-            self.log("Terms and links should be the same size", entryType: .error)
-            return
-        }
-
+    private func buildTappableLabel(linkDescription: String, linkTerm: String, linkURL: String, tappableLabel: NantesLabel) {
         let attributes: [NSAttributedString.Key: Any] = [
+            .font: tappableLabel.font as Any,
+            .foregroundColor: UIColor.white
+        ]
+        let attrText = NSMutableAttributedString(string: linkDescription, attributes: attributes)
+        tappableLabel.attributedText = attrText
+
+        tappableLabel.numberOfLines = 0
+        tappableLabel.delegate = self
+
+        let linkAttributes: [NSAttributedString.Key: Any] = [
             .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .font: tappableLabel.font.bold()
+            .font: tappableLabel.font.bold() as Any
         ]
         let clickedAttributes: [NSAttributedString.Key: Any] = [
             .underlineStyle: NSUnderlineStyle.single.rawValue,
             .foregroundColor: UIColor.lucaGrey,
-            .font: tappableLabel.font.bold()
+            .font: tappableLabel.font.bold() as Any
         ]
-
-        let nsstring = NSString(string: wholeTerm)
-        tappableLabel.text = nsstring
-        tappableLabel.linkAttributes = attributes
+        tappableLabel.linkAttributes = linkAttributes
         tappableLabel.activeLinkAttributes = clickedAttributes
-        tappableLabel.delegate = self
-        for (index, linkTerm) in linkTerms.enumerated() {
-            let range = nsstring.range(of: linkTerm)
-            tappableLabel.addLink(to: linkURLs[index], with: range)
+        if let linkRange = linkDescription.range(of: linkTerm),
+           let url = URL(string: linkURL) {
+            tappableLabel.addLink(to: url, withRange: NSRange(linkRange, in: linkDescription))
         }
     }
 }
 
-extension WelcomeViewController: TTTAttributedLabelDelegate {
-    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+extension WelcomeViewController: NantesLabelDelegate {
+    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
+        UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
 }
 
@@ -170,4 +187,25 @@ private extension Checkbox {
     func removeErrorStyling() {
         uncheckedBorderColor = .white
     }
+}
+
+// MARK: - Accessibility
+extension WelcomeViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+
+        termsAndConditionsTextView.accessibilityLabel = L10n.Welcome.TermsAndConditions.Link.accessibility
+        privacyPolicyTextView.accessibilityLabel = L10n.Welcome.PrivacyPolicy.Link.accessibility
+
+        self.view.accessibilityElements = [titleLabel, descriptionLabel, termsAndConditionsCheckbox, termsAndConditionsTextView, privacyPolicyCheckbox, privacyPolicyTextView, okButton].map { $0 as Any }
+
+        privacyPolicyCheckbox.accessibilityValue = privacyPolicyCheckbox.isChecked ?
+            L10n.WelcomeViewController.PrivacyPolicy.Checkbox.confirmed : L10n.WelcomeViewController.PrivacyPolicy.Checkbox.notConfirmed
+        termsAndConditionsCheckbox.accessibilityValue = termsAndConditionsCheckbox.isChecked ?
+            L10n.WelcomeViewController.TermsAndConditions.Checkbox.confirmed : L10n.WelcomeViewController.TermsAndConditions.Checkbox.notConfirmed
+
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+    }
+
 }

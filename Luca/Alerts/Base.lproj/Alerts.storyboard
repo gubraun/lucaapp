@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -39,14 +39,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4kH-lT-Ik0">
-                                        <rect key="frame" x="32" y="77.5" width="286" height="501.5"/>
+                                        <rect key="frame" x="32" y="77.5" width="286" height="442.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wgm-vK-zuj">
-                                                <rect key="frame" x="0.0" y="0.0" width="286" height="711"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="286" height="710.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5z-XP-HXt" customClass="TTTAttributedLabel">
-                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="711"/>
-                                                        <mutableString key="text">Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text </mutableString>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5z-XP-HXt" customClass="NantesLabel" customModule="Nantes">
+                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="710.5"/>
+                                                        <string key="text">Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text Long text </string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -72,52 +72,63 @@
                                         <viewLayoutGuide key="contentLayoutGuide" id="zMn-x7-tTc"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="JQc-RL-vGa"/>
                                     </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asd-HK-YFI">
-                                        <rect key="frame" x="32" y="611" width="86" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
-                                        <state key="normal" title="ABBRECHEN">
-                                            <color key="titleColor" name="lucaPurple"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="cancelActionTapped:" destination="Lf6-bw-X0C" eventType="touchUpInside" id="Kan-2P-sbT"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XgK-DN-pW5">
-                                        <rect key="frame" x="240" y="611" width="78" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="208" y="552" width="110" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="1DL-xx-YeQ"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="FREIGEBEN">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="confirmActionTapped:" destination="Lf6-bw-X0C" eventType="touchUpInside" id="YGU-Pn-kUA"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asd-HK-YFI">
+                                        <rect key="frame" x="200" y="608" width="118" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="CnZ-og-tox"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
+                                        <state key="normal" title="ABBRECHEN">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancelActionTapped:" destination="Lf6-bw-X0C" eventType="touchUpInside" id="Kan-2P-sbT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" name="lucaBeige"/>
                                 <constraints>
                                     <constraint firstItem="4kH-lT-Ik0" firstAttribute="top" secondItem="lw6-oz-eBf" secondAttribute="bottom" constant="22" id="4MB-sg-bo5"/>
-                                    <constraint firstAttribute="bottom" secondItem="asd-HK-YFI" secondAttribute="bottom" constant="32" id="7Ih-Cd-1Uh"/>
-                                    <constraint firstItem="XgK-DN-pW5" firstAttribute="centerY" secondItem="asd-HK-YFI" secondAttribute="centerY" id="BTb-hz-0rT"/>
-                                    <constraint firstItem="asd-HK-YFI" firstAttribute="top" secondItem="4kH-lT-Ik0" secondAttribute="bottom" constant="32" id="GmN-Qu-bb9"/>
-                                    <constraint firstItem="asd-HK-YFI" firstAttribute="leading" secondItem="5iS-hz-csP" secondAttribute="leading" constant="32" id="Puh-6Z-1Ne"/>
+                                    <constraint firstAttribute="bottom" secondItem="asd-HK-YFI" secondAttribute="bottom" constant="32" id="4gq-3A-l18"/>
+                                    <constraint firstItem="asd-HK-YFI" firstAttribute="trailing" secondItem="XgK-DN-pW5" secondAttribute="trailing" id="Bw8-Ms-4tV"/>
+                                    <constraint firstItem="asd-HK-YFI" firstAttribute="top" secondItem="XgK-DN-pW5" secondAttribute="bottom" constant="24" id="JcV-TG-kHM"/>
                                     <constraint firstAttribute="trailing" secondItem="4kH-lT-Ik0" secondAttribute="trailing" constant="32" id="SmQ-co-bu3"/>
                                     <constraint firstAttribute="trailing" secondItem="XgK-DN-pW5" secondAttribute="trailing" constant="32" id="aYl-rE-e6T"/>
                                     <constraint firstItem="lw6-oz-eBf" firstAttribute="leading" secondItem="5iS-hz-csP" secondAttribute="leading" constant="32" id="hpR-rY-4L9"/>
                                     <constraint firstItem="lw6-oz-eBf" firstAttribute="top" secondItem="5iS-hz-csP" secondAttribute="top" constant="32" id="ibL-bm-Ulj"/>
                                     <constraint firstItem="4kH-lT-Ik0" firstAttribute="leading" secondItem="lw6-oz-eBf" secondAttribute="leading" id="jLA-0R-4xN"/>
                                     <constraint firstAttribute="trailing" secondItem="lw6-oz-eBf" secondAttribute="trailing" constant="32" id="k8d-7j-dYy"/>
+                                    <constraint firstItem="XgK-DN-pW5" firstAttribute="top" secondItem="4kH-lT-Ik0" secondAttribute="bottom" constant="32" id="tVu-pj-O3Y"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -155,7 +166,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFA-B9-a3I">
-                                <rect key="frame" x="32" y="311.5" width="350" height="283"/>
+                                <rect key="frame" x="32" y="310" width="350" height="286"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daten freigeben" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muW-F5-sm3">
                                         <rect key="frame" x="32" y="32" width="286" height="23.5"/>
@@ -176,15 +187,22 @@
                                         </constraints>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1N-fm-QGD">
-                                        <rect key="frame" x="32" y="222" width="86" height="29"/>
+                                        <rect key="frame" x="32" y="222" width="118" height="32"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="k9G-8V-65f"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="ABBRECHEN">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -192,15 +210,19 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdF-1p-Yt9">
-                                        <rect key="frame" x="240" y="222" width="78" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="208" y="222" width="110" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="lrh-nS-7SE"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="FREIGEBEN">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -242,6 +264,7 @@
                     </view>
                     <connections>
                         <outlet property="dayPicker" destination="5uk-4n-vSo" id="NaL-AU-X4z"/>
+                        <outlet property="titleLabel" destination="muW-F5-sm3" id="2hz-sh-OX3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vOw-nR-mhr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -257,7 +280,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YKk-P0-8FD">
-                                <rect key="frame" x="32" y="310" width="350" height="276.5"/>
+                                <rect key="frame" x="32" y="308.5" width="350" height="279.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nummer bestätigen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckb-j0-yX9">
                                         <rect key="frame" x="32" y="32" width="286" height="23.5"/>
@@ -273,15 +296,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqG-SG-6cH">
-                                        <rect key="frame" x="288" y="215.5" width="30" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="258" y="215.5" width="60" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="2Hg-Wb-13d"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="LOS">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -295,20 +322,26 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fe-Xa-BaQ">
-                                        <rect key="frame" x="32" y="215.5" width="86" height="29"/>
+                                        <rect key="frame" x="32" y="215.5" width="118" height="32"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="1s9-UJ-0eP"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="ABBRECHEN">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="cancelPressed:" destination="3Ee-8Y-cUx" eventType="touchUpInside" id="Wx0-Gk-GOh"/>
-                                            <action selector="confirmPressed:" destination="3Ee-8Y-cUx" eventType="touchUpInside" id="hLM-aB-k97"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -364,7 +397,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcf-6b-0cM">
-                                <rect key="frame" x="32" y="274" width="350" height="348"/>
+                                <rect key="frame" x="32" y="244.5" width="350" height="407"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS Bestätigung" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tc9-Gf-rpN">
                                         <rect key="frame" x="32" y="32" width="286" height="23.5"/>
@@ -388,18 +421,22 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1af-tI-dhm">
-                                        <rect key="frame" x="251" y="287" width="67" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="219" y="287" width="99" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="Jlm-hh-zqe"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="Bestätigen">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <state key="disabled">
                                             <color key="titleColor" name="lucaGrey"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -416,11 +453,23 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eng-dg-r0v">
-                                        <rect key="frame" x="175" y="287" width="44" height="29"/>
+                                        <rect key="frame" x="242" y="343" width="76" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="tMU-a7-WEE"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="Cancel">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="cancelButtonPressed:" destination="6Mt-Pt-rdn" eventType="touchUpInside" id="aaH-1y-aq4"/>
                                         </connections>
@@ -435,16 +484,15 @@
                                     <constraint firstItem="Tc9-Gf-rpN" firstAttribute="top" secondItem="wcf-6b-0cM" secondAttribute="top" constant="32" id="KeK-2W-zmK"/>
                                     <constraint firstAttribute="trailing" secondItem="Tc9-Gf-rpN" secondAttribute="trailing" constant="32" id="OmB-hK-AcY"/>
                                     <constraint firstItem="cbC-nA-xyE" firstAttribute="leading" secondItem="9p4-Qc-YuD" secondAttribute="leading" id="Pon-qr-FOm"/>
-                                    <constraint firstItem="1af-tI-dhm" firstAttribute="leading" secondItem="eng-dg-r0v" secondAttribute="trailing" priority="500" constant="32" id="WDy-Z1-sZv"/>
-                                    <constraint firstAttribute="bottom" secondItem="1af-tI-dhm" secondAttribute="bottom" constant="32" id="Yk6-nO-am4"/>
                                     <constraint firstItem="9p4-Qc-YuD" firstAttribute="top" secondItem="Tc9-Gf-rpN" secondAttribute="bottom" constant="22" id="ZhX-Rr-RuE"/>
                                     <constraint firstItem="cbC-nA-xyE" firstAttribute="trailing" secondItem="9p4-Qc-YuD" secondAttribute="trailing" id="ZzB-4m-xlo"/>
                                     <constraint firstItem="Tc9-Gf-rpN" firstAttribute="leading" secondItem="wcf-6b-0cM" secondAttribute="leading" constant="32" id="a35-51-VnX"/>
-                                    <constraint firstItem="eng-dg-r0v" firstAttribute="centerY" secondItem="1af-tI-dhm" secondAttribute="centerY" id="eKY-Vr-FX1"/>
                                     <constraint firstItem="9p4-Qc-YuD" firstAttribute="trailing" secondItem="Tc9-Gf-rpN" secondAttribute="trailing" id="h3i-nn-NNJ"/>
                                     <constraint firstItem="Paj-iU-Bob" firstAttribute="top" secondItem="cbC-nA-xyE" secondAttribute="bottom" constant="21" id="nbY-9u-jck"/>
-                                    <constraint firstItem="eng-dg-r0v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wcf-6b-0cM" secondAttribute="leading" constant="32" id="rXt-zB-Y0a"/>
+                                    <constraint firstItem="eng-dg-r0v" firstAttribute="trailing" secondItem="1af-tI-dhm" secondAttribute="trailing" id="q2p-7x-4k3"/>
                                     <constraint firstItem="1af-tI-dhm" firstAttribute="trailing" secondItem="cbC-nA-xyE" secondAttribute="trailing" id="ruf-fe-MQE"/>
+                                    <constraint firstAttribute="bottom" secondItem="eng-dg-r0v" secondAttribute="bottom" constant="32" id="ukR-lG-CKg"/>
+                                    <constraint firstItem="eng-dg-r0v" firstAttribute="top" secondItem="1af-tI-dhm" secondAttribute="bottom" constant="24" id="zps-Og-U5e"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -467,6 +515,10 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="eng-dg-r0v" id="aEE-2l-EEJ"/>
+                        <outlet property="descriptionLabel" destination="9p4-Qc-YuD" id="qgc-kC-WVL"/>
+                        <outlet property="noTANButton" destination="Paj-iU-Bob" id="btH-aT-QY0"/>
+                        <outlet property="titleLabel" destination="Tc9-Gf-rpN" id="cub-bt-odz"/>
                         <outlet property="verificationTextField" destination="cbC-nA-xyE" id="StE-KI-Kz8"/>
                         <outlet property="verifyButton" destination="1af-tI-dhm" id="ugz-US-6QI"/>
                     </connections>
@@ -489,7 +541,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63v-T8-r1o">
-                                <rect key="frame" x="32" y="358.5" width="350" height="179.5"/>
+                                <rect key="frame" x="32" y="326.5" width="350" height="243.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privates Treffen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4r-Bf-h2l">
                                         <rect key="frame" x="32" y="32" width="286" height="23.5"/>
@@ -503,16 +555,38 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKA-4d-jyT">
+                                        <rect key="frame" x="266" y="179.5" width="52" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="Bvx-VM-Zzw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="okButtonPressed:" destination="z7Z-Vb-EVn" eventType="touchUpInside" id="UDg-ov-hdW"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" name="lucaBeige"/>
                                 <constraints>
+                                    <constraint firstItem="yKA-4d-jyT" firstAttribute="trailing" secondItem="cPu-ZU-W2z" secondAttribute="trailing" id="IMg-lU-UQA"/>
                                     <constraint firstItem="cPu-ZU-W2z" firstAttribute="leading" secondItem="B4r-Bf-h2l" secondAttribute="leading" id="Uqo-vd-L3f"/>
+                                    <constraint firstAttribute="bottom" secondItem="yKA-4d-jyT" secondAttribute="bottom" constant="32" id="XFY-mr-lgN"/>
                                     <constraint firstItem="B4r-Bf-h2l" firstAttribute="top" secondItem="63v-T8-r1o" secondAttribute="top" constant="32" id="YNH-qb-B7W"/>
                                     <constraint firstAttribute="trailing" secondItem="B4r-Bf-h2l" secondAttribute="trailing" constant="32" id="eG0-s6-Thh"/>
                                     <constraint firstItem="cPu-ZU-W2z" firstAttribute="trailing" secondItem="B4r-Bf-h2l" secondAttribute="trailing" id="eSM-0l-yNh"/>
                                     <constraint firstItem="B4r-Bf-h2l" firstAttribute="leading" secondItem="63v-T8-r1o" secondAttribute="leading" constant="32" id="lcA-jN-aUI"/>
                                     <constraint firstItem="cPu-ZU-W2z" firstAttribute="top" secondItem="B4r-Bf-h2l" secondAttribute="bottom" constant="22" id="pSb-X0-Zv2"/>
-                                    <constraint firstAttribute="bottom" secondItem="cPu-ZU-W2z" secondAttribute="bottom" constant="32" id="pTT-QF-LeV"/>
+                                    <constraint firstItem="yKA-4d-jyT" firstAttribute="top" secondItem="cPu-ZU-W2z" secondAttribute="bottom" constant="32" id="tNf-QZ-pqp"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -559,7 +633,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bQ-aK-abg">
-                                <rect key="frame" x="32" y="299.5" width="350" height="297.5"/>
+                                <rect key="frame" x="32" y="298" width="350" height="300.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daten freigeben" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3Z-P6-Xnn">
                                         <rect key="frame" x="32" y="32" width="286" height="23.5"/>
@@ -574,15 +648,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubh-BL-vAv">
-                                        <rect key="frame" x="288" y="236.5" width="30" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="266" y="236.5" width="52" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="AEw-65-f4k"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="OK">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -632,6 +710,7 @@
                     </view>
                     <connections>
                         <outlet property="tanLabel" destination="hnp-sa-7PZ" id="5ql-uf-EAj"/>
+                        <outlet property="titleLabel" destination="w3Z-P6-Xnn" id="7aJ-73-EmO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EzX-zk-Wup" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -648,7 +727,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aAm-qt-BNa">
-                                <rect key="frame" x="32" y="274" width="350" height="348"/>
+                                <rect key="frame" x="32" y="242" width="350" height="412"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privates Treffen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czk-1N-eNn">
                                         <rect key="frame" x="32" y="32" width="286" height="23.5"/>
@@ -691,11 +770,30 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9N-My-eGT">
+                                        <rect key="frame" x="266" y="348" width="52" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="rmx-hp-RBn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="okButtonPressed:" destination="m2D-36-YhP" eventType="touchUpInside" id="cvg-9Y-srV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" name="lucaBeige"/>
                                 <constraints>
                                     <constraint firstItem="mcS-Bb-tFA" firstAttribute="trailing" secondItem="TBv-Dn-F9K" secondAttribute="trailing" id="0sF-nO-bWN"/>
-                                    <constraint firstAttribute="bottom" secondItem="mcS-Bb-tFA" secondAttribute="bottom" constant="32" id="17Y-OF-tdw"/>
                                     <constraint firstItem="czk-1N-eNn" firstAttribute="top" secondItem="aAm-qt-BNa" secondAttribute="top" constant="32" id="1fC-np-kea"/>
                                     <constraint firstItem="gQh-Xv-ukT" firstAttribute="top" secondItem="czk-1N-eNn" secondAttribute="bottom" constant="5" id="8go-7E-qRM"/>
                                     <constraint firstItem="Lyx-JX-48R" firstAttribute="top" secondItem="FCa-wv-JgV" secondAttribute="bottom" constant="4" id="GGx-0y-aI4"/>
@@ -703,11 +801,14 @@
                                     <constraint firstItem="gQh-Xv-ukT" firstAttribute="trailing" secondItem="czk-1N-eNn" secondAttribute="trailing" id="HT8-L6-MjJ"/>
                                     <constraint firstItem="TBv-Dn-F9K" firstAttribute="leading" secondItem="czk-1N-eNn" secondAttribute="leading" id="KIb-3S-dN0"/>
                                     <constraint firstItem="mcS-Bb-tFA" firstAttribute="top" secondItem="Lyx-JX-48R" secondAttribute="bottom" constant="12" id="LM4-Kq-Dzz"/>
+                                    <constraint firstItem="z9N-My-eGT" firstAttribute="top" secondItem="mcS-Bb-tFA" secondAttribute="bottom" constant="32" id="OUh-ag-T12"/>
                                     <constraint firstItem="FCa-wv-JgV" firstAttribute="top" secondItem="TBv-Dn-F9K" secondAttribute="bottom" constant="24" id="OfF-U0-VIl"/>
+                                    <constraint firstItem="z9N-My-eGT" firstAttribute="trailing" secondItem="mcS-Bb-tFA" secondAttribute="trailing" id="Thk-ch-qcQ"/>
                                     <constraint firstItem="gQh-Xv-ukT" firstAttribute="leading" secondItem="czk-1N-eNn" secondAttribute="leading" id="Uvp-xv-f6x"/>
                                     <constraint firstAttribute="trailing" secondItem="czk-1N-eNn" secondAttribute="trailing" constant="32" id="VNA-rB-QRf"/>
                                     <constraint firstItem="czk-1N-eNn" firstAttribute="leading" secondItem="aAm-qt-BNa" secondAttribute="leading" constant="32" id="Vfk-oS-D8t"/>
                                     <constraint firstItem="TBv-Dn-F9K" firstAttribute="trailing" secondItem="gQh-Xv-ukT" secondAttribute="trailing" id="VuF-z0-HNb"/>
+                                    <constraint firstAttribute="bottom" secondItem="z9N-My-eGT" secondAttribute="bottom" constant="32" id="YDo-zJ-4xh"/>
                                     <constraint firstItem="TBv-Dn-F9K" firstAttribute="top" secondItem="gQh-Xv-ukT" secondAttribute="bottom" constant="8" id="Zkd-SV-ylv"/>
                                     <constraint firstItem="Lyx-JX-48R" firstAttribute="leading" secondItem="FCa-wv-JgV" secondAttribute="leading" id="aRM-Oa-Kev"/>
                                     <constraint firstItem="FCa-wv-JgV" firstAttribute="leading" secondItem="TBv-Dn-F9K" secondAttribute="leading" id="adw-sj-DHa"/>
@@ -760,7 +861,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I2N-at-WTP">
-                                <rect key="frame" x="32" y="351" width="350" height="194.5"/>
+                                <rect key="frame" x="32" y="337" width="350" height="222"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLd-f6-Lp0">
                                         <rect key="frame" x="32" y="32" width="286" height="47"/>
@@ -771,15 +872,19 @@ second line</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0G-Ek-96L">
-                                        <rect key="frame" x="288" y="133.5" width="30" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="266" y="158" width="52" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="Q1F-eb-isk"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="OK">
-                                            <color key="titleColor" name="lucaPurple"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="24"/>
+                                                <integer key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -828,7 +933,7 @@ second line</string>
                                     <constraint firstItem="akJ-XD-Ujo" firstAttribute="top" secondItem="OLd-f6-Lp0" secondAttribute="bottom" constant="14" id="SgI-xe-ZJg"/>
                                     <constraint firstAttribute="trailing" secondItem="OLd-f6-Lp0" secondAttribute="trailing" constant="32" id="Uq9-bW-hOW"/>
                                     <constraint firstItem="akJ-XD-Ujo" firstAttribute="leading" secondItem="I2N-at-WTP" secondAttribute="leading" constant="32" id="cQO-fa-V9u"/>
-                                    <constraint firstItem="W0G-Ek-96L" firstAttribute="top" secondItem="akJ-XD-Ujo" secondAttribute="bottom" constant="7.5" id="edx-8O-eDL"/>
+                                    <constraint firstItem="W0G-Ek-96L" firstAttribute="top" secondItem="akJ-XD-Ujo" secondAttribute="bottom" constant="32" id="edx-8O-eDL"/>
                                     <constraint firstAttribute="trailing" secondItem="akJ-XD-Ujo" secondAttribute="trailing" constant="32" id="xDJ-Af-SEm"/>
                                     <constraint firstItem="OLd-f6-Lp0" firstAttribute="leading" secondItem="I2N-at-WTP" secondAttribute="leading" constant="32" id="xvY-sj-pYa"/>
                                 </constraints>
@@ -869,7 +974,7 @@ second line</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="prf-L1-uW6">
-                                <rect key="frame" x="32" y="182.5" width="350" height="531"/>
+                                <rect key="frame" x="32" y="179.5" width="350" height="537"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDV-04-T6Y">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="411"/>
@@ -893,7 +998,7 @@ second line</string>
                                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="20"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewDataAccessTableViewCell" rowHeight="100" id="Dwx-1t-Prh" customClass="NewDataAccessTableViewCell" customModule="Luca" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="28" width="286" height="100"/>
+                                                                <rect key="frame" x="0.0" y="24.5" width="286" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dwx-1t-Prh" id="0H3-3t-MJc">
                                                                     <rect key="frame" x="0.0" y="0.0" width="286" height="100"/>
@@ -973,21 +1078,43 @@ second line</string>
                                         </userDefinedRuntimeAttributes>
                                     </scrollView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5g-Lu-YCc">
-                                        <rect key="frame" x="169" y="470" width="149" height="29"/>
+                                        <rect key="frame" x="137" y="473" width="181" height="32"/>
+                                        <color key="backgroundColor" name="lucaLightGrey"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="RIO-O2-Ubn"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="ALLE DATENZUGRIFFE">
-                                            <color key="titleColor" name="lucaDarkBlueGrey"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="allDataAccessesPressed:" destination="sHX-be-fS7" eventType="touchUpInside" id="vsP-sl-aDN"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CtM-IJ-qZj">
-                                        <rect key="frame" x="231" y="431" width="87" height="29"/>
+                                        <rect key="frame" x="199" y="431" width="119" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="0Rx-5C-3c6"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                                         <state key="normal" title="SCHLIESSEN">
-                                            <color key="titleColor" name="lucaDarkBlueGrey"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="closePressed:" destination="sHX-be-fS7" eventType="touchUpInside" id="wzY-16-rN4"/>
                                         </connections>
@@ -1034,7 +1161,7 @@ second line</string>
     </scenes>
     <designables>
         <designable name="K5z-XP-HXt">
-            <size key="intrinsicContentSize" width="9140" height="21"/>
+            <size key="intrinsicContentSize" width="9040" height="20.5"/>
         </designable>
     </designables>
     <resources>
@@ -1042,14 +1169,11 @@ second line</string>
         <namedColor name="lucaBeige">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="lucaDarkBlueGrey">
-            <color red="0.31400001049041748" green="0.40000000596046448" blue="0.48600000143051147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="lucaGrey">
             <color red="0.59200000762939453" green="0.59200000762939453" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="lucaPurple">
-            <color red="0.18823529411764706" green="0.12941176470588237" blue="0.76470588235294112" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="lucaLightGrey">
+            <color red="0.72156862745098038" green="0.75294117647058822" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

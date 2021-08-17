@@ -8,7 +8,7 @@ class ScannerService {
     func startScanner(onParent parent: UIViewController, in view: UIView) {
         if scannerVC != nil { return }
 
-        scannerVC = MainViewControllerFactory.createQRScannerViewController()
+        scannerVC = ViewControllerFactory.Checkin.createQRScannerViewController()
         scannerVC!.present(onParent: parent, in: view)
         scannerOn = true
     }

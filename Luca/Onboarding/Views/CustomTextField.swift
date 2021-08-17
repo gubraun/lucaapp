@@ -40,12 +40,13 @@ class FormTextField: UIView {
         textField = MDCTextField(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         textFieldController = MDCTextInputControllerOutlined(textInput: textField)
 
-        textFieldController.activeColor = .lucaWhiteTextFieldBorder
-        textFieldController.normalColor = .lucaWhiteTextFieldBorder
-        textFieldController.inlinePlaceholderColor = .lucaWhiteTextFieldBorder
+        textFieldController.activeColor = .white
+        textFieldController.normalColor = .white
+        textFieldController.inlinePlaceholderColor = .white
         textFieldController.floatingPlaceholderActiveColor = .white
         textFieldController.floatingPlaceholderNormalColor = .white
-        textFieldController.borderStrokeColor = .lucaWhiteTextFieldBorder
+        textFieldController.borderStrokeColor = .white
+        textFieldController.errorColor = UIColor.lucaError
         textFieldController.inlinePlaceholderFont = UIFont.init(descriptor: UIFontDescriptor(name: "Montserrat-Regular", size: 15), size: 15)
 
         textFieldController.floatingPlaceholderScale = 0.9

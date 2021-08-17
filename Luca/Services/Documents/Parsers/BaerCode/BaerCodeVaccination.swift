@@ -8,7 +8,7 @@ enum BaerCodeVaccineState: Int {
     case complete = 3
 }
 
-struct BaerCodeVaccination: Vaccination & DocumentCellViewModel {
+struct BaerCodeVaccination: Vaccination {
 
     var version: Int
     var firstName: String
@@ -18,6 +18,7 @@ struct BaerCodeVaccination: Vaccination & DocumentCellViewModel {
     var procedures: [BaerCoronaProcedure]
     var procedureOperator: String
     var originalCode: String
+    var hashSeed: String { originalCode }
 
     var dateOfBirth: Date {
         return Date(timeIntervalSince1970: TimeInterval(dateOfBirthInt))
@@ -93,14 +94,5 @@ struct BaerCodeVaccination: Vaccination & DocumentCellViewModel {
             .removeOccurences(of: ["DR.", "PROF."])
             .removeNonUppercase()
             .removeWhitespaces()
-    }
-
-    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaVaccineTableViewCell", for: indexPath) as! CoronaVaccineTableViewCell
-        cell.vaccination = self
-        cell.delegate = delegate
-
-        return cell
     }
 }

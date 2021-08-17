@@ -4,6 +4,7 @@ import JGProgressHUD
 
 class DataAccessViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyStateView: UIView!
 
@@ -53,6 +54,7 @@ class DataAccessViewController: UIViewController {
         loadEntries()
         self.navigationController?.setTranslucent()
         self.navigationController?.navigationBar.tintColor = .white
+        setupAccessibility()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,8 +92,10 @@ extension DataAccessViewController: UITableViewDataSource, UITableViewDelegate {
         let checkin = dataAccess.traceInfo.checkInDate
         if let checkout = dataAccess.traceInfo.checkOutDate {
             cell.dateLabel.text = "\(checkin.formattedDateTime) - \(checkout.formattedDateTime)"
+            cell.dateLabel.accessibilityLabel = L10n.History.Checkin.Checkout.time(checkin.accessibilityDate, checkout.accessibilityDate)
         } else {
             cell.dateLabel.text = "\(checkin.formattedDateTime)"
+            cell.dateLabel.accessibilityLabel = checkin.accessibilityDate
         }
 
         return cell
@@ -107,6 +111,16 @@ extension DataAccessViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+
+}
+
+// MARK: - Accessibility
+extension DataAccessViewController {
+
+    private func setupAccessibility() {
+        titleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
     }
 
 }

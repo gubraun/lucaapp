@@ -1,12 +1,13 @@
 import UIKit
 
-struct DGCRecovery: Recovery & DocumentCellViewModel {
+struct DGCRecovery: Recovery {
     var firstName: String
     var lastName: String
     var dateOfBirth: Date
     var validFromDate: Date
     var validUntilDate: Date
     var originalCode: String
+    var hashSeed: String { originalCode }
     var issuer: String
     var laboratory: String { issuer }
 
@@ -24,14 +25,5 @@ struct DGCRecovery: Recovery & DocumentCellViewModel {
         let uppercaseAppFullname = (firstName + lastName).uppercased()
         let uppercaseTestFullname = (self.firstName + self.lastName).uppercased()
         return uppercaseAppFullname == uppercaseTestFullname
-    }
-
-    func dequeueCell(_ tableView: UITableView, _ indexPath: IndexPath, delegate: DocumentCellDelegate) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoronaRecoveryTableViewCell", for: indexPath) as! CoronaRecoveryTableViewCell
-        cell.recovery = self
-        cell.delegate = delegate
-
-        return cell
     }
 }

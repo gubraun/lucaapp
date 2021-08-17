@@ -88,7 +88,7 @@ public class PhoneNumberVerificationService {
     private func handlePhoneNumberVC(challenges: [String]) -> Completable {
         Completable.create { (observer) -> Disposable in
 
-            let phoneNumberVC = AlertViewControllerFactory.createPhoneNumberVerificationViewController(challengeIDs: challenges)
+            let phoneNumberVC = ViewControllerFactory.Alert.createPhoneNumberVerificationViewController(challengeIDs: challenges)
             phoneNumberVC.modalTransitionStyle = .crossDissolve
             phoneNumberVC.modalPresentationStyle = .overCurrentContext
             phoneNumberVC.onSuccess = { challenge in
@@ -116,7 +116,7 @@ public class PhoneNumberVerificationService {
 
     func confirmPhoneNumber(phoneNumber: PhoneNumber) -> Single<PhoneNumber> {
         Single.create { observer -> Disposable in
-            let viewController = AlertViewControllerFactory.createPhoneNumberConfirmationViewController(phoneNumber: phoneNumber)
+            let viewController = ViewControllerFactory.Alert.createPhoneNumberConfirmationViewController(phoneNumber: phoneNumber)
             viewController.modalTransitionStyle = .crossDissolve
             viewController.modalPresentationStyle = .overFullScreen
             viewController.onSuccess = { observer(.success(phoneNumber)) }
@@ -139,7 +139,7 @@ public class PhoneNumberVerificationService {
     }
 
     private func wrongFormatAlert() -> Completable {
-        AlertViewControllerFactory.createAlertViewControllerRx(
+        ViewControllerFactory.Alert.createAlertViewControllerRx(
             presentingViewController: parentViewController,
             title: L10n.Navigation.Basic.error,
             message: L10n.Verification.PhoneNumber.wrongFormat,
@@ -157,7 +157,7 @@ public class PhoneNumberVerificationService {
             // If there is next allowed timestamp and it is in future, show the timer
             if let nextAllowedTimestamp = self.getNextAllowedRequestTimestamp(),
                Date().timeIntervalSince1970 < nextAllowedTimestamp {
-                return AlertViewControllerFactory.createAlertViewControllerRx(
+                return ViewControllerFactory.Alert.createAlertViewControllerRx(
                     presentingViewController: self.parentViewController,
                     title: L10n.Verification.PhoneNumber.TimerDelay.title,
                     message: "",
@@ -172,6 +172,7 @@ public class PhoneNumberVerificationService {
                                     let minutes = totalSeconds / 60
                                     let seconds = totalSeconds - (minutes * 60)
                                     alert.message = L10n.Verification.PhoneNumber.TimerDelay.message(String(format: "%02i:%02i", minutes, seconds))
+                                    alert.messageLabel.accessibilityLabel = L10n.Verification.PhoneNumber.TimerDelay.Message.accessibility(minutes, seconds)
                                 })
                                 .ignoreElementsAsCompletable()
                                 .andThen(Single.just(Void()))
