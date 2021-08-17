@@ -42,7 +42,7 @@ public enum FormComponentType {
         print("Keyboard type for: \(self)")
         switch self {
         case .phoneNumber:  return .phonePad
-        case .postCode:     return .numberPad
+        case .postCode:     return .webSearch
         case .email:        return .emailAddress
         case .lastName,
              .firstName:    return .webSearch
@@ -56,7 +56,7 @@ public enum FormComponentType {
         case .lastName:     return .familyName
         case .street:       return .streetAddressLine1
         case .houseNumber:  return .streetAddressLine2
-        case .postCode:     return .postalCode
+        case .postCode:     return .location  // .postalCode has to many restrictions e.g. letters for zip codes abroad
         case .city:         return .addressCity
         case .phoneNumber:  return .telephoneNumber
         case .email:        return .emailAddress

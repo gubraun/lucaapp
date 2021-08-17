@@ -9,6 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+				Styling.applyStyling()
+
         do {
             try ServiceContainer.shared.setup()
         } catch let error {

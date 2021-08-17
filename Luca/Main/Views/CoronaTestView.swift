@@ -45,7 +45,7 @@ class CoronaTestView: DocumentView, DocumentViewProtocol {
         resultLabel.text = test.isNegative ? L10n.Test.Result.negative : L10n.Test.Result.positive
 
         wrapperView.layer.cornerRadius = 8
-        wrapperView.backgroundColor = test.isNegative ? UIColor.lucaHealthGreen : UIColor.lucaHealthRed
+        wrapperView.backgroundColor = test.isNegative ? UIColor.lucaHealthGreen : UIColor.white
 
         categoryLabel.text = test.testType.localized
 

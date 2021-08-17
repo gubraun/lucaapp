@@ -60,6 +60,9 @@ public class ServiceContainer {
     var historyRepo: HistoryRepo!
     var documentRepo: DocumentRepo!
     var testProviderKeyRepo: TestProviderKeyRepo!
+    var personRepo: PersonRepo!
+
+    var personService: PersonService!
 
     /// Aggregated realm databases when some global changes on all DBs are needed.
     var realmDatabaseUtils: [RealmDatabaseUtils] = []
@@ -72,6 +75,8 @@ public class ServiceContainer {
 
     var baerCodeKeyService: BaerCodeKeyService!
     var notificationService: NotificationService!
+
+    var qrProcessingService: QRProcessingService!
 
     private(set) var isSetup = false
 
@@ -201,6 +206,8 @@ public class ServiceContainer {
 
         setupDocuments()
 
+        personService = PersonService(personRepo: personRepo, documentProcessing: documentProcessingService)
+
         isSetup = true
     }
 
@@ -242,6 +249,7 @@ public class ServiceContainer {
         healthDepartmentRepo = HealthDepartmentRepo(key: currentKey)
         documentRepo = DocumentRepo(key: currentKey)
         testProviderKeyRepo = TestProviderKeyRepo(key: currentKey)
+        personRepo = PersonRepo(key: currentKey)
 
         realmDatabaseUtils = [
             traceInfoRepo,
@@ -252,7 +260,8 @@ public class ServiceContainer {
             keyValueRepo,
             healthDepartmentRepo,
             documentRepo,
-            testProviderKeyRepo
+            testProviderKeyRepo,
+            personRepo
         ]
 
         if !keyWasAvailable {
@@ -286,9 +295,9 @@ public class ServiceContainer {
 //        documentFactory.register(parser: UbirchParser())
         documentFactory.register(parser: DGCParser())
         documentFactory.register(parser: AppointmentParser())
-        documentFactory.register(parser: BaerCodeParser())
         documentFactory.register(parser: DefaultJWTParser(keyProvider: documentKeyProvider))
         documentFactory.register(parser: JWTParserWithOptionalDoctor(keyProvider: documentKeyProvider))
+        documentFactory.register(parser: BaerCodeParser())
 
         documentRepoService = DocumentRepoService(documentRepo: documentRepo, documentFactory: documentFactory)
         documentUniquenessChecker = DocumentUniquenessChecker(backend: backendMiscV3, keyValueRepo: keyValueRepo)
@@ -297,13 +306,20 @@ public class ServiceContainer {
             documentFactory: documentFactory,
             uniquenessChecker: documentUniquenessChecker)
 
+        // Document validators
+        documentProcessingService.register(validator: CoronaTestIsNotInFutureValidator())
         documentProcessingService.register(validator: CoronaTestIsNegativeValidator())
         documentProcessingService.register(validator: DGCIssuerValidator())
 
         #if !DEVELOPMENT
-        documentProcessingService.register(validator: CoronaTestOwnershipValidator(preferences: LucaPreferences.shared))
-        documentProcessingService.register(validator: VaccinationOwnershipValidator(preferences: LucaPreferences.shared))
-        documentProcessingService.register(validator: RecoveryOwnershipValidator(preferences: LucaPreferences.shared))
+        let usersIdentityValidator = DocumentOwnershipValidator(
+            firstNameSource: Single.from { LucaPreferences.shared.firstName ?? "" },
+            lastNameSource: Single.from { LucaPreferences.shared.lastName ?? "" }
+        )
+        documentProcessingService.register(validator: UserOrChildValidator(
+                                            userIdentityValidator: usersIdentityValidator,
+                                            personsSource: personRepo.restore())
+        )
         #endif
 
         #if PREPROD || PRODUCTION
@@ -311,6 +327,8 @@ public class ServiceContainer {
         documentProcessingService.register(validator: RecoveryValidityValidator())
         documentProcessingService.register(validator: AppointmentValidityValidator())
         #endif
+
+        qrProcessingService = QRProcessingService(documentProcessingService: documentProcessingService, documentFactory: documentFactory, selfCheckinService: selfCheckin)
     }
 }
 

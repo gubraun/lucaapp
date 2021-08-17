@@ -1,8 +1,6 @@
 // Welcome View Controller
 "welcome.info.description" = "luca helps you encrypt and securely submit your contact data. With luca, you don't have to worry about your data when visiting events, restaurants, cafés or bars anymore.";
-"welcome.checkboxes.accessibilityError" = "Please accept the terms of use and agree to the privacy policy to continue.";
-"welcome.termsAndConditions.link.accessibility" = "Terms and Conditions";
-"welcome.privacyPolicy.link.accessibility" = "Privacy policy";
+"welcome.checkboxes.accessibilityError" = "Please accept the terms of use to continue.";
 
 // User Data
 "userData.form.firstName" = "* First name";
@@ -35,6 +33,8 @@
 
 "userData.address.mandatory" = "Hosts usually have to collect the addresses of their guests. Therefore, in order to use luca, it's mandatory to provide your address.\n\nFields marked with * are mandatory.";
 
+"userData.navigation.title" = "Contact Data";
+
 "userData.navigation.edit" = "Edit contact data";
 
 "userData.form.firstName.accessibilityError" = "Please enter your first name to continue.";
@@ -60,6 +60,8 @@
 
 "navigation.basic.no" = "No";
 
+"navigation.basic.continue" = "Continue";
+
 "navigation.basic.agree" = "AGREE";
 
 "navigation.basic.error" = "Error";
@@ -77,6 +79,8 @@
 "navigation.tab.health" = "My luca";
 
 "navigation.tab.account" = "Account";
+
+"navigation.menu" = "More";
 
 // Checkin
 "checkin.slider.date" = "Check-in: %@";
@@ -124,6 +128,18 @@
 "camera.error.scanningFailed" = "Your device cannot be used to scan.";
 
 "camera.error.wrongQR" = "The QR code is not valid.";
+
+"camera.warning.checkin.title" = "Continue with import?";
+
+"camera.warning.checkin.description" = "Hey, you're scanning the QR code of a document and not of a luca location. If you want to add a document, click \"CONTINUE\".";
+
+"camera.warning.document.title" = "Proceed with check-in?";
+
+"camera.warning.document.description" = "Hey, you're scanning the QR code of a luca location and not of a document. Click \"CONTINUE\" to check in.";
+
+"camera.warning.incompatible.title" = "Operation failed";
+
+"camera.warning.incompatible.description" = "The QR code could not be scanned and the data could not be processed. This could be because this QR code is not compatible with luca.";
 
 // Data Privacy
 "dataPrivacy.info.description" = "Please enter your contact data in the next step.\n\nYour data will be encrypted. Only a health department can decrypt it during contact tracing.";
@@ -204,8 +220,6 @@
 
 "locationCheckinViewController.checkOutFailed.stillInLocation.messageWithoutName" = "You are still at the location. Move farther away to check out.";
 
-"locationCheckinViewController.checkOutFailed.general.message" = "There was an error while checking out: %@";
-
 "locationCheckinViewController.checkOutFailed.locationNotAvailable.message" = "There is no information available about the current location.";
 
 "locationCheckinViewController.permission.change.title" = "Location Settings";
@@ -240,6 +254,8 @@
 
 "locationCheckinViewController.autoCheckout.off" = "Off";
 
+"locationCheckinViewController.additionalData.table" = "Table: %@";
+
 // MainTabBarViewController
 
 "mainTabBarViewController.userRegistrationFailure.noInternet.message" = "User could not be registered! No internet connection could be made.";
@@ -255,11 +271,13 @@
 
 "general.greeting.title" = "Hello!";
 
-"general.failure.noInternet.message" = "No internet connection could be made.";
+"general.failure.noInternet.title" = "No internet connection";
+
+"general.failure.noInternet.message" = "The process could not be executed. Please connect to the internet and try again.";
 
 "general.dataPrivacy" = "Privacy policy";
 
-"general.healthDepartmentKey" = "Key for health departments";
+"general.healthDepartmentKey" = "Daily Key";
 
 "general.termsAndConditions" = "Terms of use";
 
@@ -300,7 +318,7 @@
 "welcomeViewController.termsAndConditions.checkboxAccessibilityOn" = "Confirmed";
 "welcomeViewController.termsAndConditions.checkboxAccessibilityOff" = "Not confirmed";
 
-"welcomeViewController.privacyPolicy.checkboxMessage" = "I have read and agree to the privacy policy.";
+"welcomeViewController.privacyPolicy.message" = "You can view our privacy policy under this link.";
 
 "welcomeViewController.privacyPolicy.checkboxAccessibility" = "Privacy Policy Checkbox";
 
@@ -351,8 +369,6 @@
 
 "private.meeting.end.description" = "Do you really want to end this meeting?";
 
-"private.meeting.end.failure" = "There was an error while ending the meeting: %@";
-
 "private.meeting.create.failure" = "There was an error while creating a new meeting: %@";
 
 "private.meeting.alert.description" = "When you check yourself in at a private meeting, your host can see your first and last name.\n\nPrivate meetings are used as reminders and won't be shared with health authorities.";
@@ -391,7 +407,7 @@
 
 "data.clear.title" = "Clear history";
 
-"data.clear.description" = "Do you really want to clear your history?\n\nPast entries won't be displayed in your app anymore, but will stay in the system for up to 30 days and will be shared with the health authorities if you share your data.";
+"data.clear.description" = "Do you really want to clear your history?\n\nPast entries won't be displayed in your app anymore, but will stay in the system for up to 28 days and will be shared with the health authorities if you share your data.";
 
 // Contact QR View Controller
 "contact.qr.button.selfCheckin" = "SELF CHECK-IN";
@@ -456,11 +472,19 @@
 
 "test.result.name.validation.error" = "It was not possible to validate your name. Please check if your name is entered correctly in the app.";
 
-"test.result.positive.error" = "Not possible to add test\n\nluca helps you to check in easily. Since only negative test results are relevant for checking in, you can only add negative results at the moment.";
+"test.result.positive.error" = "luca helps you to check in easily. Since only negative test results are relevant for checking in, you can only add negative results at the moment. You can only add a positive result if it is a PCR test older than 14 days. ";
+
+"test.result.positive.error.title" = "Adding not possible";
+
+"test.result.child.age.error" = "Child must be under 15 years old.";
 
 "test.result.parsing.success" = "Your document was added successfully.";
 
 "test.result.success" = "Successful";
+
+"test.result.future.error" = "This document's issue date is set in the future. You can only add documents that are valid at the moment.";
+
+"test.result.future.error.title" = "Operation failed";
 
 "test.expiry.hours" = "h";
 
@@ -487,8 +511,11 @@
 "vaccine.result.sputnikV" = "Sputnik V";
 
 "vaccine.result.complete" = "Complete vaccination (%i/%i)";
+"vaccine.result.complete_in_days" = "Complete vaccination in %i days";
 
 "vaccine.result.partially" = "Partial vaccination (%i/%i)";
+
+"vaccine.result.partially_short" = "(%i/%i)";
 
 "vaccine.result.description" = "%i. vaccination:";
 
@@ -514,10 +541,6 @@
 "test.scanner.close" = "Close";
 
 "test.scanner.camera" = "QR code scanner";
-
-"test.scanner.wrongScanner.title" = "You cannot check in here";
-
-"test.scanner.wrongScanner.description" = "This scanner is only for adding documents. If you want to check in at a location, switch to the \"Check in\" tab (bottom left of the navigation bar). There you will find the \"Self check-in\" button.";
 
 // My luca
 "my.luca.title" = "My luca";

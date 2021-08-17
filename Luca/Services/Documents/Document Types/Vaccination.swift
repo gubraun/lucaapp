@@ -1,6 +1,6 @@
 import Foundation
 
-protocol Vaccination: Document {
+protocol Vaccination: Document, AssociableToIdentity, ContainsDateOfBirth {
 
     /// Encoded QR code
     var originalCode: String { get set }
@@ -20,12 +20,6 @@ protocol Vaccination: Document {
 
     /// testing laboratory
     var laboratory: String { get }
-
-    /// Name check
-    /// - Parameters:
-    ///   - firstName: first name in app
-    ///   - lastName: last name in app
-    func belongsToUser(withFirstName firstName: String, lastName: String) -> Bool
 }
 
 extension Vaccination {
@@ -36,12 +30,21 @@ extension Vaccination {
         return Int(payloadData.crc32)
     }
 
-    func isComplete() -> Bool {
-        let allDosesReceived = doseNumber == dosesTotalNumber
-        let differenceDays = Calendar.current.dateComponents([.day], from: self.date, to: Date()).day ?? Int.max
-        let dateIsValid = differenceDays > 14
+    var vaccinatedSinceDays: Int {
+        return Calendar.current.dateComponents([.day], from: self.date, to: Date()).day ?? Int.max
+    }
 
-        return allDosesReceived && dateIsValid
+    var fullyVaccinatedInDays: Int {
+        return 14 - vaccinatedSinceDays
+    }
+
+    var hasAllDosesReceived: Bool {
+        return doseNumber == dosesTotalNumber
+    }
+
+    func isComplete() -> Bool {
+        let dateIsValid = vaccinatedSinceDays > 14
+        return hasAllDosesReceived && dateIsValid
     }
 
     var expiresAt: Date {

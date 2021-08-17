@@ -64,7 +64,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5M-Jp-Bot">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5M-Jp-Bot" customClass="LightStandardButton" customModule="LucaUIComponents">
                                                 <rect key="frame" x="32" y="322.5" width="256" height="48"/>
                                                 <color key="backgroundColor" name="lucaLightGrey"/>
                                                 <constraints>
@@ -169,6 +169,9 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="Q5M-Jp-Bot">
+            <size key="intrinsicContentSize" width="146" height="29"/>
+        </designable>
         <designable name="lwZ-sY-SBY">
             <size key="intrinsicContentSize" width="211" height="29"/>
         </designable>

@@ -120,7 +120,7 @@ class ContactQRViewController: UIViewController {
     }
 
     func startScanner() {
-        scannerService.startScanner(onParent: self, in: qrCodeImageView)
+        scannerService.startScanner(onParent: self, in: qrCodeImageView, type: .checkin)
         selfCheckinButton.setTitle(L10n.Contact.Qr.Button.closeScanner, for: .normal)
         descriptionLabel.text = L10n.Checkin.Scanner.description
         titleLabel.text = L10n.Checkin.Scanner.title

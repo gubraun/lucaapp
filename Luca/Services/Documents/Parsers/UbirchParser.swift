@@ -50,7 +50,7 @@ struct UbirchCoronaTestClaims: TestClaims {
     }
 }
 
-struct UbirchCoronaTest: CoronaTest {
+struct UbirchCoronaTest: CoronaTest, ContainsDateOfBirth {
     var familyName: String
     var givenName: String
     var birthDate: String
@@ -66,6 +66,10 @@ struct UbirchCoronaTest: CoronaTest {
 
     var date: Date {
         return Date.formatUbirchDateTimeString(dateString: testDateTime) ?? Date(timeIntervalSince1970: TimeInterval(0))
+    }
+
+    var dateOfBirth: Date {
+        return Date.formatUbirchDateTimeString(dateString: birthDate) ?? Date(timeIntervalSince1970: TimeInterval(0))
     }
 
     var testType: CoronaTestType {

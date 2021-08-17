@@ -3,7 +3,7 @@
 
 default_platform(:ios)
 
-ENV["VERSION_NUMBER"] = get_version_number()
+ENV["VERSION_NUMBER"] = get_version_number(target: "Luca")
 ENV["BUILD_NUMBER"] = get_build_number()
 
 platform :ios do

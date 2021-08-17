@@ -5,12 +5,18 @@ import RxSwift
 class HealthDepartmentCryptoInfoViewController: UIViewController {
 
     @IBOutlet weak var downloadCertificateChain: UIButton!
+    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
 
     /// Primitive name caching
     private static var issuerName: String?
     private static var date: String?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -22,8 +28,8 @@ class HealthDepartmentCryptoInfoViewController: UIViewController {
         // Cached values
         if let issuerName = HealthDepartmentCryptoInfoViewController.issuerName,
            let date = HealthDepartmentCryptoInfoViewController.date {
-            self.nameLabel.text = issuerName
-            self.dateLabel.text = date
+            nameLabel.text = issuerName
+            dateLabel.text = date
             return
         }
 
@@ -35,7 +41,7 @@ class HealthDepartmentCryptoInfoViewController: UIViewController {
             dateFormatter.dateFormat = "dd.MM.yyyy"
             let dateString = dateFormatter.string(from: newestKeyId.createdAt)
             HealthDepartmentCryptoInfoViewController.date = dateString
-            self.dateLabel.text = dateString
+            dateLabel.text = dateString
 
             // Issuer name
             let backend = ServiceContainer.shared.backendDailyKeyV3!
@@ -50,5 +56,26 @@ class HealthDepartmentCryptoInfoViewController: UIViewController {
                 })
                 .subscribe()
         }
+
+        setupAccessibility()
     }
+
+    private func setupViews() {
+        // Setup navigationbar title
+        title = L10n.General.healthDepartmentKey
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.montserratViewControllerTitle,
+                                                                        NSAttributedString.Key.foregroundColor: UIColor.white]
+
+        // Setup sublabel
+        subtitleLabel.text = L10n.General.healthDepartmentKey
+    }
+}
+
+// MARK: - Accessibility
+extension HealthDepartmentCryptoInfoViewController {
+
+    private func setupAccessibility() {
+        UIAccessibility.setFocusTo(subtitleLabel, notification: .screenChanged, delay: 0.8)
+    }
+
 }

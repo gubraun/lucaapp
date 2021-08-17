@@ -5,11 +5,13 @@ class ScannerService {
 
     var scannerOn = false
 
-    func startScanner(onParent parent: UIViewController, in view: UIView) {
+    func startScanner(onParent parent: UIViewController, in view: UIView, type: QRType, onSuccess: (() -> Void)? = nil) {
         if scannerVC != nil { return }
 
         scannerVC = ViewControllerFactory.Checkin.createQRScannerViewController()
-        scannerVC!.present(onParent: parent, in: view)
+        scannerVC?.type = type
+        scannerVC?.onSuccess = onSuccess
+        scannerVC?.present(onParent: parent, in: view)
         scannerOn = true
     }
 

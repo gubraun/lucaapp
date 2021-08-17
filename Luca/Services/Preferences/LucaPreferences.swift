@@ -33,6 +33,7 @@ class LucaPreferences {
         }
     }
 
+    /// Cache of the parsed keys used by `BaerCodeKeyService`
     var keyCache: [BaerCodeKey] {
         get {
             preferences.retrieve(key: "keyCache", type: [BaerCodeKey].self) ?? [BaerCodeKey]()
@@ -42,6 +43,7 @@ class LucaPreferences {
         }
     }
 
+    /// Used by `BaerCodeKeyService` to determine when the keys were last time fetched
     var lastFetched: Date? {
         get {
             preferences.retrieve(key: "lastFetched", type: Date.self) ?? nil

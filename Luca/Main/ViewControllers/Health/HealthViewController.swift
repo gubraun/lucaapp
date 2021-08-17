@@ -51,6 +51,7 @@ class HealthViewController: UIViewController {
 
         installObservers()
 		checkTimesync()
+        setupTitle()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,7 +69,6 @@ extension HealthViewController {
     private func setup() {
         notificationStackView.removeAllArrangedSubviews()
 
-        setupTitle()
         setupStackView()
         setupApplicationStateObserver()
     }
@@ -177,7 +177,7 @@ extension HealthViewController {
     func applicationDidEnterBackground(_ notification: NSNotification) {
         self.disposeBag = nil
         self.deleteDisposeBag = nil
-        self.testScanner?.endScanner()
+        self.testScanner?.scannerService?.endScanner()
         self.testScanner?.dismiss(animated: true, completion: nil)
     }
 

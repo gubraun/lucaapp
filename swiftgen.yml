@@ -3,4 +3,15 @@ strings:
       - ./Luca/en.lproj/Localizable.strings
     outputs:
         - templateName: structured-swift5
-          output: ./Luca/GeneratedStrings.swift
+          output: ./Luca/GeneratedFiles/GeneratedStrings.swift
+xcassets:
+  inputs: ./Luca/Assets.xcassets
+  outputs:
+    templateName: swift5
+    output: ./Luca/GeneratedFiles/GeneratedAssets.swift
+
+fonts:
+  inputs: ./Luca/Fonts
+  outputs:
+    templateName: swift5
+    output: ./Luca/GeneratedFiles/GeneratedFonts.swift

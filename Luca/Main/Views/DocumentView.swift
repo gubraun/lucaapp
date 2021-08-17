@@ -18,11 +18,11 @@ class DocumentView: UIView {
     weak var delegate: DocumentViewDelegate?
     var position: HorizontalDocumentListViewItemPosition = .middle {
         didSet {
-            changeConstraints()
+            updatePosition()
         }
     }
 
-    func changeConstraints() {
+    func updatePosition() {
         if position == .leading {
             leadingConstraint?.constant = 32
             trailingConstraint?.constant = 0

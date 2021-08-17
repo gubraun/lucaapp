@@ -37,6 +37,26 @@ internal enum L10n {
       /// The QR code is not valid.
       internal static let wrongQR = L10n.tr("Localizable", "camera.error.wrongQR")
     }
+    internal enum Warning {
+      internal enum Checkin {
+        /// Hey, you're scanning the QR code of a document and not of a luca location. If you want to add a document, click "CONTINUE".
+        internal static let description = L10n.tr("Localizable", "camera.warning.checkin.description")
+        /// Continue with import?
+        internal static let title = L10n.tr("Localizable", "camera.warning.checkin.title")
+      }
+      internal enum Document {
+        /// Hey, you're scanning the QR code of a luca location and not of a document. Click "CONTINUE" to check in.
+        internal static let description = L10n.tr("Localizable", "camera.warning.document.description")
+        /// Proceed with check-in?
+        internal static let title = L10n.tr("Localizable", "camera.warning.document.title")
+      }
+      internal enum Incompatible {
+        /// The QR code could not be scanned and the data could not be processed. This could be because this QR code is not compatible with luca.
+        internal static let description = L10n.tr("Localizable", "camera.warning.incompatible.description")
+        /// Operation failed
+        internal static let title = L10n.tr("Localizable", "camera.warning.incompatible.title")
+      }
+    }
   }
 
   internal enum Checkin {
@@ -158,7 +178,7 @@ internal enum L10n {
       }
     }
     internal enum Clear {
-      /// Do you really want to clear your history?\n\nPast entries won't be displayed in your app anymore, but will stay in the system for up to 30 days and will be shared with the health authorities if you share your data.
+      /// Do you really want to clear your history?\n\nPast entries won't be displayed in your app anymore, but will stay in the system for up to 28 days and will be shared with the health authorities if you share your data.
       internal static let description = L10n.tr("Localizable", "data.clear.description")
       /// Clear history
       internal static let title = L10n.tr("Localizable", "data.clear.title")
@@ -262,7 +282,7 @@ internal enum L10n {
     internal static let dataPrivacy = L10n.tr("Localizable", "general.dataPrivacy")
     /// FAQ
     internal static let faq = L10n.tr("Localizable", "general.faq")
-    /// Key for health departments
+    /// Daily Key
     internal static let healthDepartmentKey = L10n.tr("Localizable", "general.healthDepartmentKey")
     /// Imprint
     internal static let imprint = L10n.tr("Localizable", "general.imprint")
@@ -282,8 +302,10 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "general.failure.invalidCertificate.title")
       }
       internal enum NoInternet {
-        /// No internet connection could be made.
+        /// The process could not be executed. Please connect to the internet and try again.
         internal static let message = L10n.tr("Localizable", "general.failure.noInternet.message")
+        /// No internet connection
+        internal static let title = L10n.tr("Localizable", "general.failure.noInternet.title")
       }
       internal enum Unknown {
         /// Unknown error: %@
@@ -364,6 +386,12 @@ internal enum L10n {
       /// Checkout of location
       internal static let directCheckout = L10n.tr("Localizable", "locationCheckinViewController.accessibility.directCheckout")
     }
+    internal enum AdditionalData {
+      /// Table: %@
+      internal static func table(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "locationCheckinViewController.additionalData.table", String(describing: p1))
+      }
+    }
     internal enum AutoCheckout {
       /// Off
       internal static let off = L10n.tr("Localizable", "locationCheckinViewController.autoCheckout.off")
@@ -391,12 +419,6 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "locationCheckinViewController.autoCheckoutPermissionDisabled.title")
     }
     internal enum CheckOutFailed {
-      internal enum General {
-        /// There was an error while checking out: %@
-        internal static func message(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "locationCheckinViewController.checkOutFailed.general.message", String(describing: p1))
-        }
-      }
       internal enum LocationNotAvailable {
         /// There is no information available about the current location.
         internal static let message = L10n.tr("Localizable", "locationCheckinViewController.checkOutFailed.locationNotAvailable.message")
@@ -473,6 +495,8 @@ internal enum L10n {
   }
 
   internal enum Navigation {
+    /// More
+    internal static let menu = L10n.tr("Localizable", "navigation.menu")
     internal enum Basic {
       /// AGREE
       internal static let agree = L10n.tr("Localizable", "navigation.basic.agree")
@@ -480,6 +504,8 @@ internal enum L10n {
       internal static let attention = L10n.tr("Localizable", "navigation.basic.attention")
       /// Cancel
       internal static let cancel = L10n.tr("Localizable", "navigation.basic.cancel")
+      /// Continue
+      internal static let `continue` = L10n.tr("Localizable", "navigation.basic.continue")
       /// DONE
       internal static let done = L10n.tr("Localizable", "navigation.basic.done")
       /// Error
@@ -564,10 +590,6 @@ internal enum L10n {
       internal enum End {
         /// Do you really want to end this meeting?
         internal static let description = L10n.tr("Localizable", "private.meeting.end.description")
-        /// There was an error while ending the meeting: %@
-        internal static func failure(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "private.meeting.end.failure", String(describing: p1))
-        }
         /// End meeting
         internal static let title = L10n.tr("Localizable", "private.meeting.end.title")
       }
@@ -650,6 +672,12 @@ internal enum L10n {
       internal static let positive = L10n.tr("Localizable", "test.result.positive")
       /// Successful
       internal static let success = L10n.tr("Localizable", "test.result.success")
+      internal enum Child {
+        internal enum Age {
+          /// Child must be under 15 years old.
+          internal static let error = L10n.tr("Localizable", "test.result.child.age.error")
+        }
+      }
       internal enum Delete {
         /// It was not possible to delete this test.
         internal static let error = L10n.tr("Localizable", "test.result.delete.error")
@@ -674,6 +702,14 @@ internal enum L10n {
         /// Unfortunately, the document cannot be imported because it already expired.
         internal static let error = L10n.tr("Localizable", "test.result.expiration.error")
       }
+      internal enum Future {
+        /// This document's issue date is set in the future. You can only add documents that are valid at the moment.
+        internal static let error = L10n.tr("Localizable", "test.result.future.error")
+        internal enum Error {
+          /// Operation failed
+          internal static let title = L10n.tr("Localizable", "test.result.future.error.title")
+        }
+      }
       internal enum Name {
         internal enum Validation {
           /// It was not possible to validate your name. Please check if your name is entered correctly in the app.
@@ -687,8 +723,12 @@ internal enum L10n {
         internal static let success = L10n.tr("Localizable", "test.result.parsing.success")
       }
       internal enum Positive {
-        /// Not possible to add test\n\nluca helps you to check in easily. Since only negative test results are relevant for checking in, you can only add negative results at the moment.
+        /// luca helps you to check in easily. Since only negative test results are relevant for checking in, you can only add negative results at the moment. You can only add a positive result if it is a PCR test older than 14 days. 
         internal static let error = L10n.tr("Localizable", "test.result.positive.error")
+        internal enum Error {
+          /// Adding not possible
+          internal static let title = L10n.tr("Localizable", "test.result.positive.error.title")
+        }
       }
       internal enum Validation {
         /// It was not possible to validate that this document belongs to you. Please check if your name is entered correctly in the app.
@@ -704,12 +744,6 @@ internal enum L10n {
       internal static let camera = L10n.tr("Localizable", "test.scanner.camera")
       /// Close
       internal static let close = L10n.tr("Localizable", "test.scanner.close")
-      internal enum WrongScanner {
-        /// This scanner is only for adding documents. If you want to check in at a location, switch to the "Check in" tab (bottom left of the navigation bar). There you will find the "Self check-in" button.
-        internal static let description = L10n.tr("Localizable", "test.scanner.wrongScanner.description")
-        /// You cannot check in here
-        internal static let title = L10n.tr("Localizable", "test.scanner.wrongScanner.title")
-      }
     }
     internal enum Uniqueness {
       internal enum Create {
@@ -834,6 +868,8 @@ internal enum L10n {
     internal enum Navigation {
       /// Edit contact data
       internal static let edit = L10n.tr("Localizable", "userData.navigation.edit")
+      /// Contact Data
+      internal static let title = L10n.tr("Localizable", "userData.navigation.title")
     }
     internal enum Phone {
       /// Please provide a correct mobile or landline number. This number will be used for verification. You can choose if you want to provide an email address.\n\nFields marked with * are mandatory.
@@ -846,6 +882,10 @@ internal enum L10n {
       /// Complete vaccination (%i/%i)
       internal static func complete(_ p1: Int, _ p2: Int) -> String {
         return L10n.tr("Localizable", "vaccine.result.complete", p1, p2)
+      }
+      /// Complete vaccination in %i days
+      internal static func completeInDays(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "vaccine.result.complete_in_days", p1)
       }
       /// BioNTech/Pfizer
       internal static let cormirnaty = L10n.tr("Localizable", "vaccine.result.cormirnaty")
@@ -862,6 +902,10 @@ internal enum L10n {
       /// Partial vaccination (%i/%i)
       internal static func partially(_ p1: Int, _ p2: Int) -> String {
         return L10n.tr("Localizable", "vaccine.result.partially", p1, p2)
+      }
+      /// (%i/%i)
+      internal static func partiallyShort(_ p1: Int, _ p2: Int) -> String {
+        return L10n.tr("Localizable", "vaccine.result.partially_short", p1, p2)
       }
       /// Sputnik V
       internal static let sputnikV = L10n.tr("Localizable", "vaccine.result.sputnikV")
@@ -924,24 +968,12 @@ internal enum L10n {
 
   internal enum Welcome {
     internal enum Checkboxes {
-      /// Please accept the terms of use and agree to the privacy policy to continue.
+      /// Please accept the terms of use to continue.
       internal static let accessibilityError = L10n.tr("Localizable", "welcome.checkboxes.accessibilityError")
     }
     internal enum Info {
       /// luca helps you encrypt and securely submit your contact data. With luca, you don't have to worry about your data when visiting events, restaurants, cafés or bars anymore.
       internal static let description = L10n.tr("Localizable", "welcome.info.description")
-    }
-    internal enum PrivacyPolicy {
-      internal enum Link {
-        /// Privacy policy
-        internal static let accessibility = L10n.tr("Localizable", "welcome.privacyPolicy.link.accessibility")
-      }
-    }
-    internal enum TermsAndConditions {
-      internal enum Link {
-        /// Terms and Conditions
-        internal static let accessibility = L10n.tr("Localizable", "welcome.termsAndConditions.link.accessibility")
-      }
     }
   }
 
@@ -963,8 +995,8 @@ internal enum L10n {
     internal enum PrivacyPolicy {
       /// Privacy Policy Checkbox
       internal static let checkboxAccessibility = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkboxAccessibility")
-      /// I have read and agree to the privacy policy.
-      internal static let checkboxMessage = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkboxMessage")
+      /// You can view our privacy policy under this link.
+      internal static let message = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.message")
       internal enum Checkbox {
         /// Confirmed: I have read and agree to the privacy policy. Double tap to unconfirm.
         internal static let confirmed = L10n.tr("Localizable", "welcomeViewController.privacyPolicy.checkbox.confirmed")

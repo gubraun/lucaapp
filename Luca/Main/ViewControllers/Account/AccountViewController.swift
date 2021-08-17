@@ -56,6 +56,9 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupContraints()
+
+        // child VCs show back button without button title
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

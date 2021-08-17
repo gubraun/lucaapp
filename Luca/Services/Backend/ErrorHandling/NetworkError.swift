@@ -36,6 +36,8 @@ extension NetworkError {
         switch self {
         case .certificateValidationFailed:
             return L10n.General.Failure.InvalidCertificate.title
+        case .noInternet:
+            return L10n.General.Failure.NoInternet.title
         default:
             return L10n.Navigation.Basic.error
         }

@@ -92,6 +92,8 @@ PODS:
   - RxRelay (6.1.0):
     - RxSwift (= 6.1.0)
   - RxSwift (6.1.0)
+  - RxTest (6.1.0):
+    - RxSwift (= 6.1.0)
   - SimpleCheckbox (2.1.0)
   - Sourcery (1.4.1)
   - SwiftBase32 (0.9.0)
@@ -119,6 +121,7 @@ DEPENDENCIES:
   - RxAppState (~> 1.7.0)
   - RxBlocking (~> 6.1.0)
   - RxSwift (~> 6.1.0)
+  - RxTest (~> 6.1.0)
   - SimpleCheckbox (~> 2.1.0)
   - Sourcery (~> 1.4.1)
   - SwiftBase32 (~> 0.9.0)
@@ -153,6 +156,7 @@ SPEC REPOS:
     - RxCocoa
     - RxRelay
     - RxSwift
+    - RxTest
     - SimpleCheckbox
     - Sourcery
     - SwiftBase32
@@ -186,6 +190,7 @@ SPEC CHECKSUMS:
   RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
+  RxTest: 9d26616eaff4a7e75f4ecae9b2c24840f2e8218d
   SimpleCheckbox: ddcd433ab8c3a8f57300bebda13151a8f302c7f9
   Sourcery: db66600e8b285c427701821598d07cf3c7e6c476
   SwiftBase32: 9399c25a80666dc66b51e10076bf591e3bbb8f17
@@ -194,6 +199,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: fedd6d8202998bb6e53c7efbafc964838774e347
+PODFILE CHECKSUM: 60ec837d1411f59370f70d91279dd970c724856e
 
 COCOAPODS: 1.10.1

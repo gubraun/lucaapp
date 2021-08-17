@@ -1,8 +1,6 @@
 // Welcome View Controller
 "welcome.info.description" = "luca hilft dir bei der sicheren und verschlüsselten Angabe deiner Kontaktdaten. Du musst dir keine Sorgen um deine Daten mehr machen, wenn du Veranstaltungen, Kulturstätten, Restaurants, Cafés oder Bars besuchst.";
-"welcome.checkboxes.accessibilityError" = "Bitte akzeptiere die Nutzungsbedingungen und Datenschutzerklärung um fortzufahren.";
-"welcome.termsAndConditions.link.accessibility" = "Nutzungsbedingungen";
-"welcome.privacyPolicy.link.accessibility" = "Datenschutzerklärung";
+"welcome.checkboxes.accessibilityError" = "Bitte akzeptiere die Nutzungsbedingungen um fortzufahren.";
 
 // User Data
 "userData.form.firstName" = "* Vorname";
@@ -35,6 +33,8 @@
 
 "userData.address.mandatory" = "Gastgeber:innen müssen im Rahmen der Kontaktdatenerfassung in der Regel auch deine Adresse aufnehmen. Deshalb ist die Angabe der Adresse für die Nutzung von luca verpflichtend.\n\nMit * markierte Felder sind Pflichtfelder.";
 
+"userData.navigation.title" = "Kontaktdaten";
+
 "userData.navigation.edit" = "Kontaktdaten bearbeiten";
 
 "userData.form.firstName.accessibilityError" = "Bitte gib deinen Vornamen ein, um fortzufahren.";
@@ -60,6 +60,8 @@
 
 "navigation.basic.no" = "Nein";
 
+"navigation.basic.continue" = "Weiter";
+
 "navigation.basic.agree" = "ZUSTIMMEN";
 
 "navigation.basic.error" = "Fehler";
@@ -77,6 +79,8 @@
 "navigation.tab.health" = "Mein luca";
 
 "navigation.tab.account" = "Account";
+
+"navigation.menu" = "Mehr";
 
 // Checkin
 "checkin.slider.date" = "Check-in: %@";
@@ -124,6 +128,18 @@
 "camera.error.scanningFailed" = "Dein Gerät kann nicht für das Scannen verwendet werden.";
 
 "camera.error.wrongQR" = "Der QR-Code ist falsch.";
+
+"camera.warning.checkin.title" = "Mit Import fortfahren?";
+
+"camera.warning.checkin.description" = "Hey, du scannst gerade den QR-Code eines Dokuments und nicht den eines luca-Standorts. Wenn du ein Dokument hinzufügen möchtest, klicke auf \"WEITER\".";
+
+"camera.warning.document.title" = "Mit Check-in fortfahren?";
+
+"camera.warning.document.description" = "Hey, du scannst gerade den QR-Code eines luca-Standorts und keinen Dokument-QR-Code. Klicke \"WEITER\" um eingecheckt zu werden.";
+
+"camera.warning.incompatible.title" = "Vorgang fehlgeschlagen";
+
+"camera.warning.incompatible.description" = "Der QR-Code konnte nicht gescannt und die Daten konnten nicht verarbeitet werden. Das kann daran liegen, dass dieser QR-Code nicht mit luca kompatibel ist.";
 
 // Data Privacy
 "dataPrivacy.info.description" = "Bitte gib im nächsten Schritt deine Kontaktdaten an.\n\nDeine Daten werden verschlüsselt. Nur Gesundheitsämter können sie im Rahmen einer Kontaktnachverfolgung wieder entschlüsseln.";
@@ -204,8 +220,6 @@
 
 "locationCheckinViewController.checkOutFailed.stillInLocation.messageWithoutName" = "Du befindest dich immernoch bei der Location. Geh weiter weg um dich auschecken zu können.";
 
-"locationCheckinViewController.checkOutFailed.general.message" = "Es gab einen Fehler beim Auschecken: %@";
-
 "locationCheckinViewController.checkOutFailed.locationNotAvailable.message" = "Es gibt keine Informationen über diese Location.";
 
 "locationCheckinViewController.permission.change.title" = "Standort Einstellungen";
@@ -240,6 +254,8 @@
 
 "locationCheckinViewController.autoCheckout.off" = "Aus";
 
+"locationCheckinViewController.additionalData.table" = "Tischnummer: %@";
+
 // MainTabBarViewController
 
 "mainTabBarViewController.userRegistrationFailure.noInternet.message" = "User konnte nicht registriert werden! Es konnte keine Internetverbindung hergestellt werden.";
@@ -255,11 +271,13 @@
 
 "general.greeting.title" = "Hallo!";
 
-"general.failure.noInternet.message" = "Es konnte keine Internetverbindung hergestellt werden.";
+"general.failure.noInternet.title" = "Keine Internetverbindung";
 
-"general.dataPrivacy" = "Datenschutzrichtlinien";
+"general.failure.noInternet.message" = "Der Vorgang konnte nicht durchgeführt werden. Bitte verbinde dich mit dem Internet und versuche es erneut.";
 
-"general.healthDepartmentKey" = "Schlüssel für Gesundheitsämter";
+"general.dataPrivacy" = "Datenschutzerklärung";
+
+"general.healthDepartmentKey" = "Tagesschlüssel";
 
 "general.termsAndConditions" = "Nutzungsbedingungen";
 
@@ -300,7 +318,7 @@
 "welcomeViewController.termsAndConditions.checkboxAccessibilityOn" = "Bestätigt";
 "welcomeViewController.termsAndConditions.checkboxAccessibilityOff" = "Nicht bestätigt";
 
-"welcomeViewController.privacyPolicy.checkboxMessage" = "Ich habe die Datenschutzerklärung gelesen und akzeptiere sie.";
+"welcomeViewController.privacyPolicy.message" = "Unter diesem Link kannst du unsere Datenschutzerklärung einsehen.";
 
 "welcomeViewController.privacyPolicy.checkboxAccessibility" = "Datenschutzerklärung Checkbox";
 
@@ -351,8 +369,6 @@
 
 "private.meeting.end.description" = "Willst du dieses Treffen wirklich beenden?";
 
-"private.meeting.end.failure" = "Es gab einen Fehler beim Beenden des Trefffens: %@";
-
 "private.meeting.create.failure" = "Es gab einen Fehler beim Erstellen eines Treffens: %@";
 
 "private.meeting.alert.description" = "Wenn du dich bei einem privaten Treffen eincheckst, werden deinem Gastgeber dein Vor- und Nachname angezeigt.\n\nPrivate Treffen sind nur Gedächtnisstützen und werden nicht mit dem Gesundheitsamt geteilt.";
@@ -391,7 +407,7 @@
 
 "data.clear.title" = "Historie löschen";
 
-"data.clear.description" = "Möchtest du deine Historie wirklich leeren?\n\nVergangene Einträge werden in deiner App nicht mehr angezeigt, bleiben aber noch bis zu 30 Tage im System und werden bei einer Datenfreigabe mit dem Gesundheitsamt geteilt.";
+"data.clear.description" = "Möchtest du deine Historie wirklich leeren?\n\nVergangene Einträge werden in deiner App nicht mehr angezeigt, bleiben aber noch bis zu 28 Tage im System und werden bei einer Datenfreigabe mit dem Gesundheitsamt geteilt.";
 
 // Contact QR View Controller
 "contact.qr.button.selfCheckin" = "SELBST EINCHECKEN";
@@ -456,11 +472,19 @@
 
 "test.result.name.validation.error" = "Dein Name konnte nicht validiert werden. Bitte prüfe, ob er richtig in der App hinterlegt ist.";
 
-"test.result.positive.error" = "Hinzufügen nicht möglich\n\nluca hilft dir beim einfachen Check-in. Da für Check-ins nur negative Testergebnisse relevant sind, kannst du aktuell nur negative Testergebnisse hinzufügen. ";
+"test.result.positive.error" = "luca hilft dir beim einfachen Check-in. Da für Check-ins nur negative Testergebnisse relevant sind, kannst du aktuell nur negative Testergebnisse hinzufügen. Positive Ergebnisse kannst du nur hinzufügen, wenn es sich um einen PCR Test handelt, der älter als 14 Tage ist.";
+
+"test.result.positive.error.title" = "Hinzufügen nicht möglich";
+
+"test.result.child.age.error" = "Nur für Kinder unter 15 Jahren möglich.";
 
 "test.result.parsing.success" = "Das Dokument wurde erfolgreich zur App hinzugefügt.";
 
 "test.result.success" = "Erfolgreich";
+
+"test.result.future.error" = "Das Ausstellungsdatum des Dokuments liegt in der Zukunft. Du kannst nur Dokumente hinterlegen, die aktuell gültig sind.";
+
+"test.result.future.error.title" = "Vorgang fehlgeschlagen";
 
 "test.expiry.hours" = "h";
 
@@ -487,13 +511,16 @@
 "vaccine.result.sputnikV" = "Sputnik V";
 
 "vaccine.result.complete" = "Vollständiger Impfschutz (%i/%i)";
+"vaccine.result.complete_in_days" = "Vollständiger Impfschutz in %i Tagen";
 
 "vaccine.result.partially" = "Partieller Impfschutz (%i/%i)";
+
+"vaccine.result.partially_short" = "(%i/%i)";
 
 "vaccine.result.description" = "%i. Impfung:";
 
 // Terms and conditions
-"terms.acceptance.description" = "Wir aktualisieren unsere Nutzungsbedingungen und Datenschutzrichtlinien.";
+"terms.acceptance.description" = "Wir aktualisieren unsere Nutzungsbedingungen und Datenschutzerklärung.";
 
 "terms.acceptance.termsAndConditionsChanges" = "Änderungen";
 
@@ -514,10 +541,6 @@
 "test.scanner.close" = "Schließen";
 
 "test.scanner.camera" = "QR-Code Scanner";
-
-"test.scanner.wrongScanner.title" = "Check-in hier nicht möglich";
-
-"test.scanner.wrongScanner.description" = "Dieser Scanner ist nur für das Hinzufügen von Dokumenten gedacht. Wenn du an einem Standort einchecken möchtest, wechsle in den Tab \"Einchecken\“ (unten links in der Navigationsleiste). Dort findest du die Funktion \"Selbst einchecken\“. ";
 
 // My luca
 "my.luca.title" = "Mein luca";

@@ -41,10 +41,6 @@ extension UIAlertController {
         .subscribe(on: MainScheduler.instance)
     }
 
-    static func noInternetError(onOk: (() -> Void)? = nil) -> UIAlertController {
-        return infoAlert(title: L10n.Navigation.Basic.error, message: L10n.General.Failure.NoInternet.message, onOk: onOk)
-    }
-
     /// It presents an alert on subscribe and emits the instance.
     /// - complete: when alert is dismissed
     /// - error: None
@@ -111,6 +107,18 @@ extension UIAlertController {
         self.view.tintColor = UIColor.lucaAlertTint
 
         viewController.present(self, animated: true, completion: nil)
+    }
+
+    static func actionAndCancelAlert(viewController: UIViewController, title: String, message: String, actionTitle: String, action: @escaping() -> Void, cancelAction: @escaping() -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default) { _ in
+            action()
+        })
+        alert.addAction(UIAlertAction(title: L10n.Navigation.Basic.cancel, style: .cancel) { _ in
+            cancelAction()
+        })
+        alert.view.tintColor = UIColor.lucaAlertTint
+        return alert
     }
 
     func actionAndCancelAlert(actionText: String, action: @escaping() -> Void, viewController: UIViewController) {

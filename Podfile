@@ -16,6 +16,7 @@ target 'LucaTests' do
   use_frameworks!
   
   shared_podfiles
+  pod 'RxTest', '~> 6.1.0'
 end
 
 target 'Luca' do

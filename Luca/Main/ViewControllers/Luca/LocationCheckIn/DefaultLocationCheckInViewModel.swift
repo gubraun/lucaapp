@@ -63,7 +63,7 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
     var additionalDataLabelText: Driver<String> {
         Single.from {
             if let additionalData = self.traceIdService.additionalData as? TraceIdAdditionalData {
-                return "Tischnummer: \(additionalData.table)"
+                return L10n.LocationCheckinViewController.AdditionalData.table(additionalData.table)
             } else if self.traceIdService.additionalData as? PrivateMeetingQRCodeV3AdditionalData != nil {
                 return ""
             } else if let additionalData = self.traceIdService.additionalData as? [String: String],
@@ -88,10 +88,15 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
 
         let checkOutBackend = traceIdService.checkOut()
             .catch({ (error) in
+                var errorTitle = L10n.Navigation.Basic.error
+                if let localizedError = error as? LocalizedTitledError {
+                    errorTitle = localizedError.localizedTitle
+                }
+
                 return Completable.error(
                     PrintableError(
-                        title: L10n.Navigation.Basic.error,
-                        message: L10n.LocationCheckinViewController.CheckOutFailed.General.message(error.localizedDescription)
+                        title: errorTitle,
+                        message: error.localizedDescription
                     )
                 )
             })

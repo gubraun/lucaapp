@@ -14,7 +14,7 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5A919272639BB0F00C92B7C"
+               BlueprintIdentifier = "0287FA78263A9C6E00F961A8"
                BuildableName = "LucaTests.xctest"
                BlueprintName = "LucaTests"
                ReferencedContainer = "container:Luca.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5A919272639BB0F00C92B7C"
+               BlueprintIdentifier = "0287FA78263A9C6E00F961A8"
                BuildableName = "LucaTests.xctest"
                BlueprintName = "LucaTests"
                ReferencedContainer = "container:Luca.xcodeproj">
@@ -60,7 +60,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5A919272639BB0F00C92B7C"
+            BlueprintIdentifier = "0287FA78263A9C6E00F961A8"
             BuildableName = "LucaTests.xctest"
             BlueprintName = "LucaTests"
             ReferencedContainer = "container:Luca.xcodeproj">

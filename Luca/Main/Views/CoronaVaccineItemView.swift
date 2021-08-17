@@ -31,19 +31,16 @@ class CoronaVaccineItemView: DocumentView, DocumentViewProtocol, HorizontalGroup
         return itemView
     }
 
+    override func updatePosition() {
+        super.updatePosition()
+
+        updateResultLabel()
+    }
+
     private func setup() {
         guard let vaccination = document else { return }
 
-        let doseNumber = vaccination.doseNumber
-        let dosesTotal = vaccination.dosesTotalNumber
-        wrapperView.layer.cornerRadius = 8
-        if vaccination.isComplete() {
-            wrapperView.backgroundColor = UIColor.lucaEMGreen
-            resultLabel.text = L10n.Vaccine.Result.complete(doseNumber, dosesTotal)
-        } else {
-            wrapperView.backgroundColor = UIColor.lucaBeige
-            resultLabel.text = L10n.Vaccine.Result.partially(doseNumber, dosesTotal)
-        }
+        updateResultLabel()
 
         backgroundColor = .clear
         dateLabel.text = vaccination.date.formattedDate
@@ -71,6 +68,29 @@ class CoronaVaccineItemView: DocumentView, DocumentViewProtocol, HorizontalGroup
         addGestureRecognizer(tapGestureRecognizer)
 
         toggleView(animated: false)
+    }
+
+    private func updateResultLabel() {
+        guard let vaccination = document else { return }
+
+        let doseNumber = vaccination.doseNumber
+        let dosesTotal = vaccination.dosesTotalNumber
+        wrapperView.layer.cornerRadius = 8
+        if vaccination.isComplete() {
+            wrapperView.backgroundColor = UIColor.lucaEMGreen
+            resultLabel.text = L10n.Vaccine.Result.complete(doseNumber, dosesTotal)
+        } else {
+            wrapperView.backgroundColor = UIColor.lucaBeige
+            if vaccination.hasAllDosesReceived {
+                resultLabel.text = L10n.Vaccine.Result.completeInDays(vaccination.vaccinatedSinceDays)
+            } else {
+                if position == .single {
+                    resultLabel.text = L10n.Vaccine.Result.partially(doseNumber, dosesTotal)
+                } else {
+                    resultLabel.text = L10n.Vaccine.Result.partiallyShort(doseNumber, dosesTotal)
+                }
+            }
+        }
     }
 
     private func createProcedureView(for vaccination: Vaccination) -> UIView {

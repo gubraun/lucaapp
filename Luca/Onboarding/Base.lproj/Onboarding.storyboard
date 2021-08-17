@@ -190,7 +190,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mjB-v1-M1b">
-                                        <rect key="frame" x="0.0" y="289" width="256" height="34.5"/>
+                                        <rect key="frame" x="0.0" y="363.5" width="256" height="34.5"/>
                                         <subviews>
                                             <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Hiermit stimme ich den AGBs zu" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="S89-g9-lx7" customClass="NantesLabel" customModule="Nantes">
                                                 <rect key="frame" x="40" y="0.0" width="184" height="34.5"/>
@@ -231,66 +231,31 @@
                                             <constraint firstAttribute="trailing" secondItem="iXX-rh-zP6" secondAttribute="trailing" id="uIX-RJ-2rm"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VdY-2T-BrF">
-                                        <rect key="frame" x="0.0" y="347.5" width="256" height="34.5"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M13-P0-CkZ" userLabel="Privacy Policy Error">
-                                                <rect key="frame" x="240" y="9" width="16" height="16"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="16" id="SIA-Al-fl7"/>
-                                                    <constraint firstAttribute="width" constant="16" id="zXw-9l-KdD"/>
-                                                </constraints>
-                                            </imageView>
-                                            <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Hiermit stimme ich den AGBs zu" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="IKK-RC-G6K" customClass="NantesLabel" customModule="Nantes">
-                                                <rect key="frame" x="40" y="0.0" width="184" height="34.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ahv-Kh-t8G" customClass="Checkbox" customModule="SimpleCheckbox">
-                                                <rect key="frame" x="0.0" y="5" width="24" height="24"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="Ahv-Kh-t8G" secondAttribute="height" id="CW9-PI-YRe"/>
-                                                    <constraint firstAttribute="width" constant="24" id="cel-vG-LwP"/>
-                                                </constraints>
-                                                <connections>
-                                                    <action selector="privacyPolicyPressed:" destination="UNU-vK-dAo" eventType="valueChanged" id="93o-jM-Zex"/>
-                                                </connections>
-                                            </view>
-                                        </subviews>
+                                    <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Unter diesem Link kannst du unsere Datenschutzrichtlinien einsehen." lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="IKK-RC-G6K" customClass="NantesLabel" customModule="Nantes">
+                                        <rect key="frame" x="0.0" y="288" width="256" height="51.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstItem="Ahv-Kh-t8G" firstAttribute="leading" secondItem="VdY-2T-BrF" secondAttribute="leading" id="AiU-mQ-r2O"/>
-                                            <constraint firstAttribute="bottom" secondItem="IKK-RC-G6K" secondAttribute="bottom" id="BEF-e0-4sX"/>
-                                            <constraint firstItem="M13-P0-CkZ" firstAttribute="centerY" secondItem="IKK-RC-G6K" secondAttribute="centerY" id="Qwr-Im-fxX"/>
-                                            <constraint firstItem="IKK-RC-G6K" firstAttribute="leading" secondItem="Ahv-Kh-t8G" secondAttribute="trailing" constant="16" id="Tmc-vn-1wG"/>
-                                            <constraint firstItem="M13-P0-CkZ" firstAttribute="leading" secondItem="IKK-RC-G6K" secondAttribute="trailing" constant="16" id="a11-Xz-aQG"/>
-                                            <constraint firstItem="IKK-RC-G6K" firstAttribute="top" secondItem="VdY-2T-BrF" secondAttribute="top" id="aZQ-WT-mMe"/>
-                                            <constraint firstAttribute="trailing" secondItem="M13-P0-CkZ" secondAttribute="trailing" id="eQL-Vg-T2U"/>
-                                            <constraint firstItem="IKK-RC-G6K" firstAttribute="centerY" secondItem="Ahv-Kh-t8G" secondAttribute="centerY" id="fWU-dm-TWV"/>
-                                        </constraints>
-                                    </view>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="VdY-2T-BrF" firstAttribute="trailing" secondItem="mjB-v1-M1b" secondAttribute="trailing" id="8nO-IF-g5m"/>
-                                    <constraint firstItem="VdY-2T-BrF" firstAttribute="leading" secondItem="mjB-v1-M1b" secondAttribute="leading" id="AGF-f0-Ont"/>
+                                    <constraint firstItem="IKK-RC-G6K" firstAttribute="top" secondItem="Yxe-Ct-nqT" secondAttribute="bottom" constant="24" id="1yM-Kx-Ndf"/>
+                                    <constraint firstItem="mjB-v1-M1b" firstAttribute="top" secondItem="IKK-RC-G6K" secondAttribute="bottom" constant="24" id="29d-Ox-rDS"/>
                                     <constraint firstItem="Yxe-Ct-nqT" firstAttribute="top" secondItem="Ayy-OI-Pt8" secondAttribute="bottom" constant="24" id="ESv-2o-KzE"/>
                                     <constraint firstItem="FTT-jn-ynW" firstAttribute="top" secondItem="fJB-W4-hyV" secondAttribute="top" id="GFS-E1-7KP"/>
                                     <constraint firstItem="mjB-v1-M1b" firstAttribute="trailing" secondItem="Yxe-Ct-nqT" secondAttribute="trailing" id="LD9-oZ-LQN"/>
                                     <constraint firstItem="Yxe-Ct-nqT" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="MyX-GU-fJq"/>
                                     <constraint firstItem="Ayy-OI-Pt8" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="Oju-jp-eqB"/>
+                                    <constraint firstItem="IKK-RC-G6K" firstAttribute="leading" secondItem="Yxe-Ct-nqT" secondAttribute="leading" id="S2o-zA-shq"/>
                                     <constraint firstAttribute="bottom" secondItem="mqg-Xt-gNM" secondAttribute="bottom" id="YLY-AR-7cZ"/>
                                     <constraint firstItem="mjB-v1-M1b" firstAttribute="leading" secondItem="Yxe-Ct-nqT" secondAttribute="leading" id="ayJ-rz-z1j"/>
-                                    <constraint firstItem="VdY-2T-BrF" firstAttribute="top" secondItem="mjB-v1-M1b" secondAttribute="bottom" constant="24" id="ftX-ih-EQ8"/>
+                                    <constraint firstItem="IKK-RC-G6K" firstAttribute="trailing" secondItem="Yxe-Ct-nqT" secondAttribute="trailing" id="fm4-AK-IdV"/>
                                     <constraint firstAttribute="trailing" secondItem="Yxe-Ct-nqT" secondAttribute="trailing" id="jbG-1W-apt"/>
                                     <constraint firstItem="Ayy-OI-Pt8" firstAttribute="top" secondItem="FTT-jn-ynW" secondAttribute="bottom" constant="32" id="ju7-FF-k7x"/>
                                     <constraint firstItem="FTT-jn-ynW" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="mkQ-cx-be9"/>
                                     <constraint firstAttribute="trailing" secondItem="mqg-Xt-gNM" secondAttribute="trailing" id="ssQ-xR-Gza"/>
-                                    <constraint firstItem="mjB-v1-M1b" firstAttribute="top" secondItem="Yxe-Ct-nqT" secondAttribute="bottom" constant="25" id="xOF-ID-nYe"/>
                                     <constraint firstItem="mqg-Xt-gNM" firstAttribute="leading" secondItem="fJB-W4-hyV" secondAttribute="leading" id="yCZ-Am-s1O"/>
                                 </constraints>
                             </view>
@@ -309,8 +274,6 @@
                         <outlet property="descriptionLabel" destination="Yxe-Ct-nqT" id="ShO-Pa-jeX"/>
                         <outlet property="logoImageView" destination="FTT-jn-ynW" id="iVd-Vg-lsc"/>
                         <outlet property="okButton" destination="mqg-Xt-gNM" id="R5g-Th-e8z"/>
-                        <outlet property="privacyPolicyCheckbox" destination="Ahv-Kh-t8G" id="AeY-Fd-Uzt"/>
-                        <outlet property="privacyPolicyCheckboxError" destination="M13-P0-CkZ" id="FF5-Bz-aTE"/>
                         <outlet property="privacyPolicyTextView" destination="IKK-RC-G6K" id="RO8-da-JNh"/>
                         <outlet property="termsAndConditionsCheckbox" destination="JDw-TJ-Ts9" id="Knw-9e-TeR"/>
                         <outlet property="termsAndConditionsCheckboxError" destination="iXX-rh-zP6" id="EVz-W7-tgb"/>
@@ -536,7 +499,7 @@
     </scenes>
     <designables>
         <designable name="IKK-RC-G6K">
-            <size key="intrinsicContentSize" width="232.5" height="17.5"/>
+            <size key="intrinsicContentSize" width="497.5" height="17.5"/>
         </designable>
         <designable name="S89-g9-lx7">
             <size key="intrinsicContentSize" width="232.5" height="17.5"/>

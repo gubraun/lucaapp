@@ -2,10 +2,14 @@ import Foundation
 import RxSwift
 import SwiftJWT
 
+protocol AssociableToIdentity {
+    func belongsToUser(withFirstName: String, lastName: String) -> Bool
+}
+
 public typealias TestClaims = Codable & Claims
 public typealias TestClaimsWithFingerprint = Codable & ClaimsWithFingerprint
 
-protocol CoronaTest: Document {
+protocol CoronaTest: Document, AssociableToIdentity {
 
     /// Encoded QR code
     var originalCode: String { get set }
@@ -25,14 +29,11 @@ protocol CoronaTest: Document {
     /// check if test result is negative
     var isNegative: Bool { get }
 
+    /// check if positive test is valid (if it is a positive PCR test over 14 days)
+    var isValidPositive: Bool { get }
+
     /// test provider
     var provider: String { get }
-
-    /// Name check
-    /// - Parameters:
-    ///   - firstName: first name in app
-    ///   - lastName: last name in app
-    func belongsToUser(withFirstName firstName: String, lastName: String) -> Bool
 
     /// test validation
     func isValid() -> Single<Bool>
@@ -49,20 +50,34 @@ extension CoronaTest {
 
     var expiresAt: Date {
         let validity: Int
+        var unit: Calendar.Component = .hour
         switch testType {
         case .pcr:
-            validity = 72
+            validity = isNegative ? 72 : 6
+            unit = isNegative ? .hour : .month
         case .fast:
             validity = 48
         case .other:
             validity = 48
         }
-        return Calendar.current.date(byAdding: .hour, value: validity, to: date) ?? date
+        return Calendar.current.date(byAdding: unit, value: validity, to: date) ?? date
     }
 
     func isValid() -> Single<Bool> {
         Single.from { Date() < self.expiresAt }
     }
+
+    var isValidPositive: Bool {
+        guard testType == .pcr, !isNegative else {
+            return false
+        }
+
+        if let validityFrom = Calendar.current.date(byAdding: .day, value: 14, to: date) {
+            return Date() > validityFrom
+        }
+        return false
+    }
+
 }
 
 enum CoronaTestType {

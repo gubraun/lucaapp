@@ -9,7 +9,7 @@ class HistoryViewController: UIViewController {
     @IBOutlet weak var dataAccessButton: UIButton!
     @IBOutlet weak var shareHistoryButton: UIButton!
     @IBOutlet weak var emptyStateView: UIView!
-    @IBOutlet weak var deleteHistoryButton: UIButton!
+    @IBOutlet weak var viewMoreButton: UIButton!
 
     var events: [HistoryEvent] = []
 
@@ -23,8 +23,6 @@ class HistoryViewController: UIViewController {
 
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 75, right: 0)
-
-        deleteHistoryButton.layer.borderColor = UIColor.white.cgColor
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,17 +70,20 @@ class HistoryViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
+    @IBAction func moreMenuPressed(_ sender: UIButton) {
+        let deleteAction = UIAlertAction(title: L10n.Data.Clear.title, style: .default) { _ in
+            self.resetLocallyAlert()
+        }
+
+        UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).menuActionSheet(viewController: self, additionalActions: [deleteAction])
+    }
+
     func setupViews() {
         tableView.isHidden = events.isEmpty
         shareHistoryButton.isHidden = events.isEmpty
-        deleteHistoryButton.isHidden = events.isEmpty
         emptyStateView.isHidden = !events.isEmpty
         events.isEmpty ? removeBottomGradient() : addBottomGradient()
         setupAccessibilityElements(isEmpty: events.isEmpty)
-    }
-
-    @IBAction func deleteHistoryPressed(_ sender: UIButton) {
-        resetLocallyAlert()
     }
 
     func resetLocallyAlert() {
@@ -129,7 +130,7 @@ class HistoryViewController: UIViewController {
         ServiceContainer.shared.history
             .removeOldEntries()
             .andThen(ServiceContainer.shared.history.historyEvents)
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .do(onSuccess: { entries in
                 self.events = entries
                 self.tableView.reloadData()
@@ -195,13 +196,14 @@ extension HistoryViewController {
 
     private func setupAccessibility() {
         dataAccessButton.accessibilityLabel = L10n.History.Accessibility.dataAccessButton
+        viewMoreButton.accessibilityLabel = L10n.Navigation.menu
         titleLabel.accessibilityTraits = .header
         UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
     }
 
     private func setupAccessibilityElements(isEmpty: Bool) {
-        let emptyStateElements = [titleLabel, dataAccessButton, emptyStateView].map { $0 as Any }
-        let elements = [titleLabel, dataAccessButton, tableView, shareHistoryButton, deleteHistoryButton].map { $0 as Any }
+        let emptyStateElements = [titleLabel, dataAccessButton, viewMoreButton, emptyStateView].map { $0 as Any }
+        let elements = [titleLabel, dataAccessButton, viewMoreButton, tableView, shareHistoryButton].map { $0 as Any }
         self.view.accessibilityElements = isEmpty ? emptyStateElements : elements
     }
 

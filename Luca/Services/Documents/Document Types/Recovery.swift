@@ -1,6 +1,6 @@
 import Foundation
 
-protocol Recovery: Document {
+protocol Recovery: Document, AssociableToIdentity, ContainsDateOfBirth {
 
     /// Encoded QR code
     var originalCode: String { get set }
@@ -16,12 +16,6 @@ protocol Recovery: Document {
 
     /// user date of birth
     var dateOfBirth: Date { get }
-
-    /// Name check
-    /// - Parameters:
-    ///   - firstName: first name in app
-    ///   - lastName: last name in app
-    func belongsToUser(withFirstName firstName: String, lastName: String) -> Bool
 }
 
 extension Recovery {

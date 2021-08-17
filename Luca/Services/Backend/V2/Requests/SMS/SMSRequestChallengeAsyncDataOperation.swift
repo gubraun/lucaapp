@@ -6,20 +6,19 @@ import Mocker
 #endif
 
 struct RequestChallengeResult: Codable {
-    var smsLimitInfo: SMSLimit
     var challenge: String
 }
 
 enum RequestChallengeError: RequestError {
     case validationFailed
     case smsGateFailure
-    case smsLimitReached(info: SMSLimit)
+    case smsLimitReached
 }
 
 extension RequestChallengeError {
     var errorDescription: String? {
         switch self {
-        case .smsLimitReached(info: _):
+        case .smsLimitReached:
             return L10n.Verification.PhoneNumber.LimitReached.message
         default:
             return L10n.Verification.PhoneNumber.requestFailure
@@ -27,7 +26,7 @@ extension RequestChallengeError {
     }
     var localizedTitle: String {
         switch self {
-        case .smsLimitReached(info: _):
+        case .smsLimitReached:
             return L10n.Verification.PhoneNumber.LimitReached.title
         default:
             return L10n.Navigation.Basic.error
@@ -52,7 +51,6 @@ class SMSRequestChallengeAsyncDataOperation: AsyncDataOperation<BackendError<Req
         self.parameters = ["phone": phoneNumber]
     }
 
-    // swiftlint:disable:next function_body_length
     override func execute(completion: @escaping (RequestChallengeResult) -> Void, failure: @escaping (BackendError<RequestChallengeError>) -> Void) -> (() -> Void) {
         let request = session.request(
                 url,
@@ -61,7 +59,8 @@ class SMSRequestChallengeAsyncDataOperation: AsyncDataOperation<BackendError<Req
                 encoder: JSONParameterEncoder(encoder: JSONEncoderUnescaped()),
                 headers: ["User-Agent": userAgent, "Authorization": authorizationContent])
             .map(code: 400, to: RequestChallengeError.validationFailed)
-            .map(code: 500, to: RequestChallengeError.smsGateFailure)
+            .map(code: 429, to: RequestChallengeError.smsLimitReached)
+            .map(code: 503, to: RequestChallengeError.smsGateFailure)
 
         #if DEBUG
         mockForTesting()
@@ -71,29 +70,6 @@ class SMSRequestChallengeAsyncDataOperation: AsyncDataOperation<BackendError<Req
             .validate(statusCode: 200...299)
             .responseDict { (response) in
                 _ = self // capture self
-
-                guard let responseHeaders = response.response?.headers else {
-                    failure(BackendError<RequestChallengeError>(networkLayerError: .invalidResponsePayload))
-                    return
-                }
-
-                guard let rateLimitResetString = responseHeaders.value(for: "X-RateLimit-Reset"),
-                      let rateLimitReset = Int(rateLimitResetString),
-                      let rateLimitRemainingString = responseHeaders.value(for: "X-RateLimit-Remaining"),
-                      let remaining = Int(rateLimitRemainingString),
-                      let rateLimitTotalString = responseHeaders.value(for: "X-RateLimit-Limit"),
-                      let rateLimitTotal = Int(rateLimitTotalString) else {
-                    failure(BackendError<RequestChallengeError>(networkLayerError: .invalidResponsePayload))
-                    return
-                }
-
-                let rateLimitInfos = SMSLimit(reset: rateLimitReset, remaining: remaining, limit: rateLimitTotal)
-
-                if response.response?.statusCode == 429 || rateLimitInfos.remaining < 0 {
-                    let error = BackendError<RequestChallengeError>(backendError: .smsLimitReached(info: rateLimitInfos))
-                    failure(error)
-                    return
-                }
 
                 if let error = response.retrieveBackendError(RequestChallengeError.self) {
                     failure(error)
@@ -106,7 +82,7 @@ class SMSRequestChallengeAsyncDataOperation: AsyncDataOperation<BackendError<Req
                     return
                 }
 
-                let result = RequestChallengeResult(smsLimitInfo: rateLimitInfos, challenge: challenge)
+                let result = RequestChallengeResult(challenge: challenge)
                 completion(result)
             }
 

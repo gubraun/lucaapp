@@ -141,8 +141,10 @@ class PrivateMeetingViewController: UIViewController {
             }
         } failure: { (error) in
             DispatchQueue.main.async {
-                let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Private.Meeting.End.failure(error.localizedDescription))
-                self.present(alert, animated: true, completion: nil)
+                if let localizedError = error as? LocalizedTitledError {
+                    let alert = UIAlertController.infoAlert(title: localizedError.localizedTitle, message: localizedError.localizedDescription)
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }

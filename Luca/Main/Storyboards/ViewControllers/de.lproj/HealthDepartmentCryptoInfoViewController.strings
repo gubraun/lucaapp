@@ -11,8 +11,5 @@
 /* Class = "UILabel"; text = "Aussteller:"; ObjectID = "ayY-JQ-AKc"; */
 "ayY-JQ-AKc.text" = "Aussteller:";
 
-/* Class = "UILabel"; text = "TRANSFER SCHLÜSSEL"; ObjectID = "gFo-qy-M0F"; */
-"gFo-qy-M0F.text" = "TRANSFER SCHLÜSSEL";
-
-/* Class = "UILabel"; text = "Schlüssel für Gesundheitsämter"; ObjectID = "lT8-3N-Ro5"; */
-"lT8-3N-Ro5.text" = "Schlüssel für Gesundheitsämter";
+/* Class = "UILabel"; text = "Description"; ObjectID = "vP7-yC-j3f"; */
+"vP7-yC-j3f.text" = "Jeden Tag wird von einem der Gesundheitsämter, die luca nutzen, ein neuer Tagesschlüssel erstellt. Diesen Schlüssel benötigen alle Gesundheitsämter für die Entschlüsselung von Check-in-Datensätzen. Hier kannst du sehen, welches Gesundheitsamt den aktuellen Schlüssel erstellt hat.";

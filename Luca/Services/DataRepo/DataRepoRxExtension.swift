@@ -65,7 +65,7 @@ extension DataRepoProtocol {
 }
 
 extension DataRepoProtocol where Self: AnyObject {
-    var onDataChangedRx: Observable<Void> {
+    var onDataChanged: Observable<Void> {
         NotificationCenter.default.rx.notification(NSNotification.Name(self.onDataChanged), object: self).map { _ in Void() }
     }
 }

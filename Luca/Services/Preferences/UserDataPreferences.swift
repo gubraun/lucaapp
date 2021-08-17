@@ -40,17 +40,16 @@ public class UserDataPreferences: Preferences {
         userDefaults.set(uuid.uuidString, forKey: key)
     }
 
-    public func store<T: Encodable>(_ data: T, key: String) {
+    public func store<T: Codable>(_ data: T, key: String) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(data) {
             userDefaults.set(encoded, forKey: key)
-        }
-    }
+        } else {
+            let wrapped = ValueWrapper(__temporaryValueWrapper: data)
+            if let encodedWrapped = try? encoder.encode(wrapped) {
+                userDefaults.set(encodedWrapped, forKey: key)
+            }
 
-    public func store<T: Encodable>(_ data: [T], key: String) {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(data) {
-            userDefaults.set(encoded, forKey: key)
         }
     }
 
@@ -99,22 +98,21 @@ public class UserDataPreferences: Preferences {
         return userDefaults.data(forKey: key)
     }
 
-    public func retrieve<T: Decodable>(key: String, type: T.Type) -> T? {
+    public func retrieve<T: Codable>(key: String, type: T.Type) -> T? {
         let decoder = JSONDecoder()
-        if let data = userDefaults.data(forKey: key), let decodedData = try? decoder.decode(T.self, from: data) {
-            return decodedData
-        } else {
-            return nil
-        }
-    }
 
-    public func retrieve<T: Decodable>(key: String, type: [T].Type) -> [T]? {
-        let decoder = JSONDecoder()
-        if let data = userDefaults.data(forKey: key), let decodedData = try? decoder.decode([T].self, from: data) {
+        if let data = userDefaults.data(forKey: key),
+           let decodedData = try? decoder.decode(T.self, from: data) {
+
             return decodedData
-        } else {
-            return nil
+
+        } else if let data = userDefaults.data(forKey: key),
+                  let decodedData = try? decoder.decode(ValueWrapper<T>.self, from: data) {
+
+            return decodedData.__temporaryValueWrapper
+
         }
+        return nil
     }
 
     public func retrieveArray<T: Decodable>(key: String, type: [T].Type) -> [T] {

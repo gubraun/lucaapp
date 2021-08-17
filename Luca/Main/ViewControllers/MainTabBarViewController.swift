@@ -45,13 +45,14 @@ class MainTabBarViewController: UITabBarController {
         } failure: { (error) in
             DispatchQueue.main.async {
                 self.progressHud.dismiss()
-                let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error,
+                let alert = UIAlertController.infoAlert(title: error.localizedTitle,
                                                         message: error.localizedDescription)
                 self.present(alert, animated: true, completion: nil)
             }
         }
 
         subscribeToSelfCheckin()
+        subscribeToDocumentUpdates()
 
         // Check accessed TraceIDs once in app runtime lifecycle
         ServiceContainer.shared.accessedTracesChecker
@@ -102,7 +103,9 @@ class MainTabBarViewController: UITabBarController {
             ServiceContainer.shared.documentProcessingService
                 .parseQRCode(qr: testString)
                 .subscribe(onError: { error in
-                    self.presentErrorAlert(for: error)
+                    DispatchQueue.main.async {
+                        self.presentErrorAlert(for: error)
+                    }
                 })
                 .disposed(by: self.disposeBag)
         })
@@ -158,6 +161,17 @@ class MainTabBarViewController: UITabBarController {
             .subscribe()
             .disposed(by: disposeBag)
 
+    }
+
+    private func subscribeToDocumentUpdates() {
+        ServiceContainer.shared.documentRepoService
+            .documentUpdateSignal
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                if self.selectedIndex != 1 {
+                    self.selectedIndex = 1
+                }
+            }).disposed(by: disposeBag)
     }
 
     private func rxErrorAlert(for error: Error) -> Completable {

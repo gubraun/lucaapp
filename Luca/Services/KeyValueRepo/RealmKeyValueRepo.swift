@@ -68,7 +68,8 @@ extension RealmKeyValueRepoError {
     }
 }
 
-private struct ValueWrapper<T>: Codable where T: Codable {
+/// Needs for coding values on iOS 12
+struct ValueWrapper<T>: Codable where T: Codable {
 
     // This name is on purpose cryptic to reduce the probability of collisions with other custom data types
     var __temporaryValueWrapper: T

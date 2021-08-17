@@ -8,8 +8,6 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var termsAndConditionsCheckbox: Checkbox!
     @IBOutlet weak var termsAndConditionsCheckboxError: UIImageView!
     @IBOutlet weak var termsAndConditionsTextView: NantesLabel!
-    @IBOutlet weak var privacyPolicyCheckbox: Checkbox!
-    @IBOutlet weak var privacyPolicyCheckboxError: UIImageView!
     @IBOutlet weak var privacyPolicyTextView: NantesLabel!
 
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -26,21 +24,16 @@ class WelcomeViewController: UIViewController {
         logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
         logoImageView.tintColor = UIColor.white
 
-        setupCheckbox(privacyPolicyCheckbox, accessibilityLabel: L10n.WelcomeViewController.PrivacyPolicy.checkboxAccessibility)
         setupCheckbox(termsAndConditionsCheckbox, accessibilityLabel: L10n.WelcomeViewController.TermsAndConditions.checkboxAccessibility)
 
-        privacyPolicyCheckbox.addTarget(self, action: #selector(checkboxValueChanged(_:)), for: .valueChanged)
-        termsAndConditionsCheckbox.addTarget(self, action: #selector(checkboxValueChanged(_:)), for: .valueChanged)
-
         setupCheckboxError(termsAndConditionsCheckboxError)
-        setupCheckboxError(privacyPolicyCheckboxError)
 
         descriptionLabel.text = L10n.Welcome.Info.description
 
         okButton.layer.cornerRadius = okButton.frame.size.height / 2
 
         buildTappableLabel(
-            linkDescription: L10n.WelcomeViewController.PrivacyPolicy.checkboxMessage,
+            linkDescription: L10n.WelcomeViewController.PrivacyPolicy.message,
             linkTerm: L10n.WelcomeViewController.termPrivacyPolicy,
             linkURL: L10n.WelcomeViewController.linkPrivacyPolicy,
             tappableLabel: privacyPolicyTextView)
@@ -85,13 +78,9 @@ class WelcomeViewController: UIViewController {
     }
 
     @IBAction func termsAndConditionsPressed(_ sender: Checkbox) {
-        guard termsAndConditionsCheckbox.accessibilityElementIsFocused() && UIAccessibility.isVoiceOverRunning else { return }
-        checkboxValueChanged(termsAndConditionsCheckbox)
-    }
-
-    @IBAction func privacyPolicyPressed(_ sender: Checkbox) {
-        guard privacyPolicyCheckbox.accessibilityElementIsFocused() && UIAccessibility.isVoiceOverRunning else { return }
-        checkboxValueChanged(privacyPolicyCheckbox)
+        sender.removeErrorStyling()
+        termsAndConditionsCheckboxError.isHidden = true
+        termsAndConditionsCheckbox.accessibilityValue = sender.isChecked ? L10n.WelcomeViewController.TermsAndConditions.Checkbox.confirmed : L10n.WelcomeViewController.TermsAndConditions.Checkbox.notConfirmed
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,31 +102,14 @@ class WelcomeViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func checkboxValueChanged(_ sender: Checkbox) {
-        sender.removeErrorStyling()
-
-        if sender == termsAndConditionsCheckbox {
-            termsAndConditionsCheckboxError.isHidden = true
-            termsAndConditionsCheckbox.accessibilityValue = sender.isChecked ? L10n.WelcomeViewController.TermsAndConditions.Checkbox.confirmed : L10n.WelcomeViewController.TermsAndConditions.Checkbox.notConfirmed
-        } else if sender == privacyPolicyCheckbox {
-            privacyPolicyCheckboxError.isHidden = true
-            privacyPolicyCheckbox.accessibilityValue = sender.isChecked ? L10n.WelcomeViewController.PrivacyPolicy.Checkbox.confirmed : L10n.WelcomeViewController.PrivacyPolicy.Checkbox.notConfirmed
-        }
-    }
-
     private func validateCheckboxes() -> Bool {
-        termsAndConditionsCheckbox.isChecked && privacyPolicyCheckbox.isChecked
+        termsAndConditionsCheckbox.isChecked
     }
 
     private func highlightUncheckedCheckboxes() {
         if !termsAndConditionsCheckbox.isChecked {
             termsAndConditionsCheckbox.styleForError()
             termsAndConditionsCheckboxError.isHidden = false
-        }
-
-        if !privacyPolicyCheckbox.isChecked {
-            privacyPolicyCheckbox.styleForError()
-            privacyPolicyCheckboxError.isHidden = false
         }
     }
 
@@ -195,13 +167,8 @@ extension WelcomeViewController {
     private func setupAccessibility() {
         titleLabel.accessibilityTraits = .header
 
-        termsAndConditionsTextView.accessibilityLabel = L10n.Welcome.TermsAndConditions.Link.accessibility
-        privacyPolicyTextView.accessibilityLabel = L10n.Welcome.PrivacyPolicy.Link.accessibility
+        self.view.accessibilityElements = [titleLabel, descriptionLabel, privacyPolicyTextView, termsAndConditionsCheckbox, termsAndConditionsTextView, okButton].map { $0 as Any }
 
-        self.view.accessibilityElements = [titleLabel, descriptionLabel, termsAndConditionsCheckbox, termsAndConditionsTextView, privacyPolicyCheckbox, privacyPolicyTextView, okButton].map { $0 as Any }
-
-        privacyPolicyCheckbox.accessibilityValue = privacyPolicyCheckbox.isChecked ?
-            L10n.WelcomeViewController.PrivacyPolicy.Checkbox.confirmed : L10n.WelcomeViewController.PrivacyPolicy.Checkbox.notConfirmed
         termsAndConditionsCheckbox.accessibilityValue = termsAndConditionsCheckbox.isChecked ?
             L10n.WelcomeViewController.TermsAndConditions.Checkbox.confirmed : L10n.WelcomeViewController.TermsAndConditions.Checkbox.notConfirmed
 

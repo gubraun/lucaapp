@@ -25,7 +25,12 @@ class DocumentViewFactory {
                 if groupedViews[item.groupedKey] == nil {
                     groupedViews[item.groupedKey] = []
                 }
-                groupedViews[item.groupedKey]?.append(item)
+                // If second vaccination, insert at front of the array in order to display it first.
+                if let vaccineView = item as? CoronaVaccineItemView, let vaccination = vaccineView.document, vaccination.doseNumber == 2 {
+                    groupedViews[item.groupedKey]?.insert(item, at: 0)
+                } else {
+                    groupedViews[item.groupedKey]?.append(item)
+                }
             } else {
                 returnViews.append(item)
             }

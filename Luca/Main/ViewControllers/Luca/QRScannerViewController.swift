@@ -3,16 +3,13 @@ import AVFoundation
 import RxSwift
 
 class QRScannerViewController: UIViewController {
-    enum Mode {
-        case checkIn
-        case healthTest
-    }
 
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
 
-    var onTestResult: ((String) -> Void)?
-    var mode = Mode.checkIn
+    var type: QRType?
+
+    var onSuccess: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,9 +104,7 @@ class QRScannerViewController: UIViewController {
 
     private func stopRunning() {
         if let session = captureSession, session.isRunning {
-            DispatchQueue.main.async {
-                self.captureSession.stopRunning()
-            }
+            self.captureSession.stopRunning()
         }
     }
 
@@ -117,20 +112,6 @@ class QRScannerViewController: UIViewController {
         let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Camera.Error.scanningFailed)
         self.present(alert, animated: true)
         captureSession = nil
-    }
-
-    private func wrongQRCode() {
-        let alert = UIAlertController.infoAlert(title: L10n.Navigation.Basic.error, message: L10n.Camera.Error.wrongQR, onOk: {
-            self.startRunning()
-        })
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    private func wrongScanner() {
-        let alert = UIAlertController.infoAlert(title: L10n.Test.Scanner.WrongScanner.title, message: L10n.Test.Scanner.WrongScanner.description, onOk: {
-            self.startRunning()
-        })
-        self.present(alert, animated: true, completion: nil)
     }
 
     private func setNavigationBarToTranslucent() {
@@ -145,34 +126,26 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-
             stopRunning()
 
-            switch mode {
-            case .checkIn:
-                if let url = URL(string: stringValue), let selfCheckin = CheckInURLParser.parse(url: url) {
-                    checkin(checkin: selfCheckin)
-                } else if let url = URL(string: stringValue), UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    wrongQRCode()
-                }
-            case .healthTest:
-                if let url = URL(string: stringValue), CheckInURLParser.parse(url: url) != nil {
-                    wrongScanner()
-                } else if let onResult = onTestResult {
-                    onResult(stringValue)
-                } else if let url = URL(string: stringValue), UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    wrongQRCode()
-                }
-            }
+            ServiceContainer.shared.qrProcessingService.processQRCode(qr: stringValue, viewController: self)
+                .do(onError: { error in
+                    DispatchQueue.main.async {
+                        if let titledError = error as? LocalizedTitledError {
+                            let alert = UIAlertController.infoAlert(title: titledError.localizedTitle, message: titledError.localizedDescription, onOk: {
+                                self.startRunning()
+                            })
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                }, onCompleted: {
+                    guard let success = self.onSuccess else {
+                        self.startRunning()
+                        return
+                    }
+                    success()
+                }).subscribe()
         }
-    }
-
-    func checkin(checkin: SelfCheckin) {
-        ServiceContainer.shared.selfCheckin.add(selfCheckinPayload: checkin)
     }
 
 }

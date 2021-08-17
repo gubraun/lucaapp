@@ -11,8 +11,5 @@
 /* Class = "UILabel"; text = "Aussteller:"; ObjectID = "ayY-JQ-AKc"; */
 "ayY-JQ-AKc.text" = "Issuer:";
 
-/* Class = "UILabel"; text = "TRANSFER SCHLÜSSEL"; ObjectID = "gFo-qy-M0F"; */
-"gFo-qy-M0F.text" = "TRANSFER KEY";
-
-/* Class = "UILabel"; text = "Schlüssel für Gesundheitsämter"; ObjectID = "lT8-3N-Ro5"; */
-"lT8-3N-Ro5.text" = "Key for health departments";
+/* Class = "UILabel"; text = "Description"; ObjectID = "vP7-yC-j3f"; */
+"vP7-yC-j3f.text" = "Every day a new daily key is created by one of the health departments that use luca. The health departments need this key to decrypt check-in data. Here you can see which health department created the key that's currently in use.";

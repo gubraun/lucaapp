@@ -46,60 +46,54 @@ class BaerCodeKeyService {
     }
 
     private func readyToFetch() -> Completable {
-        return Completable.create { observer -> Disposable in
+        Completable.from {
             guard let fetched = self.preferences.lastFetched else {
-                observer(.completed)
-                return Disposables.create()
+                return
             }
             let interval = TimeUnit.hour(amount: 12).timeInterval
-            fetched + interval < Date() ? observer(.completed) : observer(.error(BaerCodeKeyServiceError.keysStillValid))
-            return Disposables.create()
+            let isValid = fetched + interval > Date()
+
+            if isValid {
+                throw BaerCodeKeyServiceError.keysStillValid
+            }
         }
     }
 
     private func decodeKeys(keyBundle: Data) -> Single<CBOR> {
-        return Single.create { observer -> Disposable in
-            do {
-                if let decodedCOSESign = try CBORDecoder(input: keyBundle.bytes).decodeItem() {
-                    observer(.success(decodedCOSESign))
-                }
-            } catch let error {
-                observer(.failure(error))
+        Single.from {
+            if let decodedCOSESign = try CBORDecoder(input: keyBundle.bytes).decodeItem() {
+                return decodedCOSESign
             }
-            return Disposables.create()
+            throw BaerCodeKeyServiceError.couldNotParse
         }
+        .subscribe(on: LucaScheduling.backgroundScheduler)
     }
 
     private func parseCOSESign(with decodedCOSESign: CBOR) -> Single<(CBOR)> {
-        return Single.create { observer -> Disposable in
+        Single.from {
             guard case let CBOR.tagged(tag, cborElement) = decodedCOSESign,
                   tag.rawValue == 98,
                   case let CBOR.array(array) = cborElement,
                   case let CBOR.byteString(payload) = array[2]
             else {
-                observer(.failure(BaerCodeKeyServiceError.couldNotParse))
-                return Disposables.create()
+                throw BaerCodeKeyServiceError.couldNotParse
             }
 
-            let decodedPayload = try? CBOR.decode(payload)
+            // This is the most CPU intensive operation. This is why the stream has to be subscribed on a background scheduler.
+            let decodedPayload = try CBOR.decode(payload)
 
             if let payload = decodedPayload,
-               case .map(let itemMap) = payload {
-                if let keys = itemMap["Keys"] {
-                    observer(.success(keys))
-                } else {
-                    observer(.failure(BaerCodeKeyServiceError.couldNotParse))
-                }
-            } else {
-                observer(.failure(BaerCodeKeyServiceError.couldNotParse))
+               case .map(let itemMap) = payload,
+               let keys = itemMap["Keys"] {
+                return keys
             }
-
-            return Disposables.create()
+            throw BaerCodeKeyServiceError.couldNotParse
         }
+        .subscribe(on: LucaScheduling.backgroundScheduler)
     }
 
     private func parseKeys(_ keys: CBOR) -> Single<[BaerCodeKey]> {
-        return Single.create { observer -> Disposable in
+        return Single.from {
             var baerCodeKeys = [BaerCodeKey]()
             if case let CBOR.array(allKeysArray) = keys {
                 for keysArray in allKeysArray {
@@ -108,8 +102,7 @@ class BaerCodeKeyService {
                           case let CBOR.byteString(aesKey) = keysCBOR[1],
                           case let CBOR.byteString(xCoord) = keysCBOR[2],
                           case let CBOR.byteString(yCoord) = keysCBOR[3] else {
-                        observer(.failure(BaerCodeKeyServiceError.couldNotParse))
-                        return Disposables.create()
+                        throw BaerCodeKeyServiceError.couldNotParse
                     }
 
                     // kid is hidden in the last 16 bytes of xCoords for QR code size purposes
@@ -119,12 +112,12 @@ class BaerCodeKeyService {
                     }
                 }
             } else {
-                observer(.failure(BaerCodeKeyServiceError.couldNotParse))
+                throw BaerCodeKeyServiceError.couldNotParse
             }
 
-            observer(.success(baerCodeKeys))
-            return Disposables.create()
+            return baerCodeKeys
         }
+        .subscribe(on: LucaScheduling.backgroundScheduler)
     }
 
 }

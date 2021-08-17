@@ -68,3 +68,4 @@ fastlane/test_output
 .DS_Store
 Secrets.generated.swift
 env-vars_*.sh
+vendor

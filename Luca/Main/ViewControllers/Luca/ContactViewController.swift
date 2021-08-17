@@ -4,7 +4,6 @@ import RxSwift
 
 class ContactViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var firstNameTextField: LucaTextField!
     @IBOutlet weak var lastNameTextField: LucaTextField!
     @IBOutlet weak var emailTextField: LucaTextField!
@@ -24,7 +23,12 @@ class ContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.saveButton = UIBarButtonItem(title: L10n.ContactViewController.save, style: .done, target: self, action: #selector(onSaveButton(_:)))
+        // Setup navigationbar title
+        title = L10n.UserData.Navigation.title
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.montserratViewControllerTitle,
+                                                                        NSAttributedString.Key.foregroundColor: UIColor.white]
+
+        saveButton = UIBarButtonItem(title: L10n.ContactViewController.save, style: .done, target: self, action: #selector(onSaveButton(_:)))
 
         firstNameTextField.textField.delegate = self
         firstNameTextField.set(.givenName)
@@ -51,7 +55,7 @@ class ContactViewController: UIViewController {
         addressCityTextField.set(.addressCity)
 
         if !LucaPreferences.shared.phoneNumberVerified {
-            self.navigationItem.rightBarButtonItem = self.saveButton
+            navigationItem.rightBarButtonItem = self.saveButton
         }
     }
 
@@ -219,8 +223,7 @@ extension ContactViewController: UnsafeAddress, LogUtil {}
 extension ContactViewController {
 
     private func setupAccessibility() {
-        titleLabel.accessibilityTraits = .header
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged)
+        UIAccessibility.setFocusTo(navigationItem, notification: .layoutChanged)
     }
 
 }

@@ -83,12 +83,10 @@ class FormTextField: UIView {
 
         // Few keyboard type helpers (not all though!)
         switch textContentType {
-        case .name, .namePrefix, .nameSuffix, .givenName, .middleName, .familyName, .addressCity, .addressState, .addressCityAndState, .streetAddressLine1, .streetAddressLine2, .fullStreetAddress:
+        case .name, .namePrefix, .nameSuffix, .givenName, .middleName, .familyName, .addressCity, .addressState, .addressCityAndState, .streetAddressLine1, .streetAddressLine2, .fullStreetAddress, .postalCode:
             textField.keyboardType = .webSearch
         case .telephoneNumber:
             textField.keyboardType = .phonePad
-        case .postalCode:
-            textField.keyboardType = .numberPad
         case .emailAddress:
             textField.keyboardType = .emailAddress
         default:

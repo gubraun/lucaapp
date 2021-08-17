@@ -99,6 +99,7 @@ class BaerCodeDecoder {
             observer(.failure(CoronaTestProcessingError.parsingFailed))
             return Disposables.create()
         }
+        .subscribe(on: LucaScheduling.backgroundScheduler)
     }
 
     /// First two bytes ob BaerCode hold the version number. Remaining part is CBOR encoded.

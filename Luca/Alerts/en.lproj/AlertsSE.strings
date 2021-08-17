@@ -68,7 +68,7 @@
 "vd5-gh-ATs.text" = "Define timeframe";
 
 /* Class = "UILabel"; text = "Your history gathers all of your check-ins from the last 14 days. You can decide how many days you want to share with the health department. Define the number of days: "; ObjectID = "D3W-0v-OT8"; */
-"D3W-0v-OT8.text" = "Your history gathers all of your check-ins from the last 14 days. You can decide how many days you want to share with the health department. Define the number of days: ";
+"D3W-0v-OT8.text" = "Your history gathers all of your check-ins from the last 28 days. You can decide how many days you want to share with the health department. Define the number of days: ";
 
 /* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "SI8-Tb-RA7"; */
 "SI8-Tb-RA7.normalTitle" = "CANCEL";

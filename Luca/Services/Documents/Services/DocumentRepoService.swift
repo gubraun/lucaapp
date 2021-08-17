@@ -10,6 +10,9 @@ class DocumentRepoService {
     private var disposeBag = DisposeBag()
 
     private let updateSignal = BehaviorSubject<Void>(value: Void())
+    var documentUpdateSignal: Observable<Void> {
+        updateSignal.asObservable()
+    }
 
     private var cachedDocuments: [Int: Document] = [:]
     private let cacheScheduler = SerialDispatchQueueScheduler(qos: .userInteractive)

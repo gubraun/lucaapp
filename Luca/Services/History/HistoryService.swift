@@ -195,10 +195,10 @@ class HistoryService {
             .map { restored -> [HistoryEntry] in
 
                 let currentDate = Date()
-                guard let lastTwoWeeks = Calendar.current.date(byAdding: .weekOfYear, value: -2, to: currentDate) else {
+                guard let last28Days = Calendar.current.date(byAdding: .day, value: -28, to: currentDate) else {
                     return []
                 }
-                return restored.filter { $0.date < lastTwoWeeks }
+                return restored.filter { $0.date < last28Days }
             }
             .map { array in array.map { $0.identifier ?? 0 } }
             .flatMapCompletable(self.historyRepo.remove)
