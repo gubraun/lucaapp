@@ -82,7 +82,7 @@ class CoronaVaccineItemView: DocumentView, DocumentViewProtocol, HorizontalGroup
         } else {
             wrapperView.backgroundColor = UIColor.lucaBeige
             if vaccination.hasAllDosesReceived {
-                resultLabel.text = L10n.Vaccine.Result.completeInDays(vaccination.vaccinatedSinceDays)
+                resultLabel.text = L10n.Vaccine.Result.completeInDays(vaccination.fullyVaccinatedInDays)
             } else {
                 if position == .single {
                     resultLabel.text = L10n.Vaccine.Result.partially(doseNumber, dosesTotal)

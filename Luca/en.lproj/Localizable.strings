@@ -115,6 +115,10 @@
 
 "history.checkin.checkout.time" = "%@ to %@";
 
+"history.traceId.pasteboard" = "Trace ID: %@";
+
+"history.traceId.alert.description" = "%@\n\nThe trace ID was copied to your clipboard.";
+
 // Data release
 "dataRelease.tan.title" = "TAN";
 

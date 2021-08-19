@@ -373,6 +373,18 @@ internal enum L10n {
         return L10n.tr("Localizable", "history.dataAccess.count", String(describing: p1))
       }
     }
+    internal enum TraceId {
+      /// Trace ID: %@
+      internal static func pasteboard(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "history.traceId.pasteboard", String(describing: p1))
+      }
+      internal enum Alert {
+        /// %@\n\nThe trace ID was copied to your clipboard.
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "history.traceId.alert.description", String(describing: p1))
+        }
+      }
+    }
   }
 
   internal enum LocationCheckinViewController {

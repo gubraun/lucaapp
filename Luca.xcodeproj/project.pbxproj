@@ -3238,14 +3238,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEVELOPMENT";
@@ -3262,14 +3262,14 @@
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION;
@@ -3339,14 +3339,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.release;
 				PRODUCT_NAME = "$(TARGET_NAME) Release";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
@@ -3437,14 +3437,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.hotfix;
 				PRODUCT_NAME = "Luca Hotfix";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = HOTFIX;
@@ -3536,14 +3536,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.preprod;
 				PRODUCT_NAME = "Luca Preprod";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PREPROD;
@@ -3636,14 +3636,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.qa;
 				PRODUCT_NAME = "Luca QA";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = QA;
@@ -3736,14 +3736,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.pentest;
 				PRODUCT_NAME = "Luca Pentest";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PENTEST;

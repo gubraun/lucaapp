@@ -131,7 +131,7 @@ DEPENDENCIES:
   - Validator (~> 3.2.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs:
+  https://github.com/CocoaPods/Specs.git:
     - base64url
     - BlueCryptor
     - BlueECC

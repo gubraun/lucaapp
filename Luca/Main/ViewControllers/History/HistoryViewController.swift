@@ -20,6 +20,8 @@ class HistoryViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressOnEvent(sender:)))
+        tableView.addGestureRecognizer(longPressRecognizer)
 
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 75, right: 0)
@@ -76,6 +78,21 @@ class HistoryViewController: UIViewController {
         }
 
         UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).menuActionSheet(viewController: self, additionalActions: [deleteAction])
+    }
+
+    @objc private func didLongPressOnEvent(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                if let event = eventForIndexPath(at: indexPath) as? UserEvent,
+                   let traceId = event.checkin.traceInfo?.traceId {
+                    let traceIdDescription = L10n.History.TraceId.pasteboard(traceId)
+                    UIPasteboard.general.string = traceIdDescription
+                    let alert = UIAlertController.infoAlert(title: "", message: L10n.History.TraceId.Alert.description(traceIdDescription))
+                    present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
 
     func setupViews() {
@@ -151,8 +168,7 @@ extension HistoryViewController: UITableViewDataSource, UITableViewDelegate {
         // swiftlint:disable:next force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell", for: indexPath) as! HistoryTableViewCell
 
-        // Show events in reverse order
-        let event = events[events.count - indexPath.row - 1]
+        let event = eventForIndexPath(at: indexPath)
         cell.setup(historyEvent: event)
         if let userEvent = event as? UserEvent, userEvent.checkin.role == .host {
             cell.infoPressedActionHandler = { self.showPrivateMeetingInfoViewController(userEvent: userEvent) }
@@ -173,6 +189,11 @@ extension HistoryViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         return cell
+    }
+
+    private func eventForIndexPath(at indexPath: IndexPath) -> HistoryEvent {
+        // Show events in reverse order
+        return events[events.count - indexPath.row - 1]
     }
 
     func showPrivateMeetingInfoViewController(userEvent: UserEvent) {

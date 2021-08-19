@@ -1,3 +1,9 @@
+# Release 1.9.1
+
+- Bug fix
+
+This update includes a check-in bug fix.
+
 # Release 1.9.0
 
 - Text and UI adjustments

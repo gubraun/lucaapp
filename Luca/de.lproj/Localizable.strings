@@ -115,6 +115,10 @@
 
 "history.checkin.checkout.time" = "%@ bis %@";
 
+"history.traceId.pasteboard" = "Trace ID: %@";
+
+"history.traceId.alert.description" = "%@\n\nDie Trace ID wurde in deine Zwischenablage kopiert.";
+
 // Data release
 "dataRelease.tan.title" = "TAN";
 
