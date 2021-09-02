@@ -63,7 +63,7 @@ jobs:
   # Coverity scan
   - task: synopsys-coverity@1
     inputs:
-      coverityService: 'coverity-vm-lucaapp-ios'
+      coverityService: 'coverity-vm-lucaapp'
       projectName: 'Luca App - iOS'
       streamName: 'az-lucaapp-ios'
       coverityBuildDirectory: '$(Build.Repository.LocalPath)'
