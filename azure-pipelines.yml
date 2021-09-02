@@ -1,0 +1,90 @@
+# Xcode
+
+# Build, test, and archive an Xcode workspace on macOS.
+# Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+
+trigger:
+- none
+
+jobs:
+- job: Coverity
+  timeoutInMinutes: 0 # should then be maximum (6h for public projects)
+
+  variables:
+    COVERITY_TOOL_HOME: $(Agent.BuildDirectory)/cov-analysis
+    #COVERITY_EMIT_UNSUPPORTED_SWIFT_VERSION: 1
+
+  pool:
+    vmImage: 'macos-11'
+
+  steps:
+  - checkout: self
+    lfs: true
+  
+  # Cache Coverity installation (good for MacOS, as installation take time)
+  - task: Cache@2
+    inputs:
+      key: '"coverity-analysis-2021.06" | "$(Agent.OS)"'
+      path: $(COVERITY_TOOL_HOME)
+      cacheHitVar: CACHE_RESTORED
+    displayName: 'Cache Coverity Tool Installation'
+
+  # Copy and install Coverity analysis package (not not cached)
+  - script: |
+      cd $(Agent.BuildDirectory)
+      curl -s -k -L --user admin:$(COVERITY_AUTHKEY) -o license.dat $(COVERITY_URL)/downloadFile.htm?fn=license.dat
+      curl -s -k -L --user admin:$(COVERITY_AUTHKEY) -o cov-analysis-macosx-2021.06.sh $(COVERITY_URL)/downloadFile.htm?fn=cov-analysis-macosx-2021.06.sh
+      bash cov-analysis-macosx-2021.06.sh -q --installation.dir=$(Agent.BuildDirectory)/cov-analysis-macosx-2021.06 --license.region=6 --license.agreement=agree --license.type.choice=0 --license.cov.path=$(Agent.BuildDirectory)/license.dat --component.cov-wizard=false --component.skip.documentation=true 
+      mv cov-analysis-macosx-2021.06 cov-analysis
+      cp license.dat ./cov-analysis/bin
+    condition: ne(variables.CACHE_RESTORED, 'true')
+    displayName: 'Install Coverity'
+
+  # Configure Coverity
+  - script: |
+      $(COVERITY_TOOL_HOME)/bin/cov-configure --swift
+    #condition: ne(variables.CACHE_RESTORED, 'true')
+    displayName: 'Configure Coverity'
+  
+  # Install Pods
+  - task: CmdLine@2
+    inputs:
+      script: pod install
+
+  #- task: Xcode@5
+  #  inputs:
+  #    actions: 'build'
+  #    configuration: 'Release'
+  #    sdk: 'iphoneos'
+  #    scheme: 'ENACommunity'
+  #    packageApp: false
+   
+  # Coverity scan
+  - task: synopsys-coverity@1
+    inputs:
+      coverityService: 'coverity-vm-cwa-app-ios'
+      projectName: 'Luca App - iOS'
+      streamName: 'az-lucaapp-ios'
+      coverityBuildDirectory: '$(Build.Repository.LocalPath)'
+      #buildCommand: '/usr/bin/xcodebuild -sdk iphoneos -configuration Release -workspace $(Build.Repository.LocalPath)/src/xcode/ENA.xcworkspace -scheme ENACommunity build CODE_SIGNING_ALLOWED=NO | /usr/local/lib/ruby/gems/2.6.0/bin/xcpretty -r junit --no-color'
+      buildCommand: /usr/bin/xcodebuild -sdk iphoneos -configuration Release -workspace $(Build.Repository.LocalPath)/Luca.xcworkspace -scheme 'Luca Release' build CODE_SIGNING_ALLOWED=NO
+      allowUntrusted: true
+      coverityRunType: 'buildanalyzecommit'
+      customCommandArgs: true
+      covAnalyzeArgs: '--webapp-security --android-security --distrust-all --webapp-security-aggressiveness-level high --enable-audit-checkers --enable-audit-dataflow'
+      covBuildArgs: '--fs-capture-search .'
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.Repository.LocalPath)/idir/'
+      includeRootFolder: true
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      replaceExistingArchive: true
+
+  # Artifacts can be downloaded via web - see top-level log for Job
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      publishLocation: 'pipeline'
