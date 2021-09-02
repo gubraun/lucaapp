@@ -7,16 +7,6 @@ struct AccountOption {
 
 class AccountViewController: UIViewController {
 
-    private lazy var titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = L10n.Navigation.Tab.account
-        titleLabel.font = UIFont.montserratViewControllerTitle
-        titleLabel.textColor = .white
-        view.addSubview(titleLabel)
-
-        return titleLabel
-    }()
-
     private lazy var spacerView: UIView = {
         let spacerView = UIView()
         spacerView.backgroundColor = .lucaGrey
@@ -30,12 +20,14 @@ class AccountViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.separatorColor = .lucaDarkGrey
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)
         tableView.alwaysBounceVertical = false
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))  // remove last separator
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(AccountTableViewCell.classForCoder(), forCellReuseIdentifier: "AccountTableViewCell")
         view.addSubview(tableView)
+        tableView.contentOffset = CGPoint(x: 0, y: -tableView.contentInset.top)
 
         return tableView
     }()
@@ -50,51 +42,42 @@ class AccountViewController: UIViewController {
                  AccountOption(title: L10n.General.healthDepartmentKey, coordinator: HealthDepartmentCryptoInfoCoordinator(presenter: self)),
                  AccountOption(title: L10n.General.imprint, coordinator: OpenLinkCoordinator(url: L10n.General.linkImprint)),
                  AccountOption(title: L10n.acknowledgements, coordinator: LicensesCoordinator(presenter: self)),
-                 AccountOption(title: L10n.WelcomeViewController.gitLab, coordinator: OpenLinkCoordinator(url: L10n.WelcomeViewController.linkGitLab))]]
+                 AccountOption(title: L10n.WelcomeViewController.gitLab, coordinator: GitlabLinkCoordinator(presenter: self, url: L10n.WelcomeViewController.linkGitLab)),
+                 AccountOption(title: L10n.AppVersion.button, coordinator: VersionDetailsCoordinator(presenter: self))]]
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationbar()
         setupContraints()
-
-        // child VCs show back button without button title
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        self.navigationController?.setTranslucent()
-        self.navigationController?.navigationBar.tintColor = .white
         setupAccessibility()
-
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+}
+
+extension AccountViewController {
+    private func setupNavigationbar() {
+        set(title: L10n.Navigation.Tab.account)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     private func setupContraints() {
-        titleLabel.setAnchor(top: view.topAnchor,
+        spacerView.setAnchor(top: view.topAnchor,
                              leading: view.leadingAnchor,
                              bottom: nil,
                              trailing: view.trailingAnchor,
-                             padding: UIEdgeInsets(top: 42, left: 32, bottom: 0, right: 32))
-        titleLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
-
-        spacerView.setAnchor(top: titleLabel.bottomAnchor,
-                             leading: view.leadingAnchor,
-                             bottom: nil,
-                             trailing: view.trailingAnchor,
-                             padding: UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0))
+                             padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         spacerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
         tableView.setAnchor(top: spacerView.bottomAnchor,
                             leading: view.leadingAnchor,
                             bottom: view.bottomAnchor,
                             trailing: view.trailingAnchor,
-                            padding: UIEdgeInsets(top: 32, left: 32, bottom: 0, right: 32))
+                            padding: UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32))
     }
 }
 
@@ -161,10 +144,9 @@ extension AccountViewController: UITableViewDelegate {
 
 // MARK: - Accessibility
 extension AccountViewController {
-
     private func setupAccessibility() {
-        titleLabel.accessibilityTraits = .header
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+        guard let navigationbarTitleLabel = navigationbarTitleLabel else { return }
+        navigationbarTitleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
     }
-
 }

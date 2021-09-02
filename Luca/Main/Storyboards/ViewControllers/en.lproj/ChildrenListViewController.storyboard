@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Children List View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="ChildrenListViewController" id="Y6W-OH-hqX" customClass="ChildrenListViewController" customModule="Luca" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6Z-4v-4Z7">
+                                <rect key="frame" x="0.0" y="88" width="414" height="1"/>
+                                <color key="backgroundColor" name="lucaGrey"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="DaL-L4-0r2"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="evs-Z8-7mV">
+                                <rect key="frame" x="0.0" y="105" width="414" height="661"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gF-JO-b8a" customClass="DarkStandardButton" customModule="LucaUIComponents">
+                                <rect key="frame" x="32" y="782" width="350" height="48"/>
+                                <color key="backgroundColor" name="lucaLightGrey"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="5o9-bq-dSi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                <state key="normal" title="Weiteres Kind hinzufügen">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="q6Z-4v-4Z7" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Jlr-Qg-eSf"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="7gF-JO-b8a" secondAttribute="trailing" constant="32" id="Mpc-Lo-Pha"/>
+                            <constraint firstAttribute="trailing" secondItem="q6Z-4v-4Z7" secondAttribute="trailing" id="Sww-Gm-lv9"/>
+                            <constraint firstItem="q6Z-4v-4Z7" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="dDd-Ar-x3C"/>
+                            <constraint firstItem="evs-Z8-7mV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="kXj-zT-faV"/>
+                            <constraint firstItem="7gF-JO-b8a" firstAttribute="top" secondItem="evs-Z8-7mV" secondAttribute="bottom" constant="16" id="moF-5T-0DC"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="7gF-JO-b8a" secondAttribute="bottom" constant="32" id="rcV-hr-50P"/>
+                            <constraint firstItem="7gF-JO-b8a" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="twO-G4-J2i"/>
+                            <constraint firstItem="evs-Z8-7mV" firstAttribute="top" secondItem="q6Z-4v-4Z7" secondAttribute="bottom" constant="16" id="xYP-4F-24n"/>
+                            <constraint firstItem="evs-Z8-7mV" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="yP7-SO-zYA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="qzo-E2-4LI">
+                        <barButtonItem key="backBarButtonItem" title=" " id="9W2-Q7-tTo"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addChildButton" destination="7gF-JO-b8a" id="yf4-JP-MeL"/>
+                        <outlet property="tableView" destination="evs-Z8-7mV" id="fde-sD-dQM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="107.8125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DO6-Zf-c9b">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="imy-bB-4Pb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Yl-qU-1H3">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="GyD-gH-NPV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="caf-Hw-eEw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="107.8125"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="7gF-JO-b8a">
+            <size key="intrinsicContentSize" width="192" height="30"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="lucaGrey">
+            <color red="0.59200000762939453" green="0.59200000762939453" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="lucaLightGrey">
+            <color red="0.72156862745098038" green="0.75294117647058822" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

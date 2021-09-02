@@ -10,9 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Bold.ttf">
-            <string>Montserrat-Bold</string>
-        </array>
         <array key="Montserrat-Medium.ttf">
             <string>Montserrat-Medium</string>
         </array>
@@ -26,14 +23,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR Code scannen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOm-aY-bK1">
-                                <rect key="frame" x="32" y="60" width="186" height="24.5"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5WI-ig-1ys">
-                                <rect key="frame" x="0.0" y="100.5" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="1"/>
                                 <color key="backgroundColor" name="lucaGrey"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="GdI-44-bdv"/>
@@ -47,19 +38,8 @@
                                     <constraint firstAttribute="height" constant="200" id="yLt-RX-vkE"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXs-9V-pfc">
-                                <rect key="frame" x="337" y="50" width="45" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="bXs-9V-pfc" secondAttribute="height" multiplier="1:1" id="nJ3-f6-sID"/>
-                                    <constraint firstAttribute="width" constant="45" id="xx9-Ik-D4a"/>
-                                </constraints>
-                                <state key="normal" image="closeButton"/>
-                                <connections>
-                                    <action selector="closeButtonPressed:" destination="MJJ-Ez-TBG" eventType="touchUpInside" id="zOe-tS-E86"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scanne den QR-Code deines Dokuments, um es zur App hinzuzufügen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7a-Bs-pfu">
-                                <rect key="frame" x="32" y="133.5" width="350" height="34.5"/>
+                                <rect key="frame" x="32" y="77" width="350" height="34.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -70,23 +50,17 @@
                         <constraints>
                             <constraint firstItem="f7t-13-UCg" firstAttribute="centerY" secondItem="IGp-wa-eGz" secondAttribute="centerY" id="1yp-Mx-gIc"/>
                             <constraint firstItem="IGp-wa-eGz" firstAttribute="trailing" secondItem="5WI-ig-1ys" secondAttribute="trailing" id="8Qs-RV-89C"/>
-                            <constraint firstItem="qOm-aY-bK1" firstAttribute="top" secondItem="IGp-wa-eGz" secondAttribute="top" constant="16" id="CeP-w9-idw"/>
-                            <constraint firstItem="IGp-wa-eGz" firstAttribute="trailing" secondItem="bXs-9V-pfc" secondAttribute="trailing" constant="32" id="Qt4-OZ-24w"/>
-                            <constraint firstItem="5WI-ig-1ys" firstAttribute="top" secondItem="qOm-aY-bK1" secondAttribute="bottom" constant="16" id="WxC-VG-7NZ"/>
+                            <constraint firstItem="u7a-Bs-pfu" firstAttribute="leading" secondItem="YYn-Sn-fpC" secondAttribute="leading" constant="32" id="8po-hy-9wa"/>
                             <constraint firstItem="u7a-Bs-pfu" firstAttribute="top" secondItem="5WI-ig-1ys" secondAttribute="bottom" constant="32" id="XZ4-re-9i8"/>
                             <constraint firstItem="f7t-13-UCg" firstAttribute="centerX" secondItem="IGp-wa-eGz" secondAttribute="centerX" id="auU-Im-dRL"/>
-                            <constraint firstItem="bXs-9V-pfc" firstAttribute="centerY" secondItem="qOm-aY-bK1" secondAttribute="centerY" id="avP-eX-YF2"/>
-                            <constraint firstItem="qOm-aY-bK1" firstAttribute="leading" secondItem="IGp-wa-eGz" secondAttribute="leading" constant="32" id="ghn-7A-3JP"/>
+                            <constraint firstItem="5WI-ig-1ys" firstAttribute="top" secondItem="IGp-wa-eGz" secondAttribute="top" id="gbk-Ee-90j"/>
                             <constraint firstItem="5WI-ig-1ys" firstAttribute="leading" secondItem="IGp-wa-eGz" secondAttribute="leading" id="sIs-7m-9Az"/>
                             <constraint firstItem="IGp-wa-eGz" firstAttribute="trailing" secondItem="u7a-Bs-pfu" secondAttribute="trailing" constant="32" id="ury-ck-ReU"/>
-                            <constraint firstItem="u7a-Bs-pfu" firstAttribute="leading" secondItem="qOm-aY-bK1" secondAttribute="leading" id="wXC-JC-dpi"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="f7t-13-UCg" id="4Eo-eh-g1m"/>
-                        <outlet property="closeButton" destination="bXs-9V-pfc" id="SFw-TA-z9x"/>
                         <outlet property="descriptionLabel" destination="u7a-Bs-pfu" id="DP7-O2-yln"/>
-                        <outlet property="titleLabel" destination="qOm-aY-bK1" id="DCE-xE-UHz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LbQ-CZ-t7W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -95,7 +69,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="closeButton" width="23" height="23"/>
         <namedColor name="lucaGrey">
             <color red="0.59200000762939453" green="0.59200000762939453" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

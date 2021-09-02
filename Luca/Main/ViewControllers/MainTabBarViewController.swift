@@ -3,6 +3,13 @@ import RxSwift
 import JGProgressHUD
 import Alamofire
 
+enum TabBarIndex: Int {
+    case checkin = 0
+    case documents = 1
+    case history = 2
+    case account = 3
+}
+
 class MainTabBarViewController: UITabBarController {
 
     private var disposeBag = DisposeBag()
@@ -35,7 +42,7 @@ class MainTabBarViewController: UITabBarController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.selectedIndex = 1
+        self.changeTabBar(to: .documents)
 
         ServiceContainer.shared.userService.registerIfNeeded { result in
             if result == .userRecreated {
@@ -73,12 +80,12 @@ class MainTabBarViewController: UITabBarController {
 
         // If app was terminated
         if ServiceContainer.shared.privateMeetingService.currentMeeting != nil {
-            self.selectedIndex = 0
+            self.changeTabBar(to: .checkin)
         }
         _ = ServiceContainer.shared.traceIdService.isCurrentlyCheckedIn
             .observe(on: MainScheduler.instance)
             .do(onSuccess: { checkedIn in
-                if checkedIn { self.selectedIndex = 0 }
+                if checkedIn { self.changeTabBar(to: .checkin) }
             })
             .subscribe()
             .disposed(by: disposeBag)
@@ -93,7 +100,7 @@ class MainTabBarViewController: UITabBarController {
             }.asObservable()
             .observe(on: MainScheduler.instance)
             .do(onNext: { checkedIn in
-                if checkedIn { self.selectedIndex = 0 }
+                if checkedIn { self.changeTabBar(to: .checkin) }
             }).subscribe()
             .disposed(by: disposeBag)
     }
@@ -146,7 +153,7 @@ class MainTabBarViewController: UITabBarController {
                     .do(onSubscribe: {
                             DispatchQueue.main.async {
                                 self.progressHud.show(in: self.view)
-                                self.selectedIndex = 0
+                                self.changeTabBar(to: .checkin)
                             }
                     })
                     .do(onDispose: { DispatchQueue.main.async { self.progressHud.dismiss() } })
@@ -168,9 +175,7 @@ class MainTabBarViewController: UITabBarController {
             .documentUpdateSignal
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
-                if self.selectedIndex != 1 {
-                    self.selectedIndex = 1
-                }
+                self.changeTabBar(to: .documents)
             }).disposed(by: disposeBag)
     }
 
@@ -181,6 +186,10 @@ class MainTabBarViewController: UITabBarController {
             message: error.localizedDescription)
             .ignoreElementsAsCompletable()
             .andThen(Completable.error(error)) // Push the error through to retry the stream
+    }
+
+    private func changeTabBar(to index: TabBarIndex) {
+        self.selectedIndex = index.rawValue
     }
 }
 

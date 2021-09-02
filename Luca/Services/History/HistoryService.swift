@@ -211,7 +211,7 @@ class HistoryService {
         // Migrate old entries
         if !oldEntries.isEmpty {
             _ = historyRepo.store(objects: oldEntries)
-                .observeOn(MainScheduler.instance)
+                .observe(on: MainScheduler.instance)
                 .do(onSuccess: { _ in
                     self.oldEntries = []
                 })

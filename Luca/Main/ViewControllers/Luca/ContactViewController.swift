@@ -23,11 +23,6 @@ class ContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Setup navigationbar title
-        title = L10n.UserData.Navigation.title
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.montserratViewControllerTitle,
-                                                                        NSAttributedString.Key.foregroundColor: UIColor.white]
-
         saveButton = UIBarButtonItem(title: L10n.ContactViewController.save, style: .done, target: self, action: #selector(onSaveButton(_:)))
 
         firstNameTextField.textField.delegate = self
@@ -57,6 +52,13 @@ class ContactViewController: UIViewController {
         if !LucaPreferences.shared.phoneNumberVerified {
             navigationItem.rightBarButtonItem = self.saveButton
         }
+
+        setupNavigationbar()
+    }
+
+    func setupNavigationbar() {
+        // Setup navigationbar title
+        set(title: L10n.UserData.Navigation.title)
     }
 
     func setupViews() {
@@ -223,7 +225,7 @@ extension ContactViewController: UnsafeAddress, LogUtil {}
 extension ContactViewController {
 
     private func setupAccessibility() {
-        UIAccessibility.setFocusTo(navigationItem, notification: .layoutChanged)
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged)
     }
 
 }

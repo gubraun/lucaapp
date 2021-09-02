@@ -4,7 +4,6 @@ import JGProgressHUD
 
 class DataAccessViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyStateView: UIView!
 
@@ -14,9 +13,9 @@ class DataAccessViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(DataAccessHeaderView.self, forHeaderFooterViewReuseIdentifier: "DataAccessHeaderView")
+
+        setupUI()
+        setupNavigationbar()
     }
 
     func loadEntries() {
@@ -52,14 +51,26 @@ class DataAccessViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadEntries()
-        self.navigationController?.setTranslucent()
-        self.navigationController?.navigationBar.tintColor = .white
         setupAccessibility()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         disposeBag = nil
+    }
+}
+
+extension DataAccessViewController {
+
+    private func setupUI() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(DataAccessHeaderView.self, forHeaderFooterViewReuseIdentifier: "DataAccessHeaderView")
+    }
+
+    private func setupNavigationbar() {
+        set(title: L10n.Navigation.Dataaccess.title)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     func showEmptyState() {
@@ -117,10 +128,9 @@ extension DataAccessViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - Accessibility
 extension DataAccessViewController {
-
     private func setupAccessibility() {
-        titleLabel.accessibilityTraits = .header
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+        guard let navigationbarTitleLabel = navigationbarTitleLabel else { return }
+        navigationbarTitleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
     }
-
 }

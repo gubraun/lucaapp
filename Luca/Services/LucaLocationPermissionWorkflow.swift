@@ -101,6 +101,6 @@ class LucaLocationPermissionWorkflow {
                 .asSingle()
             }
             .do(onSubscribe: { DispatchQueue.main.async { ServiceContainer.shared.locationUpdater.start() } })
-            .do(onSuccess: { _ in DispatchQueue.main.async { ServiceContainer.shared.locationUpdater.stop() } })
+            .do(onDispose: { DispatchQueue.main.async { ServiceContainer.shared.locationUpdater.stop() } })
     }
 }

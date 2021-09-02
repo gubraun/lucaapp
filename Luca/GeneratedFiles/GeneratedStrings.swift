@@ -13,6 +13,19 @@ internal enum L10n {
   /// Licenses
   internal static let acknowledgements = L10n.tr("Localizable", "Acknowledgements")
 
+  internal enum AppVersion {
+    /// Version Details
+    internal static let button = L10n.tr("Localizable", "appVersion.button")
+    internal enum Alert {
+      /// You are currently using the iOS app version %@ (%@) %@\n\nThe source code can be found on GitLab using the commit hash %@
+      internal static func message(_ p1: Any, _ p2: Any, _ p3: Any, _ p4: Any) -> String {
+        return L10n.tr("Localizable", "appVersion.alert.message", String(describing: p1), String(describing: p2), String(describing: p3), String(describing: p4))
+      }
+      /// App Version
+      internal static let title = L10n.tr("Localizable", "appVersion.alert.title")
+    }
+  }
+
   internal enum Button {
     internal enum Private {
       /// Create private meeting
@@ -34,8 +47,6 @@ internal enum L10n {
     internal enum Error {
       /// Your device cannot be used to scan.
       internal static let scanningFailed = L10n.tr("Localizable", "camera.error.scanningFailed")
-      /// The QR code is not valid.
-      internal static let wrongQR = L10n.tr("Localizable", "camera.error.wrongQR")
     }
     internal enum Warning {
       internal enum Checkin {
@@ -105,6 +116,41 @@ internal enum L10n {
   internal enum Checkout {
     /// Checkout
     internal static let noun = L10n.tr("Localizable", "checkout.noun")
+  }
+
+  internal enum Children {
+    internal enum Add {
+      /// Add
+      internal static let button = L10n.tr("Localizable", "children.add.button")
+      /// Please provide your child's full name. Documents can only be added if the names match.
+      internal static let description = L10n.tr("Localizable", "children.add.description")
+      /// Add Child
+      internal static let title = L10n.tr("Localizable", "children.add.title")
+      internal enum Placeholder {
+        /// Firstname
+        internal static let firstname = L10n.tr("Localizable", "children.add.placeholder.firstname")
+        /// Lastname
+        internal static let lastname = L10n.tr("Localizable", "children.add.placeholder.lastname")
+      }
+    }
+    internal enum List {
+      /// You can add children (up to 14 years) to your app to import their documents and check them in with you. The information will not be shared with the health department, it is for your convenience only.
+      internal static let description = L10n.tr("Localizable", "children.list.description")
+      /// You can add children (up to 14 years) to your app to import their documents and check them in with you.\n\nPlease make sure that the provided data is correct. The information will not be shared with the health department, it is for your convenience only.
+      internal static let emptyDescription = L10n.tr("Localizable", "children.list.emptyDescription")
+      /// Add Children
+      internal static let title = L10n.tr("Localizable", "children.list.title")
+      internal enum Add {
+        /// Add Cild
+        internal static let button = L10n.tr("Localizable", "children.list.add.button")
+      }
+      internal enum Delete {
+        /// When you delete a child, all the related documents are also deleted.
+        internal static let message = L10n.tr("Localizable", "children.list.delete.message")
+        /// Save changes?
+        internal static let title = L10n.tr("Localizable", "children.list.delete.title")
+      }
+    }
   }
 
   internal enum Contact {
@@ -314,6 +360,16 @@ internal enum L10n {
         }
       }
     }
+    internal enum Gitlab {
+      internal enum Alert {
+        /// Open GitLab
+        internal static let actionButton = L10n.tr("Localizable", "general.gitlab.alert.actionButton")
+        /// luca is open source. It's important to us that everyone can comprehend how the luca system works and that it's possible to give independent feedback. If you want to take a closer look, you'll find the code repository on GitLab.
+        internal static let description = L10n.tr("Localizable", "general.gitlab.alert.description")
+        /// Take me to the code repository 
+        internal static let title = L10n.tr("Localizable", "general.gitlab.alert.title")
+      }
+    }
     internal enum Greeting {
       /// Hello!
       internal static let title = L10n.tr("Localizable", "general.greeting.title")
@@ -321,7 +377,7 @@ internal enum L10n {
     internal enum Support {
       /// hello@luca-app.de
       internal static let email = L10n.tr("Localizable", "general.support.email")
-      /// It is not possible to send an email from this device because no email account is connected.
+      /// Emails cannot be sent from this device because no email account is linked.
       internal static let error = L10n.tr("Localizable", "general.support.error")
       internal enum Email {
         /// Dear luca support,<br><br>The following problem occurred while using the app:<br><br><i>Please describe your problem and where it occurs, as precisely as possible. It would also be very helpful if you could attach a screenshot or screen capture of your problem or error message.</i><br><br><br>Device: %@<br>Operating system: iOS %@<br>App version: %@
@@ -516,6 +572,8 @@ internal enum L10n {
       internal static let attention = L10n.tr("Localizable", "navigation.basic.attention")
       /// Cancel
       internal static let cancel = L10n.tr("Localizable", "navigation.basic.cancel")
+      /// Confirm
+      internal static let confirm = L10n.tr("Localizable", "navigation.basic.confirm")
       /// Continue
       internal static let `continue` = L10n.tr("Localizable", "navigation.basic.continue")
       /// DONE
@@ -534,6 +592,10 @@ internal enum L10n {
       internal static let start = L10n.tr("Localizable", "navigation.basic.start")
       /// Yes
       internal static let yes = L10n.tr("Localizable", "navigation.basic.yes")
+    }
+    internal enum Dataaccess {
+      /// Data requests
+      internal static let title = L10n.tr("Localizable", "navigation.dataaccess.title")
     }
     internal enum Tab {
       /// Account
@@ -577,6 +639,8 @@ internal enum L10n {
     internal enum Meeting {
       /// Let your guests scan the QR code to check into your meeting.
       internal static let description = L10n.tr("Localizable", "private.meeting.description")
+      /// Private Meeting
+      internal static let title = L10n.tr("Localizable", "private.meeting.title")
       internal enum Accessibility {
         /// End meeting
         internal static let endMeeting = L10n.tr("Localizable", "private.meeting.accessibility.endMeeting")
@@ -756,6 +820,8 @@ internal enum L10n {
       internal static let camera = L10n.tr("Localizable", "test.scanner.camera")
       /// Close
       internal static let close = L10n.tr("Localizable", "test.scanner.close")
+      /// Scan QR code
+      internal static let title = L10n.tr("Localizable", "test.scanner.title")
     }
     internal enum Uniqueness {
       internal enum Create {

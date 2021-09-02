@@ -11,8 +11,6 @@ class LocationCheckinViewController: UIViewController {
     @IBOutlet weak var checkinSlider: CheckinSlider!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var checkinDateLabel: UILabel!
-    @IBOutlet weak var groupNameLabel: UILabel!
-    @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var automaticCheckoutSwitch: UISwitch!
     @IBOutlet weak var checkOutLabel: UILabel!
     @IBOutlet weak var welcomeLabel: UILabel!
@@ -33,7 +31,6 @@ class LocationCheckinViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setTranslucent()
 
         NotificationPermissionHandler.shared.requestAuthorization(viewController: self)
 
@@ -42,7 +39,10 @@ class LocationCheckinViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+
+        self.navigationController?.setTranslucent()
+        navigationbarTitleLabel?.textColor = UIColor.black
+        navigationbarSubtitleLabel?.textColor = UIColor.black
 
         initialStatusBarStyle = UIApplication.shared.statusBarStyle
         if #available(iOS 13.0, *) {
@@ -58,7 +58,10 @@ class LocationCheckinViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        self.navigationController?.removeTransparency()
+        navigationbarTitleLabel?.textColor = UIColor.white
+        navigationbarSubtitleLabel?.textColor = UIColor.white
 
         removeObservers()
 
@@ -157,6 +160,8 @@ class LocationCheckinViewController: UIViewController {
 
         welcomeLabel.text = L10n.LocationCheckinViewController.welcomeMessage
         navigationItem.hidesBackButton = true
+        // set dummy title. Will be changed later
+        set(title: "")
     }
 
     // swiftlint:disable:next function_body_length
@@ -264,18 +269,14 @@ class LocationCheckinViewController: UIViewController {
     private func setupLocationLabels(with groupName: String?, and locationName: String?) {
         switch (groupName, locationName) {
         case (.some(let groupName), .some(let locationName)):
-            groupNameLabel.text = groupName
-            locationNameLabel.text = locationName
-            locationNameLabel.textColor = .black
-            UIAccessibility.setFocusTo(groupNameLabel, notification: .layoutChanged)
+            set(title: locationName, subtitle: groupName)
         case (.some(let groupName), nil):
-            groupNameLabel.text = nil
-            locationNameLabel.text = groupName
-            locationNameLabel.textColor = .black
-            UIAccessibility.setFocusTo(locationNameLabel, notification: .layoutChanged)
+            set(title: groupName)
         default:
             break
         }
+
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged)
     }
 }
 
@@ -288,24 +289,20 @@ extension LocationCheckinViewController {
         checkinSlider.sliderType = .location
 
         autoCheckoutView.accessibilityTraits = automaticCheckoutSwitch.accessibilityTraits
-        groupNameLabel.accessibilityTraits = .header
-        locationNameLabel.accessibilityTraits = .header
+        navigationbarTitleLabel!.accessibilityTraits = .header
+        navigationbarSubtitleLabel!.accessibilityTraits = .header
 
         autoCheckoutView.isAccessibilityElement = true
         timerLabel.isAccessibilityElement = false
 
-        if groupNameLabel.text != nil {
-            UIAccessibility.setFocusTo(groupNameLabel, notification: .layoutChanged, delay: 0.8)
-        } else if locationNameLabel.text != nil {
-            UIAccessibility.setFocusTo(locationNameLabel, notification: .layoutChanged, delay: 0.8)
-        }
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
 
         let switchState = automaticCheckoutSwitch.isOn ? L10n.LocationCheckinViewController.AutoCheckout.on : L10n.LocationCheckinViewController.AutoCheckout.off
         autoCheckoutView.accessibilityLabel = "\(L10n.LocationCheckinViewController.autoCheckout) \(switchState)"
 
         setupAccessibilityAutocheckoutAction()
 
-        self.view.accessibilityElements = [groupNameLabel, locationNameLabel, welcomeLabel, checkinDateLabel, tableNumberLabel, autoCheckoutView, checkinSlider.sliderImage].map { $0 as Any }
+        self.view.accessibilityElements = [welcomeLabel, checkinDateLabel, tableNumberLabel, autoCheckoutView, checkinSlider.sliderImage].map { $0 as Any }
     }
 
     private func setupAccessibilityAutocheckoutAction() {
@@ -316,5 +313,4 @@ extension LocationCheckinViewController {
 
         accessibilityCustomActions = [accessibilityCompleteAction]
     }
-
 }

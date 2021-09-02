@@ -2,15 +2,13 @@ import UIKit
 import RxSwift
 import JGProgressHUD
 
-class HealthViewController: UIViewController {
+class DocumentViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var dataAccessView: UIView!
-    @IBOutlet weak var appointmentButton: UIButton!
 	@IBOutlet weak var notificationStackView: UIStackView!
 
     @IBOutlet weak var dataAccessHeightConstraint: NSLayoutConstraint!
@@ -25,7 +23,7 @@ class HealthViewController: UIViewController {
     private var deleteDisposeBag: DisposeBag?
 
     private var documents = [Document]()
-    private var testScanner: TestQRCodeScannerController?
+    private var testScannerNavController: UINavigationController?
 
     private var dataAccessHeight: CGFloat = 84
     private var noDataAccessHeight: CGFloat = 0
@@ -42,21 +40,19 @@ class HealthViewController: UIViewController {
         super.viewDidLoad()
 
 		setup()
+        setupNavigationBar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         setupAccessibility()
 
         installObservers()
 		checkTimesync()
-        setupTitle()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
 
         disposeBag = nil
     }
@@ -64,7 +60,7 @@ class HealthViewController: UIViewController {
 
 // MARK: - Setup
 
-extension HealthViewController {
+extension DocumentViewController {
 
     private func setup() {
         notificationStackView.removeAllArrangedSubviews()
@@ -73,12 +69,12 @@ extension HealthViewController {
         setupApplicationStateObserver()
     }
 
-    private func setupTitle() {
-        guard let firstName = LucaPreferences.shared.firstName, let lastName = LucaPreferences.shared.lastName else {
-            titleLabel.text = L10n.My.Luca.title
-            return
-        }
-        titleLabel.text = "\(firstName) \(lastName)"
+    private func setupNavigationBar() {
+        set(title: L10n.My.Luca.title)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+        // disable children functionallity for relead 1.10
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "addPersonWhite"), style: .plain, target: self, action: #selector(addTapped))
     }
 
     func setupStackView() {
@@ -89,11 +85,11 @@ extension HealthViewController {
     }
 
     func setupAccessibilityViewsEmptyState() {
-        self.view.accessibilityElements = [titleLabel, subtitleLabel, descriptionLabel, addButton].map { $0 as Any }
+        self.view.accessibilityElements = [subtitleLabel, descriptionLabel, addButton].map { $0 as Any }
     }
 
     func setupAccessibilityViews() {
-        self.view.accessibilityElements = [titleLabel, subtitleLabel, descriptionLabel, scrollView, addButton].map { $0 as Any }
+        self.view.accessibilityElements = [subtitleLabel, descriptionLabel, scrollView, addButton].map { $0 as Any }
     }
 
     private func installObservers() {
@@ -177,8 +173,9 @@ extension HealthViewController {
     func applicationDidEnterBackground(_ notification: NSNotification) {
         self.disposeBag = nil
         self.deleteDisposeBag = nil
-        self.testScanner?.scannerService?.endScanner()
-        self.testScanner?.dismiss(animated: true, completion: nil)
+        let scannerViewController = self.testScannerNavController?.viewControllers.first as? TestQRCodeScannerController
+        scannerViewController?.scannerService?.endScanner()
+        self.testScannerNavController?.dismiss(animated: true, completion: nil)
     }
 
     @objc
@@ -197,7 +194,9 @@ extension HealthViewController {
 	}
 }
 
-extension HealthViewController {
+// MARK: - Actions
+
+extension DocumentViewController {
     @IBAction func dataAccessPressed(_ sender: UITapGestureRecognizer) {
 
         self.progressHud.show(in: self.view)
@@ -234,18 +233,23 @@ extension HealthViewController {
     }
 
     @IBAction func addTestPressed(_ sender: UIButton) {
-        testScanner = ViewControllerFactory.Document.createTestQRScannerViewController()
-        if let scanner = testScanner {
+        testScannerNavController = ViewControllerFactory.Document.createTestQRScannerViewController()
+        if let scanner = testScannerNavController {
             scanner.modalPresentationStyle = .overFullScreen
             scanner.definesPresentationContext = true
             present(scanner, animated: true, completion: nil)
         }
     }
+
+    @objc func addTapped() {
+        let viewController = ViewControllerFactory.Children.createChildrenListViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 // MARK: - Timesync
 
-extension HealthViewController {
+extension DocumentViewController {
     private func checkTimesync() {
         guard let disposeBag = disposeBag else { return }
 
@@ -277,7 +281,7 @@ extension HealthViewController {
 
 // MARK: - DataAccess
 
-extension HealthViewController {
+extension DocumentViewController {
     func dataAccess() {
         dataAccessView.isHidden = false
         dataAccessHeightConstraint.constant = dataAccessHeight
@@ -298,14 +302,14 @@ extension HealthViewController {
     }
 
     private func allAccessesPressed() {
-        let vc = ViewControllerFactory.Main.createDataAccessViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let viewController = ViewControllerFactory.Main.createDataAccessViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension HealthViewController: UnsafeAddress, LogUtil {}
+extension DocumentViewController: UnsafeAddress, LogUtil {}
 
-extension HealthViewController {
+extension DocumentViewController {
     private func delete(document: Document) {
         let alert = UIAlertController.yesOrNo(title: L10n.Test.Delete.title, message: L10n.Test.Delete.description, onYes: {
             let newDisposeBag = DisposeBag()
@@ -328,49 +332,45 @@ extension HealthViewController {
 
 // MARK: - Delegates
 
-extension HealthViewController: DocumentViewDelegate {
+extension DocumentViewController: DocumentViewDelegate {
     func didToggleView() {}
     func deleteButtonPressed(for document: Document) {
         delete(document: document)
     }
 }
 
-extension HealthViewController: HorizontalDocumentListViewDelegate {
+extension DocumentViewController: HorizontalDocumentListViewDelegate {
     func didTapDelete(for document: Document) {
         delete(document: document)
     }
 }
 
 // MARK: - Accessibility
-extension HealthViewController {
+extension DocumentViewController {
 
     private func setupAccessibility() {
-        titleLabel.accessibilityTraits = .header
         dataAccessView.accessibilityTraits = .button
-
-        appointmentButton.isAccessibilityElement = true
         dataAccessView.isAccessibilityElement = true
-
-        appointmentButton.accessibilityLabel = L10n.My.Luca.calendar
         dataAccessView.accessibilityLabel = L10n.Data.Access.Title.accessibility
+
         addButton.accessibilityLabel = L10n.Test.Add.title
 
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
     }
 
     private func setupAccessibilityViewOrder() {
         if documents.isEmpty && accessedTraces.isEmpty {
             // If no documents and no data access notification
-            self.view.accessibilityElements = [titleLabel, appointmentButton, subtitleLabel, descriptionLabel, addButton].map { $0 as Any }
+            self.view.accessibilityElements = [subtitleLabel, descriptionLabel, addButton].map { $0 as Any }
         } else if documents.isEmpty {
             // If no documents but data access notification
-            self.view.accessibilityElements = [titleLabel, appointmentButton, dataAccessView, subtitleLabel, descriptionLabel, addButton].map { $0 as Any }
+            self.view.accessibilityElements = [dataAccessView, subtitleLabel, descriptionLabel, addButton].map { $0 as Any }
         } else if accessedTraces.isEmpty {
             // If no data access notification but documents
-            self.view.accessibilityElements = [titleLabel, appointmentButton, scrollView, addButton].map { $0 as Any }
+            self.view.accessibilityElements = [scrollView, addButton].map { $0 as Any }
         } else {
             // If have both
-            self.view.accessibilityElements = [titleLabel, appointmentButton, dataAccessView, scrollView, addButton].map { $0 as Any }
+            self.view.accessibilityElements = [dataAccessView, scrollView, addButton].map { $0 as Any }
         }
     }
 

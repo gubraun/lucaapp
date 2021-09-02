@@ -1,4 +1,5 @@
 import Foundation
+import SwiftJWT
 
 struct PrivateMeetingQRCodeV3AdditionalData: Codable {
     var fn: String
@@ -13,9 +14,10 @@ struct PrivateMeetingQRCodeV3 {
 
 extension PrivateMeetingQRCodeV3 {
     var generatedUrl: String? {
-        guard let payload = try? JSONEncoderUnescaped().encode(additionalData).base64urlEncodedString() else {
+        guard let encodedData = try? JSONEncoderUnescaped().encode(additionalData) else {
             return nil
         }
+        let payload = JWTEncoder.base64urlEncodedString(data: encodedData)
         let url = host.appendingPathComponent("webapp")
             .appendingPathComponent("meeting")
             .appendingPathComponent("\(scannerId)")

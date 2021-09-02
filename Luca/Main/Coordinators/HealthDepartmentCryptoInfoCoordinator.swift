@@ -9,7 +9,7 @@ public class HealthDepartmentCryptoInfoCoordinator: Coordinator {
     }
 
     public func start() {
-        let vc = ViewControllerFactory.Main.createHealthDepartmentCryptoInfoViewController()
-        presenter.navigationController?.pushViewController(vc, animated: true)
+        let viewController = ViewControllerFactory.Main.createHealthDepartmentCryptoInfoViewController()
+        presenter.navigationController?.pushViewController(viewController, animated: true)
     }
 }

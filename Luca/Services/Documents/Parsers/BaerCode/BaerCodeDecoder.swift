@@ -133,6 +133,7 @@ class BaerCodeDecoder {
         return decodedPayload
     }
 
+    // swiftlint:disable:next large_tuple
     private func parseCOSEEncrypt0(with decodedPayload: CBOR) -> ([UInt8]?, [CBOR: CBOR]?, [UInt8]?) {
 
         guard case let CBOR.tagged(tag, cborElement) = decodedPayload,

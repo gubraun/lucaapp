@@ -13,24 +13,22 @@ class CheckinViewControllerFactory {
     static func createLocationCheckinViewController(traceInfo: TraceInfo) -> LocationCheckinViewController {
         let viewController: LocationCheckinViewController = LocationCheckinViewController.fromStoryboard()
 
-        let sc = ServiceContainer.shared
+        let serviceContainer = ServiceContainer.shared
         viewController.viewModel = DefaultLocationCheckInViewModel(
             traceInfo: traceInfo,
-            traceIdService: sc.traceIdService,
+            traceIdService: serviceContainer.traceIdService,
             timer: CheckinTimer.shared,
             preferences: LucaPreferences.shared,
-            locationUpdater: sc.locationUpdater,
-            locationPermissionHandler: LocationPermissionHandler.shared,
-            autoCheckoutService: sc.autoCheckoutService,
-            notificationService: sc.notificationService)
+            autoCheckoutService: serviceContainer.autoCheckoutService,
+            notificationService: serviceContainer.notificationService)
 
         return viewController
     }
 
     static func createPrivateMeetingViewController(meeting: PrivateMeetingData) -> PrivateMeetingViewController {
-        let vc: PrivateMeetingViewController = PrivateMeetingViewController.fromStoryboard()
-        vc.meeting = meeting
-        return vc
+        let viewController: PrivateMeetingViewController = PrivateMeetingViewController.fromStoryboard()
+        viewController.meeting = meeting
+        return viewController
     }
 
     static func createQRScannerViewController() -> QRScannerViewController {

@@ -6,6 +6,10 @@ struct Person: Codable, DataRepoModel {
     var firstName: String
     var lastName: String
 
+    var fullName: String {
+        return "\(firstName) \(lastName)"
+    }
+
     /// List of all TraceInfo identifiers this person was checked in
     var traceInfoIDs: [Int] = []
 }
@@ -52,7 +56,7 @@ class PersonService {
             .asObservable()
             .flatMap { self.personRepo.remove(identifiers: [$0]) }
             .asCompletable()
-
+            .andThen(documentProcessing.revalidateSavedTests())
     }
 
     /// Retrieves all persons with or without a specific predicate

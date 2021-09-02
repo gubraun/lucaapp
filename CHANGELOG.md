@@ -1,3 +1,10 @@
+# Release 1.10.0
+
+- Optimized network usage
+- Error message improvements
+
+This update will optimize network usage and therefore reduce the traffic produced. Furthermore, we improved our error messages for a better user experience.
+
 # Release 1.9.1
 
 - Bug fix

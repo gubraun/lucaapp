@@ -20,22 +20,22 @@ class AlertViewControllerFactory {
     }
 
     static func createPhoneNumberConfirmationViewController(phoneNumber: PhoneNumber) -> PhoneNumberConfirmationViewController {
-        let vc: PhoneNumberConfirmationViewController = instantiateViewController(identifier: "PhoneNumberConfirmationViewController")
-        vc.phoneNumber = phoneNumber
-        return vc
+        let viewController: PhoneNumberConfirmationViewController = instantiateViewController(identifier: "PhoneNumberConfirmationViewController")
+        viewController.phoneNumber = phoneNumber
+        return viewController
     }
 
     static func createPhoneNumberVerificationViewController(challengeIDs: [String]) -> PhoneNumberVerificationViewController {
-        let vc: PhoneNumberVerificationViewController = instantiateViewController(identifier: "PhoneNumberVerificationViewController")
-        vc.challengeIds = challengeIDs
-        return vc
+        let viewController: PhoneNumberVerificationViewController = instantiateViewController(identifier: "PhoneNumberVerificationViewController")
+        viewController.challengeIds = challengeIDs
+        return viewController
     }
 
     static func createDataAccessAlertViewController(accesses: [HealthDepartment: [(TraceInfo, Location)]], allAccessesPressed: @escaping () -> Void) -> DataAccessAlertViewController {
-        let vc: DataAccessAlertViewController = instantiateViewController(identifier: "DataAccessAlertViewController")
-        vc.newDataAccesses = accesses
-        vc.allAccessesPressed = allAccessesPressed
-        return vc
+        let viewController: DataAccessAlertViewController = instantiateViewController(identifier: "DataAccessAlertViewController")
+        viewController.newDataAccesses = accesses
+        viewController.allAccessesPressed = allAccessesPressed
+        return viewController
     }
 
     static func createInfoViewController(titleText: String, descriptionText: String) -> InfoViewController {
@@ -129,6 +129,36 @@ class AlertViewControllerFactory {
                     confirmAction: confirmAction,
                     cancelAction: cancelAction)
         alert.view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        return alert
+    }
+
+    static func createAppVersionAlertController() -> LucaAlertViewController {
+
+        let version = UIApplication.shared.applicationVersion ?? ""
+        let buildNumber = UIApplication.shared.buildNumber ?? ""
+
+        #if DEVELOPMENT
+        let environment = "Dev"
+        #elseif QA
+        let environment = "QA"
+        #elseif PENTEST
+        let environment = "Pentest"
+        #elseif RELEASE
+        let environment = "Release"
+        #elseif PREPROD
+        let environment = "Preprod"
+        #elseif HOTFIX
+        let environment = "Hotfix"
+        #else
+        let environment = "Production"
+        #endif
+
+        let message = L10n.AppVersion.Alert.message(version, buildNumber, environment, commitHash)
+        let alert = createAlertViewController(
+            title: L10n.AppVersion.Alert.title,
+            message: message,
+            firstButtonTitle: L10n.Navigation.Basic.ok
+        )
         return alert
     }
 }

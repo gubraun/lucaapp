@@ -26,7 +26,8 @@ class QRScannerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNavigationBarToTranslucent()
+
+        setupNavigationbar()
 
         DispatchQueue.main.async {
             self.startScanning()
@@ -36,6 +37,10 @@ class QRScannerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopRunning()
+    }
+
+    func setupNavigationbar() {
+        set(title: L10n.Test.Scanner.title)
     }
 
     // MARK: - Public interface
@@ -114,11 +119,11 @@ class QRScannerViewController: UIViewController {
         captureSession = nil
     }
 
-    private func setNavigationBarToTranslucent() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-    }
+//    private func setNavigationBarToTranslucent() {
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.navigationBar.isTranslucent = true
+//    }
 }
 extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
 
@@ -128,7 +133,7 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             stopRunning()
 
-            ServiceContainer.shared.qrProcessingService.processQRCode(qr: stringValue, viewController: self)
+            _ = ServiceContainer.shared.qrProcessingService.processQRCode(qr: stringValue, viewController: self)
                 .do(onError: { error in
                     DispatchQueue.main.async {
                         if let titledError = error as? LocalizedTitledError {

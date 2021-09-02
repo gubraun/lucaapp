@@ -46,6 +46,7 @@ class CheckinSlider: UIControl {
 
     func reset() {
         setSliderFrame(x: maxXPos)
+        valueObservable.onNext(value)
     }
 
     private func setup() {

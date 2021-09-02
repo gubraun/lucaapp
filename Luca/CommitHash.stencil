@@ -1,0 +1,3 @@
+
+/// It contains current commit hash in the git repo
+public let commitHash = "{{ argument.commitHash }}"

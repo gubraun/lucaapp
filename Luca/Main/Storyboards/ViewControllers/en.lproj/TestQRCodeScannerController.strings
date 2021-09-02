@@ -1,6 +1,2 @@
-/* Class = "UILabel"; text = "QR Code scannen"; ObjectID = "qOm-aY-bK1"; */
-"qOm-aY-bK1.text" = "Scan QR code";
-
 /* Class = "UILabel"; text = "Scanne den QR-Code deines Dokuments, um es zur App hinzuzufügen."; ObjectID = "u7a-Bs-pfu"; */
 "u7a-Bs-pfu.text" = "Scan the QR code of your document to add it to the app.";
-

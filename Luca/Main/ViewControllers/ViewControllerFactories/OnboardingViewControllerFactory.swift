@@ -25,8 +25,8 @@ class OnboardingViewControllerFactory {
     }
 
     static func createWebViewController(url: URL) -> WebViewController {
-        let vc: WebViewController = instantiateViewController(identifier: "WebViewController")
-        vc.url = url
-        return vc
+        let viewController: WebViewController = instantiateViewController(identifier: "WebViewController")
+        viewController.url = url
+        return viewController
     }
 }

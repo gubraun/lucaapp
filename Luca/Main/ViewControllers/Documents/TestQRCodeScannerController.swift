@@ -3,10 +3,10 @@ import RxSwift
 
 class TestQRCodeScannerController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet private weak var cameraView: UIView!
+
+    var closeButton: UIBarButtonItem?
 
     var scannerService: ScannerService?
 
@@ -14,6 +14,7 @@ class TestQRCodeScannerController: UIViewController {
         super.viewDidLoad()
 
         setupViews()
+        setupNavigationbar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -33,21 +34,26 @@ class TestQRCodeScannerController: UIViewController {
         cameraView.layer.cornerRadius = 4
     }
 
-    @IBAction func closeButtonPressed(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+    func setupNavigationbar() {
+        set(title: L10n.Test.Scanner.title)
+        closeButton = UIBarButtonItem(image: UIImage(named: "closeButton"), style: .plain, target: self, action: #selector(closeTapped))
+        navigationItem.rightBarButtonItem = closeButton
     }
 
+    @objc func closeTapped() {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - Accessibility
 extension TestQRCodeScannerController {
 
     private func setupAccessibility() {
-        closeButton.accessibilityLabel = L10n.Test.Scanner.close
+        closeButton?.accessibilityLabel = L10n.Test.Scanner.close
         cameraView.accessibilityLabel = L10n.Test.Scanner.camera
         cameraView.isAccessibilityElement = true
-        self.view.accessibilityElements = [titleLabel, closeButton, descriptionLabel, cameraView].map { $0 as Any }
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+        self.view.accessibilityElements = [navigationbarTitleLabel, closeButton, descriptionLabel, cameraView].map { $0 as Any }
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
     }
 
 }

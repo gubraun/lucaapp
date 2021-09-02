@@ -3,7 +3,6 @@ import RxSwift
 
 class PrivateMeetingViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var qrImageView: UIImageView!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -43,6 +42,8 @@ class PrivateMeetingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupNavigationbar()
+
         infoButton.isHidden = true
         if let url = try? ServiceContainer.shared.privateMeetingQRCodeBuilderV3.build(scannerId: meeting.ids.scannerId).generatedUrl,
            let data = url.data(using: .utf8) {
@@ -52,8 +53,10 @@ class PrivateMeetingViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
+
+        navigationbarTitleLabel?.textColor = UIColor.black
+        navigationbarSubtitleLabel?.textColor = UIColor.black
 
         initialStatusBarStyle = UIApplication.shared.statusBarStyle
         if #available(iOS 13.0, *) {
@@ -69,7 +72,6 @@ class PrivateMeetingViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         sliderWasSetup = false
 
         if let statusBarStyle = initialStatusBarStyle {
@@ -85,6 +87,10 @@ class PrivateMeetingViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupSlider()
+    }
+
+    func setupNavigationbar() {
+        set(title: L10n.Private.Meeting.title)
     }
 
     func installObservers() {
@@ -213,7 +219,6 @@ extension PrivateMeetingViewController: LogUtil, UnsafeAddress {}
 extension PrivateMeetingViewController {
 
     private func setupAccessibility() {
-        titleLabel.accessibilityTraits = .header
         qrImageView.isAccessibilityElement = true
         lengthStackView.isAccessibilityElement = true
         guestsStackView.isAccessibilityElement = true
@@ -227,7 +232,7 @@ extension PrivateMeetingViewController {
         let totalGuests = uniqueGuests.count
         guestsStackView.accessibilityLabel = L10n.Private.Meeting.Accessibility.guests(guests, totalGuests)
 
-        self.view.accessibilityElements = [titleLabel, descriptionLabel, qrImageView, lengthStackView, guestsStackView, infoButton, slider.sliderImage].map { $0 as Any}
+        self.view.accessibilityElements = [navigationbarTitleLabel, descriptionLabel, qrImageView, lengthStackView, guestsStackView, infoButton, slider.sliderImage].map { $0 as Any}
     }
 
 }

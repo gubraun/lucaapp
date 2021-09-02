@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Children Create View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="ChildrenCreateViewController" id="Y6W-OH-hqX" customClass="ChildrenCreateViewController" customModule="Luca" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhn-f9-cvf" customClass="LightStandardButton" customModule="Luca" customModuleProvider="target">
+                                <rect key="frame" x="32" y="694" width="350" height="48"/>
+                                <color key="backgroundColor" name="lucaLightGrey"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="BC4-YP-puv"/>
+                                    <constraint firstAttribute="height" constant="48" id="KPv-Wo-NhL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
+                                <state key="normal" title="Hinzufügen">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRW-CI-gwb">
+                                <rect key="frame" x="32" y="0.0" width="350" height="678"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aYk-Qy-SlM">
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="213"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8B3-9u-Nn2" customClass="Luca20PtBoldLabel" customModule="Luca" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fG9-QN-CSq" customClass="Luca14PtLabel" customModule="Luca" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="40.5" width="350" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V2P-hf-MET" customClass="LucaDefaultTextField" customModule="LucaUIComponents">
+                                                <rect key="frame" x="0.0" y="81" width="350" height="56"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="5VW-Dh-6lx"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1aY-IH-wrm" customClass="LucaDefaultTextField" customModule="LucaUIComponents">
+                                                <rect key="frame" x="0.0" y="157" width="350" height="56"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="rCD-2k-tPN"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="aYk-Qy-SlM" firstAttribute="top" secondItem="TRW-CI-gwb" secondAttribute="top" id="JZ8-gl-6GM"/>
+                                    <constraint firstItem="aYk-Qy-SlM" firstAttribute="width" secondItem="TRW-CI-gwb" secondAttribute="width" id="WOy-W8-Jl8"/>
+                                    <constraint firstAttribute="trailing" secondItem="aYk-Qy-SlM" secondAttribute="trailing" id="eZc-9Y-ArI"/>
+                                    <constraint firstAttribute="bottom" secondItem="aYk-Qy-SlM" secondAttribute="bottom" constant="8" id="fP1-4b-4BU"/>
+                                    <constraint firstItem="aYk-Qy-SlM" firstAttribute="leading" secondItem="TRW-CI-gwb" secondAttribute="leading" id="rF4-SF-aRd"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="M0b-n0-YxD"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="Rz0-iJ-3bU"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jhn-f9-cvf" firstAttribute="top" secondItem="TRW-CI-gwb" secondAttribute="bottom" constant="16" id="5ba-fP-p1h"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="TRW-CI-gwb" secondAttribute="trailing" constant="32" id="bD7-zS-UEF"/>
+                            <constraint firstItem="TRW-CI-gwb" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="fbM-Ot-COk"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="jhn-f9-cvf" secondAttribute="trailing" constant="32" id="jBb-hW-YCG"/>
+                            <constraint firstItem="TRW-CI-gwb" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="kUw-S3-cjT"/>
+                            <constraint firstItem="jhn-f9-cvf" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="sh4-Ye-HOK"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jhn-f9-cvf" secondAttribute="bottom" constant="32" id="vPO-5t-wiX"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="fG9-QN-CSq" id="6rk-mR-5i2"/>
+                        <outlet property="firstnameTextField" destination="V2P-hf-MET" id="3fm-UU-yVQ"/>
+                        <outlet property="lastnameTextField" destination="1aY-IH-wrm" id="eAo-OL-08x"/>
+                        <outlet property="saveButton" destination="jhn-f9-cvf" id="8rl-8M-jkN"/>
+                        <outlet property="stackView" destination="aYk-Qy-SlM" id="0uT-b6-u5J"/>
+                        <outlet property="titleLabel" destination="8B3-9u-Nn2" id="qOb-jB-4HJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="107.8125"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="jhn-f9-cvf">
+            <size key="intrinsicContentSize" width="71" height="29"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="lucaLightGrey">
+            <color red="0.72156862745098038" green="0.75294117647058822" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

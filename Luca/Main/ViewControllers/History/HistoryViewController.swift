@@ -3,13 +3,13 @@ import RxSwift
 
 class HistoryViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var leadingMargin: NSLayoutConstraint!
-    @IBOutlet weak var dataAccessButton: UIButton!
     @IBOutlet weak var shareHistoryButton: UIButton!
     @IBOutlet weak var emptyStateView: UIView!
-    @IBOutlet weak var viewMoreButton: UIButton!
+
+    var dataAccessButton: UIBarButtonItem!
+    var viewMoreButton: UIBarButtonItem!
 
     var events: [HistoryEvent] = []
 
@@ -18,19 +18,14 @@ class HistoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressOnEvent(sender:)))
-        tableView.addGestureRecognizer(longPressRecognizer)
 
-        tableView.tableFooterView = UIView()
-        tableView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 75, right: 0)
+        setupUI()
+        setupNavigationbar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         setupAccessibility()
 
         let newDisposeBag = DisposeBag()
@@ -59,10 +54,48 @@ class HistoryViewController: UIViewController {
         super.viewDidLayoutSubviews()
         bottomGradientLayer.frame = CGRect(x: leadingMargin.constant, y: tableView.frame.origin.y + tableView.frame.height - 100.0, width: tableView.bounds.width, height: 100.0)
     }
+}
 
-    @IBAction func dataAccessPressed(_ sender: UIButton) {
-        let vc = ViewControllerFactory.Main.createDataAccessViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+// MARK: - Setup
+
+extension HistoryViewController {
+    private func setupUI() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressOnEvent(sender:)))
+        tableView.addGestureRecognizer(longPressRecognizer)
+
+        tableView.tableFooterView = UIView()
+        tableView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 75, right: 0)
+
+    }
+
+    private func setupNavigationbar() {
+        set(title: L10n.Navigation.Tab.history)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+        dataAccessButton = UIBarButtonItem(image: Asset.viewMore.image, style: .plain, target: self, action: #selector(moreMenuPressed))
+        viewMoreButton = UIBarButtonItem(image: Asset.eye.image, style: .plain, target: self, action: #selector(dataAccessPressed))
+
+        navigationItem.rightBarButtonItems = [ dataAccessButton, viewMoreButton ]
+    }
+
+    private func setupViews() {
+        tableView.isHidden = events.isEmpty
+        shareHistoryButton.isHidden = events.isEmpty
+        emptyStateView.isHidden = !events.isEmpty
+        events.isEmpty ? removeBottomGradient() : addBottomGradient()
+        setupAccessibilityElements(isEmpty: events.isEmpty)
+    }
+}
+
+// MARK: - Actions
+
+extension HistoryViewController {
+    @objc
+    func dataAccessPressed() {
+        let viewController = ViewControllerFactory.Main.createDataAccessViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 
     @IBAction func dataReleasePressed(_ sender: UIButton) {
@@ -72,7 +105,8 @@ class HistoryViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    @IBAction func moreMenuPressed(_ sender: UIButton) {
+    @objc
+    func moreMenuPressed() {
         let deleteAction = UIAlertAction(title: L10n.Data.Clear.title, style: .default) { _ in
             self.resetLocallyAlert()
         }
@@ -80,7 +114,8 @@ class HistoryViewController: UIViewController {
         UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).menuActionSheet(viewController: self, additionalActions: [deleteAction])
     }
 
-    @objc private func didLongPressOnEvent(sender: UILongPressGestureRecognizer) {
+    @objc
+    private func didLongPressOnEvent(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
@@ -93,14 +128,6 @@ class HistoryViewController: UIViewController {
                 }
             }
         }
-    }
-
-    func setupViews() {
-        tableView.isHidden = events.isEmpty
-        shareHistoryButton.isHidden = events.isEmpty
-        emptyStateView.isHidden = !events.isEmpty
-        events.isEmpty ? removeBottomGradient() : addBottomGradient()
-        setupAccessibilityElements(isEmpty: events.isEmpty)
     }
 
     func resetLocallyAlert() {
@@ -218,13 +245,15 @@ extension HistoryViewController {
     private func setupAccessibility() {
         dataAccessButton.accessibilityLabel = L10n.History.Accessibility.dataAccessButton
         viewMoreButton.accessibilityLabel = L10n.Navigation.menu
-        titleLabel.accessibilityTraits = .header
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
+
+        guard let navigationbarTitleLabel = navigationbarTitleLabel else { return }
+        navigationbarTitleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
     }
 
     private func setupAccessibilityElements(isEmpty: Bool) {
-        let emptyStateElements = [titleLabel, dataAccessButton, viewMoreButton, emptyStateView].map { $0 as Any }
-        let elements = [titleLabel, dataAccessButton, viewMoreButton, tableView, shareHistoryButton].map { $0 as Any }
+        let emptyStateElements = [navigationbarTitleLabel, dataAccessButton, viewMoreButton, emptyStateView].map { $0 as Any }
+        let elements = [navigationbarTitleLabel, dataAccessButton, viewMoreButton, tableView, shareHistoryButton].map { $0 as Any }
         self.view.accessibilityElements = isEmpty ? emptyStateElements : elements
     }
 

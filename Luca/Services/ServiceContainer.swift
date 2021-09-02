@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 import RxBlocking
 
+// swiftlint:disable:next type_body_length
 public class ServiceContainer {
 
     public static let shared = ServiceContainer()
@@ -166,9 +167,11 @@ public class ServiceContainer {
         autoCheckoutService = AutoCheckoutService(
             keyValueRepo: keyValueRepo,
             traceIdService: traceIdService,
-            locationUpdater: locationUpdater,
             oldLucaPreferences: LucaPreferences.shared
         )
+        autoCheckoutService.register(regionDetector: RegionMonitoringDetector(locationUpdater: locationUpdater))
+//        autoCheckoutService.register(regionDetector: LocationUpdatesRegionDetector(locationUpdater: locationUpdater, allowedAppStates: [.active]))
+        autoCheckoutService.register(regionDetector: SingleLocationRequestRegionDetector(locationUpdater: locationUpdater, allowedAppStates: [.active]))
         autoCheckoutService.enable()
 
         history = HistoryService(
@@ -225,6 +228,7 @@ public class ServiceContainer {
         notificationService.removePendingNotifications()
     }
 
+    // swiftlint:disable:next function_body_length
     func setupRepos() throws {
         var currentKey: Data! = localDBKeyRepository.retrieveKey()
         let keyWasAvailable = currentKey != nil

@@ -122,24 +122,24 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
         autoCheckoutService.isToggledOn
             .observe(on: MainScheduler.instance)
             .catch { error in
-            let vc: UIViewController
-            if let localizedError = error as? LocalizedTitledError {
-                vc = UIAlertController.infoAlert(
-                    title: localizedError.localizedTitle,
-                    message: localizedError.localizedDescription
-                )
-            } else {
-                vc = UIAlertController.infoAlert(
-                    title: L10n.Navigation.Basic.error,
-                    message: L10n.General.Failure.Unknown.message(error.localizedDescription)
-                )
+                let viewController: UIViewController
+                if let localizedError = error as? LocalizedTitledError {
+                    viewController = UIAlertController.infoAlert(
+                        title: localizedError.localizedTitle,
+                        message: localizedError.localizedDescription
+                    )
+                } else {
+                    viewController = UIAlertController.infoAlert(
+                        title: L10n.Navigation.Basic.error,
+                        message: L10n.General.Failure.Unknown.message(error.localizedDescription)
+                    )
+                }
+                self.viewController.present(viewController, animated: true, completion: nil)
+                return Observable.error(error)
             }
-            self.viewController.present(vc, animated: true, completion: nil)
-            return Observable.error(error)
-        }
-        .retry(delay: .milliseconds(100), scheduler: MainScheduler.instance)
-        .bind(to: isAutoCheckoutEnabledSubject)
-        .disposed(by: newDisposeBag)
+            .retry(delay: .milliseconds(100), scheduler: MainScheduler.instance)
+            .bind(to: isAutoCheckoutEnabledSubject)
+            .disposed(by: newDisposeBag)
 
         isAutoCheckoutEnabledSubject
             .asObservable()
@@ -232,10 +232,8 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
     private let traceIdService: TraceIdService
     private let checkInTimer: CheckinTimer
     private let preferences: LucaPreferences
-    private let locationUpdater: LocationUpdater
     private let autoCheckoutService: AutoCheckoutService
     private let notificationService: NotificationService
-    private let locationPermissionHandler: LocationPermissionHandler
     private let location = BehaviorSubject<Location?>(value: nil)
 
     private var disposeBag: DisposeBag?
@@ -246,16 +244,12 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
          traceIdService: TraceIdService,
          timer: CheckinTimer,
          preferences: LucaPreferences,
-         locationUpdater: LocationUpdater,
-         locationPermissionHandler: LocationPermissionHandler,
          autoCheckoutService: AutoCheckoutService,
          notificationService: NotificationService) {
         self.traceInfo = traceInfo
         self.traceIdService = traceIdService
         self.checkInTimer = timer
         self.preferences = preferences
-        self.locationUpdater = locationUpdater
-        self.locationPermissionHandler = locationPermissionHandler
         self.autoCheckoutService = autoCheckoutService
         self.notificationService = notificationService
     }
@@ -308,10 +302,6 @@ class DefaultLocationCheckInViewModel: LocationCheckInViewModel {
             .asObservable()
             .ignoreElementsAsCompletable()
 
-    }
-
-    private func stopLocationMonitoring() {
-        locationUpdater.stop()
     }
 }
 

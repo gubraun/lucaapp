@@ -109,7 +109,11 @@ extension UIAlertController {
         viewController.present(self, animated: true, completion: nil)
     }
 
-    static func actionAndCancelAlert(viewController: UIViewController, title: String, message: String, actionTitle: String, action: @escaping() -> Void, cancelAction: @escaping() -> Void) -> UIAlertController {
+    static func actionAndCancelAlert(title: String,
+                                     message: String,
+                                     actionTitle: String,
+                                     action: @escaping() -> Void,
+                                     cancelAction: @escaping() -> Void) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: .default) { _ in
             action()

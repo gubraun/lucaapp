@@ -5,8 +5,5 @@
 /* Class = "UILabel"; text = "Dauer:"; ObjectID = "5xP-dA-LaB"; */
 "5xP-dA-LaB.text" = "Dauer:";
 
-/* Class = "UILabel"; text = "Privates Treffen"; ObjectID = "A3A-nL-Gxa"; */
-"A3A-nL-Gxa.text" = "Privates Treffen";
-
 /* Class = "UILabel"; text = "Teilnehmer:"; ObjectID = "wt0-Zq-Rja"; */
 "wt0-Zq-Rja.text" = "Teilnehmer:";

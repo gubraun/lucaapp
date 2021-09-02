@@ -25,7 +25,6 @@ target 'Luca' do
 
   shared_podfiles
   
-  pod 'base64url', '~> 1.1.0'
   pod 'DeviceKit', '~> 4.4.0'
   pod 'IQKeyboardManagerSwift', '~> 6.5.6'
   pod 'JGProgressHUD', '~> 2.2'

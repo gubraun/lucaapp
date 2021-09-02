@@ -59,14 +59,23 @@ class AccessedTraceIdChecker {
     }
 
     func fetchAccessedTraceIds() -> Completable {
-        self.backend.fetchAccessedTraces()
-            .asSingle()
+        retrievePastTraceInfos()
             .asObservable()
-            .observe(on: LucaScheduling.backgroundScheduler)
-            .flatMap { self.storeHealthDepartments(accessedTraces: $0).andThen(Observable.just($0)) }
-            .flatMap { self.prepareAccessedTraces(accessedTraces: $0) }
-            .ignoreElementsAsCompletable()
-            .onErrorComplete()
+            .flatMap { infos -> Completable in
+                // Pull only if there exist local traces to compare to
+                if !infos.isEmpty {
+                    return self.backend.fetchAccessedTraces()
+                        .asSingle()
+                        .asObservable()
+                        .observe(on: LucaScheduling.backgroundScheduler)
+                        .flatMap { self.storeHealthDepartments(accessedTraces: $0).andThen(Observable.just($0)) }
+                        .flatMap { self.prepareAccessedTraces(accessedTraces: $0) }
+                        .ignoreElementsAsCompletable()
+                        .onErrorComplete()
+                }
+                return Completable.empty()
+            }
+            .asCompletable()
     }
 
     func consume(accessedTraces: [AccessedTraceId]) -> Completable {

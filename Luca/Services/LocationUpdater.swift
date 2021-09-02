@@ -38,7 +38,7 @@ public class LocationUpdater: NSObject {
         super.init()
 
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.activityType = .fitness
     }
 
@@ -62,8 +62,8 @@ public class LocationUpdater: NSObject {
         locationManager.stopMonitoringSignificantLocationChanges()
     }
 
-    public func requestCurrentLocation(completion: @escaping CurrentLocationCompletion) {
-        currentLocationRequestCompletions.append(completion)
+    public func requestCurrentLocation(completion: CurrentLocationCompletion? = nil) {
+        if let completion = completion { currentLocationRequestCompletions.append(completion) }
         locationManager.requestLocation()
     }
 

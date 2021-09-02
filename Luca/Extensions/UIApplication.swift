@@ -24,7 +24,11 @@ extension UIApplication {
     }
 
     var applicationVersion: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+
+    var buildNumber: String? {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
     }
 
 }

@@ -1,6 +1,6 @@
 import Foundation
 import RxSwift
-import base64url
+import SwiftJWT
 
 struct SelfCheckInPayload {
     var scannerId: String
@@ -31,7 +31,7 @@ class SelfCheckin {
             return nil
         }
 
-        guard let data = Data(base64urlEncoded: String(additionalData)) else {
+        guard let data = JWTDecoder.data(base64urlEncoded: String(additionalData)) else {
             return nil
         }
 

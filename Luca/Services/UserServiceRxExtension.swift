@@ -29,9 +29,9 @@ extension UserService {
     func update(data: UserRegistrationData) -> Completable {
         Completable.create { observer in
 
-            self.update(data: data, completion: {
-                observer(.completed)
-            }) { observer(.error($0)) }
+            self.update(data: data,
+                        completion: { observer(.completed) },
+                        failure: { observer(.error($0)) })
 
             return Disposables.create()
         }

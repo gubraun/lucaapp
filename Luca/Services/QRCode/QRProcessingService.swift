@@ -60,7 +60,7 @@ class QRProcessingService {
             let title = viewController.type == .checkin ? L10n.Camera.Warning.Checkin.title : L10n.Camera.Warning.Document.title
             let message = viewController.type == .checkin ? L10n.Camera.Warning.Checkin.description : L10n.Camera.Warning.Document.description
                 let alert = UIAlertController
-                    .actionAndCancelAlert(viewController: viewController, title: title, message: message, actionTitle: L10n.Navigation.Basic.continue, action: {
+                    .actionAndCancelAlert(title: title, message: message, actionTitle: L10n.Navigation.Basic.continue, action: {
                         observer(.success(type))
                     }, cancelAction: {
                         observer(.completed)

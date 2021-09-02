@@ -8,13 +8,11 @@ import AVFoundation
 import LicensesViewController
 import MessageUI
 
-// swiftlint:disable:next type_body_length
 class ContactQRViewController: UIViewController {
 
     @IBOutlet weak var selfCheckinButton: UIButton!
     @IBOutlet weak var qrCodeImageView: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var qrCodeLabelTopConstraint: NSLayoutConstraint!
 
     var scannerService: ScannerService!
@@ -28,15 +26,14 @@ class ContactQRViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationbar()
         setupViews()
         scannerService = ScannerService()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        // Setting it to white here instead of LicensesViewController pod
-        self.navigationController?.navigationBar.tintColor = .lucaBlack
+
         setupAccessibility()
 
         // In the case When checking out and returning back to this view controller, stop the scanner if it is still running
@@ -52,24 +49,24 @@ class ContactQRViewController: UIViewController {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController?.removeTransparency()
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
 
         onCheckInDisposeBag = nil
+    }
+}
+
+extension ContactQRViewController {
+    func setupNavigationbar() {
+        set(title: L10n.Checkin.Qr.title)
     }
 
     func setupViews() {
         selfCheckinButton.setTitle(L10n.Contact.Qr.Button.selfCheckin, for: .normal)
         descriptionLabel.text = L10n.Checkin.Qr.description
-        titleLabel.text = L10n.Checkin.Qr.title
         qrCodeImageView.isAccessibilityElement = true
         qrCodeImageView.accessibilityLabel = L10n.Contact.Qr.Accessibility.qrCode
+        title = L10n.Checkin.Qr.title
     }
 
     func setupQrImage(qrCodeData: Data) {
@@ -92,7 +89,7 @@ class ContactQRViewController: UIViewController {
     }
 
     @IBAction func selfCheckinPressed(_ sender: UIButton) {
-        UIAccessibility.setFocusTo(titleLabel, notification: .screenChanged)
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .screenChanged)
 
         if !scannerService.scannerOn {
             DispatchQueue.main.async {
@@ -123,14 +120,14 @@ class ContactQRViewController: UIViewController {
         scannerService.startScanner(onParent: self, in: qrCodeImageView, type: .checkin)
         selfCheckinButton.setTitle(L10n.Contact.Qr.Button.closeScanner, for: .normal)
         descriptionLabel.text = L10n.Checkin.Scanner.description
-        titleLabel.text = L10n.Checkin.Scanner.title
+        set(title: L10n.Checkin.Scanner.title)
     }
 
     func endScanner() {
         scannerService.endScanner()
         selfCheckinButton.setTitle(L10n.Contact.Qr.Button.selfCheckin, for: .normal)
         descriptionLabel.text = L10n.Checkin.Qr.description
-        titleLabel.text = L10n.Checkin.Qr.title
+        set(title: L10n.Checkin.Qr.title)
     }
 
     @IBAction func privateMeetingPressed(_ sender: UIButton) {
@@ -165,7 +162,6 @@ class ContactQRViewController: UIViewController {
         }
     }
 
-    // swiftlint:disable:next function_body_length
     private func installObservers() {
 
         let disposeBag = DisposeBag()
@@ -264,7 +260,7 @@ class ContactQRViewController: UIViewController {
             return
         }
         _ = ServiceContainer.shared.traceIdService.currentTraceInfo
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .do(onNext: { traceInfo in
                 let viewController = ViewControllerFactory.Checkin.createLocationCheckinViewController(traceInfo: traceInfo)
                 self.navigationController?.pushViewController(viewController, animated: animated)
@@ -277,19 +273,17 @@ class ContactQRViewController: UIViewController {
 extension ContactQRViewController: UnsafeAddress, LogUtil {}
 
 extension ContactQRViewController: MFMailComposeViewControllerDelegate {
-
     public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
-
 }
 
 // MARK: - Accessibility
 extension ContactQRViewController {
-
     private func setupAccessibility() {
-        titleLabel.accessibilityTraits = .header
-        UIAccessibility.setFocusTo(titleLabel, notification: .layoutChanged, delay: 0.8)
-    }
+        guard let navigationbarTitleLabel = navigationbarTitleLabel else { return }
 
+        navigationbarTitleLabel.accessibilityTraits = .header
+        UIAccessibility.setFocusTo(navigationbarTitleLabel, notification: .layoutChanged, delay: 0.8)
+    }
 }

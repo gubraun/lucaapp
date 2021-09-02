@@ -15,11 +15,11 @@ open class DesignableButton: UIButton {
 
 	@IBInspectable
 	var adjustsFontForContentSizeCategory: Bool {
-			set {
-					self.titleLabel?.adjustsFontForContentSizeCategory = newValue
-			}
 			get {
-					return self.titleLabel?.adjustsFontForContentSizeCategory ?? false
+                return self.titleLabel?.adjustsFontForContentSizeCategory ?? false
+			}
+			set {
+                self.titleLabel?.adjustsFontForContentSizeCategory = newValue
 			}
 	}
 }

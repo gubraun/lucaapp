@@ -50,7 +50,6 @@ public enum OnboardingStep: Int {
         case .name: return L10n.UserData.Name.mandatory
         case .phoneNumber: return L10n.UserData.Phone.mandatory
         case .address: return L10n.UserData.Address.mandatory
-        default: return nil
         }
     }
 

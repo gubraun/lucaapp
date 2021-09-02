@@ -15,7 +15,7 @@ public class NotificationScheduler {
 
         content.title = title
         content.body = "\(message)\nRuntimeId: \(NotificationScheduler.runtimeId)"
-        content.threadIdentifier = "Debug Notifications.\(threadIdentifier)"
+        content.threadIdentifier = "Debug Notifications.\(String(describing: threadIdentifier))"
 
         var trigger: UNNotificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         if let dateTrigger = date {

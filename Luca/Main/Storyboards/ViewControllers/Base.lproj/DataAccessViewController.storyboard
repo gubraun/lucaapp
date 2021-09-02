@@ -9,9 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Bold.ttf">
-            <string>Montserrat-Bold</string>
-        </array>
         <array key="Montserrat-Medium.ttf">
             <string>Montserrat-Medium</string>
         </array>
@@ -29,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmN-fp-xHY">
-                                <rect key="frame" x="32" y="133.5" width="350" height="730.5"/>
+                                <rect key="frame" x="32" y="77" width="350" height="787"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keine Datenanfragen durch Gesundheitsämter innerhalb der letzten 14 Tage." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Rq-qD-EiG">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="34.5"/>
@@ -50,21 +47,15 @@
                                     <constraint firstItem="3Rq-qD-EiG" firstAttribute="top" secondItem="UmN-fp-xHY" secondAttribute="top" id="dhb-nV-C78"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Datenanfragen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqE-Mh-cT1">
-                                <rect key="frame" x="32" y="60" width="350" height="24.5"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8H-ST-XVm">
-                                <rect key="frame" x="0.0" y="100.5" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="1"/>
                                 <color key="backgroundColor" name="lucaGrey"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="woP-rD-Vfk"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yqE-zb-chx">
-                                <rect key="frame" x="32" y="133.5" width="350" height="728.5"/>
+                                <rect key="frame" x="32" y="77" width="350" height="785"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DataAccessTableViewCell" rowHeight="73" id="TpQ-RH-bym" customClass="DataAccessTableViewCell" customModule="Luca" customModuleProvider="target">
@@ -115,17 +106,14 @@
                             <constraint firstItem="UmN-fp-xHY" firstAttribute="leading" secondItem="rhc-du-K06" secondAttribute="leading" constant="32" id="3hl-lP-tEJ"/>
                             <constraint firstAttribute="bottom" secondItem="UmN-fp-xHY" secondAttribute="bottom" constant="32" id="57a-6I-v8c"/>
                             <constraint firstItem="rhc-du-K06" firstAttribute="trailing" secondItem="UmN-fp-xHY" secondAttribute="trailing" constant="32" id="739-L7-oSc"/>
-                            <constraint firstItem="vqE-Mh-cT1" firstAttribute="top" secondItem="rhc-du-K06" secondAttribute="top" constant="16" id="C9q-bJ-Gwa"/>
                             <constraint firstItem="yqE-zb-chx" firstAttribute="top" secondItem="d8H-ST-XVm" secondAttribute="bottom" constant="32" id="Cty-sf-LDY"/>
                             <constraint firstAttribute="trailing" secondItem="d8H-ST-XVm" secondAttribute="trailing" id="DdK-ub-d79"/>
                             <constraint firstItem="ntJ-RY-AZR" firstAttribute="height" secondItem="LY1-eZ-KZ6" secondAttribute="height" multiplier="0.3" id="Sln-35-bZJ"/>
                             <constraint firstItem="d8H-ST-XVm" firstAttribute="leading" secondItem="LY1-eZ-KZ6" secondAttribute="leading" id="SvP-QB-Zuw"/>
-                            <constraint firstItem="rhc-du-K06" firstAttribute="trailing" secondItem="vqE-Mh-cT1" secondAttribute="trailing" constant="32" id="XIS-PD-W6H"/>
-                            <constraint firstItem="vqE-Mh-cT1" firstAttribute="leading" secondItem="rhc-du-K06" secondAttribute="leading" constant="32" id="YyY-n4-Vov"/>
                             <constraint firstItem="rhc-du-K06" firstAttribute="trailing" secondItem="yqE-zb-chx" secondAttribute="trailing" constant="32" id="dpe-6Y-AHg"/>
                             <constraint firstItem="yqE-zb-chx" firstAttribute="leading" secondItem="rhc-du-K06" secondAttribute="leading" constant="32" id="ec9-mE-9Ie"/>
                             <constraint firstItem="UmN-fp-xHY" firstAttribute="top" secondItem="d8H-ST-XVm" secondAttribute="bottom" constant="32" id="iNw-2X-jYf"/>
-                            <constraint firstItem="d8H-ST-XVm" firstAttribute="top" secondItem="vqE-Mh-cT1" secondAttribute="bottom" constant="16" id="iT5-i5-Eoa"/>
+                            <constraint firstItem="d8H-ST-XVm" firstAttribute="top" secondItem="rhc-du-K06" secondAttribute="top" id="lRE-b2-xMQ"/>
                             <constraint firstItem="rhc-du-K06" firstAttribute="bottom" secondItem="yqE-zb-chx" secondAttribute="bottom" id="rYb-1J-BOu"/>
                         </constraints>
                     </view>
@@ -133,7 +121,6 @@
                     <connections>
                         <outlet property="emptyStateView" destination="UmN-fp-xHY" id="NHe-GD-b0v"/>
                         <outlet property="tableView" destination="yqE-zb-chx" id="4Gx-ZM-oMY"/>
-                        <outlet property="titleLabel" destination="vqE-Mh-cT1" id="Xah-gZ-pdL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qPy-cW-kfC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -15,23 +15,34 @@
 		0223CDFC269301D20089B764 /* CoronaVaccineItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D47510268DC18F00BDE221 /* CoronaVaccineItemView.xib */; };
 		022ED43D26A582670038B596 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022ED43C26A582670038B596 /* DocumentView.swift */; };
 		0238CDA82604A0D1001958C8 /* UIAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238CDA72604A0D1001958C8 /* UIAccessibility.swift */; };
+		023B59D926C12DD100628BA5 /* ChildrenCreateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 023B59D726C12DD100628BA5 /* ChildrenCreateViewController.storyboard */; };
+		023B59DA26C12DD100628BA5 /* ChildrenListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 023B59D826C12DD100628BA5 /* ChildrenListViewController.storyboard */; };
+		023B59DC26C12E2400628BA5 /* LucaDefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023B59DB26C12E2400628BA5 /* LucaDefaultTextField.swift */; };
+		023B59DE26C136FC00628BA5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023B59DD26C136FC00628BA5 /* UIView+Extension.swift */; };
 		0242D66426A1C5F200EFF244 /* DocumentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0242D66326A1C5F200EFF244 /* DocumentViewFactory.swift */; };
 		024D21BA26832439008E25F0 /* CoronaVaccineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024D21B926832439008E25F0 /* CoronaVaccineItemView.swift */; };
 		0256A668268B081800EF9EC4 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0256A667268B081800EF9EC4 /* UIViewExtension.swift */; };
 		025FE95C26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FE95B26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift */; };
 		025FE9A32614B1DA00A3ADEA /* TimeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FE9A22614B1D900A3ADEA /* TimeUnit.swift */; };
+		027B023E26D77A1B00F85D93 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027B023D26D77A1B00F85D93 /* UIViewControllerExtension.swift */; };
+		0286083826BD40F700F62132 /* LucaViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940E8DD126A6EF330007E224 /* LucaViews.swift */; };
+		0286083926BD416400F62132 /* RoundedLucaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940E8DDA26A75D260007E224 /* RoundedLucaButton.swift */; };
+		0286083A26BD416400F62132 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940E8DD726A75CE50007E224 /* UIButton+Extensions.swift */; };
+		0286083B26BD416400F62132 /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940E8DD426A75CAE0007E224 /* DesignableButton.swift */; };
 		0287FA7C263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FA7B263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift */; };
 		0287FA8C263AA38300F961A8 /* TableSelfCheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FA8B263AA38300F961A8 /* TableSelfCheckinTests.swift */; };
 		0287FA92263AB4AC00F961A8 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FA91263AB4AB00F961A8 /* Collection.swift */; };
-		0287FC80263C005300F961A8 /* Secrets.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287FC7F263C005300F961A8 /* Secrets.generated.swift */; };
 		02B2065E2632B9A300EB3690 /* ShareHistoryPickDaysAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B2065D2632B9A300EB3690 /* ShareHistoryPickDaysAlertViewController.swift */; };
 		02C6F5AA2683506F008E164E /* HorizontalDocumentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C6F5A92683506F008E164E /* HorizontalDocumentListView.swift */; };
 		02C6F5AC26836BA2008E164E /* UIStackViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C6F5AB26836BA1008E164E /* UIStackViewExtensions.swift */; };
 		02D47500268DC17000BDE221 /* CoronaTestView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D47502268DC17000BDE221 /* CoronaTestView.xib */; };
 		02F19DB4269F17B700E65DF3 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54751B3251221D500EC1758 /* ServiceContainer.swift */; };
 		02F3CF6F260B5952002950A0 /* TestQRCodeScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */; };
+		02F7BEF526B93F6800C3DB4C /* ChildrenListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F7BEF426B93F6800C3DB4C /* ChildrenListViewController.swift */; };
+		02F7BEF726B93F7F00C3DB4C /* ChildrenCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F7BEF626B93F7F00C3DB4C /* ChildrenCreateViewController.swift */; };
+		02F7BF0B26B94F8100C3DB4C /* ChildrenViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F7BF0A26B94F8100C3DB4C /* ChildrenViewControllerFactory.swift */; };
 		4222226C63F306739C938FDD /* Pods_LucaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B9347F74194BF4FAE8BB7A /* Pods_LucaTests.framework */; };
-		4A4594F9455A6A7FDE1F6CBA /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		4A4594F9455A6A7FDE1F6CBA /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		940E8DB326A6E5170007E224 /* GeneratedAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940E8DB226A6E5170007E224 /* GeneratedAssets.swift */; };
 		940E8DB526A6E8A40007E224 /* GeneratedFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940E8DB426A6E8A40007E224 /* GeneratedFonts.swift */; };
 		940E8DB926A6E9670007E224 /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940E8DB826A6E9670007E224 /* Styling.swift */; };
@@ -93,7 +104,7 @@
 		B48BEB602608F2500038EC6B /* DocumentProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB5F2608F2500038EC6B /* DocumentProcessingService.swift */; };
 		B48BEB642608F63E0038EC6B /* DocumentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB632608F63E0038EC6B /* DocumentRepo.swift */; };
 		B48BEB6D260908100038EC6B /* CoronaTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB6C260908100038EC6B /* CoronaTestView.swift */; };
-		B48BEB71260908650038EC6B /* HealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB70260908650038EC6B /* HealthViewController.swift */; };
+		B48BEB71260908650038EC6B /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BEB70260908650038EC6B /* DocumentViewController.swift */; };
 		B48C86F924F7CEB5009C353C /* CheckinTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48C86F824F7CEB5009C353C /* CheckinTimer.swift */; };
 		B48C86FB24F7CFB5009C353C /* TimerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48C86FA24F7CFB5009C353C /* TimerDelegate.swift */; };
 		B48DCD8D2539BEF200780208 /* PhoneNumberVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DCD8C2539BEF200780208 /* PhoneNumberVerificationService.swift */; };
@@ -136,12 +147,12 @@
 		D5053D282547145C00D79B61 /* TraceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5053D272547145C00D79B61 /* TraceId.swift */; };
 		D5066F042541C26000112CDB /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5066F032541C26000112CDB /* UserService.swift */; };
 		D5071CC325596DC00071FE66 /* UserSecretsConsistencyChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5071CC225596DC00071FE66 /* UserSecretsConsistencyChecker.swift */; };
-		D50D89902625F0780020A02C /* Secrets.stencil in Resources */ = {isa = PBXBuildFile; fileRef = D50D898F2625F0780020A02C /* Secrets.stencil */; };
 		D50E1D5D2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E1D5C2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift */; };
 		D5107CDC26B2A9B900C3FD60 /* PersonRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5107CDB26B2A9B900C3FD60 /* PersonRepo.swift */; };
 		D5107CDE26B3016C00C3FD60 /* PersonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5107CDD26B3016C00C3FD60 /* PersonService.swift */; };
 		D5107CE226B30F2A00C3FD60 /* CompoundValidatorAnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5107CE126B30F2A00C3FD60 /* CompoundValidatorAnd.swift */; };
 		D5107CE426B3101D00C3FD60 /* CompoundValidatorOr.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5107CE326B3101D00C3FD60 /* CompoundValidatorOr.swift */; };
+		D512393526CEAD760040EA2B /* SingleLocationRequestRegionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D512393426CEAD760040EA2B /* SingleLocationRequestRegionDetector.swift */; };
 		D5129EEB26838F490080EC06 /* DocumentKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5129EEA26838F490080EC06 /* DocumentKeyProvider.swift */; };
 		D5129EED268390170080EC06 /* FetchTestProviderKeysDataAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5129EEC268390170080EC06 /* FetchTestProviderKeysDataAsyncOperation.swift */; };
 		D5155293256FE03400F29551 /* UserTransferBuilderV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5155292256FE03400F29551 /* UserTransferBuilderV3.swift */; };
@@ -189,8 +200,11 @@
 		D55C4385256E75160063BC79 /* QRCodePayloadBuilderV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55C4384256E75160063BC79 /* QRCodePayloadBuilderV3.swift */; };
 		D55C4390256E7FBA0063BC79 /* CheckInPayloadBuilderV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55C438F256E7FBA0063BC79 /* CheckInPayloadBuilderV3.swift */; };
 		D5608FD82652C7560031AD3B /* RealmDatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5608FD72652C7560031AD3B /* RealmDatabaseUtils.swift */; };
+		D56487D726974AE700FC2BC7 /* CommitHash.stencil in Resources */ = {isa = PBXBuildFile; fileRef = D56487D626974AE700FC2BC7 /* CommitHash.stencil */; };
 		D56989AB2642F61000734AAE /* RealmDataRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56989AA2642F61000734AAE /* RealmDataRepoTests.swift */; };
 		D56A37FD26AACFF100E8B4BC /* HealthDepartmentCryptoInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D56A37FF26AACFF100E8B4BC /* HealthDepartmentCryptoInfoViewController.storyboard */; };
+		D56E014026CBE0A200ADE5C7 /* Secrets.stencil in Resources */ = {isa = PBXBuildFile; fileRef = D56E013F26CBE0A200ADE5C7 /* Secrets.stencil */; };
+		D56E014226CBE0AD00ADE5C7 /* Secrets.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56E014126CBE0AD00ADE5C7 /* Secrets.generated.swift */; };
 		D577A66325FA768100E554EB /* KeyValueRepoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D577A66225FA768100E554EB /* KeyValueRepoProtocol.swift */; };
 		D577A66725FA7AE300E554EB /* RealmKeyValueRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D577A66625FA7AE300E554EB /* RealmKeyValueRepo.swift */; };
 		D577A66D25FA816500E554EB /* KeyValueRepoRxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D577A66C25FA816500E554EB /* KeyValueRepoRxExtension.swift */; };
@@ -238,6 +252,7 @@
 		D5B4E5FD25372A8900DD613A /* ValueKeySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B4E5FC25372A8900DD613A /* ValueKeySource.swift */; };
 		D5B4E602253748A200DD613A /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B4E601253748A200DD613A /* Signature.swift */; };
 		D5B4E6082537490C00DD613A /* ECDSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B4E6072537490C00DD613A /* ECDSA.swift */; };
+		D5B54BF026974BD300C23032 /* CommitHash.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B54BEF26974BD300C23032 /* CommitHash.generated.swift */; };
 		D5BB2BC72657EA6100E7E07D /* DocumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BB2BC62657EA6100E7E07D /* DocumentParser.swift */; };
 		D5BB2BCB2657EACB00E7E07D /* JWTCoronaTestParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BB2BCA2657EACB00E7E07D /* JWTCoronaTestParser.swift */; };
 		D5BB919C2566A64D00B3D88C /* BackendV3Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BB919B2566A64D00B3D88C /* BackendV3Protocol.swift */; };
@@ -262,6 +277,10 @@
 		D5CC2B292580ECDC008D8AC3 /* DeletePrivateMeetingAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CC2B282580ECDC008D8AC3 /* DeletePrivateMeetingAsyncOperation.swift */; };
 		D5CCB906257147E600A18640 /* AppStateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CCB905257147E600A18640 /* AppStateExtension.swift */; };
 		D5CCB90A257157EF00A18640 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CCB909257157EF00A18640 /* Array.swift */; };
+		D5CFCCA826B1ABF200F177CB /* VersionDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFCCA726B1ABF200F177CB /* VersionDetailsCoordinator.swift */; };
+		D5CFEA7F26CD498C004F6FA9 /* RegionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFEA7E26CD498C004F6FA9 /* RegionDetector.swift */; };
+		D5CFEA8126CD4B34004F6FA9 /* RegionMonitoringDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFEA8026CD4B34004F6FA9 /* RegionMonitoringDetector.swift */; };
+		D5CFEA8326CD4FBD004F6FA9 /* LocationUpdatesRegionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFEA8226CD4FBD004F6FA9 /* LocationUpdatesRegionDetector.swift */; };
 		D5D0DFEE2539947400A89128 /* EphemeralPublicKeyHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0DFED2539947400A89128 /* EphemeralPublicKeyHistoryRepository.swift */; };
 		D5D0DFF2253994FD00A89128 /* EphemeralPrivateKeyHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0DFF1253994FD00A89128 /* EphemeralPrivateKeyHistoryRepository.swift */; };
 		D5D131F025F11CA3002AE95A /* TraceInfoRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D131EF25F11CA3002AE95A /* TraceInfoRepo.swift */; };
@@ -306,10 +325,11 @@
 		E315F58F267A318600B40EFC /* DGCVaccination.swift in Sources */ = {isa = PBXBuildFile; fileRef = E315F58E267A318600B40EFC /* DGCVaccination.swift */; };
 		E319671B2642D48C0027411B /* DocumentRepoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319671A2642D48C0027411B /* DocumentRepoService.swift */; };
 		E319671F2642E0C20027411B /* DocumentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319671E2642E0C20027411B /* DocumentFactory.swift */; };
+		E325ED0D26C6758700C57A2D /* GitlabLinkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E325ED0C26C6758700C57A2D /* GitlabLinkCoordinator.swift */; };
 		E32BC00D268B0D940012C883 /* AppointmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32BC00F268B0D940012C883 /* AppointmentView.xib */; };
 		E32BC015268B564B0012C883 /* AppointmentValidityValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32BC014268B564B0012C883 /* AppointmentValidityValidator.swift */; };
 		E3359DE52682006C00056315 /* Recovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3359DE42682006C00056315 /* Recovery.swift */; };
-		E33F3AE726AB0182004BD1C8 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E33F3AE626AB0182004BD1C8 /* SwiftPackageProductDependency */; };
+		E33F3AE726AB0182004BD1C8 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = E33F3AE626AB0182004BD1C8 /* Nantes */; };
 		E342542626A5EBD000D3B0A7 /* Ogg-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E342542226A5EBD000D3B0A7 /* Ogg-Regular.otf */; };
 		E34CC95C265CE43A00362512 /* BaerCodeSignatureValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34CC95B265CE43A00362512 /* BaerCodeSignatureValidator.swift */; };
 		E354DF022689BF6900338784 /* AppointmentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E354DF012689BF6900338784 /* AppointmentParser.swift */; };
@@ -330,13 +350,13 @@
 		E37F45442697263C00B23652 /* LicensesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37F45432697263C00B23652 /* LicensesCoordinator.swift */; };
 		E37F454626972A1200B23652 /* DeleteAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37F454526972A1200B23652 /* DeleteAccountCoordinator.swift */; };
 		E37F454826972B3300B23652 /* EditAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37F454726972B3200B23652 /* EditAccountCoordinator.swift */; };
-		E3802042266E4D400016DB99 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E3802041266E4D400016DB99 /* SwiftPackageProductDependency */; };
+		E3802042266E4D400016DB99 /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = E3802041266E4D400016DB99 /* SwiftDGC */; };
 		E3851BD8269EEA5300B3CDEC /* ReleaseDocumentAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3851BD7269EEA5300B3CDEC /* ReleaseDocumentAsyncOperation.swift */; };
 		E39BA947265408F70003ECB6 /* BaerCodeCoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BA946265408F70003ECB6 /* BaerCodeCoronaTest.swift */; };
 		E39BA9752654F86D0003ECB6 /* BaerCodeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BA9742654F86D0003ECB6 /* BaerCodeDecoder.swift */; };
 		E39BA97926556DD30003ECB6 /* AESGCMCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BA97826556DD30003ECB6 /* AESGCMCrypto.swift */; };
 		E3CC769F26944BDF0092B2F7 /* ContactQRViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3CC76A126944BDF0092B2F7 /* ContactQRViewController.storyboard */; };
-		E3CC76A626944E450092B2F7 /* HealthViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3CC76A826944E450092B2F7 /* HealthViewController.storyboard */; };
+		E3CC76A626944E450092B2F7 /* DocumentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3CC76A826944E450092B2F7 /* DocumentViewController.storyboard */; };
 		E3CC76AD269455300092B2F7 /* HistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3CC76AF269455300092B2F7 /* HistoryViewController.storyboard */; };
 		E3CC76B42694560A0092B2F7 /* DataAccessViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3CC76B62694560A0092B2F7 /* DataAccessViewController.storyboard */; };
 		E3CC76BD269470AE0092B2F7 /* PrivateMeetingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3CC76BF269470AE0092B2F7 /* PrivateMeetingViewController.storyboard */; };
@@ -396,17 +416,21 @@
 		021DD231269C34C200B1B255 /* TimesyncAsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimesyncAsyncOperation.swift; sourceTree = "<group>"; };
 		022ED43C26A582670038B596 /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		0238CDA72604A0D1001958C8 /* UIAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAccessibility.swift; sourceTree = "<group>"; };
+		023B59D726C12DD100628BA5 /* ChildrenCreateViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChildrenCreateViewController.storyboard; sourceTree = "<group>"; };
+		023B59D826C12DD100628BA5 /* ChildrenListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChildrenListViewController.storyboard; sourceTree = "<group>"; };
+		023B59DB26C12E2400628BA5 /* LucaDefaultTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LucaDefaultTextField.swift; sourceTree = "<group>"; };
+		023B59DD26C136FC00628BA5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		0242D66326A1C5F200EFF244 /* DocumentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewFactory.swift; sourceTree = "<group>"; };
 		024D21B926832439008E25F0 /* CoronaVaccineItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaVaccineItemView.swift; sourceTree = "<group>"; };
 		0256A667268B081800EF9EC4 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		025FE95B26144FF200A3ADEA /* RetrieveIssuerKeysAsyncOperationV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveIssuerKeysAsyncOperationV3.swift; sourceTree = "<group>"; };
 		025FE9A22614B1D900A3ADEA /* TimeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
+		027B023D26D77A1B00F85D93 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		0287FA79263A9C6E00F961A8 /* LucaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0287FA7B263A9C6E00F961A8 /* PrivateMeetingSelfCheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMeetingSelfCheckinTests.swift; sourceTree = "<group>"; };
 		0287FA7D263A9C6E00F961A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0287FA8B263AA38300F961A8 /* TableSelfCheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSelfCheckinTests.swift; sourceTree = "<group>"; };
 		0287FA91263AB4AB00F961A8 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		0287FC7F263C005300F961A8 /* Secrets.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.generated.swift; sourceTree = "<group>"; };
 		02B2065D2632B9A300EB3690 /* ShareHistoryPickDaysAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHistoryPickDaysAlertViewController.swift; sourceTree = "<group>"; };
 		02C6F5A92683506F008E164E /* HorizontalDocumentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalDocumentListView.swift; sourceTree = "<group>"; };
 		02C6F5AB26836BA1008E164E /* UIStackViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtensions.swift; sourceTree = "<group>"; };
@@ -419,6 +443,9 @@
 		02F19DB6269F2ABF00E65DF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TestQRCodeScannerController.strings; sourceTree = "<group>"; };
 		02F19DB8269F2AC400E65DF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/TestQRCodeScannerController.strings; sourceTree = "<group>"; };
 		02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQRCodeScannerController.swift; sourceTree = "<group>"; };
+		02F7BEF426B93F6800C3DB4C /* ChildrenListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenListViewController.swift; sourceTree = "<group>"; };
+		02F7BEF626B93F7F00C3DB4C /* ChildrenCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenCreateViewController.swift; sourceTree = "<group>"; };
+		02F7BF0A26B94F8100C3DB4C /* ChildrenViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenViewControllerFactory.swift; sourceTree = "<group>"; };
 		0D28844F78C2EB343118567F /* Pods-LucaTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.qa.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.qa.xcconfig"; sourceTree = "<group>"; };
 		3229A23868FEF5C3CC9A4EEB /* Pods-Luca.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luca.development.xcconfig"; path = "Target Support Files/Pods-Luca/Pods-Luca.development.xcconfig"; sourceTree = "<group>"; };
 		343E891DE855AFF012A884A3 /* Pods-LucaTests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LucaTests.development.xcconfig"; path = "Target Support Files/Pods-LucaTests/Pods-LucaTests.development.xcconfig"; sourceTree = "<group>"; };
@@ -503,7 +530,7 @@
 		B48BEB5F2608F2500038EC6B /* DocumentProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProcessingService.swift; sourceTree = "<group>"; usesTabs = 0; };
 		B48BEB632608F63E0038EC6B /* DocumentRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRepo.swift; sourceTree = "<group>"; };
 		B48BEB6C260908100038EC6B /* CoronaTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestView.swift; sourceTree = "<group>"; };
-		B48BEB70260908650038EC6B /* HealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthViewController.swift; sourceTree = "<group>"; };
+		B48BEB70260908650038EC6B /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
 		B48C86F824F7CEB5009C353C /* CheckinTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTimer.swift; sourceTree = "<group>"; };
 		B48C86FA24F7CFB5009C353C /* TimerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDelegate.swift; sourceTree = "<group>"; };
 		B48DCD8C2539BEF200780208 /* PhoneNumberVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVerificationService.swift; sourceTree = "<group>"; };
@@ -549,12 +576,12 @@
 		D5053D272547145C00D79B61 /* TraceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceId.swift; sourceTree = "<group>"; };
 		D5066F032541C26000112CDB /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D5071CC225596DC00071FE66 /* UserSecretsConsistencyChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSecretsConsistencyChecker.swift; sourceTree = "<group>"; };
-		D50D898F2625F0780020A02C /* Secrets.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = Secrets.stencil; sourceTree = "<group>"; };
 		D50E1D5C2535C27F00F1841A /* LucaLocationPermissionWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucaLocationPermissionWorkflow.swift; sourceTree = "<group>"; };
 		D5107CDB26B2A9B900C3FD60 /* PersonRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRepo.swift; sourceTree = "<group>"; };
 		D5107CDD26B3016C00C3FD60 /* PersonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonService.swift; sourceTree = "<group>"; };
 		D5107CE126B30F2A00C3FD60 /* CompoundValidatorAnd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundValidatorAnd.swift; sourceTree = "<group>"; };
 		D5107CE326B3101D00C3FD60 /* CompoundValidatorOr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundValidatorOr.swift; sourceTree = "<group>"; };
+		D512393426CEAD760040EA2B /* SingleLocationRequestRegionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLocationRequestRegionDetector.swift; sourceTree = "<group>"; };
 		D5129EEA26838F490080EC06 /* DocumentKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentKeyProvider.swift; sourceTree = "<group>"; };
 		D5129EEC268390170080EC06 /* FetchTestProviderKeysDataAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTestProviderKeysDataAsyncOperation.swift; sourceTree = "<group>"; };
 		D5155292256FE03400F29551 /* UserTransferBuilderV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransferBuilderV3.swift; sourceTree = "<group>"; };
@@ -604,10 +631,13 @@
 		D55C4384256E75160063BC79 /* QRCodePayloadBuilderV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePayloadBuilderV3.swift; sourceTree = "<group>"; };
 		D55C438F256E7FBA0063BC79 /* CheckInPayloadBuilderV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInPayloadBuilderV3.swift; sourceTree = "<group>"; };
 		D5608FD72652C7560031AD3B /* RealmDatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseUtils.swift; sourceTree = "<group>"; };
+		D56487D626974AE700FC2BC7 /* CommitHash.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = CommitHash.stencil; sourceTree = "<group>"; };
 		D56989AA2642F61000734AAE /* RealmDataRepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataRepoTests.swift; sourceTree = "<group>"; };
 		D56A37FE26AACFF100E8B4BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/HealthDepartmentCryptoInfoViewController.storyboard; sourceTree = "<group>"; };
 		D56A380126AACFF500E8B4BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/HealthDepartmentCryptoInfoViewController.strings; sourceTree = "<group>"; };
 		D56A380326AACFF700E8B4BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HealthDepartmentCryptoInfoViewController.strings; sourceTree = "<group>"; };
+		D56E013F26CBE0A200ADE5C7 /* Secrets.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Secrets.stencil; sourceTree = "<group>"; };
+		D56E014126CBE0AD00ADE5C7 /* Secrets.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.generated.swift; sourceTree = "<group>"; };
 		D577A66225FA768100E554EB /* KeyValueRepoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRepoProtocol.swift; sourceTree = "<group>"; };
 		D577A66625FA7AE300E554EB /* RealmKeyValueRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmKeyValueRepo.swift; sourceTree = "<group>"; };
 		D577A66C25FA816500E554EB /* KeyValueRepoRxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRepoRxExtension.swift; sourceTree = "<group>"; };
@@ -660,6 +690,7 @@
 		D5B4E5FC25372A8900DD613A /* ValueKeySource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueKeySource.swift; sourceTree = "<group>"; };
 		D5B4E601253748A200DD613A /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
 		D5B4E6072537490C00DD613A /* ECDSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECDSA.swift; sourceTree = "<group>"; };
+		D5B54BEF26974BD300C23032 /* CommitHash.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitHash.generated.swift; sourceTree = "<group>"; };
 		D5BB2BC62657EA6100E7E07D /* DocumentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentParser.swift; sourceTree = "<group>"; };
 		D5BB2BCA2657EACB00E7E07D /* JWTCoronaTestParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTCoronaTestParser.swift; sourceTree = "<group>"; };
 		D5BB919B2566A64D00B3D88C /* BackendV3Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendV3Protocol.swift; sourceTree = "<group>"; };
@@ -684,6 +715,10 @@
 		D5CC2B282580ECDC008D8AC3 /* DeletePrivateMeetingAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePrivateMeetingAsyncOperation.swift; sourceTree = "<group>"; };
 		D5CCB905257147E600A18640 /* AppStateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateExtension.swift; sourceTree = "<group>"; };
 		D5CCB909257157EF00A18640 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		D5CFCCA726B1ABF200F177CB /* VersionDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionDetailsCoordinator.swift; sourceTree = "<group>"; };
+		D5CFEA7E26CD498C004F6FA9 /* RegionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetector.swift; sourceTree = "<group>"; };
+		D5CFEA8026CD4B34004F6FA9 /* RegionMonitoringDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionMonitoringDetector.swift; sourceTree = "<group>"; };
+		D5CFEA8226CD4FBD004F6FA9 /* LocationUpdatesRegionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdatesRegionDetector.swift; sourceTree = "<group>"; };
 		D5D0DFED2539947400A89128 /* EphemeralPublicKeyHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralPublicKeyHistoryRepository.swift; sourceTree = "<group>"; };
 		D5D0DFF1253994FD00A89128 /* EphemeralPrivateKeyHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralPrivateKeyHistoryRepository.swift; sourceTree = "<group>"; };
 		D5D131EF25F11CA3002AE95A /* TraceInfoRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceInfoRepo.swift; sourceTree = "<group>"; };
@@ -730,6 +765,7 @@
 		E315F58E267A318600B40EFC /* DGCVaccination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCVaccination.swift; sourceTree = "<group>"; };
 		E319671A2642D48C0027411B /* DocumentRepoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRepoService.swift; sourceTree = "<group>"; };
 		E319671E2642E0C20027411B /* DocumentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentFactory.swift; sourceTree = "<group>"; };
+		E325ED0C26C6758700C57A2D /* GitlabLinkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitlabLinkCoordinator.swift; sourceTree = "<group>"; };
 		E32BC00E268B0D940012C883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AppointmentView.xib; sourceTree = "<group>"; };
 		E32BC011268B0D9B0012C883 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppointmentView.strings; sourceTree = "<group>"; };
 		E32BC013268B0D9C0012C883 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AppointmentView.strings; sourceTree = "<group>"; };
@@ -764,9 +800,9 @@
 		E3CC76A026944BDF0092B2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ContactQRViewController.storyboard; sourceTree = "<group>"; };
 		E3CC76A326944BE90092B2F7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ContactQRViewController.strings; sourceTree = "<group>"; };
 		E3CC76A526944C1C0092B2F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ContactQRViewController.strings; sourceTree = "<group>"; };
-		E3CC76A726944E450092B2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/HealthViewController.storyboard; sourceTree = "<group>"; };
-		E3CC76AA26944E4F0092B2F7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/HealthViewController.strings; sourceTree = "<group>"; };
-		E3CC76AC26944E520092B2F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HealthViewController.strings; sourceTree = "<group>"; };
+		E3CC76A726944E450092B2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DocumentViewController.storyboard; sourceTree = "<group>"; };
+		E3CC76AA26944E4F0092B2F7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/DocumentViewController.strings; sourceTree = "<group>"; };
+		E3CC76AC26944E520092B2F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DocumentViewController.strings; sourceTree = "<group>"; };
 		E3CC76AE269455300092B2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/HistoryViewController.storyboard; sourceTree = "<group>"; };
 		E3CC76B12694553A0092B2F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HistoryViewController.strings; sourceTree = "<group>"; };
 		E3CC76B32694556C0092B2F7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/HistoryViewController.strings; sourceTree = "<group>"; };
@@ -800,7 +836,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A4594F9455A6A7FDE1F6CBA /* BuildFile in Frameworks */,
+				4A4594F9455A6A7FDE1F6CBA /* (null) in Frameworks */,
 				4222226C63F306739C938FDD /* Pods_LucaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -816,10 +852,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3802042266E4D400016DB99 /* BuildFile in Frameworks */,
+				E3802042266E4D400016DB99 /* SwiftDGC in Frameworks */,
 				D5A4EF1C251A4983000A731F /* WebKit.framework in Frameworks */,
 				940E8DC626A6EED90007E224 /* LucaUIComponents.framework in Frameworks */,
-				E33F3AE726AB0182004BD1C8 /* BuildFile in Frameworks */,
+				E33F3AE726AB0182004BD1C8 /* Nantes in Frameworks */,
 				C67A07E7E7FC7C382E20AA91 /* Pods_Luca.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -852,6 +888,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		02F7BEF326B93F3C00C3DB4C /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				02F7BEF426B93F6800C3DB4C /* ChildrenListViewController.swift */,
+				02F7BEF626B93F7F00C3DB4C /* ChildrenCreateViewController.swift */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
 		779D5F36A4CD225872AEE7E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -876,8 +921,8 @@
 		940E8DB626A6E8AA0007E224 /* GeneratedFiles */ = {
 			isa = PBXGroup;
 			children = (
-				D50D898F2625F0780020A02C /* Secrets.stencil */,
-				0287FC7F263C005300F961A8 /* Secrets.generated.swift */,
+				D5B54BEF26974BD300C23032 /* CommitHash.generated.swift */,
+				D56E014126CBE0AD00ADE5C7 /* Secrets.generated.swift */,
 				940E8DB226A6E5170007E224 /* GeneratedAssets.swift */,
 				940E8DB426A6E8A40007E224 /* GeneratedFonts.swift */,
 				B48BB48C24EEB9DD00FC6780 /* GeneratedStrings.swift */,
@@ -909,6 +954,7 @@
 			isa = PBXGroup;
 			children = (
 				940E8DD926A75D120007E224 /* Buttons */,
+				023B59DB26C12E2400628BA5 /* LucaDefaultTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -917,6 +963,7 @@
 			isa = PBXGroup;
 			children = (
 				940E8DD726A75CE50007E224 /* UIButton+Extensions.swift */,
+				023B59DD26C136FC00628BA5 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -991,6 +1038,8 @@
 				B434E3D324EBC04E009305CA /* Assets.xcassets */,
 				B434E3D524EBC04E009305CA /* LaunchScreen.storyboard */,
 				B434E3D824EBC04E009305CA /* Info.plist */,
+				D56487D626974AE700FC2BC7 /* CommitHash.stencil */,
+				D56E013F26CBE0A200ADE5C7 /* Secrets.stencil */,
 				940E8DB626A6E8AA0007E224 /* GeneratedFiles */,
 				B48BB48724EEB85800FC6780 /* Localizable.strings */,
 				D5876D4925503721009A27EC /* apple-app-site-association */,
@@ -1096,8 +1145,9 @@
 			children = (
 				E3CC76DF2694C16F0092B2F7 /* ViewControllerFactories */,
 				E3CC76EC2695A9870092B2F7 /* Account */,
+				02F7BEF326B93F3C00C3DB4C /* Children */,
 				E3DE988426A5CA9200A13ED2 /* TermsAndConditions */,
-				B48BEB692608FF5D0038EC6B /* Health */,
+				B48BEB692608FF5D0038EC6B /* Documents */,
 				B4D5503F24FD0D1E009FA094 /* History */,
 				B45F2B6A24F6C94900BC256F /* Luca */,
 				B48BB47024EE8EB500FC6780 /* MainTabBarViewController.swift */,
@@ -1128,13 +1178,13 @@
 			path = Documents;
 			sourceTree = "<group>";
 		};
-		B48BEB692608FF5D0038EC6B /* Health */ = {
+		B48BEB692608FF5D0038EC6B /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				B48BEB70260908650038EC6B /* HealthViewController.swift */,
+				B48BEB70260908650038EC6B /* DocumentViewController.swift */,
 				02F3CF6E260B5952002950A0 /* TestQRCodeScannerController.swift */,
 			);
-			path = Health;
+			path = Documents;
 			sourceTree = "<group>";
 		};
 		B48C86F724F7CE95009C353C /* Model */ = {
@@ -1248,6 +1298,7 @@
 				0287FA91263AB4AB00F961A8 /* Collection.swift */,
 				02C6F5AB26836BA1008E164E /* UIStackViewExtensions.swift */,
 				0256A667268B081800EF9EC4 /* UIViewExtension.swift */,
+				027B023D26D77A1B00F85D93 /* UIViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1630,6 +1681,10 @@
 			isa = PBXGroup;
 			children = (
 				D5AE3F78269DEA0200B0445E /* AutoCheckoutService.swift */,
+				D5CFEA7E26CD498C004F6FA9 /* RegionDetector.swift */,
+				D5CFEA8026CD4B34004F6FA9 /* RegionMonitoringDetector.swift */,
+				D5CFEA8226CD4FBD004F6FA9 /* LocationUpdatesRegionDetector.swift */,
+				D512393426CEAD760040EA2B /* SingleLocationRequestRegionDetector.swift */,
 			);
 			path = AutoCheckout;
 			sourceTree = "<group>";
@@ -1835,6 +1890,8 @@
 				E37F454526972A1200B23652 /* DeleteAccountCoordinator.swift */,
 				E37F454726972B3200B23652 /* EditAccountCoordinator.swift */,
 				D5BEEA5426A99769008F987D /* HealthDepartmentCryptoInfoCoordinator.swift */,
+				D5CFCCA726B1ABF200F177CB /* VersionDetailsCoordinator.swift */,
+				E325ED0C26C6758700C57A2D /* GitlabLinkCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1869,6 +1926,7 @@
 				E3CC76EA2694C2B10092B2F7 /* OnboardingViewControllerFactory.swift */,
 				E3CC76EF2695A9E80092B2F7 /* AccountViewControllerFactory.swift */,
 				E3DE988726A5DD0800A13ED2 /* TermsViewControllerFactory.swift */,
+				02F7BF0A26B94F8100C3DB4C /* ChildrenViewControllerFactory.swift */,
 			);
 			path = ViewControllerFactories;
 			sourceTree = "<group>";
@@ -1892,9 +1950,11 @@
 		E3F72C382693445F0089A5A8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				023B59D726C12DD100628BA5 /* ChildrenCreateViewController.storyboard */,
+				023B59D826C12DD100628BA5 /* ChildrenListViewController.storyboard */,
 				B45F2B5824F64CFA00BC256F /* LaunchViewController.storyboard */,
 				E3CC76AF269455300092B2F7 /* HistoryViewController.storyboard */,
-				E3CC76A826944E450092B2F7 /* HealthViewController.storyboard */,
+				E3CC76A826944E450092B2F7 /* DocumentViewController.storyboard */,
 				E3CC76A126944BDF0092B2F7 /* ContactQRViewController.storyboard */,
 				E3CC76B62694560A0092B2F7 /* DataAccessViewController.storyboard */,
 				E3CC76BF269470AE0092B2F7 /* PrivateMeetingViewController.storyboard */,
@@ -1928,7 +1988,7 @@
 				0287FA75263A9C6E00F961A8 /* Sources */,
 				0287FA76263A9C6E00F961A8 /* Frameworks */,
 				0287FA77263A9C6E00F961A8 /* Resources */,
-				ECB8905918B3FAFAB5C9A485 /* [CP] Embed Pods Frameworks */,
+				2ACA32F89AC64D3BF09D9540 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1964,6 +2024,7 @@
 			buildPhases = (
 				0A02149854824C40135F200B /* [CP] Check Pods Manifest.lock */,
 				D50D89922625F0EE0020A02C /* Generate credentials */,
+				D56487D526974AB600FC2BC7 /* Generate commit hash */,
 				B4AF3BBB24EED71E00F72C80 /* SwiftGen */,
 				B4A0A3802614A6EA007DE487 /* Copy Acknowledgements */,
 				021AE906261F3651007EA85A /* SwiftLint */,
@@ -1971,7 +2032,7 @@
 				B434E3C424EBC04B009305CA /* Frameworks */,
 				B434E3C524EBC04B009305CA /* Resources */,
 				940E8DC826A6EED90007E224 /* Embed Frameworks */,
-				E9419AFC179F622FC4EB0C31 /* [CP] Embed Pods Frameworks */,
+				8697FCEF02437A8C4FB0DD5D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1980,8 +2041,8 @@
 			);
 			name = Luca;
 			packageProductDependencies = (
-				E3802041266E4D400016DB99 /* SwiftPackageProductDependency */,
-				E33F3AE626AB0182004BD1C8 /* SwiftPackageProductDependency */,
+				E3802041266E4D400016DB99 /* SwiftDGC */,
+				E33F3AE626AB0182004BD1C8 /* Nantes */,
 			);
 			productName = Luca;
 			productReference = B434E3C724EBC04B009305CA /* Luca Debug.app */;
@@ -2021,8 +2082,8 @@
 			);
 			mainGroup = B434E3BE24EBC04B009305CA;
 			packageReferences = (
-				E3802040266E4D400016DB99 /* RemoteSwiftPackageReference */,
-				E33F3AE526AB0182004BD1C8 /* RemoteSwiftPackageReference */,
+				E3802040266E4D400016DB99 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
+				E33F3AE526AB0182004BD1C8 /* XCRemoteSwiftPackageReference "Nantes" */,
 			);
 			productRefGroup = B434E3C824EBC04B009305CA /* Products */;
 			projectDirPath = "";
@@ -2065,7 +2126,6 @@
 				021DD22A269C339800B1B255 /* TimeDifferenceView.xib in Resources */,
 				B4808E1825B1F0CB00DE38E0 /* Alerts.storyboard in Resources */,
 				B4808E2325B1F0DB00DE38E0 /* AlertsSE.storyboard in Resources */,
-				D50D89902625F0780020A02C /* Secrets.stencil in Resources */,
 				E3CC76C6269472F20092B2F7 /* LocationCheckinViewController.storyboard in Resources */,
 				B434E3D424EBC04E009305CA /* Assets.xcassets in Resources */,
 				D58F4BA02577E3440085A3D1 /* InfoPlist.strings in Resources */,
@@ -2073,10 +2133,13 @@
 				E3CC76AD269455300092B2F7 /* HistoryViewController.storyboard in Resources */,
 				B4F1B13924ED392F006D6D73 /* Montserrat-SemiBold.ttf in Resources */,
 				B45F2B5624F64CFA00BC256F /* LaunchViewController.storyboard in Resources */,
+				D56487D726974AE700FC2BC7 /* CommitHash.stencil in Resources */,
 				B4F1B13424ED2BFD006D6D73 /* Montserrat-Bold.ttf in Resources */,
 				B4A0A48B261CCFDB007DE487 /* LICENSE.txt in Resources */,
+				023B59DA26C12DD100628BA5 /* ChildrenListViewController.storyboard in Resources */,
 				E3CC769F26944BDF0092B2F7 /* ContactQRViewController.storyboard in Resources */,
-				E3CC76A626944E450092B2F7 /* HealthViewController.storyboard in Resources */,
+				023B59D926C12DD100628BA5 /* ChildrenCreateViewController.storyboard in Resources */,
+				E3CC76A626944E450092B2F7 /* DocumentViewController.storyboard in Resources */,
 				E32BC00D268B0D940012C883 /* AppointmentView.xib in Resources */,
 				D58F4B7F2577E0B10085A3D1 /* Localizable.strings in Resources */,
 				B4F1B13224ED2BFD006D6D73 /* Montserrat-Medium.ttf in Resources */,
@@ -2084,6 +2147,7 @@
 				D5876D4A25503721009A27EC /* apple-app-site-association in Resources */,
 				B434E3D224EBC04B009305CA /* Onboarding.storyboard in Resources */,
 				0223CDFC269301D20089B764 /* CoronaVaccineItemView.xib in Resources */,
+				D56E014026CBE0A200ADE5C7 /* Secrets.stencil in Resources */,
 				B4AF3BBF24EEDB8A00F72C80 /* swiftgen.yml in Resources */,
 				E342542626A5EBD000D3B0A7 /* Ogg-Regular.otf in Resources */,
 				02D47500268DC17000BDE221 /* CoronaTestView.xib in Resources */,
@@ -2134,6 +2198,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2ACA32F89AC64D3BF09D9540 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8697FCEF02437A8C4FB0DD5D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Luca/Pods-Luca-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Luca/Pods-Luca-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Luca/Pods-Luca-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A03081A3097EF57E9176720B /* [CP] Check Pods Manifest.lock */ = {
@@ -2216,41 +2314,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars_${CONFIGURATION}.sh ]\nthen\nsource ./env-vars_${CONFIGURATION}.sh\nfi\n\n#no `else` case needed if the CI works as expected\n./Pods/Sourcery/bin/sourcery --templates ./Luca/GeneratedFiles --sources . --output ./Luca/GeneratedFiles --args password=\"$BACKEND_PASSWORD\",login=\"$BACKEND_LOGIN\"\n";
+			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars_${CONFIGURATION}.sh ]\nthen\nsource ./env-vars_${CONFIGURATION}.sh\nfi\n\n#no `else` case needed if the CI works as expected\n\"$PODS_ROOT/Sourcery/bin/sourcery\" --templates ./Luca/Secrets.stencil --sources . --output ./Luca/GeneratedFiles --args password=\"$BACKEND_PASSWORD\",login=\"$BACKEND_LOGIN\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E9419AFC179F622FC4EB0C31 /* [CP] Embed Pods Frameworks */ = {
+		D56487D526974AB600FC2BC7 /* Generate commit hash */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Luca/Pods-Luca-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+			);
+			name = "Generate commit hash";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Luca/Pods-Luca-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"${PROJECT_DIR}/Luca/GeneratedFiles/CommitHash.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Luca/Pods-Luca-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ECB8905918B3FAFAB5C9A485 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LucaTests/Pods-LucaTests-frameworks.sh\"\n";
+			shellScript = "COMMIT_HASH=$(git rev-parse HEAD)\n\n./Pods/Sourcery/bin/sourcery --templates ./Luca/CommitHash.stencil --sources . --output ./Luca/GeneratedFiles --args commitHash=\"$COMMIT_HASH\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2276,8 +2361,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				023B59DE26C136FC00628BA5 /* UIView+Extension.swift in Sources */,
 				940E8DDB26A75D260007E224 /* RoundedLucaButton.swift in Sources */,
 				940E8DD226A6EF330007E224 /* LucaViews.swift in Sources */,
+				023B59DC26C12E2400628BA5 /* LucaDefaultTextField.swift in Sources */,
 				940E8DD826A75CE50007E224 /* UIButton+Extensions.swift in Sources */,
 				940E8DD526A75CAE0007E224 /* DesignableButton.swift in Sources */,
 			);
@@ -2314,10 +2401,12 @@
 				D57EF2FE256C28C200A43AF9 /* AsyncOperation.swift in Sources */,
 				D5BB2BCB2657EACB00E7E07D /* JWTCoronaTestParser.swift in Sources */,
 				D581112E25360800006448EA /* DataKeyRepository.swift in Sources */,
+				0286083B26BD416400F62132 /* DesignableButton.swift in Sources */,
 				D5FBA722267372A10080CDB7 /* DocumentValidator.swift in Sources */,
 				021DD22C269C33BC00B1B255 /* TimeDifferenceView.swift in Sources */,
 				D53FCD07256D92ED00E5D886 /* JSONEncoderUnescaped.swift in Sources */,
 				D52481F1254C4CC600F2360E /* HistoryEventListener.swift in Sources */,
+				D5B54BF026974BD300C23032 /* CommitHash.generated.swift in Sources */,
 				D577A66325FA768100E554EB /* KeyValueRepoProtocol.swift in Sources */,
 				B48C86F924F7CEB5009C353C /* CheckinTimer.swift in Sources */,
 				D5996E8225B5D18D00892446 /* VerifyChallengeBulkRequestAsyncOperation.swift in Sources */,
@@ -2345,6 +2434,7 @@
 				D5155297256FE2E300F29551 /* UserTransferAsyncOperationV3.swift in Sources */,
 				B46E4477265D1DFC00EBC231 /* BaerCodeKeyFetchOperation.swift in Sources */,
 				D53FCCF6256D7BE100E5D886 /* FetchLocationAsyncOperation.swift in Sources */,
+				0286083A26BD416400F62132 /* UIButton+Extensions.swift in Sources */,
 				D5B4E6082537490C00DD613A /* ECDSA.swift in Sources */,
 				D5D131F025F11CA3002AE95A /* TraceInfoRepo.swift in Sources */,
 				E3359DE52682006C00056315 /* Recovery.swift in Sources */,
@@ -2361,6 +2451,7 @@
 				D501438E25138BCB00A8E8B1 /* KeySource.swift in Sources */,
 				D53FCCFA256D7C1C00E5D886 /* FetchDepartmentAsyncOperation.swift in Sources */,
 				D55C4385256E75160063BC79 /* QRCodePayloadBuilderV3.swift in Sources */,
+				D5CFCCA826B1ABF200F177CB /* VersionDetailsCoordinator.swift in Sources */,
 				D5107CDE26B3016C00C3FD60 /* PersonService.swift in Sources */,
 				D5457994252F327D00D37420 /* LucaScheduling.swift in Sources */,
 				D5BB91CC2566DE0700B3D88C /* AESCTRCrypto.swift in Sources */,
@@ -2378,6 +2469,7 @@
 				B4F1B15624ED6D78006D6D73 /* CustomTextField.swift in Sources */,
 				0256A668268B081800EF9EC4 /* UIViewExtension.swift in Sources */,
 				D577A66D25FA816500E554EB /* KeyValueRepoRxExtension.swift in Sources */,
+				D512393526CEAD760040EA2B /* SingleLocationRequestRegionDetector.swift in Sources */,
 				D5D27F33254086AE0069DAC1 /* TraceIdService.swift in Sources */,
 				B43FC67026B017A200D30D22 /* QRType.swift in Sources */,
 				B430C3B025F96923009E0F35 /* DataAccessHeaderView.swift in Sources */,
@@ -2388,13 +2480,13 @@
 				D5F32C8125DAB6E500C13127 /* DailyKeyRepoHandler.swift in Sources */,
 				D5EF1B5025810B5500351CAD /* LocationPrivateKeyHistoryRepository.swift in Sources */,
 				E37F454626972A1200B23652 /* DeleteAccountCoordinator.swift in Sources */,
-				0287FC80263C005300F961A8 /* Secrets.generated.swift in Sources */,
 				D5ED2ADC25C18D2F007E120E /* RequestError.swift in Sources */,
 				B43A487E25F7B8DB00F9CD89 /* AccessedTraceIdRepo.swift in Sources */,
 				D5BB91B02566D33F00B3D88C /* UserRegistrationIntermediate.swift in Sources */,
 				D5EE1E34251CAA1E0028B2D9 /* UnsafeAddress.swift in Sources */,
 				D5986015251CF7EF0086D5CA /* UITextField.swift in Sources */,
 				02C6F5AC26836BA2008E164E /* UIStackViewExtensions.swift in Sources */,
+				02F7BEF526B93F6800C3DB4C /* ChildrenListViewController.swift in Sources */,
 				D54751B82512481900EC1758 /* UIViewController.swift in Sources */,
 				D5494F1E268C85DB002370EC /* JWTParserWithOptionalDoctor.swift in Sources */,
 				B43FC66C26AEAECB00D30D22 /* QRParser.swift in Sources */,
@@ -2422,6 +2514,7 @@
 				B45F2B5224F54C2200BC256F /* ViewControllerFactory.swift in Sources */,
 				02B2065E2632B9A300EB3690 /* ShareHistoryPickDaysAlertViewController.swift in Sources */,
 				D5800B12252DD4AF00CC42F0 /* LocationPermissionHandler.swift in Sources */,
+				E325ED0D26C6758700C57A2D /* GitlabLinkCoordinator.swift in Sources */,
 				E315F58D267A21A900B40EFC /* DGCVaccinationEntry.swift in Sources */,
 				D5F1DB27252387D4005D8260 /* RxExtenstions.swift in Sources */,
 				D581112425360315006448EA /* UserKeysBundle.swift in Sources */,
@@ -2444,6 +2537,7 @@
 				D5BEEA5926A99841008F987D /* HealthDepartmentCryptoInfoViewController.swift in Sources */,
 				E315F57E2679FE2500B40EFC /* DGCGatewayConnection.swift in Sources */,
 				D5B342C7256E7304006E6554 /* CreateUserAsyncOperationV3.swift in Sources */,
+				02F7BF0B26B94F8100C3DB4C /* ChildrenViewControllerFactory.swift in Sources */,
 				B48BB47924EE914300FC6780 /* HistoryViewController.swift in Sources */,
 				D5887059253DDB200089EBA6 /* QRCodeGenerator.swift in Sources */,
 				D5B4E602253748A200DD613A /* Signature.swift in Sources */,
@@ -2455,6 +2549,7 @@
 				024D21BA26832439008E25F0 /* CoronaVaccineItemView.swift in Sources */,
 				D551A35626455318009B548D /* main.swift in Sources */,
 				02F3CF6F260B5952002950A0 /* TestQRCodeScannerController.swift in Sources */,
+				02F7BEF726B93F7F00C3DB4C /* ChildrenCreateViewController.swift in Sources */,
 				B471ED3D26BADD79009BCFBA /* CoronaTestIsNotInFutureValidator.swift in Sources */,
 				D5053D282547145C00D79B61 /* TraceId.swift in Sources */,
 				D54E347225F11710001FDBF3 /* RealmDataRepo.swift in Sources */,
@@ -2463,11 +2558,12 @@
 				E3CC76E92694C24F0092B2F7 /* AlertViewControllerFactory.swift in Sources */,
 				B49C0DBD25A343CF00148F17 /* NotificationPermissionHandler.swift in Sources */,
 				D58111282536052C006448EA /* KeyRepositoryProtocol.swift in Sources */,
+				D5CFEA8326CD4FBD004F6FA9 /* LocationUpdatesRegionDetector.swift in Sources */,
 				D5A8AB0F2538AD16005F173F /* SecKeyHistoryRepository.swift in Sources */,
 				D5E5983825D5ABB400EAE3C6 /* DailyDataKeyRepository.swift in Sources */,
 				E3DE988826A5DD0800A13ED2 /* TermsViewControllerFactory.swift in Sources */,
 				D54E347425F11710001FDBF3 /* DataRepoProtocol.swift in Sources */,
-				B48BEB71260908650038EC6B /* HealthViewController.swift in Sources */,
+				B48BEB71260908650038EC6B /* DocumentViewController.swift in Sources */,
 				D51E187826A9EB45006CDA0E /* RetrieveKeyAsyncOperation.swift in Sources */,
 				B48BEB5C2608E59C0038EC6B /* CoronaTest.swift in Sources */,
 				D5BEEA5326A97F81008F987D /* AlamofireLogger.swift in Sources */,
@@ -2486,6 +2582,7 @@
 				B4D5503E24FD0979009FA094 /* UIAlertController.swift in Sources */,
 				E37A3704267CB0FB008E3563 /* BaerCodeParser.swift in Sources */,
 				D5C88889256FDCEA00ACF79B /* UploadAdditionalDataAsyncOperationV3.swift in Sources */,
+				0286083826BD40F700F62132 /* LucaViews.swift in Sources */,
 				D5A4EF19251A453C000A731F /* WebViewController.swift in Sources */,
 				D5405651257E60050019EDC7 /* LocationCheckInViewModel.swift in Sources */,
 				B4FF115C24F7A5F800A5821C /* Double.swift in Sources */,
@@ -2495,6 +2592,8 @@
 				D5FBA724267373140080CDB7 /* DocumentOwnershipValidator.swift in Sources */,
 				E37F454026970D0800B23652 /* OpenLinkCoordinator.swift in Sources */,
 				B48BB48D24EEB9DD00FC6780 /* GeneratedStrings.swift in Sources */,
+				D5CFEA8126CD4B34004F6FA9 /* RegionMonitoringDetector.swift in Sources */,
+				0286083926BD416400F62132 /* RoundedLucaButton.swift in Sources */,
 				D53B8CE425E082C00009B5FE /* LucaAlertViewController.swift in Sources */,
 				D5258FD1258925FB00E0B29E /* UUID.swift in Sources */,
 				E354DF06268A0F2600338784 /* TestAppointment.swift in Sources */,
@@ -2524,6 +2623,7 @@
 				B48BEB642608F63E0038EC6B /* DocumentRepo.swift in Sources */,
 				B430C3A525F8FA1D009E0F35 /* DataAccessAlertViewController.swift in Sources */,
 				D5D6721F256C318D0065D35C /* VerifyChallengeRequestAsyncOperation.swift in Sources */,
+				027B023E26D77A1B00F85D93 /* UIViewControllerExtension.swift in Sources */,
 				B4430F5F255417FF0056B99B /* URL.swift in Sources */,
 				B4EAC03A24F7DA4900A2662F /* Date.swift in Sources */,
 				B4430F63255438970056B99B /* UIButton.swift in Sources */,
@@ -2539,6 +2639,7 @@
 				D54751BD25127DCC00EC1758 /* KeyFactory.swift in Sources */,
 				021DD232269C34C200B1B255 /* TimesyncAsyncOperation.swift in Sources */,
 				E315F57F2679FE2500B40EFC /* DGCLocalData.swift in Sources */,
+				D5CFEA7F26CD498C004F6FA9 /* RegionDetector.swift in Sources */,
 				D5DBE6CE256E8AC600C86168 /* CheckInAsyncOperationV3.swift in Sources */,
 				D5DBE6EC256EC6E600C86168 /* TraceIdAdditionalDataBuilderV3.swift in Sources */,
 				D5A7FA7A2685E1D1009639A2 /* TestProviderKeyRepo.swift in Sources */,
@@ -2574,6 +2675,7 @@
 				D5CC2B1C2580E3EC008D8AC3 /* PrivateMeetingQRCodeBuilderV3.swift in Sources */,
 				D5A8AB132538B0D1005F173F /* RawKeyHistoryRepository.swift in Sources */,
 				D5071CC325596DC00071FE66 /* UserSecretsConsistencyChecker.swift in Sources */,
+				D56E014226CBE0AD00ADE5C7 /* Secrets.generated.swift in Sources */,
 				D5D0DFF2253994FD00A89128 /* EphemeralPrivateKeyHistoryRepository.swift in Sources */,
 				D5C78E8925D6C075005711D7 /* LocalizedTitledError.swift in Sources */,
 			);
@@ -2731,14 +2833,14 @@
 			name = ContactQRViewController.storyboard;
 			sourceTree = "<group>";
 		};
-		E3CC76A826944E450092B2F7 /* HealthViewController.storyboard */ = {
+		E3CC76A826944E450092B2F7 /* DocumentViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				E3CC76A726944E450092B2F7 /* Base */,
 				E3CC76AA26944E4F0092B2F7 /* de */,
 				E3CC76AC26944E520092B2F7 /* en */,
 			);
-			name = HealthViewController.storyboard;
+			name = DocumentViewController.storyboard;
 			sourceTree = "<group>";
 		};
 		E3CC76AF269455300092B2F7 /* HistoryViewController.storyboard */ = {
@@ -3238,14 +3340,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.debug;
 				PRODUCT_NAME = "Luca Debug";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEVELOPMENT";
@@ -3262,14 +3364,14 @@
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION;
@@ -3339,14 +3441,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.release;
 				PRODUCT_NAME = "$(TARGET_NAME) Release";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
@@ -3437,14 +3539,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.hotfix;
 				PRODUCT_NAME = "Luca Hotfix";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = HOTFIX;
@@ -3536,14 +3638,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.preprod;
 				PRODUCT_NAME = "Luca Preprod";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PREPROD;
@@ -3636,14 +3738,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.qa;
 				PRODUCT_NAME = "Luca QA";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = QA;
@@ -3736,14 +3838,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Debug";
 				CODE_SIGN_ENTITLEMENTS = Luca/Luca.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 74643229Y4;
 				INFOPLIST_FILE = Luca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.culture4life.luca.pentest;
 				PRODUCT_NAME = "Luca Pentest";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PENTEST;
@@ -3836,7 +3938,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E33F3AE526AB0182004BD1C8 /* RemoteSwiftPackageReference */ = {
+		E33F3AE526AB0182004BD1C8 /* XCRemoteSwiftPackageReference "Nantes" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/instacart/Nantes";
 			requirement = {
@@ -3844,7 +3946,7 @@
 				minimumVersion = 0.1.2;
 			};
 		};
-		E3802040266E4D400016DB99 /* RemoteSwiftPackageReference */ = {
+		E3802040266E4D400016DB99 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios";
 			requirement = {
@@ -3855,14 +3957,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E33F3AE626AB0182004BD1C8 /* SwiftPackageProductDependency */ = {
+		E33F3AE626AB0182004BD1C8 /* Nantes */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E33F3AE526AB0182004BD1C8 /* RemoteSwiftPackageReference */;
+			package = E33F3AE526AB0182004BD1C8 /* XCRemoteSwiftPackageReference "Nantes" */;
 			productName = Nantes;
 		};
-		E3802041266E4D400016DB99 /* SwiftPackageProductDependency */ = {
+		E3802041266E4D400016DB99 /* SwiftDGC */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E3802040266E4D400016DB99 /* RemoteSwiftPackageReference */;
+			package = E3802040266E4D400016DB99 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */;
 			productName = SwiftDGC;
 		};
 /* End XCSwiftPackageProductDependency section */

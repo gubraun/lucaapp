@@ -1,5 +1,4 @@
 PODS:
-  - base64url (1.1.0)
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.34)
@@ -108,7 +107,6 @@ PODS:
   - Validator (3.2.1)
 
 DEPENDENCIES:
-  - base64url (~> 1.1.0)
   - CryptoSwift (~> 1.4.0)
   - DeviceKit (~> 4.4.0)
   - IQKeyboardManagerSwift (~> 6.5.6)
@@ -131,8 +129,7 @@ DEPENDENCIES:
   - Validator (~> 3.2.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - base64url
+  https://github.com/CocoaPods/Specs:
     - BlueCryptor
     - BlueECC
     - BlueRSA
@@ -166,7 +163,6 @@ SPEC REPOS:
     - Validator
 
 SPEC CHECKSUMS:
-  base64url: 92e81bb256f2070359a34fc93a7a7d4b9a9d689f
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
@@ -199,6 +195,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: 60ec837d1411f59370f70d91279dd970c724856e
+PODFILE CHECKSUM: 3c10c67c0f33eda57049966a87f30bfa5e800ad8
 
 COCOAPODS: 1.10.1

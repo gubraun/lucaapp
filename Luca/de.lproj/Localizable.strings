@@ -56,6 +56,8 @@
 
 "navigation.basic.cancel" = "Abbrechen";
 
+"navigation.basic.confirm" = "Bestätigen";
+
 "navigation.basic.yes" = "Ja";
 
 "navigation.basic.no" = "Nein";
@@ -81,6 +83,9 @@
 "navigation.tab.account" = "Account";
 
 "navigation.menu" = "Mehr";
+
+"navigation.dataaccess.title" = "Datenanfragen";
+
 
 // Checkin
 "checkin.slider.date" = "Check-in: %@";
@@ -130,8 +135,6 @@
 "camera.access.description" = "Bitte erlaube den Zugriff zu deiner Kamera.";
 
 "camera.error.scanningFailed" = "Dein Gerät kann nicht für das Scannen verwendet werden.";
-
-"camera.error.wrongQR" = "Der QR-Code ist falsch.";
 
 "camera.warning.checkin.title" = "Mit Import fortfahren?";
 
@@ -291,9 +294,15 @@
 
 "general.support.email" = "hello@luca-app.de";
 
+"general.gitlab.alert.title" = "Zum Code Repository";
+
+"general.gitlab.alert.description" = "luca ist Open Source. Uns ist wichtig, dass alle nachvollziehen können, wie das luca-System funktioniert und dass ein unabhängiger Feedback-Prozess möglich ist. Wenn du dir das ganz genau anschauen möchtest, findest du das Code Repository bei GitLab. ";
+
+"general.gitlab.alert.actionButton" = "GitLab öffnen";
+
 "general.support.email.body" = "Lieber luca-Support,<br><br>bei der Nutzung der App tritt folgendes Problem auf:<br><br><i>Bitte beschreibe hier so genau wie möglich dein Problem und an welcher Stelle es auftritt. Es wäre sehr hilfreich, wenn du auch einen Screenshot oder eine Bildschirmaufnahme der Fehlermeldung oder des Problems anhängen könntest.</i><br><br><br>Gerät: %@<br>Betriebssystem: iOS %@<br>App Version: %@";
 
-"general.support.error" = "Es können keine E-mails von diesem Gerät gesendet werden, da aktuell kein Mail-Account verknüpft ist.";
+"general.support.error" = "Es können keine E-Mails von diesem Gerät gesendet werden, da aktuell kein E-Mail-Account verknüpft ist.";
 
 "general.faq" = "FAQ";
 
@@ -357,6 +366,8 @@
 "done.description" = "Du kannst jetzt deine Kontaktdaten verschlüsselt übermitteln. Zeige deinen QR-Code vor oder scanne den Code eines luca-Standorts, der dir gezeigt wird.\n\nCheck-ins sind bei luca-Standorten und bei privaten Treffen mit anderen luca Nutzer:innen möglich.";
 
 // Private Meeting
+"private.meeting.title" = "Privates Treffen";
+
 "private.meeting.description" = "Lass deine Freunde und Familie den QR-Code scannen, um sie bei deinem Treffen einzuchecken.";
 
 "private.meeting.info.title" = "Privates Treffen";
@@ -375,7 +386,7 @@
 
 "private.meeting.create.failure" = "Es gab einen Fehler beim Erstellen eines Treffens: %@";
 
-"private.meeting.alert.description" = "Wenn du dich bei einem privaten Treffen eincheckst, werden deinem Gastgeber dein Vor- und Nachname angezeigt.\n\nPrivate Treffen sind nur Gedächtnisstützen und werden nicht mit dem Gesundheitsamt geteilt.";
+"private.meeting.alert.description" = "Wenn du fortfährst, checkst du dich bei einem privaten Treffen ein. Dabei wird dein Vor- und dein Nachname übermittelt.\n\nPrivate Treffen sind als Gedächtnisstütze für kleine Zusammenkünfte mit Freunden und Familie gedacht. Deshalb sehen Gastgeber:innen die Vor- und Nachnamen ihrer Gäste (und andersrum sehen Gäste die Vor- und Nachnamen ihrer Gastgeber:innen). Diese Daten stehen zwar in der Historie, können aber nicht mit Gesundheitsämtern geteilt werden. ";
 
 "private.meeting.participants.none" = "Keine Gäste.";
 
@@ -542,6 +553,8 @@
 "Acknowledgements" = "Lizenzen";
 
 // Test scanner
+"test.scanner.title" = "QR Code scannen";
+
 "test.scanner.close" = "Schließen";
 
 "test.scanner.camera" = "QR-Code Scanner";
@@ -579,5 +592,26 @@
 
 "error.deleteUser.alreadyDeleted" = "Dein Account wurde schon gelöscht.\n\nDu wirst jetzt zur Registrierung weitergeleitet.";
 
+// Version details
+
+"appVersion.button" = "Version Details";
+
+"appVersion.alert.title" = "App Version";
+
+"appVersion.alert.message" = "Du benutzt aktuell die iOS App Version %@ (%@) %@\n\nDen Quellcode findest du auf GitLab mit dem Commit Hash %@";
+
 // My luca
 "my.luca.calendar" = "Kalendar";
+
+// Children
+"children.list.title" = "Kinder hinzufügen";
+"children.list.description" = "Du kannst Kinder (bis 14 Jahre) deiner App hinzufügen, um ihre Dokumente importieren und sie mit dir einchecken zu können. Die Informationen werden nicht an das Gesundheitsamt weitergegeben, sie dienen lediglich der Gedankenstütze.";
+"children.list.emptyDescription" = "Du kannst Kinder (bis 14 Jahre) deiner App hinzufügen, um ihre Dokumente importieren und sie mit dir einchecken zu können.\n\nBitte achte dabei auf die Korrektheit der Angaben. Die Informationen werden nicht an das Gesundheitsamt weitergegeben, sie dienen lediglich der Gedankenstütze.";
+"children.list.add.button" = "Kind hinzufügen";
+"children.list.delete.title" = "Änderungen speichern?";
+"children.list.delete.message" = "Beim Löschen eines Kindes werden auch alle dazugehörigen Dokumente gelöscht.";
+"children.add.title" = "Kind hinzufügen";
+"children.add.description" = "Bitte gib den vollen Namen mit Zweitnamen an. Dies dient der Kontrolle beim Hinzufügen von Dokumenten.";
+"children.add.button" = "Hinzufügen";
+"children.add.placeholder.firstname" = "Vorname";
+"children.add.placeholder.lastname" = "Nachname";

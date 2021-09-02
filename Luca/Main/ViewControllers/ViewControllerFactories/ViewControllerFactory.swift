@@ -9,4 +9,5 @@ class ViewControllerFactory {
     static var Account = AccountViewControllerFactory.self
     static var Terms = TermsViewControllerFactory.self
     static var Alert = AlertViewControllerFactory.self
+    static var Children = ChildrenViewControllerFactory.self
 }
